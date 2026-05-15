@@ -1,0 +1,48 @@
+{
+    "name": "pajak/ui",
+    "description": "A UI component library for Laravel",
+    "keywords": ["laravel", "ui", "components"],
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Pajak\\Ui\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Pajak\\Ui\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Patrik Jakab"
+        }
+    ],
+    "require": {
+        "php": "^8.5",
+        "blade-ui-kit/blade-heroicons": "^2.0",
+        "blade-ui-kit/blade-icons": "^1.0",
+        "laravel/framework": "^13.0"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^2.1",
+        "slevomat/coding-standard": "^8.14",
+        "phpunit/phpunit": "^13.0",
+        "spatie/phpunit-snapshot-assertions": "^5.1",
+        "orchestra/testbench": "^11.0",
+        "squizlabs/php_codesniffer": "^4.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Pajak\\Ui\\UiServiceProvider"
+            ]
+        }
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "pajak-ui",
+    "version": "0.1.0",
+    "description": "A UI component library for Laravel",
+    "type": "module",
+    "main": "index.js",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Patrik Jakab",
+    "license": "MIT",
+    "devDependencies": {
+        "autoprefixer": "^10.4.20",
+        "laravel-vite-plugin": "^3.0.0",
+        "sass-embedded": "^1.79.4",
+        "vite": "^8.0.0"
+    },
+    "dependencies": {
+        "axios": "^1.7.7",
+        "i18n-js": "^4.5.0"
+    }
+}

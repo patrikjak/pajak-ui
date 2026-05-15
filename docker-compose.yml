@@ -1,0 +1,17 @@
+name: pajak-ui
+
+services:
+  cli:
+    image: patrikjak/php-frankenphp:8.5-cli
+    container_name: "pajak-ui-cli"
+    environment:
+      XDEBUG_MODE: develop,debug,coverage
+    volumes:
+      - ".:/var/www"
+
+  node:
+    image: node:25-alpine
+    container_name: "pajak-ui-node"
+    volumes:
+      - ".:/app"
+    working_dir: /app
