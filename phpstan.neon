@@ -10,3 +10,4 @@ parameters:
 
     ignoreErrors:
         - identifier: missingType.generics
+        - identifier: trait.unused

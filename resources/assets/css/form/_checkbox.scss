@@ -1,0 +1,112 @@
+.pajak-checkbox {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    cursor: pointer;
+    user-select: none;
+
+    &--with-desc { align-items: flex-start; }
+    &--disabled  { cursor: not-allowed; }
+    &--error &__box { border-color: var(--color-error); }
+
+    // hidden accessibly — opacity/size keeps it in the a11y tree
+    &__input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+        pointer-events: none;
+    }
+
+    &__box {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        border-radius: var(--radius-xs);
+        border: 1.5px solid var(--color-neutral-200);
+        background: var(--bg-input);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+            border-color var(--duration-micro) var(--ease-out),
+            background var(--duration-micro) var(--ease-out),
+            box-shadow var(--duration-micro) var(--ease-out);
+    }
+
+    &__indet {
+        display: none;
+        fill: var(--color-neutral-0);
+    }
+
+    &__box::after {
+        content: '';
+        display: none;
+        width: 3.5px;
+        height: 7px;
+        border-right: 2px solid var(--color-neutral-0);
+        border-bottom: 2px solid var(--color-neutral-0);
+        transform: rotate(45deg) translate(-1px, -1px);
+        border-radius: 1px;
+    }
+
+    &__input:checked ~ &__box {
+        background: var(--color-primary-500);
+        border-color: var(--color-primary-500);
+
+        &::after {
+            display: block;
+            animation: pajak-checkbox-fade var(--duration-micro) var(--ease-out);
+        }
+    }
+
+    &__input:indeterminate ~ &__box {
+        background: var(--color-primary-500);
+        border-color: var(--color-primary-500);
+
+        .pajak-checkbox__indet { display: block; }
+    }
+
+    &__input:focus-visible ~ &__box {
+        box-shadow: 0 0 0 3px rgba(var(--color-primary-500-rgb), 0.18);
+    }
+
+    &:not(.pajak-checkbox--disabled):hover &__box {
+        border-color: var(--color-primary-500);
+    }
+
+    &--disabled &__box {
+        background: var(--color-neutral-50);
+        border-color: var(--border-default);
+    }
+
+    &--disabled &__input:checked ~ &__box {
+        background: var(--color-neutral-200);
+        border-color: var(--color-neutral-200);
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    &__label {
+        font-size: var(--fs-sm);
+        color: var(--color-neutral-800);
+        line-height: 1;
+
+        .pajak-checkbox--disabled & { color: var(--color-neutral-300); }
+    }
+
+    &__description {
+        font-size: var(--fs-xs);
+        color: var(--color-neutral-400);
+        line-height: var(--lh-normal);
+    }
+}
+
+@keyframes pajak-checkbox-fade {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+}

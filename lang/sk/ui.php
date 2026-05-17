@@ -1,0 +1,53 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+
+    'form' => [
+        'submit' => 'Odoslať',
+        'select' => [
+            'placeholder' => 'Vyberte možnosť',
+            'search_placeholder' => 'Hľadať…',
+        ],
+        'password' => [
+            'label' => 'Heslo',
+            'confirmation_label' => 'Potvrďte heslo',
+        ],
+        'file' => [
+            'placeholder' => 'Žiadny súbor nevybraný',
+        ],
+        'dropzone' => [
+            'title' => 'Presuňte súbory sem alebo kliknite na nahratie',
+            'sub' => 'Podporuje akýkoľvek typ súboru',
+            'aria_label' => 'Nahrať súbory',
+            'remove' => 'Odstrániť súbor',
+        ],
+        'avatar' => [
+            'upload' => 'Nahrať fotku',
+            'remove' => 'Odstrániť',
+        ],
+        'image_grid' => [
+            'add' => 'Pridať obrázok',
+            'remove' => 'Odstrániť obrázok',
+        ],
+        'repeater' => [
+            'add' => 'Pridať položku',
+            'remove' => 'Odstrániť',
+        ],
+    ],
+
+    'calendar' => [
+        'placeholder' => 'Vyberte dátum',
+        'range_placeholder' => 'Vyberte rozsah',
+        'today' => 'Dnes',
+        'apply' => 'Použiť',
+        'clear' => 'Vymazať',
+        'prev_month' => 'Predchádzajúci mesiac',
+        'next_month' => 'Ďalší mesiac',
+        'time' => 'Čas',
+        'start_time' => 'Čas začiatku',
+        'end_time' => 'Čas konca',
+    ],
+
+];

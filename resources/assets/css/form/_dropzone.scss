@@ -1,0 +1,239 @@
+@use '../variables';
+
+.pajak-dropzone {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+
+    &--disabled {
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    // ── Drop zone area ────────────────────────────────────────────────────────
+
+    &__zone {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-2);
+        padding: var(--space-8) var(--space-6);
+        border: 1.5px dashed var(--border-strong);
+        border-radius: var(--radius-md);
+        background: var(--bg-subtle);
+        cursor: pointer;
+        user-select: none;
+        outline: none;
+        transition:
+            border-color var(--duration-micro) var(--ease-out),
+            background var(--duration-micro) var(--ease-out),
+            box-shadow var(--duration-micro) var(--ease-out);
+
+        &:hover,
+        .pajak-dropzone--hover & {
+            border-color: var(--color-primary-300);
+            background: var(--color-primary-50);
+        }
+
+        &:focus-visible {
+            border-color: var(--color-primary-300);
+            box-shadow: 0 0 0 3px rgba(var(--color-primary-500-rgb), 0.14);
+        }
+
+        .pajak-dropzone--dragover & {
+            border-style: solid;
+            border-color: var(--color-primary-500);
+            background: var(--color-primary-50);
+            box-shadow: 0 0 0 4px rgba(var(--color-primary-500-rgb), 0.12);
+        }
+
+        .pajak-dropzone--error & { border-color: var(--color-error); }
+    }
+
+    &__icon {
+        color: var(--fg-tertiary);
+
+        svg { width: 28px; height: 28px; }
+
+        .pajak-dropzone--dragover & { color: var(--color-primary-500); }
+    }
+
+    &__title {
+        font-family: var(--font-body);
+        font-size: var(--fs-sm);
+        font-weight: var(--fw-semibold);
+        color: var(--fg-primary);
+    }
+
+    &__sub {
+        font-family: var(--font-body);
+        font-size: var(--fs-xs);
+        color: var(--fg-tertiary);
+    }
+
+    // ── File list ─────────────────────────────────────────────────────────────
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2);
+    }
+
+    &[data-grid] &__list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: var(--space-2);
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        padding: var(--space-2) var(--space-3);
+        background: var(--bg-surface);
+        border: 1.5px solid var(--border-default);
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-xs);
+        transition: opacity var(--duration-micro) var(--ease-out);
+
+        &.is-removing { opacity: 0; }
+    }
+
+    // ── Grid tile mode (all entries are images) ───────────────────────────────
+
+    &[data-grid] &__item {
+        position: relative;
+        aspect-ratio: 1;
+        padding: 0;
+        gap: 0;
+        overflow: hidden;
+    }
+
+    &[data-grid] &__item-icon {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        min-width: 0;
+        border-radius: 0;
+    }
+
+    &[data-grid] &__item-thumb {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 0;
+    }
+
+    &[data-grid] &__item-info {
+        display: none;
+    }
+
+    &[data-grid] &__item-remove {
+        position: absolute;
+        top: var(--space-1);
+        right: var(--space-1);
+        z-index: 1;
+        width: 22px;
+        height: 22px;
+        background: rgba(0, 0, 0, 0.55);
+        color: var(--color-neutral-0);
+        opacity: 0;
+        transition:
+            opacity var(--duration-micro) var(--ease-out),
+            background var(--duration-micro) var(--ease-out);
+
+        svg { width: 12px; height: 12px; }
+
+        &:hover { background: var(--color-error); opacity: 1; }
+    }
+
+    &[data-grid] &__item:hover &__item-remove {
+        opacity: 1;
+    }
+
+    &__item-icon {
+        flex-shrink: 0;
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--color-primary-50);
+        border-radius: var(--radius-sm);
+        color: var(--color-primary-500);
+        font-size: var(--fs-xs);
+        font-weight: var(--fw-bold);
+        letter-spacing: var(--ls-wide);
+        overflow: hidden;
+
+        &--pdf { background: var(--color-error-light); color: var(--color-error-dark); }
+        &--img { background: var(--color-success-light); color: var(--color-success-dark); }
+        &--xls { background: var(--color-success-light); color: var(--color-success-dark); }
+        &--doc { background: var(--color-primary-50); color: var(--color-primary-700); }
+    }
+
+    &__input {
+        display: none;
+    }
+
+    &__item-thumb {
+        width: 36px;
+        height: 36px;
+        object-fit: cover;
+        border-radius: var(--radius-sm);
+        display: block;
+    }
+
+    &__item-info {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    &__item-name {
+        font-family: var(--font-body);
+        font-size: var(--fs-sm);
+        font-weight: var(--fw-semibold);
+        color: var(--fg-primary);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__item-size {
+        font-family: var(--font-body);
+        font-size: var(--fs-xs);
+        color: var(--fg-tertiary);
+    }
+
+    &__item-remove {
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border: none;
+        background: none;
+        border-radius: var(--radius-xs);
+        color: var(--fg-tertiary);
+        cursor: pointer;
+        transition:
+            color var(--duration-micro) var(--ease-out),
+            background var(--duration-micro) var(--ease-out);
+
+        &:hover {
+            color: var(--color-error);
+            background: var(--color-error-light);
+        }
+
+        svg { width: 14px; height: 14px; }
+    }
+}

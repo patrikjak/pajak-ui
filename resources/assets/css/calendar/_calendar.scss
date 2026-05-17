@@ -1,0 +1,334 @@
+@use '../variables';
+
+// ─── Wrap ────────────────────────────────────────────────────────────────────
+
+.pajak-datepicker-wrap {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+// ─── Trigger ─────────────────────────────────────────────────────────────────
+
+.pajak-datepicker__trigger {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    width: 100%;
+    height: 38px;
+    padding: 0 var(--space-3);
+    background: var(--bg-input);
+    border: 1.5px solid var(--border-default);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-xs);
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    color: var(--fg-primary);
+    cursor: pointer;
+    text-align: left;
+    transition: border-color var(--duration-micro) var(--ease-out);
+
+    &:hover:not(:disabled) { border-color: var(--color-primary-200); }
+
+    .pajak-datepicker-wrap.is-open & { border-color: var(--border-focus); }
+
+    .pajak-datepicker-wrap--disabled & {
+        background: var(--color-neutral-50);
+        color: var(--fg-disabled);
+        cursor: not-allowed;
+    }
+
+    &[hidden] { display: none; }
+}
+
+.pajak-datepicker__ico {
+    flex-shrink: 0;
+    color: var(--color-neutral-400);
+}
+
+.pajak-datepicker__display {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &.is-placeholder { color: var(--color-neutral-300); }
+}
+
+.pajak-datepicker__chev {
+    flex-shrink: 0;
+    color: var(--color-neutral-400);
+    transition: transform var(--duration-micro) var(--ease-out);
+
+    .pajak-datepicker-wrap.is-open & { transform: rotate(180deg); }
+}
+
+// ─── Panel ───────────────────────────────────────────────────────────────────
+
+.pajak-datepicker__panel {
+    position: fixed;
+    z-index: 9000;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+
+    // Default (no presets): show only the cal
+    .pajak-datepicker__cal { padding: 14px; }
+
+    // With presets: flex row
+    &.has-presets {
+        display: flex;
+        align-items: stretch;
+        border-radius: var(--radius-md);
+
+        .pajak-datepicker__cal {
+            padding: 14px;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        }
+    }
+
+    // Must come last to override display:flex from .has-presets
+    &[hidden] { display: none; }
+}
+
+.pajak-datepicker__cal {
+    width: 280px;
+}
+
+// ─── Header ──────────────────────────────────────────────────────────────────
+
+.pajak-datepicker__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.pajak-datepicker__title {
+    font-size: 13px;
+    font-weight: var(--fw-bold);
+    color: var(--fg-primary);
+}
+
+.pajak-datepicker__nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-neutral-500);
+    transition: background var(--duration-micro) var(--ease-out), color var(--duration-micro) var(--ease-out);
+
+    &:hover { background: var(--color-neutral-50); color: var(--fg-primary); }
+}
+
+// ─── Weekday row ─────────────────────────────────────────────────────────────
+
+.pajak-datepicker__weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 4px;
+}
+
+.pajak-datepicker__wd {
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    color: var(--color-neutral-300);
+    text-align: center;
+    padding: 4px 0;
+    text-transform: uppercase;
+}
+
+// ─── Day grid ─────────────────────────────────────────────────────────────────
+
+.pajak-datepicker__grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+.pajak-datepicker__day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: var(--fw-medium);
+    color: var(--fg-primary);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: var(--font-body);
+    transition: background var(--duration-micro) var(--ease-out);
+
+    &:hover:not(.is-disabled):not(.is-muted) { background: var(--color-neutral-50); }
+    &:hover.is-muted:not(.is-disabled) { background: var(--color-neutral-50); }
+
+    &.is-muted { color: var(--color-neutral-200); }
+
+    &.is-today {
+        color: var(--color-primary-500);
+        font-weight: var(--fw-bold);
+        box-shadow: inset 0 0 0 1.5px var(--color-primary-500);
+    }
+
+    &.is-selected {
+        background: var(--color-primary-500);
+        color: var(--color-neutral-0);
+        font-weight: var(--fw-bold);
+    }
+
+    &.is-range-start {
+        background: var(--color-primary-500);
+        color: var(--color-neutral-0);
+        font-weight: var(--fw-bold);
+        border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+    }
+
+    &.is-range-end {
+        background: var(--color-primary-500);
+        color: var(--color-neutral-0);
+        font-weight: var(--fw-bold);
+        border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+
+    &.is-in-range {
+        background: var(--color-primary-50);
+        color: var(--color-primary-700);
+        border-radius: 0;
+    }
+
+    &.is-range-start.is-range-end {
+        border-radius: var(--radius-sm);
+    }
+
+    &.is-disabled {
+        color: var(--color-neutral-200);
+        cursor: not-allowed;
+        text-decoration: line-through;
+
+        &:hover { background: transparent; }
+    }
+}
+
+// ─── Footer ──────────────────────────────────────────────────────────────────
+
+.pajak-datepicker__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--color-neutral-50);
+}
+
+.pajak-datepicker__meta {
+    font-size: var(--fs-xs);
+    color: var(--color-neutral-400);
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pajak-datepicker__action {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: var(--fw-semibold);
+    color: var(--color-primary-500);
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background var(--duration-micro) var(--ease-out);
+
+    &:hover { background: var(--color-primary-50); }
+}
+
+// ─── Time inputs ─────────────────────────────────────────────────────────────
+
+.pajak-datepicker__time {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    width: 100%;
+    justify-content: flex-start;
+}
+
+.pajak-datepicker__time-input {
+    width: 54px;
+    height: 28px;
+    padding: 0 var(--space-2);
+    border: 1.5px solid var(--border-default);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-medium);
+    color: var(--fg-primary);
+    text-align: center;
+    background: var(--bg-input);
+    transition: border-color var(--duration-micro) var(--ease-out);
+
+    &:focus {
+        outline: none;
+        border-color: var(--border-focus);
+        box-shadow: 0 0 0 3px rgba(var(--color-primary-500-rgb), 0.14);
+    }
+
+    &::placeholder { color: var(--color-neutral-300); }
+}
+
+.pajak-datepicker__time-sep {
+    font-size: var(--fs-xs);
+    color: var(--color-neutral-400);
+}
+
+// ─── Presets sidebar ─────────────────────────────────────────────────────────
+
+.pajak-datepicker__presets {
+    width: 130px;
+    background: var(--bg-subtle);
+    border-right: 1px solid var(--border-default);
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+    padding: var(--space-2);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex-shrink: 0;
+}
+
+.pajak-datepicker__preset-btn,
+.pajak-datepicker__presets > button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--fg-secondary);
+    padding: 7px 10px;
+    border-radius: var(--radius-sm);
+    transition: background var(--duration-micro) var(--ease-out), color var(--duration-micro) var(--ease-out);
+
+    &:hover { background: var(--color-neutral-50); }
+
+    &.is-active {
+        background: var(--bg-surface);
+        color: var(--color-primary-500);
+        font-weight: var(--fw-semibold);
+        box-shadow: var(--shadow-xs);
+    }
+}

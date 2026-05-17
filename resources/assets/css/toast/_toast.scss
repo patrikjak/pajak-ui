@@ -1,0 +1,168 @@
+@use '../variables';
+
+// ─── Container ───────────────────────────────────────────────────────────────
+
+.pajak-toast-container {
+    position: fixed;
+    top: var(--space-5);
+    right: var(--space-5);
+    z-index: 9000;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    align-items: flex-end;
+    pointer-events: none;
+
+    .pajak-toast {
+        pointer-events: all;
+    }
+}
+
+// ─── Toast ────────────────────────────────────────────────────────────────────
+
+.pajak-toast {
+    --pajak-toast-accent: var(--color-info);
+    --pajak-toast-tint:   var(--color-info-light);
+    --pajak-toast-border: var(--color-info-light);
+    --pajak-toast-width: 360px;
+    --pajak-toast-max-width: 420px;
+
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    background: var(--bg-surface);
+    border: 1px solid var(--pajak-toast-border);
+    border-radius: var(--radius-lg);
+    padding: 12px 14px;
+    box-shadow: var(--shadow-lg);
+    max-width: var(--pajak-toast-max-width);
+    width: var(--pajak-toast-width);
+    position: relative;
+    overflow: hidden;
+    animation: pajak-toast-in var(--duration-base) var(--ease-out) both;
+
+    &[hidden] {
+        display: none;
+    }
+
+    &.pajak-toast--success {
+        --pajak-toast-accent: var(--color-success);
+        --pajak-toast-tint:   var(--color-success-light);
+        --pajak-toast-border: var(--color-success-light);
+    }
+
+    &.pajak-toast--error {
+        --pajak-toast-accent: var(--color-error);
+        --pajak-toast-tint:   var(--color-error-light);
+        --pajak-toast-border: var(--color-error-light);
+    }
+
+    &.pajak-toast--warning {
+        --pajak-toast-accent: var(--color-warning);
+        --pajak-toast-tint:   var(--color-warning-light);
+        --pajak-toast-border: var(--color-warning-light);
+    }
+}
+
+// ─── Icon wrap ────────────────────────────────────────────────────────────────
+
+.pajak-toast__icon-wrap {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--pajak-toast-tint);
+    color: var(--pajak-toast-accent);
+}
+
+// ─── Body ─────────────────────────────────────────────────────────────────────
+
+.pajak-toast__body {
+    flex: 1;
+    min-width: 0;
+    padding-top: 2px;
+}
+
+.pajak-toast__title {
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    color: var(--fg-primary);
+    line-height: 1.3;
+}
+
+.pajak-toast__message {
+    font-size: var(--fs-xs);
+    color: var(--fg-secondary);
+    line-height: 1.45;
+    margin-top: 2px;
+}
+
+// ─── Close button ─────────────────────────────────────────────────────────────
+
+.pajak-toast__close {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    color: var(--fg-secondary);
+    padding: 2px;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color var(--duration-base) var(--ease-out),
+                background var(--duration-base) var(--ease-out);
+
+    &:hover {
+        color: var(--fg-primary);
+        background: var(--pajak-toast-tint);
+    }
+}
+
+// ─── Progress bar ─────────────────────────────────────────────────────────────
+
+.pajak-toast__progress {
+    position: absolute;
+    bottom: 6px;
+    left: 10px;
+    right: 10px;
+    height: 2px;
+    background: var(--pajak-toast-tint);
+    border-radius: 2px;
+    overflow: hidden;
+
+    &::after {
+        content: '';
+        display: block;
+        height: 100%;
+        width: 100%;
+        background: var(--pajak-toast-accent);
+        border-radius: 2px;
+        animation: pajak-toast-progress var(--pajak-toast-duration, 4000ms) linear forwards;
+    }
+}
+
+// ─── Animations ───────────────────────────────────────────────────────────────
+
+@keyframes pajak-toast-in {
+    from {
+        opacity: 0;
+        transform: translateX(24px);
+    }
+}
+
+@keyframes pajak-toast-out {
+    to {
+        opacity: 0;
+        transform: translateX(24px);
+    }
+}
+
+@keyframes pajak-toast-progress {
+    to {
+        width: 0%;
+    }
+}
