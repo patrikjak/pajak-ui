@@ -20,7 +20,7 @@
     @if(!$hideSubmit)
         <div class="pajak-form__actions">
             <x-pajak::button type="submit" :size="$submitSize">
-                <span class="pajak-btn__label">{{ $resolvedSubmitText() }}</span>
+                {{ $resolvedSubmitText() }}
             </x-pajak::button>
         </div>
     @endif

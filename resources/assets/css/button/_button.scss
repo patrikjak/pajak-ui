@@ -8,47 +8,113 @@
     border: none;
     border-radius: var(--radius-sm);
     cursor: pointer;
-    background: var(--bg-primary);
-    color: var(--fg-on-primary);
     transition:
         background var(--duration-micro) var(--ease-out),
+        color var(--duration-micro) var(--ease-out),
+        border-color var(--duration-micro) var(--ease-out),
         box-shadow var(--duration-micro) var(--ease-out);
+    white-space: nowrap;
 
-    &--sm { height: 32px; padding: 0 12px; font-size: var(--fs-xs); }
-    &--md { height: 38px; padding: 0 16px; font-size: var(--fs-sm); }
-    &--lg { height: 46px; padding: 0 20px; font-size: var(--fs-base); }
+    // ── Sizes ──────────────────────────────────────────────────────────────────
+    &--sm { height: 32px; padding: 0 14px; font-size: var(--fs-xs); }
+    &--md { height: 38px; padding: 0 20px; font-size: var(--fs-sm); }
+    &--lg { height: 46px; padding: 0 26px; font-size: var(--fs-base); }
 
-    &:hover:not(:disabled) { background: var(--bg-primary-hover); }
+    // ── Variants ───────────────────────────────────────────────────────────────
+    &--primary {
+        background: var(--bg-primary);
+        color: var(--fg-on-primary);
 
-    &:focus-visible {
-        outline: none;
-        box-shadow: 0 0 0 3px rgba(var(--color-primary-500-rgb), 0.35);
+        &:hover:not(:disabled):not(.is-loading) { background: var(--bg-primary-hover); }
+
+        &:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(var(--color-primary-500-rgb), 0.35);
+        }
     }
 
+    &--secondary {
+        background: var(--color-primary-50);
+        color: var(--color-primary-500);
+
+        &:hover:not(:disabled):not(.is-loading) { background: var(--color-primary-100); }
+
+        &:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(var(--color-primary-500-rgb), 0.25);
+        }
+    }
+
+    &--outline {
+        background: transparent;
+        color: var(--color-primary-500);
+        border: 1.5px solid var(--color-primary-500);
+
+        &:hover:not(:disabled):not(.is-loading) { background: var(--color-primary-50); }
+
+        &:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(var(--color-primary-500-rgb), 0.25);
+        }
+    }
+
+    &--ghost {
+        background: transparent;
+        color: var(--fg-secondary);
+
+        &:hover:not(:disabled):not(.is-loading) {
+            background: var(--color-neutral-50);
+            color: var(--fg-primary);
+        }
+
+        &:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(var(--color-primary-500-rgb), 0.2);
+        }
+    }
+
+    &--danger {
+        background: var(--color-error);
+        color: #fff;
+
+        &:hover:not(:disabled):not(.is-loading) { background: var(--color-error-dark); }
+
+        &:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(var(--color-error-rgb), 0.35);
+        }
+    }
+
+    // ── Disabled ───────────────────────────────────────────────────────────────
     &:disabled {
-        background: var(--color-neutral-100);
+        background: var(--color-neutral-50);
         color: var(--fg-disabled);
+        border-color: transparent;
         cursor: not-allowed;
     }
 
+    // ── Loading ────────────────────────────────────────────────────────────────
     &.is-loading {
         cursor: progress;
         pointer-events: none;
-        position: relative;
 
-        .pajak-btn__label { opacity: 0; }
+        .pajak-btn__label { opacity: 0.75; }
     }
 
+    // ── Spinner ────────────────────────────────────────────────────────────────
     &__spinner {
-        position: absolute;
-        width: 16px;
-        height: 16px;
+        flex: none;
+        width: 15px;
+        height: 15px;
         color: currentColor;
         animation: pajak-spin 0.85s linear infinite;
 
-        circle.track { stroke: currentColor; opacity: 0.18; }
+        circle.track { stroke: currentColor; opacity: 0.25; }
         circle.head  { stroke: currentColor; }
     }
+
+    &--sm &__spinner { width: 12px; height: 12px; }
+    &--lg &__spinner { width: 16px; height: 16px; }
 }
 
 @keyframes pajak-spin {
