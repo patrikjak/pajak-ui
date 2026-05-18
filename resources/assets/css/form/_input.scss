@@ -1,0 +1,82 @@
+%pajak-control-base {
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-regular);
+    color: var(--fg-primary);
+    background: var(--bg-input);
+    border: 1.5px solid var(--border-default);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-xs);
+    outline: none;
+    transition:
+        border-color var(--duration-micro) var(--ease-out),
+        box-shadow var(--duration-micro) var(--ease-out);
+
+    &::placeholder { color: var(--color-neutral-300); }
+
+    &:hover:not(:disabled) { border-color: var(--color-primary-200); }
+
+    &:focus:not(:disabled) { border-color: var(--border-focus); }
+
+    &:disabled {
+        background: var(--color-neutral-50);
+        color: var(--fg-disabled);
+        cursor: not-allowed;
+    }
+}
+
+.pajak-password {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.pajak-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    &__icon {
+        position: absolute;
+        left: 10px;
+        display: flex;
+        align-items: center;
+        color: var(--color-neutral-300);
+        pointer-events: none;
+
+        svg, i { width: 16px; height: 16px; }
+    }
+
+    &--has-icon .pajak-input { padding-left: 34px; }
+}
+
+.pajak-input {
+    @extend %pajak-control-base;
+    width: 100%;
+    padding: 9px 12px;
+
+    &--sm { height: 32px; padding: 6px 10px; font-size: var(--fs-xs); }
+    &--md { height: 38px; padding: 9px 12px; }
+    &--lg { height: 46px; padding: 11px 14px; font-size: var(--fs-base); }
+
+    &--error   { border-color: var(--color-error); }
+    &--error:focus:not(:disabled)   { border-color: var(--color-error); box-shadow: 0 0 0 3px rgba(var(--color-error-rgb), 0.12); }
+    &--success { border-color: var(--color-success); }
+    &--success:focus:not(:disabled) { border-color: var(--color-success); box-shadow: 0 0 0 3px rgba(var(--color-success-rgb), 0.12); }
+    &--default:focus:not(:disabled) { box-shadow: 0 0 0 3px rgba(var(--color-primary-500-rgb), 0.14); }
+}
+
+.pajak-textarea {
+    @extend %pajak-control-base;
+    width: 100%;
+    padding: 9px 12px;
+    resize: vertical;
+    line-height: var(--lh-normal);
+    min-height: 80px;
+
+    &--error   { border-color: var(--color-error); }
+    &--error:focus:not(:disabled)   { border-color: var(--color-error); box-shadow: 0 0 0 3px rgba(var(--color-error-rgb), 0.12); }
+    &--success { border-color: var(--color-success); }
+    &--success:focus:not(:disabled) { border-color: var(--color-success); box-shadow: 0 0 0 3px rgba(var(--color-success-rgb), 0.12); }
+    &--default:focus:not(:disabled) { box-shadow: 0 0 0 3px rgba(var(--color-primary-500-rgb), 0.14); }
+}

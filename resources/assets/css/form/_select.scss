@@ -1,0 +1,244 @@
+.pajak-select-wrap {
+    // Hide native select visually once JS has upgraded; keep accessible
+    &.is-upgraded .pajak-select__native {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+        width: 1px;
+        height: 1px;
+    }
+
+    // Show native select when JS hasn't run (no-JS / SSR fallback)
+    &:not(.is-upgraded) {
+        .pajak-select__native {
+            display: block;
+            width: 100%;
+            height: 38px;
+            padding: 0 36px 0 var(--space-3);
+            font-family: var(--font-body);
+            font-size: var(--fs-sm);
+            color: var(--fg-primary);
+            background: var(--bg-input);
+            border: 1.5px solid var(--border-default);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-xs);
+            outline: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%237F93B5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            cursor: pointer;
+            transition: border-color var(--duration-micro) var(--ease-out);
+
+            &:hover:not(:disabled) { border-color: var(--color-primary-200); }
+            &:focus:not(:disabled) {
+                border-color: var(--border-focus);
+                box-shadow: 0 0 0 3px rgba(var(--color-primary-500-rgb), 0.14);
+            }
+            &:disabled {
+                background-color: var(--color-neutral-50);
+                color: var(--fg-disabled);
+                cursor: not-allowed;
+            }
+        }
+
+        .pajak-select__trigger,
+        .pajak-select__dropdown { display: none; }
+    }
+}
+
+.pajak-select__trigger {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    height: 38px;
+    padding: 0 var(--space-3);
+    background: var(--bg-input);
+    border: 1.5px solid var(--border-default);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-xs);
+    font-size: var(--fs-sm);
+    color: var(--fg-primary);
+    cursor: pointer;
+    user-select: none;
+    transition: border-color var(--duration-micro) var(--ease-out);
+
+    &:hover { border-color: var(--color-primary-200); }
+
+    .pajak-select-wrap--default.is-open & { border-color: var(--border-focus); }
+    .pajak-select-wrap--error & { border-color: var(--color-error); }
+    .pajak-select-wrap--disabled & {
+        background: var(--color-neutral-50);
+        color: var(--fg-disabled);
+        cursor: not-allowed;
+    }
+
+    &--multi {
+        height: auto;
+        min-height: 38px;
+        padding: var(--space-1) var(--space-3) var(--space-1) var(--space-2);
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--space-1);
+        cursor: text;
+    }
+}
+
+.pajak-select__value {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &.is-placeholder { color: var(--color-neutral-300); }
+}
+
+.pajak-select__chevron {
+    flex-shrink: 0;
+    color: var(--color-neutral-400);
+    transition: transform var(--duration-micro) var(--ease-out);
+
+    .pajak-select-wrap.is-open & { transform: rotate(180deg); }
+}
+
+.pajak-select__chips {
+    display: contents; // chips appear directly in the flex row
+}
+
+.pajak-select__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    background: var(--color-primary-50);
+    color: var(--color-primary-700);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    padding: 3px 4px 3px 9px;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+    max-width: 200px;
+
+    &-label {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &-remove {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: inherit;
+        padding: 1px;
+        opacity: 0.6;
+        line-height: 1;
+        flex-shrink: 0;
+
+        &:hover { opacity: 1; }
+    }
+}
+
+.pajak-select__chip-input {
+    flex: 1;
+    min-width: 80px;
+    border: none;
+    outline: none;
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    color: var(--fg-primary);
+    background: transparent;
+    cursor: text;
+
+    &::placeholder { color: var(--color-neutral-300); }
+}
+
+// Dropdown panel — portalled to <body>, positioned via JS
+.pajak-select__dropdown {
+    position: fixed;
+    z-index: 9000;
+    max-height: 260px;
+    overflow-y: auto;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+
+    &[hidden] { display: none; }
+}
+
+.pajak-select__search {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid var(--color-neutral-50);
+
+    svg { color: var(--color-neutral-400); flex-shrink: 0; }
+
+    input {
+        flex: 1;
+        border: none;
+        outline: none;
+        font-family: var(--font-body);
+        font-size: var(--fs-sm);
+        color: var(--fg-primary);
+        background: transparent;
+    }
+}
+
+.pajak-select__group-label {
+    padding: var(--space-2) var(--space-3) var(--space-1);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-bold);
+    color: var(--color-neutral-300);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+}
+
+.pajak-select__option {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--fs-sm);
+    color: var(--color-neutral-800);
+    cursor: pointer;
+    transition: background var(--duration-micro) var(--ease-out);
+
+    &:hover, &.is-focused { background: var(--color-neutral-25); }
+
+    &.is-selected {
+        background: var(--color-primary-50);
+        color: var(--color-primary-700);
+        font-weight: var(--fw-semibold);
+    }
+
+    &-check {
+        margin-left: auto;
+        color: var(--color-primary-500);
+        flex-shrink: 0;
+    }
+
+    &-meta {
+        font-size: var(--fs-xs);
+        color: var(--color-neutral-400);
+        margin-left: auto;
+        flex-shrink: 0;
+    }
+}
+
+.pajak-select__empty {
+    padding: var(--space-3) var(--space-3);
+    font-size: var(--fs-sm);
+    color: var(--color-neutral-400);
+    text-align: center;
+}
+
+.pajak-select__divider {
+    height: 1px;
+    background: var(--color-neutral-50);
+    margin: var(--space-1) 0;
+}

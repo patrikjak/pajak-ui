@@ -1,0 +1,158 @@
+.pajak-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+
+    &__actions { margin-top: var(--space-2); }
+
+    // ── Inline layout ───────────────────────────────────────────────────────
+    // Each .pajak-field becomes a 160px-label + 1fr-control two-column grid.
+    // Collapses to single column on narrow viewports.
+    &--inline {
+        .pajak-form__actions {
+            display: grid;
+            grid-template-columns: 160px 1fr;
+            column-gap: var(--space-4);
+
+            > * {
+                grid-column: 2;
+                width: fit-content;
+            }
+
+            @media (max-width: 540px) {
+                grid-template-columns: 1fr;
+
+                > * { grid-column: 1; }
+            }
+        }
+
+        .pajak-field {
+            display: grid;
+            grid-template-columns: 160px 1fr;
+            grid-template-rows: auto auto;
+            column-gap: var(--space-4);
+            row-gap: 0;
+            align-items: center;
+
+            &__label {
+                grid-column: 1;
+                grid-row: 1 / -1;
+                align-self: center;
+            }
+
+            > :not(.pajak-field__label):not(.pajak-field__message) {
+                grid-column: 2;
+                grid-row: 1;
+            }
+
+            &__message {
+                grid-column: 2;
+                grid-row: 2;
+                margin-top: var(--space-1);
+            }
+        }
+
+        @media (max-width: 540px) {
+            .pajak-field {
+                grid-template-columns: 1fr;
+
+                &__label        { grid-row: 1; align-self: auto; }
+                > :not(.pajak-field__label):not(.pajak-field__message) { grid-row: 2; }
+                &__message      { grid-row: 3; }
+            }
+        }
+    }
+
+    // ── Sectioned layout ────────────────────────────────────────────────────
+    // Used with <x-pajak-form::section>. Removes the form-level gap since
+    // sections handle their own internal spacing and dividers.
+    &--sectioned {
+        gap: 0;
+
+        .pajak-form-section:not(:last-child) {
+            border-bottom: 1px solid var(--border-default);
+        }
+
+        .pajak-form__actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: var(--space-3);
+            padding: var(--space-4) var(--space-6);
+            border-top: 1px solid var(--border-default);
+            margin-top: 0;
+        }
+    }
+}
+
+// ── Section component ───────────────────────────────────────────────────────
+.pajak-form-section {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: var(--space-8);
+    padding: var(--space-6) var(--space-6);
+
+    &__meta {
+        padding-top: var(--space-1);
+    }
+
+    &__title {
+        font-size: var(--fs-sm);
+        font-weight: var(--fw-bold);
+        color: var(--fg-primary);
+    }
+
+    &__description {
+        font-size: var(--fs-xs);
+        color: var(--fg-tertiary);
+        line-height: var(--lh-normal);
+        margin-top: var(--space-1);
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-4);
+    }
+
+    @media (max-width: 760px) {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+    }
+}
+
+.pajak-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+
+    &--options { gap: var(--space-2); }
+
+    &--inline {
+        flex-direction: row;
+        align-items: flex-end;
+
+        > * { flex: 1; }
+    }
+}
+
+.pajak-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+
+    &__label {
+        font-size: var(--fs-xs);
+        font-weight: var(--fw-semibold);
+        color: var(--color-neutral-700);
+        letter-spacing: 0.02em;
+    }
+
+    &__message {
+        font-size: var(--fs-xs);
+        line-height: var(--lh-normal);
+
+        &--hint    { color: var(--color-neutral-400); }
+        &--error   { color: var(--color-error); }
+        &--success { color: var(--color-success); }
+    }
+}

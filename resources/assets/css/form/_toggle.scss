@@ -1,0 +1,68 @@
+.pajak-toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    cursor: pointer;
+    user-select: none;
+
+    &--disabled { cursor: not-allowed; }
+    &--error &__track { background: var(--color-error-light); box-shadow: 0 0 0 1.5px var(--color-error); }
+
+    &__input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+        pointer-events: none;
+    }
+
+    &__track {
+        position: relative;
+        flex-shrink: 0;
+        border-radius: var(--radius-full);
+        background: var(--color-neutral-200);
+        transition: background var(--duration-micro) var(--ease-out);
+    }
+
+    &__thumb {
+        position: absolute;
+        background: var(--bg-surface);
+        border-radius: var(--radius-full);
+        box-shadow: var(--shadow-xs);
+        transition: left var(--duration-micro) var(--ease-out);
+    }
+
+    &--sm &__track { width: 28px; height: 16px; }
+    &--sm &__thumb { width: 12px; height: 12px; top: 2px; left: 2px; }
+
+    &--md &__track { width: 34px; height: 20px; }
+    &--md &__thumb { width: 16px; height: 16px; top: 2px; left: 2px; }
+
+    &--lg &__track { width: 44px; height: 26px; }
+    &--lg &__thumb { width: 22px; height: 22px; top: 2px; left: 2px; }
+
+    &__input:checked ~ &__track {
+        background: var(--color-primary-500);
+    }
+
+    &--sm &__input:checked ~ &__track &__thumb { left: 14px; }
+    &--md &__input:checked ~ &__track &__thumb { left: 16px; }
+    &--lg &__input:checked ~ &__track &__thumb { left: 20px; }
+
+    &__input:focus-visible ~ &__track {
+        box-shadow: 0 0 0 3px rgba(var(--color-primary-500-rgb), 0.22);
+    }
+
+    &--disabled &__track { background: var(--color-neutral-50); }
+
+    &--disabled &__input:checked ~ &__track {
+        background: var(--color-primary-200);
+    }
+
+    &__label {
+        font-size: var(--fs-sm);
+        color: var(--color-neutral-800);
+
+        .pajak-toggle--disabled & { color: var(--color-neutral-300); }
+    }
+}

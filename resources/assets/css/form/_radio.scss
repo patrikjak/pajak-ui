@@ -1,0 +1,172 @@
+.pajak-radio {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    cursor: pointer;
+    user-select: none;
+
+    &--with-desc { align-items: flex-start; }
+    &--disabled  { cursor: not-allowed; }
+    &--error &__dot { border-color: var(--color-error); }
+
+    &__input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+        pointer-events: none;
+    }
+
+    &__dot {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        border-radius: var(--radius-full);
+        border: 1.5px solid var(--color-neutral-200);
+        background: var(--bg-input);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+            border-color var(--duration-micro) var(--ease-out),
+            box-shadow var(--duration-micro) var(--ease-out);
+
+        &::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: var(--radius-full);
+            background: var(--color-primary-500);
+            opacity: 0;
+            transform: scale(0.4);
+            transition:
+                opacity var(--duration-micro) var(--ease-out),
+                transform var(--duration-micro) var(--ease-out);
+        }
+    }
+
+    &__input:checked ~ &__dot {
+        border-color: var(--color-primary-500);
+
+        &::after { opacity: 1; transform: scale(1); }
+    }
+
+    &__input:focus-visible ~ &__dot {
+        box-shadow: 0 0 0 3px rgba(var(--color-primary-500-rgb), 0.18);
+    }
+
+    &:not(.pajak-radio--disabled):hover &__dot {
+        border-color: var(--color-primary-500);
+    }
+
+    &--disabled &__dot {
+        background: var(--color-neutral-50);
+        border-color: var(--border-default);
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    &__label {
+        font-size: var(--fs-sm);
+        color: var(--color-neutral-800);
+        line-height: 1;
+
+        .pajak-radio--disabled & { color: var(--color-neutral-300); }
+    }
+
+    &__description {
+        font-size: var(--fs-xs);
+        color: var(--color-neutral-400);
+        line-height: var(--lh-normal);
+    }
+}
+
+.pajak-radio-card {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1.5px solid var(--border-default);
+    background: var(--bg-surface);
+    cursor: pointer;
+    transition:
+        border-color var(--duration-micro) var(--ease-out),
+        background var(--duration-micro) var(--ease-out);
+
+    &:hover:not(.pajak-radio-card--disabled) { border-color: var(--color-primary-200); }
+
+    &:has(.pajak-radio-card__input:checked) {
+        border-color: var(--color-primary-500);
+        background: var(--color-primary-50);
+    }
+
+    &--error { border-color: var(--color-error); }
+
+    &--disabled { cursor: not-allowed; opacity: 0.6; }
+
+    &__input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+        pointer-events: none;
+    }
+
+    &__input:focus-visible ~ &__dot {
+        box-shadow: 0 0 0 3px rgba(var(--color-primary-500-rgb), 0.18);
+    }
+
+    &__dot {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        margin-top: 1px;
+        border-radius: var(--radius-full);
+        border: 1.5px solid var(--color-neutral-200);
+        background: var(--bg-input);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: border-color var(--duration-micro) var(--ease-out);
+
+        &::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: var(--radius-full);
+            background: var(--color-primary-500);
+            opacity: 0;
+            transition: opacity var(--duration-micro) var(--ease-out);
+        }
+    }
+
+    &:has(.pajak-radio-card__input:checked) &__dot {
+        border-color: var(--color-primary-500);
+
+        &::after { opacity: 1; }
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    &__label {
+        font-size: var(--fs-sm);
+        font-weight: var(--fw-semibold);
+        color: var(--color-neutral-800);
+        line-height: 1;
+    }
+
+    &__hint {
+        font-size: var(--fs-xs);
+        color: var(--color-neutral-400);
+        line-height: var(--lh-normal);
+    }
+}

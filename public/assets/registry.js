@@ -1,0 +1,1 @@
+function e(){let e=new WeakMap;return{has(t){return e.has(t)},get(t){return e.get(t)},set(t,n){e.set(t,n)},delete(t){e.delete(t)}}}export{e as t};

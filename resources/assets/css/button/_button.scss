@@ -1,0 +1,56 @@
+.pajak-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    font-family: var(--font-body);
+    font-weight: var(--fw-semibold);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    background: var(--bg-primary);
+    color: var(--fg-on-primary);
+    transition:
+        background var(--duration-micro) var(--ease-out),
+        box-shadow var(--duration-micro) var(--ease-out);
+
+    &--sm { height: 32px; padding: 0 12px; font-size: var(--fs-xs); }
+    &--md { height: 38px; padding: 0 16px; font-size: var(--fs-sm); }
+    &--lg { height: 46px; padding: 0 20px; font-size: var(--fs-base); }
+
+    &:hover:not(:disabled) { background: var(--bg-primary-hover); }
+
+    &:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(var(--color-primary-500-rgb), 0.35);
+    }
+
+    &:disabled {
+        background: var(--color-neutral-100);
+        color: var(--fg-disabled);
+        cursor: not-allowed;
+    }
+
+    &.is-loading {
+        cursor: progress;
+        pointer-events: none;
+        position: relative;
+
+        .pajak-btn__label { opacity: 0; }
+    }
+
+    &__spinner {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        color: currentColor;
+        animation: pajak-spin 0.85s linear infinite;
+
+        circle.track { stroke: currentColor; opacity: 0.18; }
+        circle.head  { stroke: currentColor; }
+    }
+}
+
+@keyframes pajak-spin {
+    to { transform: rotate(360deg); }
+}

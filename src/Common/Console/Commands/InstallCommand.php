@@ -6,7 +6,7 @@ namespace Pajak\Ui\Common\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class InstallCommand extends Command
+final class InstallCommand extends Command
 {
     /**
      * @var string
