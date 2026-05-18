@@ -29,14 +29,14 @@ window.addEventListener('pointerup', () => { activeDrag?.onUp(); });
 
 // ────────────────────────────────────────────────────────────────────────────
 
-function pctFromPointer(wrap: HTMLElement, clientX: number): number {
+export function pctFromPointer(wrap: HTMLElement, clientX: number): number {
     const r = wrap.getBoundingClientRect();
     const pad = parseFloat(getComputedStyle(wrap).paddingLeft);
     const trackWidth = r.width - pad * 2;
     return Math.max(0, Math.min(1, (clientX - r.left - pad) / trackWidth));
 }
 
-function snap(raw: number, min: number, max: number, step: number): number {
+export function snap(raw: number, min: number, max: number, step: number): number {
     const snapped = Math.round((raw - min) / step) * step + min;
     return Math.max(min, Math.min(max, snapped));
 }
