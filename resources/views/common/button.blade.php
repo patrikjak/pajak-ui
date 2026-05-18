@@ -1,4 +1,5 @@
 @use('Pajak\Ui\Common\Enums\Size')
+
 <button
     {{ $attributes->merge(['class' => 'pajak-btn', 'type' => $type])->class(["pajak-btn--$size->value", "pajak-btn--$variant->value", 'is-loading' => $loading]) }}
     @if($disabled) disabled @endif

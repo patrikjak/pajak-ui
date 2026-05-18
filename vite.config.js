@@ -14,6 +14,9 @@ export default defineConfig({
                 // Badge
                 'resources/assets/css/badge/badge-standalone.scss',
 
+                // Divider
+                'resources/assets/css/divider/divider-standalone.scss',
+
                 // Tooltip
                 'resources/assets/css/tooltip/tooltip-standalone.scss',
 
