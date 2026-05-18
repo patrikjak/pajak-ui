@@ -11,6 +11,9 @@ export default defineConfig({
 
                 // Per-feature bundles — include only what you need
 
+                // Badge
+                'resources/assets/css/badge/badge-standalone.scss',
+
                 // Form components
                 'resources/assets/css/form/form-standalone.scss',
                 'resources/assets/js/form/form.ts',
