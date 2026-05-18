@@ -14,6 +14,9 @@ export default defineConfig({
                 // Badge
                 'resources/assets/css/badge/badge-standalone.scss',
 
+                // Tooltip
+                'resources/assets/css/tooltip/tooltip-standalone.scss',
+
                 // Form components
                 'resources/assets/css/form/form-standalone.scss',
                 'resources/assets/js/form/form.ts',
