@@ -37,6 +37,10 @@ return [
         ],
     ],
 
+    'alert' => [
+        'dismiss' => 'Zavřít',
+    ],
+
     'calendar' => [
         'placeholder' => 'Vyberte datum',
         'range_placeholder' => 'Vyberte rozsah',

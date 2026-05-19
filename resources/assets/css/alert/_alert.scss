@@ -1,0 +1,95 @@
+.pajak-alert {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 12px 14px;
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    line-height: var(--lh-snug);
+    border: 1px solid transparent;
+
+    // ── Icon ──────────────────────────────────────────────────────────────────
+    &__icon {
+        flex-shrink: 0;
+        margin-top: 1px;
+        display: inline-flex;
+    }
+
+    // ── Body ──────────────────────────────────────────────────────────────────
+    &__body { flex: 1; }
+
+    &__title {
+        font-size: var(--fs-sm);
+        font-weight: var(--fw-semibold);
+        margin-bottom: 2px;
+    }
+
+    &__message {
+        font-size: 12px;
+        opacity: 0.9;
+    }
+
+    // ── Dismiss button ────────────────────────────────────────────────────────
+    &__close {
+        display: inline-flex;
+        flex-shrink: 0;
+        background: none;
+        border: none;
+        padding: 2px;
+        cursor: pointer;
+        color: inherit;
+        opacity: 0.5;
+        transition: opacity var(--duration-micro);
+
+        &:hover { opacity: 1; }
+    }
+
+    // ── Type colours ──────────────────────────────────────────────────────────
+    &--info {
+        background: var(--color-info-light);
+        color: var(--color-info-dark);
+
+        &.pajak-alert--outline { border-color: var(--color-info); }
+    }
+
+    &--success {
+        background: var(--color-success-light);
+        color: var(--color-success-dark);
+
+        &.pajak-alert--outline { border-color: var(--color-success); }
+    }
+
+    &--warning {
+        background: var(--color-warning-light);
+        color: var(--color-warning-dark);
+
+        &.pajak-alert--outline { border-color: var(--color-warning); }
+    }
+
+    &--error {
+        background: var(--color-error-light);
+        color: var(--color-error-dark);
+
+        &.pajak-alert--outline { border-color: var(--color-error); }
+    }
+
+    // ── Outline modifier ──────────────────────────────────────────────────────
+    &--outline {
+        background: var(--bg-surface);
+    }
+
+    // ── Inline modifier ───────────────────────────────────────────────────────
+    &--inline {
+        padding: 8px 12px;
+        border-radius: var(--radius-sm);
+        font-size: 12px;
+
+        .pajak-alert__icon svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .pajak-alert__title { display: none; }
+    }
+}

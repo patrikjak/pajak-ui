@@ -37,6 +37,10 @@ return [
         ],
     ],
 
+    'alert' => [
+        'dismiss' => 'Dismiss',
+    ],
+
     'calendar' => [
         'placeholder' => 'Select date',
         'range_placeholder' => 'Select range',

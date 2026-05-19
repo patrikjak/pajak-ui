@@ -11,6 +11,9 @@ export default defineConfig({
 
                 // Per-feature bundles — include only what you need
 
+                // Alert
+                'resources/assets/css/alert/alert-standalone.scss',
+
                 // Badge
                 'resources/assets/css/badge/badge-standalone.scss',
 
