@@ -20,6 +20,9 @@ export default defineConfig({
                 // Badge
                 'resources/assets/css/badge/badge-standalone.scss',
 
+                // Breadcrumb
+                'resources/assets/css/breadcrumb/breadcrumb-standalone.scss',
+
                 // Divider
                 'resources/assets/css/divider/divider-standalone.scss',
 
