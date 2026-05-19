@@ -37,6 +37,9 @@ export default defineConfig({
                 // Divider
                 'resources/assets/css/divider/divider-standalone.scss',
 
+                // Empty state
+                'resources/assets/css/empty-state/empty-state-standalone.scss',
+
                 // Progress
                 'resources/assets/css/progress/progress-standalone.scss',
 
