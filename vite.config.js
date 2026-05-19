@@ -14,6 +14,9 @@ export default defineConfig({
                 // Alert
                 'resources/assets/css/alert/alert-standalone.scss',
 
+                // Avatar
+                'resources/assets/css/avatar/avatar-standalone.scss',
+
                 // Badge
                 'resources/assets/css/badge/badge-standalone.scss',
 
