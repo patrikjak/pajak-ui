@@ -20,6 +20,9 @@ export default defineConfig({
                 // Divider
                 'resources/assets/css/divider/divider-standalone.scss',
 
+                // Spinner
+                'resources/assets/css/spinner/spinner-standalone.scss',
+
                 // Tooltip
                 'resources/assets/css/tooltip/tooltip-standalone.scss',
 
