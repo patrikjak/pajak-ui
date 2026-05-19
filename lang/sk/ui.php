@@ -41,6 +41,10 @@ return [
         'dismiss' => 'Zavrieť',
     ],
 
+    'stepper' => [
+        'step_of' => 'Krok :current z :total',
+    ],
+
     'calendar' => [
         'placeholder' => 'Vyberte dátum',
         'range_placeholder' => 'Vyberte rozsah',

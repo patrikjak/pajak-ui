@@ -43,6 +43,9 @@ export default defineConfig({
                 // Skeleton
                 'resources/assets/css/skeleton/skeleton-standalone.scss',
 
+                // Stepper
+                'resources/assets/css/stepper/stepper-standalone.scss',
+
                 // Spinner
                 'resources/assets/css/spinner/spinner-standalone.scss',
 

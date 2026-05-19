@@ -35,7 +35,7 @@ Linear determinate progress bar. Available as `<x-pajak::progress>`.
 | `max` | `int` | `100` | Maximum value; percentage is computed as `value / max * 100` |
 | `size` | `ProgressSize` | `ProgressSize::Md` | Bar height |
 | `color` | `ProgressColor` | `ProgressColor::Primary` | Fill color |
-| `label` | `string` | `''` | Text label shown to the left of the bar |
+| `label` | `?string` | `null` | Text label shown to the left of the bar |
 | `showValue` | `bool` | `false` | Show computed percentage to the right of the bar |
 
 When either `label` or `showValue` is set the bar is wrapped in a flex row (`pajak-progress-row`). Without either, only the bare `<div class="pajak-progress">` is rendered.

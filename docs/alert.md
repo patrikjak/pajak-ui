@@ -36,7 +36,7 @@ Contextual feedback messages for user actions or system state.
 |------|------|---------|-------------|
 | `type` | `AlertType` | `AlertType::Info` | Colour and icon: info, success, warning, or error |
 | `variant` | `AlertVariant` | `AlertVariant::Banner` | Layout variant |
-| `title` | `string` | `''` | Bold heading above the message; hidden in the inline variant |
+| `title` | `?string` | `null` | Bold heading above the message; hidden in the inline variant |
 | `dismissible` | `bool` | `false` | Show an ✕ close button |
 
 ### `AlertType` values

@@ -16,7 +16,7 @@ final class Progress extends Component
         public readonly int $max = 100,
         public readonly ProgressSize $size = ProgressSize::Md,
         public readonly ProgressColor $color = ProgressColor::Primary,
-        public readonly string $label = '',
+        public readonly ?string $label = null,
         public readonly bool $showValue = false,
     ) {
     }

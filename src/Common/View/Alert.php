@@ -14,7 +14,7 @@ final class Alert extends Component
     public function __construct(
         public readonly AlertType $type = AlertType::Info,
         public readonly AlertVariant $variant = AlertVariant::Banner,
-        public readonly string $title = '',
+        public readonly ?string $title = null,
         public readonly bool $dismissible = false,
     ) {
     }

@@ -45,6 +45,10 @@ return [
         'dismiss' => 'Dismiss',
     ],
 
+    'stepper' => [
+        'step_of' => 'Step :current of :total',
+    ],
+
     'calendar' => [
         'placeholder' => 'Select date',
         'range_placeholder' => 'Select range',
