@@ -59,6 +59,10 @@ export default defineConfig({
                 // HTTP connector
                 'resources/assets/js/http/connector.ts',
 
+                // Tabs
+                'resources/assets/css/tabs/tabs-standalone.scss',
+                'resources/assets/js/tabs/tabs.ts',
+
                 // Calendar
                 'resources/assets/js/calendar/calendar.ts',
                 'resources/assets/css/calendar/calendar-standalone.scss',

@@ -1,4 +1,5 @@
 export { PajakAccordion } from './accordion/accordion';
+export { PajakTabs } from './tabs/tabs';
 export { PajakBanner } from './banner/banner';
 export { PajakCheckbox, PajakDropzone, PajakAvatar, PajakFile, PajakImageGrid, PajakRepeater, PajakSelect, PajakSlider, PajakToggle, initFormSubmitLoaders, PajakToast } from './form/form';
 export type { ToastOptions } from './form/form';
