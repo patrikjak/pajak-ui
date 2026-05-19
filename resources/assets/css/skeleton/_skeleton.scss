@@ -1,0 +1,25 @@
+.pajak-sk {
+    display: block;
+    background: linear-gradient(
+        90deg,
+        var(--color-neutral-50) 0%,
+        var(--color-neutral-100) 40%,
+        var(--color-neutral-50) 80%
+    );
+    background-size: 200% 100%;
+    animation: pajak-shimmer 1.4s ease-in-out infinite;
+    border-radius: var(--radius-sm);
+
+    // ── Shape variants ─────────────────────────────────────────────────────────
+    &--line    { height: 12px; border-radius: var(--radius-sm); }
+    &--line-sm { height: 9px;  border-radius: 5px; }
+    &--line-lg { height: 16px; border-radius: var(--radius-sm); }
+    &--circle  { border-radius: var(--radius-full); }
+    &--rect    { border-radius: var(--radius-sm); }
+    &--pill    { height: 22px; border-radius: var(--radius-full); }
+}
+
+@keyframes pajak-shimmer {
+    0%   { background-position: 100% 0; }
+    100% { background-position: -100% 0; }
+}

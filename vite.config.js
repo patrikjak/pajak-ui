@@ -23,6 +23,9 @@ export default defineConfig({
                 // Divider
                 'resources/assets/css/divider/divider-standalone.scss',
 
+                // Skeleton
+                'resources/assets/css/skeleton/skeleton-standalone.scss',
+
                 // Spinner
                 'resources/assets/css/spinner/spinner-standalone.scss',
 
