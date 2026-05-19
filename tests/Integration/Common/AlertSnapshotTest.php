@@ -20,7 +20,11 @@ final class AlertSnapshotTest extends TestCase
     public function testInfoAlertWithTitle(): void
     {
         $html = (string) $this->blade(
-            '<x-pajak::alert :type="$type" title="Have your PIT-11 ready">It contains all figures you need.</x-pajak::alert>',
+            <<<'BLADE'
+            <x-pajak::alert :type="$type" title="Have your PIT-11 ready">
+                It contains all figures you need.
+            </x-pajak::alert>
+            BLADE,
             ['type' => AlertType::Info],
         );
 
@@ -69,7 +73,11 @@ final class AlertSnapshotTest extends TestCase
     public function testOutlineVariant(): void
     {
         $html = (string) $this->blade(
-            '<x-pajak::alert :type="$type" :variant="$variant" title="Deadline approaching">26 days remaining.</x-pajak::alert>',
+            <<<'BLADE'
+            <x-pajak::alert :type="$type" :variant="$variant" title="Deadline approaching">
+                26 days remaining.
+            </x-pajak::alert>
+            BLADE,
             ['type' => AlertType::Warning, 'variant' => AlertVariant::Outline],
         );
 
@@ -79,7 +87,11 @@ final class AlertSnapshotTest extends TestCase
     public function testInlineVariant(): void
     {
         $html = (string) $this->blade(
-            '<x-pajak::alert :type="$type" :variant="$variant">We auto-saved your progress 2 minutes ago.</x-pajak::alert>',
+            <<<'BLADE'
+            <x-pajak::alert :type="$type" :variant="$variant">
+                We auto-saved your progress 2 minutes ago.
+            </x-pajak::alert>
+            BLADE,
             ['type' => AlertType::Info, 'variant' => AlertVariant::Inline],
         );
 
