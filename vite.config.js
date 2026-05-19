@@ -23,6 +23,9 @@ export default defineConfig({
                 // Divider
                 'resources/assets/css/divider/divider-standalone.scss',
 
+                // Progress
+                'resources/assets/css/progress/progress-standalone.scss',
+
                 // Skeleton
                 'resources/assets/css/skeleton/skeleton-standalone.scss',
 
