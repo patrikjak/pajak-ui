@@ -13,6 +13,9 @@ export default defineConfig({
 
                 // Accordion
                 'resources/assets/css/accordion/accordion-standalone.scss',
+
+                // Card
+                'resources/assets/css/card/card-standalone.scss',
                 'resources/assets/js/accordion/accordion.ts',
 
                 // Alert
