@@ -1,0 +1,204 @@
+// ── Banner ────────────────────────────────────────────────────────────────────
+
+.pajak-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.5;
+
+    // ── Icon ──────────────────────────────────────────────────────────────────
+
+    &__icon {
+        width: 22px;
+        height: 22px;
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1px;
+    }
+
+    // ── Body ──────────────────────────────────────────────────────────────────
+
+    &__body {
+        flex: 1;
+        min-width: 0;
+    }
+
+    &__title {
+        font-size: 14px;
+        font-weight: var(--fw-semibold);
+        color: var(--color-neutral-900);
+        margin-bottom: 2px;
+    }
+
+    &__text {
+        color: var(--color-neutral-600);
+        font-size: 13.5px;
+
+        a {
+            color: inherit;
+            text-decoration: underline;
+            text-decoration-color: rgba(0, 0, 0, 0.25);
+            font-weight: var(--fw-semibold);
+            text-underline-offset: 2px;
+
+            &:hover {
+                text-decoration-color: currentColor;
+            }
+        }
+    }
+
+    // ── Progress bar ──────────────────────────────────────────────────────────
+
+    &__progress {
+        margin-top: 8px;
+        height: 6px;
+        background: rgba(0, 0, 0, 0.08);
+        border-radius: var(--radius-full);
+        overflow: hidden;
+
+        span {
+            display: block;
+            height: 100%;
+            background: currentColor;
+            border-radius: var(--radius-full);
+            transition: width 250ms;
+        }
+    }
+
+    // ── Actions ───────────────────────────────────────────────────────────────
+
+    &__actions {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        margin-left: 4px;
+    }
+
+    // ── Dismiss button ────────────────────────────────────────────────────────
+
+    &__close {
+        background: none;
+        border: none;
+        color: inherit;
+        opacity: 0.6;
+        padding: 4px;
+        margin: -4px -4px -4px 0;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 120ms, background 120ms;
+
+        &:hover {
+            opacity: 1;
+            background: rgba(0, 0, 0, 0.05);
+        }
+    }
+
+    // ── Type colours ──────────────────────────────────────────────────────────
+
+    &--info {
+        background: var(--color-info-light);
+        border-color: var(--color-primary-100);
+        color: var(--color-primary-800);
+
+        .pajak-banner__icon { color: var(--color-primary-700); }
+        .pajak-banner__title { color: var(--color-neutral-900); }
+    }
+
+    &--success {
+        background: var(--color-success-light);
+        border-color: #BFE5CD;
+        color: var(--color-success-dark);
+
+        .pajak-banner__icon { color: var(--color-success); }
+        .pajak-banner__title { color: var(--color-neutral-900); }
+    }
+
+    &--warning {
+        background: var(--color-warning-light);
+        border-color: #F6E2A5;
+        color: var(--color-warning-dark);
+
+        .pajak-banner__icon { color: var(--color-warning); }
+        .pajak-banner__title { color: var(--color-neutral-900); }
+    }
+
+    &--error {
+        background: var(--color-error-light);
+        border-color: #F6CFCD;
+        color: var(--color-error-dark);
+
+        .pajak-banner__icon { color: var(--color-error); }
+        .pajak-banner__title { color: var(--color-neutral-900); }
+    }
+
+    &--neutral {
+        background: var(--bg-page);
+        border-color: var(--border-default);
+        color: var(--color-neutral-600);
+
+        .pajak-banner__icon { color: var(--color-neutral-400); }
+        .pajak-banner__title { color: var(--color-neutral-900); }
+    }
+
+    &--promo {
+        background: linear-gradient(135deg, var(--color-primary-500) 0%, var(--color-primary-700) 100%);
+        border-color: transparent;
+        color: #fff;
+        padding: 18px 22px;
+
+        .pajak-banner__icon { color: #fff; }
+
+        .pajak-banner__title {
+            color: #fff;
+            font-size: 15px;
+        }
+
+        .pajak-banner__text {
+            color: rgba(255, 255, 255, 0.85);
+
+            a {
+                color: #fff;
+                text-decoration-color: rgba(255, 255, 255, 0.5);
+            }
+        }
+
+        .pajak-banner__close { color: #fff; }
+    }
+
+    // ── Top variant — flush, centered ─────────────────────────────────────────
+
+    &--top {
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        padding: 10px 24px;
+        font-size: 13.5px;
+        justify-content: center;
+        text-align: center;
+
+        .pajak-banner__body {
+            flex: 0 1 auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pajak-banner__title {
+            margin-bottom: 0;
+            display: inline;
+        }
+    }
+}

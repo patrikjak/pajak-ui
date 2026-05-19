@@ -18,6 +18,10 @@ export default defineConfig({
                 // Alert
                 'resources/assets/css/alert/alert-standalone.scss',
 
+                // Banner
+                'resources/assets/css/banner/banner-standalone.scss',
+                'resources/assets/js/banner/banner.ts',
+
                 // Avatar
                 'resources/assets/css/avatar/avatar-standalone.scss',
 
