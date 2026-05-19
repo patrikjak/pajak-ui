@@ -11,6 +11,10 @@ export default defineConfig({
 
                 // Per-feature bundles — include only what you need
 
+                // Accordion
+                'resources/assets/css/accordion/accordion-standalone.scss',
+                'resources/assets/js/accordion/accordion.ts',
+
                 // Alert
                 'resources/assets/css/alert/alert-standalone.scss',
 

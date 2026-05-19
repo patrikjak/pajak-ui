@@ -1,1 +1,1 @@
-import"./repeater.js";import"./slider.js";import"./connector.js";import"./toast.js";import"./form.js";import"./calendar.js";
+import"./accordion.js";import"./repeater.js";import"./slider.js";import"./connector.js";import"./toast.js";import"./form.js";import"./calendar.js";

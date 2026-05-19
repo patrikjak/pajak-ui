@@ -1,0 +1,103 @@
+# Accordion
+
+Composable expandable/collapsible content sections with four visual variants and two expand modes.
+
+## Asset inclusion
+
+```html
+<!-- Full bundle -->
+<link rel="stylesheet" href="vendor/pajak/ui/main.css">
+<script type="module">
+    import { PajakAccordion } from '/vendor/pajak/ui/main.js';
+    PajakAccordion.initAll();
+</script>
+
+<!-- Standalone -->
+<link rel="stylesheet" href="vendor/pajak/ui/accordion-standalone.css">
+<script type="module">
+    import { PajakAccordion } from '/vendor/pajak/ui/accordion.js';
+    PajakAccordion.initAll();
+</script>
+```
+
+## Basic usage
+
+```blade
+<x-pajak::accordion>
+    <x-pajak::accordion-item title="Personal information" subtitle="Your name and address" :open="true">
+        <p>Jan Kowalski · NIP 524-1234-567</p>
+    </x-pajak::accordion-item>
+    <x-pajak::accordion-item title="Income sources" badge="3 added">
+        <p>Salary, freelance, rental income.</p>
+    </x-pajak::accordion-item>
+</x-pajak::accordion>
+```
+
+## Accordion props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `AccordionVariant` | `AccordionVariant::Default` | Visual style |
+| `mode` | `AccordionMode` | `AccordionMode::Single` | `Single` closes siblings on open; `Multi` allows multiple open |
+
+### Variants
+
+| Value | Description |
+|-------|-------------|
+| `AccordionVariant::Default` | White card with border, shadow, and dividers |
+| `AccordionVariant::Flush` | Borderless, sits inside a parent surface |
+| `AccordionVariant::Faq` | Larger spacing, plus/minus CSS icon, suited for FAQs |
+| `AccordionVariant::Filled` | Each item is its own card; header tints on open |
+
+## AccordionItem props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | — | Header label |
+| `subtitle` | `?string` | `null` | Secondary line below the title |
+| `badge` | `?string` | `null` | Count/status pill rendered after the title stack |
+| `open` | `bool` | `false` | Whether the item starts expanded |
+
+### Named slots
+
+| Slot | Description |
+|------|-------------|
+| `$slot` (default) | Panel content — arbitrary HTML |
+| `$icon` | Optional leading icon (SVG); renders in a coloured icon box |
+
+### With leading icon
+
+```blade
+<x-pajak::accordion-item title="Documents" badge="12">
+    <x-slot name="icon">
+        <svg width="16" height="16" ...>...</svg>
+    </x-slot>
+    <p>PIT-11_acme_2025.pdf</p>
+</x-pajak::accordion-item>
+```
+
+## Variants example
+
+```blade
+use Pajak\Ui\Common\Enums\AccordionVariant;
+use Pajak\Ui\Common\Enums\AccordionMode;
+
+{{-- FAQ, multi-expand --}}
+<x-pajak::accordion :variant="AccordionVariant::Faq" :mode="AccordionMode::Multi">
+    <x-pajak::accordion-item title="When is my tax return due?" :open="true">
+        For most individuals the PIT return is due by <strong>30 April</strong>.
+    </x-pajak::accordion-item>
+    <x-pajak::accordion-item title="Can I file jointly with my spouse?">
+        Yes — joint filing is supported for married couples.
+    </x-pajak::accordion-item>
+</x-pajak::accordion>
+```
+
+## JS API
+
+| Method | Description |
+|--------|-------------|
+| `PajakAccordion.initAll()` | Attaches toggle behaviour to every `[data-pajak-accordion]` element on the page |
+| `PajakAccordion.init(el)` | Attaches toggle behaviour to a single accordion element |
+
+Call `initAll()` after the DOM is ready, or after dynamically inserting accordion markup.
