@@ -87,6 +87,10 @@ export default defineConfig({
                 // Segmented
                 'resources/assets/js/segmented/segmented.ts',
                 'resources/assets/css/segmented/segmented-standalone.scss',
+
+                // Drawer
+                'resources/assets/js/drawer/drawer.ts',
+                'resources/assets/css/drawer/drawer-standalone.scss',
             ],
             refresh: true,
         }),
