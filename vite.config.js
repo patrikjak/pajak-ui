@@ -98,6 +98,9 @@ export default defineConfig({
 
                 // Navbar
                 'resources/assets/css/navbar/navbar-standalone.scss',
+
+                // Sidebar
+                'resources/assets/css/sidebar/sidebar-standalone.scss',
             ],
             refresh: true,
         }),
