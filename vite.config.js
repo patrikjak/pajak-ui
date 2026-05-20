@@ -79,6 +79,10 @@ export default defineConfig({
                 // Dialog
                 'resources/assets/js/dialog/dialog.ts',
                 'resources/assets/css/dialog/dialog-standalone.scss',
+
+                // Modal
+                'resources/assets/js/modal/modal.ts',
+                'resources/assets/css/modal/modal-standalone.scss',
             ],
             refresh: true,
         }),
