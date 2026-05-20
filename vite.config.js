@@ -91,6 +91,10 @@ export default defineConfig({
                 // Drawer
                 'resources/assets/js/drawer/drawer.ts',
                 'resources/assets/css/drawer/drawer-standalone.scss',
+
+                // Popover
+                'resources/assets/js/popover/popover.ts',
+                'resources/assets/css/popover/popover-standalone.scss',
             ],
             refresh: true,
         }),

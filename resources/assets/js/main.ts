@@ -9,4 +9,5 @@ export { PajakDialog } from './dialog/dialog';
 export { PajakModal } from './modal/modal';
 export { PajakSegmented } from './segmented/segmented';
 export { PajakDrawer } from './drawer/drawer';
+export { PajakPopover } from './popover/popover';
 export type { HttpMethod, HttpPayload, HttpResult, HttpSuccess, HttpError } from './http/connector';
