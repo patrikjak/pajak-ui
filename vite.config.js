@@ -75,6 +75,10 @@ export default defineConfig({
                 // Calendar
                 'resources/assets/js/calendar/calendar.ts',
                 'resources/assets/css/calendar/calendar-standalone.scss',
+
+                // Dialog
+                'resources/assets/js/dialog/dialog.ts',
+                'resources/assets/css/dialog/dialog-standalone.scss',
             ],
             refresh: true,
         }),

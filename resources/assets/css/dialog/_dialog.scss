@@ -1,0 +1,81 @@
+// ── Dialog ────────────────────────────────────────────────────────────────────
+
+.pajak-dialog {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 14px;
+    width: 100%;
+    max-width: 360px;
+    padding: 22px 22px 16px;
+    text-align: center;
+    box-shadow: var(--shadow-xl);
+
+    // Reset browser defaults for <dialog>
+    margin: auto;
+    color: inherit;
+
+    &[hidden] {
+        display: none;
+    }
+
+    // ── Backdrop ──────────────────────────────────────────────────────────────
+
+    &::backdrop {
+        background: rgba(31, 42, 62, 0.32);
+        backdrop-filter: blur(2px);
+    }
+
+    // ── Icon ──────────────────────────────────────────────────────────────────
+
+    &__icon {
+        width: 48px;
+        height: 48px;
+        border-radius: var(--radius-full);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 4px auto 14px;
+        flex-shrink: 0;
+
+        &--info    { background: var(--color-info-light);    color: var(--color-info); }
+        &--success { background: var(--color-success-light); color: var(--color-success); }
+        &--warning { background: var(--color-warning-light); color: var(--color-warning-dark); }
+        &--danger  { background: var(--color-error-light);   color: var(--color-error); }
+    }
+
+    // ── Title ─────────────────────────────────────────────────────────────────
+
+    &__title {
+        font-size: 16px;
+        font-weight: var(--fw-bold);
+        color: var(--fg-primary);
+        line-height: var(--lh-snug);
+        margin-bottom: 6px;
+    }
+
+    // ── Description ───────────────────────────────────────────────────────────
+
+    &__description {
+        font-size: var(--fs-sm);
+        color: var(--fg-secondary);
+        line-height: var(--lh-normal);
+    }
+
+    // ── Actions ───────────────────────────────────────────────────────────────
+
+    &__actions {
+        margin-top: 18px;
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+
+        &--stacked {
+            flex-direction: column;
+
+            > * {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    }
+}
