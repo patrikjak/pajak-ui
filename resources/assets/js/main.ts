@@ -7,4 +7,5 @@ export { sendRequest, get, post, put, patch, destroy } from './http/connector';
 export { PajakCalendar } from './calendar/calendar';
 export { PajakDialog } from './dialog/dialog';
 export { PajakModal } from './modal/modal';
+export { PajakSegmented } from './segmented/segmented';
 export type { HttpMethod, HttpPayload, HttpResult, HttpSuccess, HttpError } from './http/connector';

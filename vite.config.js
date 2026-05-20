@@ -83,6 +83,10 @@ export default defineConfig({
                 // Modal
                 'resources/assets/js/modal/modal.ts',
                 'resources/assets/css/modal/modal-standalone.scss',
+
+                // Segmented
+                'resources/assets/js/segmented/segmented.ts',
+                'resources/assets/css/segmented/segmented-standalone.scss',
             ],
             refresh: true,
         }),
