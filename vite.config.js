@@ -95,6 +95,9 @@ export default defineConfig({
                 // Popover
                 'resources/assets/js/popover/popover.ts',
                 'resources/assets/css/popover/popover-standalone.scss',
+
+                // Navbar
+                'resources/assets/css/navbar/navbar-standalone.scss',
             ],
             refresh: true,
         }),

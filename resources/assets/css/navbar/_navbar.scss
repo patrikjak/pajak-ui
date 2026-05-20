@@ -1,0 +1,267 @@
+// ── Navbar — base ─────────────────────────────────────────────────────────────
+
+.pajak-navbar {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    padding: 0 20px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 14px;
+    box-shadow: var(--shadow-sm);
+    gap: 24px;
+
+    // ── Brand ─────────────────────────────────────────────────────────────────
+
+    &__brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+    }
+
+    // ── Links area ────────────────────────────────────────────────────────────
+
+    &__links {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        flex: 1;
+    }
+
+    // ── Actions area ──────────────────────────────────────────────────────────
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+    }
+}
+
+// ── Nav link atom ──────────────────────────────────────────────────────────────
+
+.pajak-nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 12px;
+    font-family: var(--font-body);
+    font-size: 13.5px;
+    font-weight: var(--fw-medium);
+    color: var(--fg-secondary);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+
+    &:hover {
+        background: var(--color-neutral-50);
+        color: var(--fg-primary);
+    }
+
+    &.is-active {
+        color: var(--color-primary-700);
+        background: var(--color-primary-50);
+        font-weight: var(--fw-semibold);
+    }
+
+    // ── Dot badge (notification indicator) ────────────────────────────────────
+
+    &__dot {
+        width: 6px;
+        height: 6px;
+        border-radius: var(--radius-full);
+        background: var(--color-error);
+        display: inline-block;
+        flex-shrink: 0;
+    }
+
+    // ── Count badge ───────────────────────────────────────────────────────────
+
+    &__count {
+        font-size: 11px;
+        font-weight: var(--fw-semibold);
+        padding: 1px 6px;
+        border-radius: var(--radius-full);
+        background: var(--color-error-light);
+        color: var(--color-error-dark);
+        line-height: 1.5;
+    }
+}
+
+// ── Variant: Underline ────────────────────────────────────────────────────────
+
+.pajak-navbar--underline {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    box-shadow: none;
+
+    .pajak-navbar__links {
+        gap: 0;
+    }
+
+    .pajak-nav-link {
+        border-radius: 0;
+        padding: 19px 14px;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -1px;
+
+        &:hover {
+            background: transparent;
+            color: var(--fg-primary);
+        }
+
+        &.is-active {
+            background: transparent;
+            color: var(--color-primary-700);
+            border-bottom-color: var(--color-primary-500);
+        }
+    }
+}
+
+// ── Variant: Dark ─────────────────────────────────────────────────────────────
+
+.pajak-navbar--dark {
+    background: var(--color-neutral-900);
+    border-color: var(--color-neutral-900);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+
+    .pajak-nav-link {
+        color: var(--color-neutral-300);
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--color-neutral-0);
+        }
+
+        &.is-active {
+            background: rgba(83, 134, 228, 0.18);
+            color: var(--color-neutral-0);
+        }
+    }
+}
+
+// ── Variant: Split ────────────────────────────────────────────────────────────
+
+.pajak-navbar--split {
+    padding: 0;
+    height: 64px;
+    overflow: hidden;
+
+    &__brand-area,
+    .pajak-navbar__brand-area {
+        width: 240px;
+        padding: 0 20px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        border-right: 1px solid var(--border-default);
+        flex-shrink: 0;
+    }
+
+    &__main,
+    .pajak-navbar__main {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        gap: 16px;
+        min-width: 0;
+    }
+
+    &__title,
+    .pajak-navbar__title {
+        font-size: 15px;
+        font-weight: var(--fw-semibold);
+        color: var(--fg-primary);
+        flex: 1;
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+// ── Variant: Stacked (two-tier) ───────────────────────────────────────────────
+
+.pajak-navbar--stacked {
+    flex-direction: column;
+    height: auto;
+    padding: 0;
+    align-items: stretch;
+    gap: 0;
+
+    .pajak-navbar__top {
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        height: 56px;
+        gap: 24px;
+        border-bottom: 1px solid var(--color-neutral-50);
+    }
+
+    .pajak-navbar__links {
+        flex: 1;
+    }
+
+    .pajak-navbar__sub {
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        height: 44px;
+        gap: 4px;
+        background: var(--bg-page);
+
+        .pajak-nav-link {
+            font-size: 12.5px;
+            color: var(--color-neutral-500);
+            padding: 6px 10px;
+            border-radius: var(--radius-sm);
+
+            &:hover {
+                background: var(--color-neutral-50);
+                color: var(--fg-primary);
+            }
+
+            &.is-active {
+                color: var(--color-primary-700);
+                background: var(--bg-surface);
+                font-weight: var(--fw-semibold);
+                box-shadow: var(--shadow-xs);
+            }
+        }
+    }
+}
+
+// ── Variant: Mobile ───────────────────────────────────────────────────────────
+
+.pajak-navbar--mobile {
+    height: 56px;
+    padding: 0 14px;
+    gap: 0;
+
+    &__title,
+    .pajak-navbar__title {
+        flex: 1;
+        min-width: 0;
+    }
+
+    &__title-line,
+    .pajak-navbar__title-line {
+        font-size: 15px;
+        font-weight: var(--fw-bold);
+        color: var(--fg-primary);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__subtitle,
+    .pajak-navbar__subtitle {
+        font-size: 11px;
+        color: var(--color-neutral-400);
+    }
+}
