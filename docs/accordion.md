@@ -2,23 +2,40 @@
 
 Composable expandable/collapsible content sections with four visual variants and two expand modes.
 
-## Asset inclusion
+> All components support dark mode — see [dark-mode.md](dark-mode.md).
+
+## Assets
+
+### Pre-built (no build step required)
 
 ```html
-<!-- Full bundle -->
-<link rel="stylesheet" href="vendor/pajak/ui/main.css">
-<script type="module">
-    import { PajakAccordion } from '/vendor/pajak/ui/main.js';
-    PajakAccordion.initAll();
-</script>
-
-<!-- Standalone -->
-<link rel="stylesheet" href="vendor/pajak/ui/accordion-standalone.css">
-<script type="module">
-    import { PajakAccordion } from '/vendor/pajak/ui/accordion.js';
-    PajakAccordion.initAll();
-</script>
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/main.js') }}"></script>
 ```
+
+Or use the accordion-only bundles:
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/accordion-standalone.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/accordion.js') }}"></script>
+```
+
+### Source import (recommended for production)
+
+```bash
+php artisan vendor:publish --tag=pajak-ui-sources
+```
+
+```scss
+@use 'vendor/pajak/ui/css/accordion/accordion';
+```
+
+```ts
+import { PajakAccordion } from 'vendor/pajak/ui/js/accordion/accordion';
+PajakAccordion.initAll();
+```
+
+---
 
 ## Basic usage
 
@@ -32,6 +49,8 @@ Composable expandable/collapsible content sections with four visual variants and
     </x-pajak::accordion-item>
 </x-pajak::accordion>
 ```
+
+---
 
 ## Accordion props
 
@@ -48,6 +67,8 @@ Composable expandable/collapsible content sections with four visual variants and
 | `AccordionVariant::Flush` | Borderless, sits inside a parent surface |
 | `AccordionVariant::Faq` | Larger spacing, plus/minus CSS icon, suited for FAQs |
 | `AccordionVariant::Filled` | Each item is its own card; header tints on open |
+
+---
 
 ## AccordionItem props
 
@@ -76,11 +97,13 @@ Composable expandable/collapsible content sections with four visual variants and
 </x-pajak::accordion-item>
 ```
 
+---
+
 ## Variants example
 
 ```blade
-use Pajak\Ui\Common\Enums\AccordionVariant;
-use Pajak\Ui\Common\Enums\AccordionMode;
+@use('Pajak\Ui\Common\Enums\AccordionVariant')
+@use('Pajak\Ui\Common\Enums\AccordionMode')
 
 {{-- FAQ, multi-expand --}}
 <x-pajak::accordion :variant="AccordionVariant::Faq" :mode="AccordionMode::Multi">
@@ -93,11 +116,18 @@ use Pajak\Ui\Common\Enums\AccordionMode;
 </x-pajak::accordion>
 ```
 
+---
+
 ## JS API
 
-| Method | Description |
-|--------|-------------|
-| `PajakAccordion.initAll()` | Attaches toggle behaviour to every `[data-pajak-accordion]` element on the page |
-| `PajakAccordion.init(el)` | Attaches toggle behaviour to a single accordion element |
+```ts
+import { PajakAccordion } from 'vendor/pajak/ui/js/accordion/accordion';
+
+// Wire all [data-pajak-accordion] elements on the page
+PajakAccordion.initAll();
+
+// Wire a single accordion element
+PajakAccordion.init(el);
+```
 
 Call `initAll()` after the DOM is ready, or after dynamically inserting accordion markup.

@@ -2,6 +2,39 @@
 
 Circular user avatar displaying initials. Available as `<x-pajak::avatar>` and `<x-pajak::avatar-group>`.
 
+> All components support dark mode — see [dark-mode.md](dark-mode.md).
+
+## Assets
+
+### Pre-built (no build step required)
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/main.js') }}"></script>
+```
+
+Or use the avatar-only bundle:
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/avatar-standalone.css') }}">
+```
+
+### Source import (recommended for production)
+
+```bash
+php artisan vendor:publish --tag=pajak-ui-sources
+```
+
+```scss
+// Avatar only
+@use 'vendor/pajak/ui/css/avatar/avatar-standalone';
+
+// Or just the partial (when variables are already imported)
+@use 'vendor/pajak/ui/css/avatar/avatar';
+```
+
+---
+
 ## Usage
 
 ```blade
@@ -37,6 +70,8 @@ Circular user avatar displaying initials. Available as `<x-pajak::avatar>` and `
     <x-pajak::avatar initials="PR" color="purple" />
 </x-pajak::avatar-group>
 ```
+
+---
 
 ## Props
 
@@ -87,27 +122,3 @@ Circular user avatar displaying initials. Available as `<x-pajak::avatar>` and `
 | `online` | Green (`color-success`) |
 | `away` | Amber (`color-warning`) |
 | `offline` | Grey (`color-neutral-300`) |
-
-## Asset Inclusion
-
-### Standalone (avatar only)
-
-```html
-<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/avatar-standalone.css') }}">
-```
-
-### Full bundle
-
-```html
-<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
-```
-
-### SCSS source import
-
-```scss
-// Avatar only
-@use 'vendor/pajak/ui/css/avatar/avatar-standalone';
-
-// Or just the partial (when variables are already imported)
-@use 'vendor/pajak/ui/css/avatar/avatar';
-```

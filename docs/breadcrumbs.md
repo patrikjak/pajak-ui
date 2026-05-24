@@ -2,15 +2,34 @@
 
 A navigation breadcrumb trail built from a typed `BreadcrumbItem` array.
 
-## Asset inclusion
+> All components support dark mode — see [dark-mode.md](dark-mode.md).
+
+## Assets
+
+### Pre-built (no build step required)
 
 ```html
-<!-- Full bundle -->
-<link rel="stylesheet" href="vendor/pajak/ui/main.css">
-
-<!-- Standalone (breadcrumb only) -->
-<link rel="stylesheet" href="vendor/pajak/ui/breadcrumb-standalone.css">
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/main.js') }}"></script>
 ```
+
+Or use the breadcrumb-only bundle:
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/breadcrumb-standalone.css') }}">
+```
+
+### Source import (recommended for production)
+
+```bash
+php artisan vendor:publish --tag=pajak-ui-sources
+```
+
+```scss
+@use 'vendor/pajak/ui/css/breadcrumb/breadcrumb';
+```
+
+---
 
 ## Basic usage
 
@@ -21,6 +40,8 @@ A navigation breadcrumb trail built from a typed `BreadcrumbItem` array.
     \Pajak\Ui\Common\Dto\BreadcrumbItem::current('Donations'),
 ]" />
 ```
+
+---
 
 ## BreadcrumbItem
 
@@ -42,6 +63,8 @@ new BreadcrumbItem('Reports', '/reports', false)
 | `href` | `?string` | `null` | Link URL; `null` renders the item as the current page |
 | `isHome` | `bool` | `false` | Renders a house icon instead of text |
 
+---
+
 ## Props
 
 | Prop | Type | Default | Description |
@@ -49,6 +72,8 @@ new BreadcrumbItem('Reports', '/reports', false)
 | `items` | `iterable<int, BreadcrumbItem>` | `[]` | Ordered list of breadcrumb items |
 | `variant` | `BreadcrumbVariant` | `BreadcrumbVariant::Default` | Visual style — `Default`, `Compact`, `Pill` |
 | `separator` | `BreadcrumbSeparator` | `BreadcrumbSeparator::Chevron` | Separator style — `Chevron`, `Slash` (ignored for `Pill` variant) |
+
+---
 
 ## Variants
 
@@ -61,7 +86,7 @@ new BreadcrumbItem('Reports', '/reports', false)
 ### Slash separator
 
 ```blade
-use Pajak\Ui\Common\Enums\BreadcrumbSeparator;
+@use('Pajak\Ui\Common\Enums\BreadcrumbSeparator')
 
 <x-pajak::breadcrumbs :items="$items" :separator="BreadcrumbSeparator::Slash" />
 ```
@@ -69,7 +94,7 @@ use Pajak\Ui\Common\Enums\BreadcrumbSeparator;
 ### Compact — for narrow surfaces, modals, side panels
 
 ```blade
-use Pajak\Ui\Common\Enums\BreadcrumbVariant;
+@use('Pajak\Ui\Common\Enums\BreadcrumbVariant')
 
 <x-pajak::breadcrumbs :items="$items" :variant="BreadcrumbVariant::Compact" />
 ```
@@ -79,7 +104,7 @@ use Pajak\Ui\Common\Enums\BreadcrumbVariant;
 Renders a `<nav>` instead of `<ul>`. Chevron separator is always used.
 
 ```blade
-use Pajak\Ui\Common\Enums\BreadcrumbVariant;
+@use('Pajak\Ui\Common\Enums\BreadcrumbVariant')
 
 <x-pajak::breadcrumbs :items="$items" :variant="BreadcrumbVariant::Pill" />
 ```

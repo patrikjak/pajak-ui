@@ -2,6 +2,39 @@
 
 A flexible separator component covering horizontal rules, vertical inline dividers, and labeled "OR"-style separators.
 
+> All components support dark mode — see [dark-mode.md](dark-mode.md).
+
+## Assets
+
+### Pre-built (no build step required)
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/main.js') }}"></script>
+```
+
+Or use the divider-only bundle:
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/divider-standalone.css') }}">
+```
+
+### Source import (recommended for production)
+
+```bash
+php artisan vendor:publish --tag=pajak-ui-sources
+```
+
+```scss
+// Divider only
+@use 'vendor/pajak/ui/css/divider/divider-standalone';
+
+// Or just the partial (when variables are already imported)
+@use 'vendor/pajak/ui/css/divider/divider';
+```
+
+---
+
 ## Usage
 
 ```blade
@@ -28,6 +61,8 @@ A flexible separator component covering horizontal rules, vertical inline divide
 {{-- Labeled --}}
 <x-pajak::divider :labeled="true">or</x-pajak::divider>
 ```
+
+---
 
 ## Props
 
@@ -60,27 +95,3 @@ A flexible separator component covering horizontal rules, vertical inline divide
 | `solid` | 1px solid line |
 | `dashed` | 1px dashed line (always `color-neutral-200`) |
 | `dotted` | 1.5px dotted line (always `color-neutral-200`) |
-
-## Asset Inclusion
-
-### Standalone (divider only)
-
-```html
-<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/divider-standalone.css') }}">
-```
-
-### Full bundle
-
-```html
-<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
-```
-
-### SCSS source import
-
-```scss
-// Divider only
-@use 'vendor/pajak/ui/css/divider/divider-standalone';
-
-// Or just the partial (when variables are already imported)
-@use 'vendor/pajak/ui/css/divider/divider';
-```

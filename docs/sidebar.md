@@ -2,15 +2,34 @@
 
 A vertical navigation sidebar supporting six layout variants. No JavaScript required — active state and variant differences are controlled via props and CSS.
 
-## Asset inclusion
+> All components support dark mode — see [dark-mode.md](dark-mode.md).
+
+## Assets
+
+### Pre-built (no build step required)
 
 ```html
-<!-- Full bundle (already includes sidebar) -->
-<link rel="stylesheet" href="/vendor/pajak/ui/main.css">
-
-<!-- Standalone -->
-<link rel="stylesheet" href="/vendor/pajak/ui/sidebar-standalone.css">
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/main.js') }}"></script>
 ```
+
+Or use the sidebar-only bundle:
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/sidebar-standalone.css') }}">
+```
+
+### Source import (recommended for production)
+
+```bash
+php artisan vendor:publish --tag=pajak-ui-sources
+```
+
+```scss
+@use 'vendor/pajak/ui/css/sidebar/sidebar';
+```
+
+---
 
 ## Basic usage
 
@@ -37,6 +56,8 @@ A vertical navigation sidebar supporting six layout variants. No JavaScript requ
     </x-slot:footer>
 </x-pajak::sidebar>
 ```
+
+---
 
 ## Variants
 
@@ -115,6 +136,8 @@ Standard width with a `header` slot above the scroll area — used for workspace
 </x-pajak::sidebar>
 ```
 
+---
+
 ## Sidebar props
 
 | Prop | Type | Default | Description |
@@ -129,6 +152,8 @@ Standard width with a `header` slot above the scroll area — used for workspace
 | `header` | Optional area between brand and scroll body — workspace switcher, CTA, etc. |
 | `$slot` (default) | Scrollable body — section labels, nav items, sub-nav. |
 | `footer` | Bottom pinned area — user card, action buttons. |
+
+---
 
 ## SidebarItem props
 
@@ -147,11 +172,15 @@ Standard width with a `header` slot above the scroll area — used for workspace
 |------|-------------|
 | `icon` | SVG icon rendered before the label. Required for rail variant. |
 
+---
+
 ## SidebarSection props
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `label` | `string` | — | **Required.** Section heading text. Hidden in rail variant. |
+
+---
 
 ## SidebarSubItem props
 

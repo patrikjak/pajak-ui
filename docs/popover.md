@@ -2,17 +2,40 @@
 
 A positioned overlay panel anchored to a trigger element. Supports four placement variants, an optional arrow-decorated close button, and head/body/foot slot layout.
 
-## Asset inclusion
+> All components support dark mode — see [dark-mode.md](dark-mode.md).
+
+## Assets
+
+### Pre-built (no build step required)
 
 ```html
-<!-- Full bundle (already includes popover) -->
-<link rel="stylesheet" href="/vendor/pajak/ui/main.css">
-<script src="/vendor/pajak/ui/main.js"></script>
-
-<!-- Standalone -->
-<link rel="stylesheet" href="/vendor/pajak/ui/popover-standalone.css">
-<script src="/vendor/pajak/ui/popover.js"></script>
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/main.js') }}"></script>
 ```
+
+Or use the popover-only bundles:
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/popover-standalone.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/popover.js') }}"></script>
+```
+
+### Source import (recommended for production)
+
+```bash
+php artisan vendor:publish --tag=pajak-ui-sources
+```
+
+```scss
+@use 'vendor/pajak/ui/css/popover/popover';
+```
+
+```ts
+import { PajakPopover } from 'vendor/pajak/ui/js/popover/popover';
+PajakPopover.initAll();
+```
+
+---
 
 ## Basic usage
 
@@ -32,9 +55,7 @@ A positioned overlay panel anchored to a trigger element. Supports four placemen
 </x-pajak::popover>
 ```
 
-```js
-PajakPopover.initAll();
-```
+---
 
 ## Props
 
@@ -52,18 +73,22 @@ PajakPopover.initAll();
 | `$slot` (default) | Body content — rendered in `.pajak-pop__body`. |
 | `footer` | Optional footer — rendered in `.pajak-pop__foot`, right-aligned. |
 
+---
+
 ## Placement values
 
 ```blade
-<x-pajak::popover id="pop-b"  placement="bottom" /> {{-- arrow top-left --}}
+<x-pajak::popover id="pop-b"  placement="bottom" />     {{-- arrow top-left --}}
 <x-pajak::popover id="pop-be" placement="bottom-end" /> {{-- arrow top-right --}}
-<x-pajak::popover id="pop-t"  placement="top" /> {{-- arrow bottom-center --}}
-<x-pajak::popover id="pop-r"  placement="right" /> {{-- arrow left-side --}}
-<x-pajak::popover id="pop-l"  placement="left" /> {{-- arrow right-side --}}
+<x-pajak::popover id="pop-t"  placement="top" />        {{-- arrow bottom-center --}}
+<x-pajak::popover id="pop-r"  placement="right" />      {{-- arrow left-side --}}
+<x-pajak::popover id="pop-l"  placement="left" />       {{-- arrow right-side --}}
 
 {{-- Or pass the enum directly --}}
 <x-pajak::popover id="pop-r" :placement="PopoverPlacement::Right" />
 ```
+
+---
 
 ## Trigger wiring
 
@@ -81,11 +106,13 @@ Close buttons inside the popover use `data-pajak-popover-close`:
 
 Popovers also close on Escape or a click outside.
 
+---
+
 ## JS API
 
 ```js
-PajakPopover.initAll()        // Wire all triggers and close buttons in the document
-PajakPopover.open('my-pop')   // Open by ID
-PajakPopover.close('my-pop')  // Close by ID
-PajakPopover.toggle('my-pop') // Toggle by ID
+PajakPopover.initAll()        // wire all triggers and close buttons in the document
+PajakPopover.open('my-pop')   // open by ID
+PajakPopover.close('my-pop')  // close by ID
+PajakPopover.toggle('my-pop') // toggle by ID
 ```

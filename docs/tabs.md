@@ -2,20 +2,40 @@
 
 Tab navigation component with four layout variants. Built on semantic `role="tablist"` / `role="tab"` markup. JavaScript handles click-to-activate; panel visibility is managed by the consumer.
 
-## Asset inclusion
+> All components support dark mode — see [dark-mode.md](dark-mode.md).
+
+## Assets
+
+### Pre-built (no build step required)
 
 ```html
-<!-- Standalone -->
-<link rel="stylesheet" href="/vendor/pajak/ui/tabs-standalone.css">
-<script src="/vendor/pajak/ui/tabs.js"></script>
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/main.js') }}"></script>
 ```
 
-Or via the full bundle:
+Or use the tabs-only bundles:
 
 ```html
-<link rel="stylesheet" href="/vendor/pajak/ui/main.css">
-<script src="/vendor/pajak/ui/main.js"></script>
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/tabs-standalone.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/tabs.js') }}"></script>
 ```
+
+### Source import (recommended for production)
+
+```bash
+php artisan vendor:publish --tag=pajak-ui-sources
+```
+
+```scss
+@use 'vendor/pajak/ui/css/tabs/tabs';
+```
+
+```ts
+import { PajakTabs } from 'vendor/pajak/ui/js/tabs/tabs';
+PajakTabs.initAll();
+```
+
+---
 
 ## Basic usage
 
@@ -27,6 +47,8 @@ Or via the full bundle:
     <x-pajak::tab label="Archive" :disabled="true" />
 </x-pajak::tabs>
 ```
+
+---
 
 ## Variants
 
@@ -86,6 +108,8 @@ Vertical stack with a left indicator bar on the active tab. Wrap alongside a pan
 </div>
 ```
 
+---
+
 ## `<x-pajak::tabs>` props
 
 | Prop | Type | Default | Description |
@@ -102,10 +126,12 @@ Vertical stack with a left indicator bar on the active tab. Wrap alongside a pan
 | `count` | `int\|null` | `null` | Optional count badge |
 | `$icon` | slot | — | Optional SVG icon rendered before the label |
 
+---
+
 ## JS API
 
-```js
-import { PajakTabs } from '/vendor/pajak/ui/tabs.js';
+```ts
+import { PajakTabs } from 'vendor/pajak/ui/js/tabs/tabs';
 
 // Initialise all [data-pajak-tabs] elements on the page
 PajakTabs.initAll();

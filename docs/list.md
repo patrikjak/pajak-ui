@@ -2,6 +2,29 @@
 
 A grouped list of rows with optional leading, body, and trailing slots. Renders as a card-like container with dividers between rows.
 
+> All components support dark mode — see [dark-mode.md](dark-mode.md).
+
+## Assets
+
+### Pre-built (no build step required)
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/main.js') }}"></script>
+```
+
+### Source import (recommended for production)
+
+```bash
+php artisan vendor:publish --tag=pajak-ui-sources
+```
+
+```scss
+@use 'vendor/pajak/ui/css/list/list';
+```
+
+---
+
 ## Usage
 
 ```blade
@@ -18,6 +41,8 @@ A grouped list of rows with optional leading, body, and trailing slots. Renders 
     </x-pajak::list-row>
 </x-pajak::list>
 ```
+
+---
 
 ## Components
 
@@ -58,6 +83,8 @@ Individual row inside the list.
 </x-pajak::list-row>
 ```
 
+---
+
 ## Examples
 
 ### Document rows with status badges
@@ -89,12 +116,4 @@ Individual row inside the list.
         </x-slot:trailing>
     </x-pajak::list-row>
 </x-pajak::list>
-```
-
-## Asset inclusion
-
-The list styles are included in the main bundle:
-
-```html
-<link rel="stylesheet" href="/vendor/pajak/ui/main.css">
 ```

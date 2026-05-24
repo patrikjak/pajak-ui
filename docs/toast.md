@@ -22,7 +22,9 @@ Or use the toast-only bundles:
 
 ### Source import (recommended for production)
 
-After publishing sources (`php artisan vendor:publish --tag=pajak-ui-sources`):
+```bash
+php artisan vendor:publish --tag=pajak-ui-sources
+```
 
 ```scss
 @use 'vendor/pajak/ui/css/toast/toast';

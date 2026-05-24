@@ -5,6 +5,8 @@ declare global {
 }
 
 const initialized = new WeakSet<HTMLElement>();
+const initializedTriggers = new WeakSet<HTMLElement>();
+let documentListenersAttached = false;
 
 function getPopover(id: string): HTMLElement | null {
     return document.querySelector<HTMLElement>(`[data-pajak-popover]#${id}`);
@@ -83,11 +85,16 @@ function initPopover(pop: HTMLElement): void {
 
 function initAll(): void {
     document.querySelectorAll<HTMLElement>('[data-pajak-popover-trigger]').forEach((trigger) => {
+        if (initializedTriggers.has(trigger)) {
+            return;
+        }
+
         const id = trigger.dataset.pajakPopoverTrigger ?? '';
         if (!id) {
             return;
         }
 
+        initializedTriggers.add(trigger);
         trigger.addEventListener('click', (e) => {
             e.stopPropagation();
             togglePopover(id);
@@ -98,21 +105,25 @@ function initAll(): void {
         initPopover(pop);
     });
 
-    document.addEventListener('click', (e) => {
-        document.querySelectorAll<HTMLElement>('[data-pajak-popover].is-open').forEach((pop) => {
-            if (!pop.contains(e.target as Node)) {
-                closePopoverEl(pop);
+    if (!documentListenersAttached) {
+        documentListenersAttached = true;
+
+        document.addEventListener('click', (e) => {
+            document.querySelectorAll<HTMLElement>('[data-pajak-popover].is-open').forEach((pop) => {
+                if (!pop.contains(e.target as Node)) {
+                    closePopoverEl(pop);
+                }
+            });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll<HTMLElement>('[data-pajak-popover].is-open').forEach((pop) => {
+                    closePopoverEl(pop);
+                });
             }
         });
-    });
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            document.querySelectorAll<HTMLElement>('[data-pajak-popover].is-open').forEach((pop) => {
-                closePopoverEl(pop);
-            });
-        }
-    });
+    }
 }
 
 export const PajakPopover = {

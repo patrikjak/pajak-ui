@@ -19,17 +19,15 @@ Or include everything via the full bundle:
 
 ### Source import (recommended for production)
 
-Publish the sources:
-
 ```bash
 php artisan vendor:publish --tag=pajak-ui-sources
 ```
 
-Then import:
-
 ```ts
 import { sendRequest, get, post, put, patch, destroy } from 'vendor/pajak/ui/js/http/connector';
 ```
+
+---
 
 ## API
 
@@ -49,6 +47,8 @@ destroy<T>(url: string, payload?: HttpPayload): Promise<HttpResult<T>>
 sendRequest<T>(url: string, method: HttpMethod, payload?: HttpPayload): Promise<HttpResult<T>>
 ```
 
+---
+
 ## Types
 
 ```ts
@@ -62,6 +62,8 @@ interface HttpError      { ok: false; status: number; data: unknown  }
 ```
 
 Network failures (no response) return `{ ok: false, status: 0, data: null }` — they never throw.
+
+---
 
 ## Usage
 
@@ -96,6 +98,8 @@ import { get } from 'vendor/pajak/ui/js/http/connector';
 const result = await get<Item[]>('/api/items', { page: '2', search: 'foo' });
 // → GET /api/items?page=2&search=foo
 ```
+
+---
 
 ## Behaviour
 

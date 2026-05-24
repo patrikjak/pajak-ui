@@ -2,18 +2,34 @@
 
 Placeholder component for empty lists, search results, and drop zones. Supports an icon art box, title, message, and actions — all as optional named slots.
 
-## Asset inclusion
+> All components support dark mode — see [dark-mode.md](dark-mode.md).
+
+## Assets
+
+### Pre-built (no build step required)
 
 ```html
-<!-- Standalone -->
-<link rel="stylesheet" href="/vendor/pajak/ui/empty-state-standalone.css">
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/main.js') }}"></script>
 ```
 
-Or via the full bundle:
+Or use the empty-state-only bundle:
 
 ```html
-<link rel="stylesheet" href="/vendor/pajak/ui/main.css">
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/empty-state-standalone.css') }}">
 ```
+
+### Source import (recommended for production)
+
+```bash
+php artisan vendor:publish --tag=pajak-ui-sources
+```
+
+```scss
+@use 'vendor/pajak/ui/css/empty-state/empty-state';
+```
+
+---
 
 ## Basic usage
 
@@ -29,6 +45,8 @@ Or via the full bundle:
     </x-slot:actions>
 </x-pajak::empty-state>
 ```
+
+---
 
 ## Variants
 
@@ -58,6 +76,8 @@ Reduced padding and smaller art box — suitable for inline use inside cards or 
     <x-slot:message>No outstanding tasks for tax year 2025.</x-slot:message>
 </x-pajak::empty-state>
 ```
+
+---
 
 ## Props
 

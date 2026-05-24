@@ -11,3 +11,4 @@ export { PajakSegmented } from './segmented/segmented';
 export { PajakDrawer } from './drawer/drawer';
 export { PajakPopover } from './popover/popover';
 export type { HttpMethod, HttpPayload, HttpResult, HttpSuccess, HttpError } from './http/connector';
+export { PajakTable } from './table/table';

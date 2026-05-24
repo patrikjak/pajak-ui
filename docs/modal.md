@@ -2,6 +2,41 @@
 
 A larger overlay dialog with a structured head (icon + title + close button), scrollable body, and footer action bar. Built on the native `<dialog>` element. For small, icon-driven confirmations, use the [Dialog](dialog.md) component instead.
 
+> All components support dark mode — see [dark-mode.md](dark-mode.md).
+
+## Assets
+
+### Pre-built (no build step required)
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/main.js') }}"></script>
+```
+
+Or use the modal-only bundles:
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/modal-standalone.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/modal.js') }}"></script>
+```
+
+### Source import (recommended for production)
+
+```bash
+php artisan vendor:publish --tag=pajak-ui-sources
+```
+
+```scss
+@use 'vendor/pajak/ui/css/modal/modal';
+```
+
+```ts
+import { PajakModal } from 'vendor/pajak/ui/js/modal/modal';
+PajakModal.initAll();
+```
+
+---
+
 ## Usage
 
 ```blade
@@ -16,12 +51,9 @@ A larger overlay dialog with a structured head (icon + title + close button), sc
 
 {{-- 2. Trigger it from any element --}}
 <button data-pajak-modal-trigger="submit-return">Submit</button>
-
-{{-- 3. Initialise once on page load --}}
-<script>
-    PajakModal.initAll();
-</script>
 ```
+
+---
 
 ## Props
 
@@ -53,6 +85,8 @@ ModalSize::Md  // max-width: 440px (default)
 ModalSize::Lg  // max-width: 520px — for forms or long content
 ```
 
+---
+
 ## Opening and closing
 
 ### Trigger attribute (recommended)
@@ -83,6 +117,8 @@ PajakModal.initAll()           // wire all triggers, close buttons, and backdrop
 
 Pass `:open="true"` to render `<dialog open>` immediately — useful after a redirect or form submission. Note: this renders as a plain block element without a backdrop or focus trap. For backdrop + focus trap from page load, omit `open` and call `PajakModal.open('id')` on `DOMContentLoaded` instead.
 
+---
+
 ## Non-dismissible modal
 
 Set `:dismissible="false"` to hide the close button and prevent backdrop-click from closing. Use for blocking operations like form submission in progress.
@@ -92,6 +128,8 @@ Set `:dismissible="false"` to hide the close button and prevent backdrop-click f
     <x-slot:description>Please don't close this window.</x-slot:description>
 </x-pajak::modal>
 ```
+
+---
 
 ## Bottom sheet
 
@@ -105,16 +143,4 @@ The sheet variant anchors the modal to the bottom of the viewport with rounded t
         <x-pajak::button>Continue</x-pajak::button>
     </x-slot:footer>
 </x-pajak::modal>
-```
-
-## Asset inclusion
-
-```html
-{{-- Full bundle --}}
-<link rel="stylesheet" href="/vendor/pajak/ui/main.css">
-<script src="/vendor/pajak/ui/main.js"></script>
-
-{{-- Modal only --}}
-<link rel="stylesheet" href="/vendor/pajak/ui/modal-standalone.css">
-<script src="/vendor/pajak/ui/modal.js"></script>
 ```

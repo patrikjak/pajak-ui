@@ -21,9 +21,9 @@
     </span>
 
     <div class="pajak-banner__body">
-        @isset($title)
+        @if($title !== null)
             <div class="pajak-banner__title">{{ $title }}</div>
-        @endisset
+        @endif
         <div class="pajak-banner__text">{{ $slot }}</div>
         @isset($progress)
             <div class="pajak-banner__progress" role="progressbar" aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100">

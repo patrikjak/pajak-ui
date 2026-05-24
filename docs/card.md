@@ -2,18 +2,34 @@
 
 A surface container for presenting grouped content. Supports an optional kicker label, title, body, and footer slot. Lifts on hover via a CSS transition.
 
-## Asset inclusion
+> All components support dark mode — see [dark-mode.md](dark-mode.md).
+
+## Assets
+
+### Pre-built (no build step required)
 
 ```html
-<!-- Standalone -->
-<link rel="stylesheet" href="/vendor/pajak/ui/card-standalone.css">
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/main.js') }}"></script>
 ```
 
-Or via the full bundle:
+Or use the card-only bundle:
 
 ```html
-<link rel="stylesheet" href="/vendor/pajak/ui/main.css">
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/card-standalone.css') }}">
 ```
+
+### Source import (recommended for production)
+
+```bash
+php artisan vendor:publish --tag=pajak-ui-sources
+```
+
+```scss
+@use 'vendor/pajak/ui/css/card/card';
+```
+
+---
 
 ## Basic usage
 
@@ -22,6 +38,8 @@ Or via the full bundle:
     Your content here.
 </x-pajak::card>
 ```
+
+---
 
 ## With slots
 
@@ -36,6 +54,8 @@ Or via the full bundle:
 </x-pajak::card>
 ```
 
+---
+
 ## Accent variant
 
 Renders with a primary-colour background. Text inside `$kicker` and `$title` slots is automatically inverted to white.
@@ -47,6 +67,8 @@ Renders with a primary-colour background. Text inside `$kicker` and `$title` slo
     <x-slot:footer>On track</x-slot:footer>
 </x-pajak::card>
 ```
+
+---
 
 ## Props
 

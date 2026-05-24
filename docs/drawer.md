@@ -2,6 +2,41 @@
 
 A panel that slides in from a viewport edge — right, left, bottom, or top. Use for filter panels, navigation, detail views, and quick-action sheets. Built on the native `<dialog>` element.
 
+> All components support dark mode — see [dark-mode.md](dark-mode.md).
+
+## Assets
+
+### Pre-built (no build step required)
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/main.js') }}"></script>
+```
+
+Or use the drawer-only bundles:
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/drawer-standalone.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/drawer.js') }}"></script>
+```
+
+### Source import (recommended for production)
+
+```bash
+php artisan vendor:publish --tag=pajak-ui-sources
+```
+
+```scss
+@use 'vendor/pajak/ui/css/drawer/drawer';
+```
+
+```ts
+import { PajakDrawer } from 'vendor/pajak/ui/js/drawer/drawer';
+PajakDrawer.initAll();
+```
+
+---
+
 ## Usage
 
 ```blade
@@ -17,12 +52,9 @@ A panel that slides in from a viewport edge — right, left, bottom, or top. Use
 
 {{-- 2. Trigger it from any element --}}
 <button data-pajak-drawer-trigger="filters">Open filters</button>
-
-{{-- 3. Initialise once on page load --}}
-<script>
-    PajakDrawer.initAll();
-</script>
 ```
+
+---
 
 ## Props
 
@@ -53,6 +85,8 @@ DrawerSide::Bottom  // full width, max 80vh, slides from bottom — includes gra
 DrawerSide::Top     // full width, auto height, slides from top
 ```
 
+---
+
 ## Opening and closing
 
 ### Trigger attribute (recommended)
@@ -82,6 +116,8 @@ PajakDrawer.initAll()            // wire all triggers, close buttons, and backdr
 ### Server-driven (`open` prop)
 
 Pass `:open="true"` to render `<dialog open>` immediately. Note: this renders as a plain block element without a backdrop. For backdrop from page load, omit `open` and call `PajakDrawer.open('id')` on `DOMContentLoaded` instead.
+
+---
 
 ## Examples
 
@@ -124,16 +160,4 @@ Pass `:open="true"` to render `<dialog open>` immediately. Note: this renders as
 
 ```blade
 <x-pajak::drawer id="loading" :dismissible="false" title="Loading…" />
-```
-
-## Asset inclusion
-
-```html
-{{-- Full bundle --}}
-<link rel="stylesheet" href="/vendor/pajak/ui/main.css">
-<script src="/vendor/pajak/ui/main.js"></script>
-
-{{-- Drawer only --}}
-<link rel="stylesheet" href="/vendor/pajak/ui/drawer-standalone.css">
-<script src="/vendor/pajak/ui/drawer.js"></script>
 ```

@@ -2,6 +2,39 @@
 
 Contextual feedback messages for user actions or system state.
 
+> All components support dark mode — see [dark-mode.md](dark-mode.md).
+
+## Assets
+
+### Pre-built (no build step required)
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/main.js') }}"></script>
+```
+
+Or use the alert-only bundle:
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/alert-standalone.css') }}">
+```
+
+### Source import (recommended for production)
+
+```bash
+php artisan vendor:publish --tag=pajak-ui-sources
+```
+
+```scss
+// Alert only
+@use 'vendor/pajak/ui/css/alert/alert-standalone';
+
+// Or just the partial (when variables are already imported)
+@use 'vendor/pajak/ui/css/alert/alert';
+```
+
+---
+
 ## Usage
 
 ```blade
@@ -29,6 +62,8 @@ Contextual feedback messages for user actions or system state.
 {{-- Inline variant — compact, no title --}}
 <x-pajak::alert type="error" variant="inline">PESEL must be exactly 11 digits.</x-pajak::alert>
 ```
+
+---
 
 ## Props
 
@@ -64,28 +99,4 @@ The dismiss button renders an ✕ but ships without JavaScript. Wire it up yours
 document.querySelectorAll('.pajak-alert__close').forEach(btn => {
     btn.addEventListener('click', () => btn.closest('.pajak-alert').remove());
 });
-```
-
-## Asset Inclusion
-
-### Standalone (alert only)
-
-```html
-<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/alert-standalone.css') }}">
-```
-
-### Full bundle
-
-```html
-<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
-```
-
-### SCSS source import
-
-```scss
-// Alert only
-@use 'vendor/pajak/ui/css/alert/alert-standalone';
-
-// Or just the partial (when variables are already imported)
-@use 'vendor/pajak/ui/css/alert/alert';
 ```

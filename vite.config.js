@@ -101,6 +101,10 @@ export default defineConfig({
 
                 // Sidebar
                 'resources/assets/css/sidebar/sidebar-standalone.scss',
+
+                // Table
+                'resources/assets/css/table/table-standalone.scss',
+                'resources/assets/js/table/table.ts',
             ],
             refresh: true,
         }),

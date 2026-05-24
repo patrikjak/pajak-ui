@@ -2,6 +2,39 @@
 
 Linear determinate progress bar. Available as `<x-pajak::progress>`.
 
+> All components support dark mode — see [dark-mode.md](dark-mode.md).
+
+## Assets
+
+### Pre-built (no build step required)
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/main.js') }}"></script>
+```
+
+Or use the progress-only bundle:
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/progress-standalone.css') }}">
+```
+
+### Source import (recommended for production)
+
+```bash
+php artisan vendor:publish --tag=pajak-ui-sources
+```
+
+```scss
+// Progress only
+@use 'vendor/pajak/ui/css/progress/progress-standalone';
+
+// Or just the partial (when variables are already imported)
+@use 'vendor/pajak/ui/css/progress/progress';
+```
+
+---
+
 ## Usage
 
 ```blade
@@ -26,6 +59,8 @@ Linear determinate progress bar. Available as `<x-pajak::progress>`.
 {{-- Custom max --}}
 <x-pajak::progress :value="7" :max="10" :show-value="true" />
 ```
+
+---
 
 ## Props
 
@@ -56,27 +91,3 @@ When either `label` or `showValue` is set the bar is wrapped in a flex row (`paj
 | `success` | Green (`color-success`) |
 | `warning` | Amber (`color-warning`) |
 | `danger` | Red (`color-error`) |
-
-## Asset Inclusion
-
-### Standalone (progress only)
-
-```html
-<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/progress-standalone.css') }}">
-```
-
-### Full bundle
-
-```html
-<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
-```
-
-### SCSS source import
-
-```scss
-// Progress only
-@use 'vendor/pajak/ui/css/progress/progress-standalone';
-
-// Or just the partial (when variables are already imported)
-@use 'vendor/pajak/ui/css/progress/progress';
-```

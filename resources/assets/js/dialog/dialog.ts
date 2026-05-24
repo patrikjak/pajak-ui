@@ -4,6 +4,9 @@ declare global {
     }
 }
 
+const initializedTriggers = new WeakSet<HTMLElement>();
+const initializedDialogs = new WeakSet<HTMLDialogElement>();
+
 function getDialog(id: string): HTMLDialogElement | null {
     return document.querySelector<HTMLDialogElement>(`dialog#${id}[data-pajak-dialog]`);
 }
@@ -24,15 +27,26 @@ function closeDialog(id: string): void {
 
 function initAll(): void {
     document.querySelectorAll<HTMLElement>('[data-pajak-dialog-trigger]').forEach((trigger) => {
+        if (initializedTriggers.has(trigger)) {
+            return;
+        }
+
         const id = trigger.dataset.pajakDialogTrigger ?? '';
         if (!id) {
             return;
         }
 
+        initializedTriggers.add(trigger);
         trigger.addEventListener('click', () => openDialog(id));
     });
 
     document.querySelectorAll<HTMLDialogElement>('dialog[data-pajak-dialog]').forEach((dialog) => {
+        if (initializedDialogs.has(dialog)) {
+            return;
+        }
+
+        initializedDialogs.add(dialog);
+
         dialog.addEventListener('click', (e) => {
             if (e.target === dialog) {
                 dialog.close();

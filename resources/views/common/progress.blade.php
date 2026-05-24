@@ -5,9 +5,9 @@
         @endif
         <div {{ $attributes->merge(['class' => 'pajak-progress'])->class(["pajak-progress--$size->value"]) }}
              role="progressbar"
-             aria-valuenow="{{ $value }}"
+             aria-valuenow="{{ $percentage() }}"
              aria-valuemin="0"
-             aria-valuemax="{{ $max }}">
+             aria-valuemax="100">
             <div class="pajak-progress__fill pajak-progress__fill--{{ $color->value }}" style="width: {{ $percentage() }}%"></div>
         </div>
         @if($showValue)
@@ -17,9 +17,9 @@
 @else
     <div {{ $attributes->merge(['class' => 'pajak-progress'])->class(["pajak-progress--$size->value"]) }}
          role="progressbar"
-         aria-valuenow="{{ $value }}"
+         aria-valuenow="{{ $percentage() }}"
          aria-valuemin="0"
-         aria-valuemax="{{ $max }}">
+         aria-valuemax="100">
         <div class="pajak-progress__fill pajak-progress__fill--{{ $color->value }}" style="width: {{ $percentage() }}%"></div>
     </div>
 @endif

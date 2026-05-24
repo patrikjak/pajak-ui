@@ -10,7 +10,7 @@
         <span class="pajak-seg__icon" aria-hidden="true">{{ $icon }}</span>
     @endisset
 
-    @isset($label)
+    @if($label !== null)
         {{ $label }}
-    @endisset
+    @endif
 </button>

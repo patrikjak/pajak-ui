@@ -2,15 +2,34 @@
 
 A top navigation bar component supporting six layout variants, plus a separate bottom tab bar for mobile. No JavaScript required — active state is controlled via props.
 
-## Asset inclusion
+> All components support dark mode — see [dark-mode.md](dark-mode.md).
+
+## Assets
+
+### Pre-built (no build step required)
 
 ```html
-<!-- Full bundle (already includes navbar) -->
-<link rel="stylesheet" href="/vendor/pajak/ui/main.css">
-
-<!-- Standalone -->
-<link rel="stylesheet" href="/vendor/pajak/ui/navbar-standalone.css">
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/main.js') }}"></script>
 ```
+
+Or use the navbar-only bundle:
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/navbar-standalone.css') }}">
+```
+
+### Source import (recommended for production)
+
+```bash
+php artisan vendor:publish --tag=pajak-ui-sources
+```
+
+```scss
+@use 'vendor/pajak/ui/css/navbar/navbar';
+```
+
+---
 
 ## Navbar variants
 
@@ -120,6 +139,8 @@ Compact 56 px bar with a hamburger button, title stack, and action icons.
     <x-slot:actions>…</x-slot:actions>
 </x-pajak::navbar>
 ```
+
+---
 
 ## Navbar props
 

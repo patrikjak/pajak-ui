@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Pajak\Ui\Common\Console\Commands\InstallCommand;
 use Pajak\Ui\Common\View\ListContainer;
+use Pajak\Ui\Table\View\Components\TableComponent;
 
 final class UiServiceProvider extends ServiceProvider
 {
@@ -36,8 +37,10 @@ final class UiServiceProvider extends ServiceProvider
         Blade::componentNamespace('Pajak\\Ui\\Common\\View', 'pajak');
         Blade::componentNamespace('Pajak\\Ui\\Form\\View\\Components', 'pajak-form');
         Blade::componentNamespace('Pajak\\Ui\\Calendar\\View\\Components', 'pajak-calendar');
+        Blade::componentNamespace('Pajak\\Ui\\Table\\View\\Components', 'pajak-table');
 
         Blade::component(ListContainer::class, 'pajak::list');
+        Blade::component(TableComponent::class, 'pajak-table::table');
     }
 
     private function publishAssets(): void

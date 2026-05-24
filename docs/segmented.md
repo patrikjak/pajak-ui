@@ -2,6 +2,41 @@
 
 A segmented control (button group selector) for switching between mutually exclusive options. Use for view switchers, filter toggles, and compact option pickers.
 
+> All components support dark mode — see [dark-mode.md](dark-mode.md).
+
+## Assets
+
+### Pre-built (no build step required)
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/main.js') }}"></script>
+```
+
+Or use the segmented-only bundles:
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/segmented-standalone.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/segmented.js') }}"></script>
+```
+
+### Source import (recommended for production)
+
+```bash
+php artisan vendor:publish --tag=pajak-ui-sources
+```
+
+```scss
+@use 'vendor/pajak/ui/css/segmented/segmented';
+```
+
+```ts
+import { PajakSegmented } from 'vendor/pajak/ui/js/segmented/segmented';
+PajakSegmented.initAll();
+```
+
+---
+
 ## Usage
 
 ```blade
@@ -10,16 +45,9 @@ A segmented control (button group selector) for switching between mutually exclu
     <x-pajak::segmented-option label="Week" value="week" />
     <x-pajak::segmented-option label="Month" value="month" />
 </x-pajak::segmented>
-
-<script>
-    PajakSegmented.initAll();
-
-    document.querySelector('[data-pajak-segmented]')
-        .addEventListener('pajak-segmented:change', (e) => {
-            console.log(e.detail.value, e.detail.index);
-        });
-</script>
 ```
+
+---
 
 ## Components
 
@@ -44,6 +72,8 @@ A segmented control (button group selector) for switching between mutually exclu
 |------|-------------|
 | `icon` | Optional leading SVG icon |
 
+---
+
 ## Variants
 
 ```php
@@ -64,6 +94,8 @@ Size::Sm   // compact — 12px font, reduced padding
 Size::Md   // default
 Size::Lg   // large  — 14px font, generous padding
 ```
+
+---
 
 ## Examples
 
@@ -142,11 +174,15 @@ Omit `label` to render an icon-only button with compact padding.
 </x-pajak::segmented>
 ```
 
+---
+
 ## JS API
 
-```js
-PajakSegmented.initAll()   // wire all [data-pajak-segmented] containers
-PajakSegmented.init(el)    // wire a single container element
+```ts
+import { PajakSegmented } from 'vendor/pajak/ui/js/segmented/segmented';
+
+PajakSegmented.initAll();   // wire all [data-pajak-segmented] containers
+PajakSegmented.init(el);    // wire a single container element
 ```
 
 ### Change event
@@ -158,16 +194,4 @@ el.addEventListener('pajak-segmented:change', (e) => {
     console.log(e.detail.value);  // the data-value attribute, or null if unset
     console.log(e.detail.index);  // zero-based index of the selected option
 });
-```
-
-## Asset inclusion
-
-```html
-{{-- Full bundle --}}
-<link rel="stylesheet" href="/vendor/pajak/ui/main.css">
-<script src="/vendor/pajak/ui/main.js"></script>
-
-{{-- Segmented only --}}
-<link rel="stylesheet" href="/vendor/pajak/ui/segmented-standalone.css">
-<script src="/vendor/pajak/ui/segmented.js"></script>
 ```

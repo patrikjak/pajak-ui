@@ -1,6 +1,41 @@
 # Dialog
 
-A small, centered confirmation dialog built on the native `<dialog>` element. Use for notices, confirmations, warnings, and success celebrations. For larger content with a close button, scrollable body, or form fields, use the Modal component instead.
+A small, centered confirmation dialog built on the native `<dialog>` element. Use for notices, confirmations, warnings, and success celebrations. For larger content with a close button, scrollable body, or form fields, use the [Modal](modal.md) component instead.
+
+> All components support dark mode — see [dark-mode.md](dark-mode.md).
+
+## Assets
+
+### Pre-built (no build step required)
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/main.js') }}"></script>
+```
+
+Or use the dialog-only bundles:
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/dialog-standalone.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/dialog.js') }}"></script>
+```
+
+### Source import (recommended for production)
+
+```bash
+php artisan vendor:publish --tag=pajak-ui-sources
+```
+
+```scss
+@use 'vendor/pajak/ui/css/dialog/dialog';
+```
+
+```ts
+import { PajakDialog } from 'vendor/pajak/ui/js/dialog/dialog';
+PajakDialog.initAll();
+```
+
+---
 
 ## Usage
 
@@ -16,12 +51,9 @@ A small, centered confirmation dialog built on the native `<dialog>` element. Us
 
 {{-- 2. Trigger it from any element --}}
 <button data-pajak-dialog-trigger="confirm-discard">Discard changes</button>
-
-{{-- 3. Initialise once on page load --}}
-<script>
-    PajakDialog.initAll();
-</script>
 ```
+
+---
 
 ## Props
 
@@ -52,6 +84,8 @@ DialogType::Success // green — confirmations, celebrations
 DialogType::Warning // amber — cautions, missing fields
 DialogType::Danger  // red   — destructive actions
 ```
+
+---
 
 ## Opening and closing
 
@@ -85,6 +119,8 @@ Pass `:open="true"` to render `<dialog open>` — useful after a form submission
     </x-slot:actions>
 </x-pajak::dialog>
 ```
+
+---
 
 ## Examples
 
@@ -121,16 +157,4 @@ Pass `:open="true"` to render `<dialog open>` — useful after a form submission
         <x-pajak::button variant="ghost">Continue anyway</x-pajak::button>
     </x-slot:actions>
 </x-pajak::dialog>
-```
-
-## Asset inclusion
-
-```html
-{{-- Full bundle --}}
-<link rel="stylesheet" href="/vendor/pajak/ui/main.css">
-<script src="/vendor/pajak/ui/main.js"></script>
-
-{{-- Dialog only --}}
-<link rel="stylesheet" href="/vendor/pajak/ui/dialog-standalone.css">
-<script src="/vendor/pajak/ui/dialog.js"></script>
 ```

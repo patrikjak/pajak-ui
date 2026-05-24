@@ -13,7 +13,17 @@ A general-purpose button component. Available as `<x-pajak::button>`.
 <script type="module" src="{{ asset('vendor/pajak/ui/main.js') }}"></script>
 ```
 
+Or use the button-only bundle:
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/button-standalone.css') }}">
+```
+
 ### Source import (recommended for production)
+
+```bash
+php artisan vendor:publish --tag=pajak-ui-sources
+```
 
 ```scss
 @use 'vendor/pajak/ui/css/button/button-standalone';

@@ -2,18 +2,34 @@
 
 Multi-step progress indicator with four variants: horizontal (numbered with labels), pill (dense scrollable), vertical (checklist with inline content), and bar (compact progress bar). Purely presentational — state is driven by PHP props.
 
-## Asset inclusion
+> All components support dark mode — see [dark-mode.md](dark-mode.md).
+
+## Assets
+
+### Pre-built (no build step required)
 
 ```html
-<!-- Standalone -->
-<link rel="stylesheet" href="/vendor/pajak/ui/stepper-standalone.css">
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/main.js') }}"></script>
 ```
 
-Or via the full bundle:
+Or use the stepper-only bundle:
 
 ```html
-<link rel="stylesheet" href="/vendor/pajak/ui/main.css">
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/stepper-standalone.css') }}">
 ```
+
+### Source import (recommended for production)
+
+```bash
+php artisan vendor:publish --tag=pajak-ui-sources
+```
+
+```scss
+@use 'vendor/pajak/ui/css/stepper/stepper';
+```
+
+---
 
 ## Variants
 
@@ -88,6 +104,8 @@ Compact progress bar with a label and step counter. No child steps — all data 
     label="Deductions"
 />
 ```
+
+---
 
 ## `<x-pajak::stepper>` props
 

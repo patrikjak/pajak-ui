@@ -2,23 +2,40 @@
 
 A full-width, page-level notice with six tone variants, optional title, dismiss button, action slot, and progress bar.
 
-## Asset inclusion
+> All components support dark mode — see [dark-mode.md](dark-mode.md).
+
+## Assets
+
+### Pre-built (no build step required)
 
 ```html
-<!-- Full bundle -->
-<link rel="stylesheet" href="vendor/pajak/ui/main.css">
-<script type="module">
-    import { PajakBanner } from '/vendor/pajak/ui/main.js';
-    PajakBanner.initAll();
-</script>
-
-<!-- Standalone -->
-<link rel="stylesheet" href="vendor/pajak/ui/banner-standalone.css">
-<script type="module">
-    import { PajakBanner } from '/vendor/pajak/ui/banner.js';
-    PajakBanner.initAll();
-</script>
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/main.js') }}"></script>
 ```
+
+Or use the banner-only bundles:
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/banner-standalone.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/banner.js') }}"></script>
+```
+
+### Source import (recommended for production)
+
+```bash
+php artisan vendor:publish --tag=pajak-ui-sources
+```
+
+```scss
+@use 'vendor/pajak/ui/css/banner/banner';
+```
+
+```ts
+import { PajakBanner } from 'vendor/pajak/ui/js/banner/banner';
+PajakBanner.initAll();
+```
+
+---
 
 ## Basic usage
 
@@ -28,6 +45,8 @@ A full-width, page-level notice with six tone variants, optional title, dismiss 
     <a href="#">Review what we found.</a>
 </x-pajak::banner>
 ```
+
+---
 
 ## Props
 
@@ -56,6 +75,8 @@ A full-width, page-level notice with six tone variants, optional title, dismiss 
 | `BannerType::Error` | Red tint — blocking error or failure |
 | `BannerType::Neutral` | Grey tint — ongoing process or neutral state |
 | `BannerType::Promo` | Primary gradient — branded/promotional message |
+
+---
 
 ## Examples
 
@@ -96,12 +117,21 @@ A full-width, page-level notice with six tone variants, optional title, dismiss 
 </x-pajak::banner>
 ```
 
+---
+
 ## JS API
 
-Call `initAll()` once after the DOM is ready. The dismiss animation fades out and slides the banner up before hiding it.
+```ts
+import { PajakBanner } from 'vendor/pajak/ui/js/banner/banner';
 
-| Method | Description |
-|--------|-------------|
-| `PajakBanner.initAll()` | Attaches dismiss handlers to all `.pajak-banner` elements |
-| `PajakBanner.init(el)` | Attaches dismiss handler to a single banner element |
-| `PajakBanner.dismiss(el)` | Programmatically dismisses a banner with animation |
+// Wire all dismiss handlers on the page
+PajakBanner.initAll();
+
+// Wire a single banner element
+PajakBanner.init(el);
+
+// Programmatically dismiss with animation
+PajakBanner.dismiss(el);
+```
+
+Call `initAll()` once after the DOM is ready. The dismiss animation fades out and slides the banner up before hiding it.

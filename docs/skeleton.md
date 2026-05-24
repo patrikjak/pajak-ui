@@ -2,6 +2,39 @@
 
 Shimmer placeholder shown while content is loading. Available as `<x-pajak::skeleton>`.
 
+> All components support dark mode — see [dark-mode.md](dark-mode.md).
+
+## Assets
+
+### Pre-built (no build step required)
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/main.js') }}"></script>
+```
+
+Or use the skeleton-only bundle:
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/skeleton-standalone.css') }}">
+```
+
+### Source import (recommended for production)
+
+```bash
+php artisan vendor:publish --tag=pajak-ui-sources
+```
+
+```scss
+// Skeleton only
+@use 'vendor/pajak/ui/css/skeleton/skeleton-standalone';
+
+// Or just the partial (when variables are already imported)
+@use 'vendor/pajak/ui/css/skeleton/skeleton';
+```
+
+---
+
 ## Usage
 
 ```blade
@@ -17,6 +50,8 @@ Shimmer placeholder shown while content is loading. Available as `<x-pajak::skel
 ```
 
 Width and height are always set via the `style` attribute (or a utility class) — the component does not accept `width`/`height` props, since skeleton dimensions are always context-specific.
+
+---
 
 ## Props
 
@@ -36,27 +71,3 @@ Width and height are always set via the `style` attribute (or a utility class) �
 | `pill` | 22px | full | Badge, tag, small button |
 
 `circle` and `rect` have no intrinsic height — set both `width` and `height` via `style`.
-
-## Asset Inclusion
-
-### Standalone (skeleton only)
-
-```html
-<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/skeleton-standalone.css') }}">
-```
-
-### Full bundle
-
-```html
-<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
-```
-
-### SCSS source import
-
-```scss
-// Skeleton only
-@use 'vendor/pajak/ui/css/skeleton/skeleton-standalone';
-
-// Or just the partial (when variables are already imported)
-@use 'vendor/pajak/ui/css/skeleton/skeleton';
-```

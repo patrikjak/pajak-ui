@@ -2,6 +2,39 @@
 
 Loading indicators in three styles: arc (primary), dots, and indeterminate bar.
 
+> All components support dark mode — see [dark-mode.md](dark-mode.md).
+
+## Assets
+
+### Pre-built (no build step required)
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
+<script type="module" src="{{ asset('vendor/pajak/ui/main.js') }}"></script>
+```
+
+Or use the spinner-only bundle:
+
+```html
+<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/spinner-standalone.css') }}">
+```
+
+### Source import (recommended for production)
+
+```bash
+php artisan vendor:publish --tag=pajak-ui-sources
+```
+
+```scss
+// Spinner only
+@use 'vendor/pajak/ui/css/spinner/spinner-standalone';
+
+// Or just the partial (when variables are already imported)
+@use 'vendor/pajak/ui/css/spinner/spinner';
+```
+
+---
+
 ## Usage
 
 ```blade
@@ -30,6 +63,8 @@ Loading indicators in three styles: arc (primary), dots, and indeterminate bar.
 {{-- Indeterminate bar (full-width of its container) --}}
 <x-pajak::spinner type="bar" />
 ```
+
+---
 
 ## Props
 
@@ -68,27 +103,3 @@ Loading indicators in three styles: arc (primary), dots, and indeterminate bar.
 | `white` | White — for use on dark/primary surfaces |
 | `success` | Green (`color-success`) |
 | `danger` | Red (`color-error`) |
-
-## Asset Inclusion
-
-### Standalone (spinner only)
-
-```html
-<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/spinner-standalone.css') }}">
-```
-
-### Full bundle
-
-```html
-<link rel="stylesheet" href="{{ asset('vendor/pajak/ui/main.css') }}">
-```
-
-### SCSS source import
-
-```scss
-// Spinner only
-@use 'vendor/pajak/ui/css/spinner/spinner-standalone';
-
-// Or just the partial (when variables are already imported)
-@use 'vendor/pajak/ui/css/spinner/spinner';
-```
