@@ -47,7 +47,7 @@
                 @disabled($paginator->onFirstPage())
                 aria-label="{{ __('pajak::table.pagination.previous') }}"
             >
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+                <x-heroicon-o-chevron-left width="13" height="13" aria-hidden="true" />
             </button>
 
             @foreach($slots as $slot)
@@ -72,7 +72,7 @@
                 @disabled($paginator->onLastPage())
                 aria-label="{{ __('pajak::table.pagination.next') }}"
             >
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+                <x-heroicon-o-chevron-right width="13" height="13" aria-hidden="true" />
             </button>
         </div>
     </div>

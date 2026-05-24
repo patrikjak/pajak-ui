@@ -8,7 +8,7 @@
     ]) }}>
         <span class="pajak-stepper__num">
             @if($state === StepperStepState::Done)
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <x-heroicon-o-check width="10" height="10" />
             @else
                 {{ $step }}
             @endif
@@ -27,7 +27,7 @@
         <span class="pajak-stepper__col-ind">
             <span class="pajak-stepper__indicator">
                 @if($state === StepperStepState::Done)
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    <x-heroicon-o-check width="14" height="14" />
                 @else
                     {{ $step }}
                 @endif

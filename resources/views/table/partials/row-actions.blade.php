@@ -54,7 +54,7 @@
                     data-pajak-table-overflow-trigger
                     aria-label="{{ __('pajak::table.actions.more') }}"
                 >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+                    <x-heroicon-s-ellipsis-horizontal width="16" height="16" aria-hidden="true" />
                 </button>
                 <div class="pajak-table-actions__overflow-menu" data-pajak-table-overflow-menu hidden>
                     @foreach($overflowActions as $action)

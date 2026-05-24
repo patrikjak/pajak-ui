@@ -7,7 +7,7 @@
             @if($item->href !== null)
                 <a href="{{ $item->href }}">
                     @if($item->isHome)
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        <x-heroicon-o-home width="13" height="13" aria-hidden="true" />
                     @endif
                     {{ $item->label }}
                 </a>
@@ -16,7 +16,7 @@
             @endif
             @if(!$loop->last)
                 <span class="sep" aria-hidden="true">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    <x-heroicon-o-chevron-right width="11" height="11" />
                 </span>
             @endif
         @endforeach
@@ -28,7 +28,7 @@
                 @if($item->href !== null)
                     <a href="{{ $item->href }}" @class(['pajak-crumbs__home-link' => $item->isHome])>
                         @if($item->isHome)
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                            <x-heroicon-o-home width="15" height="15" aria-hidden="true" />
                             <span class="sr-only">{{ $item->label }}</span>
                         @else
                             {{ $item->label }}
@@ -41,7 +41,7 @@
             @if(!$loop->last)
                 <li class="sep" aria-hidden="true">
                     @if($separator === BreadcrumbSeparator::Chevron)
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                        <x-heroicon-o-chevron-right width="12" height="12" />
                     @endif
                 </li>
             @endif
