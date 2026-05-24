@@ -4,6 +4,13 @@ declare(strict_types=1);
 
 return [
 
+    'common' => [
+        'dismiss' => 'Zavrieť',
+        'apply' => 'Použiť',
+        'clear' => 'Vymazať',
+        'cancel' => 'Zrušiť',
+    ],
+
     'form' => [
         'submit' => 'Odoslať',
         'select' => [
@@ -35,14 +42,6 @@ return [
             'add' => 'Pridať položku',
             'remove' => 'Odstrániť',
         ],
-    ],
-
-    'alert' => [
-        'dismiss' => 'Zavrieť',
-    ],
-
-    'banner' => [
-        'dismiss' => 'Zavrieť',
     ],
 
     'stepper' => [
@@ -77,8 +76,6 @@ return [
         'placeholder' => 'Vyberte dátum',
         'range_placeholder' => 'Vyberte rozsah',
         'today' => 'Dnes',
-        'apply' => 'Použiť',
-        'clear' => 'Vymazať',
         'prev_month' => 'Predchádzajúci mesiac',
         'next_month' => 'Ďalší mesiac',
         'time' => 'Čas',

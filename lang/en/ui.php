@@ -4,6 +4,13 @@ declare(strict_types=1);
 
 return [
 
+    'common' => [
+        'dismiss' => 'Dismiss',
+        'apply' => 'Apply',
+        'clear' => 'Clear',
+        'cancel' => 'Cancel',
+    ],
+
     'form' => [
         'submit' => 'Submit',
         'select' => [
@@ -35,14 +42,6 @@ return [
             'add' => 'Add item',
             'remove' => 'Remove',
         ],
-    ],
-
-    'alert' => [
-        'dismiss' => 'Dismiss',
-    ],
-
-    'banner' => [
-        'dismiss' => 'Dismiss',
     ],
 
     'stepper' => [
@@ -77,8 +76,6 @@ return [
         'placeholder' => 'Select date',
         'range_placeholder' => 'Select range',
         'today' => 'Today',
-        'apply' => 'Apply',
-        'clear' => 'Clear',
         'prev_month' => 'Previous month',
         'next_month' => 'Next month',
         'time' => 'Time',

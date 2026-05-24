@@ -22,7 +22,7 @@
         data-prev-label="{{ __('pajak::ui.calendar.prev_month') }}"
         data-next-label="{{ __('pajak::ui.calendar.next_month') }}"
         data-today-label="{{ __('pajak::ui.calendar.today') }}"
-        data-apply-label="{{ __('pajak::ui.calendar.apply') }}"
+        data-apply-label="{{ __('pajak::ui.common.apply') }}"
         data-time-label="{{ __('pajak::ui.calendar.time') }}"
         data-start-time-label="{{ __('pajak::ui.calendar.start_time') }}"
         data-end-time-label="{{ __('pajak::ui.calendar.end_time') }}"
@@ -112,7 +112,7 @@
                     @endif
                     @if($range)
                         <button type="button" class="pajak-datepicker__action pajak-datepicker__action--apply">
-                            {{ __('pajak::ui.calendar.apply') }}
+                            {{ __('pajak::ui.common.apply') }}
                         </button>
                     @else
                         <button type="button" class="pajak-datepicker__action pajak-datepicker__action--today">

@@ -16,7 +16,7 @@
                         class="pajak-table-confirm__cancel"
                         data-pajak-table-confirm-cancel
                     >
-                        {{ __('pajak::table.confirm.cancel') }}
+                        {{ __('pajak::ui.common.cancel') }}
                     </button>
                     <button
                         type="button"

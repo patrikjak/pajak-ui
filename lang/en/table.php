@@ -29,7 +29,6 @@ return [
     'filter' => [
         'add' => 'Add filter',
         'clear_all' => 'Clear all',
-        'apply' => 'Apply',
         'operator' => [
             'contains' => 'Contains',
             'not_contains' => 'Does not contain',
@@ -55,7 +54,6 @@ return [
         'title' => 'Are you sure?',
         'message' => 'This action cannot be undone.',
         'button' => 'Confirm',
-        'cancel' => 'Cancel',
     ],
 
     'actions' => [

@@ -16,6 +16,6 @@
         >
     </div>
     <button type="button" class="pajak-table-filter-editor__apply" data-pajak-filter-apply>
-        {{ __('pajak::table.filter.apply') }}
+        {{ __('pajak::ui.common.apply') }}
     </button>
 </div>
