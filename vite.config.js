@@ -13,10 +13,10 @@ export default defineConfig({
 
                 // Accordion
                 'resources/assets/css/accordion/accordion-standalone.scss',
+                'resources/assets/js/accordion/accordion.ts',
 
                 // Card
                 'resources/assets/css/card/card-standalone.scss',
-                'resources/assets/js/accordion/accordion.ts',
 
                 // Alert
                 'resources/assets/css/alert/alert-standalone.scss',
@@ -39,6 +39,9 @@ export default defineConfig({
 
                 // Empty state
                 'resources/assets/css/empty-state/empty-state-standalone.scss',
+
+                // Error page
+                'resources/assets/css/error-page/error-page-standalone.scss',
 
                 // Progress
                 'resources/assets/css/progress/progress-standalone.scss',
