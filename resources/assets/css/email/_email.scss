@@ -1,0 +1,376 @@
+// ── Email Template Components ───────────────────────────────────────────────
+//
+// CSS-only, no dark-mode overrides — email clients handle @media queries
+// inconsistently, so all tokens are resolved to their light-mode values here.
+// These components are intentionally self-contained and use hard-coded colours
+// rather than CSS custom properties for maximum email-client compatibility.
+
+// ── Wrap ─────────────────────────────────────────────────────────────────────
+
+.pajak-email-wrap {
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #1A1F2E;
+    -webkit-font-smoothing: antialiased;
+}
+
+// ── Header ───────────────────────────────────────────────────────────────────
+
+.pajak-email-header {
+    background: #5386E4;
+    border-radius: 14px 14px 0 0;
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    // ── Logo slot ─────────────────────────────────────────────────────────────
+
+    &__logo {
+        display: flex;
+        align-items: center;
+    }
+
+    // ── Tag chip ──────────────────────────────────────────────────────────────
+
+    &__tag {
+        font-size: 11px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.75);
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 9999px;
+        padding: 4px 12px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+}
+
+// ── Hero ─────────────────────────────────────────────────────────────────────
+
+.pajak-email-hero {
+    // background set inline via color prop
+    padding: 32px 40px 36px;
+    color: #fff;
+
+    // ── Eyebrow ───────────────────────────────────────────────────────────────
+
+    &__eyebrow {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.65);
+        margin-bottom: 8px;
+    }
+
+    // ── Title ─────────────────────────────────────────────────────────────────
+
+    &__title {
+        font-size: 26px;
+        font-weight: 700;
+        line-height: 1.25;
+        letter-spacing: -0.02em;
+        color: #fff;
+        margin-bottom: 10px;
+    }
+
+    // ── Subtitle ──────────────────────────────────────────────────────────────
+
+    &__sub {
+        font-size: 15px;
+        line-height: 1.55;
+        color: rgba(255, 255, 255, 0.82);
+        max-width: 420px;
+    }
+}
+
+// ── Body ─────────────────────────────────────────────────────────────────────
+
+.pajak-email-body {
+    background: #fff;
+    padding: 36px 40px;
+}
+
+// ── Infocard ─────────────────────────────────────────────────────────────────
+
+.pajak-email-infocard {
+    background: #F7F9FF;
+    border: 1px solid #E2E8F4;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 24px 0;
+
+    // ── Section title ─────────────────────────────────────────────────────────
+
+    &__title {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #A4B3D0;
+        margin-bottom: 14px;
+    }
+
+    // ── Row ───────────────────────────────────────────────────────────────────
+
+    &__row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: 8px 0;
+        border-bottom: 1px solid #EEF2FB;
+        font-size: 14px;
+
+        &:last-child { border-bottom: none; }
+    }
+
+    // ── Label ─────────────────────────────────────────────────────────────────
+
+    &__label {
+        color: #7F93B5;
+        font-weight: 400;
+    }
+
+    // ── Value ─────────────────────────────────────────────────────────────────
+
+    &__value {
+        color: #1A1F2E;
+        font-weight: 600;
+
+        &--blue  { color: #5386E4; }
+        &--green { color: #27AE60; }
+    }
+}
+
+// ── Alert ────────────────────────────────────────────────────────────────────
+
+.pajak-email-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    margin: 20px 0;
+    font-size: 14px;
+    line-height: 1.5;
+    border: 1px solid transparent;
+
+    // ── Icon ──────────────────────────────────────────────────────────────────
+
+    &__icon {
+        flex-shrink: 0;
+        margin-top: 1px;
+        display: inline-flex;
+    }
+
+    // ── Body ──────────────────────────────────────────────────────────────────
+
+    &__body { flex: 1; }
+
+    &__title {
+        font-weight: 700;
+        margin-bottom: 2px;
+        font-size: 13px;
+    }
+
+    &__message { font-size: 13px; }
+
+    // ── Types ─────────────────────────────────────────────────────────────────
+
+    &--info {
+        background: #EBF0FB;
+        color: #1E4A9E;
+        border-color: rgba(83, 134, 228, 0.30);
+    }
+
+    &--success {
+        background: #E8F7EF;
+        color: #1A7A43;
+        border-color: rgba(39, 174, 96, 0.25);
+    }
+
+    &--warning {
+        background: #FFF8E8;
+        color: #B87318;
+        border-color: rgba(245, 200, 106, 0.25);
+    }
+
+    &--error {
+        background: #FDEEED;
+        color: #A01C1A;
+        border-color: rgba(229, 57, 53, 0.25);
+    }
+}
+
+// ── CTA ──────────────────────────────────────────────────────────────────────
+
+.pajak-email-cta {
+    text-align: center;
+    margin: 28px 0;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+
+    // ── Button ────────────────────────────────────────────────────────────────
+
+    &__btn {
+        display: inline-block;
+        background: #5386E4;
+        color: #fff;
+        font-family: 'Outfit', sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        padding: 14px 36px;
+        border-radius: 10px;
+        text-decoration: none;
+        letter-spacing: -0.01em;
+        transition: background 150ms ease, color 150ms ease;
+
+        &:hover { background: #3366CC; }
+
+        // ── Secondary variant ─────────────────────────────────────────────────
+
+        &--secondary {
+            background: transparent;
+            color: #5386E4;
+            border: 1.5px solid #5386E4;
+
+            &:hover {
+                background: #EBF0FB;
+            }
+        }
+    }
+}
+
+// ── Steps ────────────────────────────────────────────────────────────────────
+
+.pajak-email-steps {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+}
+
+// ── Step ─────────────────────────────────────────────────────────────────────
+
+.pajak-email-step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 16px 0;
+    border-bottom: 1px solid #EEF2FB;
+
+    &:last-child { border-bottom: none; }
+
+    // ── Number bubble ─────────────────────────────────────────────────────────
+
+    &__num {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: #5386E4;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin-top: 1px;
+
+        &--done { background: #27AE60; }
+    }
+
+    // ── Content ───────────────────────────────────────────────────────────────
+
+    &__content { flex: 1; }
+
+    &__title {
+        font-size: 14px;
+        font-weight: 600;
+        color: #1A1F2E;
+        margin-bottom: 2px;
+    }
+
+    &__desc {
+        font-size: 13px;
+        color: #7F93B5;
+        line-height: 1.5;
+    }
+}
+
+// ── Divider ──────────────────────────────────────────────────────────────────
+
+.pajak-email-divider {
+    border: none;
+    border-top: 1px solid #EEF2FB;
+    margin: 24px 0;
+}
+
+// ── Note ─────────────────────────────────────────────────────────────────────
+
+.pajak-email-note {
+    font-size: 12px;
+    line-height: 1.6;
+    color: #A4B3D0;
+    margin-top: 4px;
+
+    a {
+        color: #5386E4;
+        text-decoration: none;
+
+        &:hover { text-decoration: underline; }
+    }
+}
+
+// ── Footer ───────────────────────────────────────────────────────────────────
+
+.pajak-email-footer {
+    background: #F7F9FF;
+    border-top: 1px solid #EEF2FB;
+    border-radius: 0 0 14px 14px;
+    padding: 24px 40px;
+    text-align: center;
+
+    // ── Logo slot ─────────────────────────────────────────────────────────────
+
+    &__logo {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    // ── Links ─────────────────────────────────────────────────────────────────
+
+    &__links {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+
+        a {
+            font-size: 12px;
+            color: #7F93B5;
+            text-decoration: none;
+            transition: color 150ms ease;
+
+            &:hover { color: #5386E4; }
+        }
+    }
+
+    // ── Legal copy ────────────────────────────────────────────────────────────
+
+    &__legal {
+        font-size: 11px;
+        color: #A4B3D0;
+        line-height: 1.6;
+
+        a {
+            color: #7F93B5;
+            text-decoration: underline;
+        }
+    }
+}

@@ -105,6 +105,9 @@ export default defineConfig({
                 // Table
                 'resources/assets/css/table/table-standalone.scss',
                 'resources/assets/js/table/table.ts',
+
+                // Email templates
+                'resources/assets/css/email/email-standalone.scss',
             ],
             refresh: true,
         }),
