@@ -212,6 +212,8 @@ When adding a new feature (e.g. `table`, `nav`):
 
 ## Documentation
 
+**[`docs/components.md`](docs/components.md)** — single-page component index with Blade tags, purpose, key props, and disambiguation. Read this first when selecting or adding a component.
+
 Component usage docs live in `docs/`:
 
 | File | Contents |
