@@ -49,8 +49,16 @@
             border-bottom: none;
         }
 
-        &--copyable:hover {
-            .pajak-copy {
+        &--copyable {
+            align-items: center;
+
+            .pajak-detail__val {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            &:hover .pajak-copy {
                 color: var(--fg-link);
             }
         }
@@ -71,6 +79,8 @@
         font-weight: var(--fw-regular);
         color: var(--fg-primary);
         line-height: 1.4;
+        word-break: break-word;
+        min-width: 0;
 
         a {
             color: var(--fg-link);
