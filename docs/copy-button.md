@@ -47,27 +47,22 @@ php artisan vendor:publish --tag=pajak-ui-sources
     <code>npm install pajak/ui</code>
 </x-pajak::copy-button>
 
-{{-- Icon button --}}
-<x-pajak::copy-button :value="$apiKey">
-    <button type="button" aria-label="Copy API key">
-        <x-heroicon-o-clipboard class="w-4 h-4" />
-    </button>
-</x-pajak::copy-button>
+{{-- Built-in icon button (no slot needed) --}}
+<x-pajak::copy-button :value="$apiKey" :icon="true" />
 
 {{-- Inline alongside a displayed value --}}
-<div class="flex items-center gap-2">
+<div style="display:inline-flex;align-items:center;gap:0.5rem;">
     <code>{{ $apiKey }}</code>
-    <x-pajak::copy-button :value="$apiKey">
-        <x-heroicon-o-clipboard class="w-4 h-4 text-neutral-400" />
-    </x-pajak::copy-button>
+    <x-pajak::copy-button :value="$apiKey" :icon="true" />
 </div>
 ```
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `value` | `string` | — | **Required.** The text written to the clipboard on click. |
+| `icon` | `bool` | `false` | When `true`, renders a built-in clipboard icon button. The `$slot` is ignored. |
 
-**Slot:** `$slot` — the clickable trigger content. Can be any markup — text, `<code>`, `<button>`, icons, etc.
+**Slot:** `$slot` — the clickable trigger content (used when `icon` is `false`). Can be any markup — text, `<code>`, `<button>`, icons, etc.
 
 Additional HTML attributes (`class`, `id`, `data-*`, etc.) are merged onto the wrapper `<span>`.
 

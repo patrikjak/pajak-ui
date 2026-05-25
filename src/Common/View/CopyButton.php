@@ -11,6 +11,7 @@ final class CopyButton extends Component
 {
     public function __construct(
         public readonly string $value,
+        public readonly bool $icon = false,
     ) {
     }
 

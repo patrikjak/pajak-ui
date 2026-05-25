@@ -43,4 +43,13 @@ final class CopyButtonSnapshotTest extends TestCase
 
         $this->assertMatchesHtmlSnapshot($html);
     }
+
+    public function testIconVariant(): void
+    {
+        $html = (string) $this->blade(
+            '<x-pajak::copy-button value="sk-abc123xyz" :icon="true" />',
+        );
+
+        $this->assertMatchesHtmlSnapshot($html);
+    }
 }

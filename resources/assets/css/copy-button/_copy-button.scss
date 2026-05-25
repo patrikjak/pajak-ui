@@ -7,6 +7,39 @@
     &[hidden] { display: none; }
 }
 
+// ── Icon button variant (rendered when :icon="true") ──────────────────────────
+.pajak-copy__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border: none;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--color-neutral-400);
+    cursor: pointer;
+    transition: color var(--duration-micro) var(--ease-out), background var(--duration-micro) var(--ease-out);
+
+    &:hover {
+        color: var(--color-neutral-700);
+        background: var(--color-neutral-100);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--color-primary-500);
+        outline-offset: 2px;
+    }
+
+    .pajak-dark & {
+        color: var(--color-neutral-500);
+
+        &:hover {
+            color: var(--color-neutral-200);
+            background: var(--color-neutral-800);
+        }
+    }
+}
+
 // ── "Copied!" bubble (injected by JS) ──────────────────────────────────────────
 .pajak-copy-bubble {
     position: fixed;
