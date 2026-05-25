@@ -29,7 +29,9 @@ final class CopyButtonSnapshotTest extends TestCase
     public function testCodeTrigger(): void
     {
         $html = (string) $this->blade(
-            '<x-pajak::copy-button value="npm install pajak/ui"><code>npm install pajak/ui</code></x-pajak::copy-button>',
+            '<x-pajak::copy-button value="npm install pajak/ui">'
+            . '<code>npm install pajak/ui</code>'
+            . '</x-pajak::copy-button>',
         );
 
         $this->assertMatchesHtmlSnapshot($html);
