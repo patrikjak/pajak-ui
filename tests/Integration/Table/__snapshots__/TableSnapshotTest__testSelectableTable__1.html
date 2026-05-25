@@ -1,0 +1,77 @@
+<html><body>
+<div class="pajak-table-wrapper" id="pajak-table-users" data-pajak-table data-table-name="users">
+    <script>
+        (function () {
+            try {
+                var key = 'pajak_table_users';
+                var raw = sessionStorage.getItem(key);
+                if (raw) {
+                    var s = JSON.parse(raw);
+                    var hasState = s.search || s.sort || (s.filters && Object.keys(s.filters).length > 0) || s.page > 1 || s.perPage;
+                    if (hasState) {
+                        document.currentScript.parentElement.classList.add('is-restoring');
+                    }
+                }
+            } catch (e) {}
+        })();
+    </script>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="pajak-table-scroll">
+        <table class="pajak-table">
+            <thead class="pajak-table__head">
+                <tr class="pajak-table__row">
+                                            <th class="pajak-table__th pajak-table__th--check">
+                            <input type="checkbox" class="pajak-table__select-all" data-pajak-table-select-all aria-label="all selected">
+                        </th>
+                    
+                                                                        <?php (assert($column instanceof TableColumn))
+@php
+    /** @var ?TableSortState $currentSort */
+    /** @var bool $isActiveSort */
+?>
+
+<th class="pajak-table__th" data-column-key="name" data-pajak-table-column>
+            Name
+    </th>
+                                            
+                                    </tr>
+            </thead>
+
+            <tbody class="pajak-table__body" data-pajak-table-body>
+                                    <tr class="pajak-table__row" data-row-id="1">
+            <td class="pajak-table__td pajak-table__td--check">
+            <input type="checkbox" class="pajak-table__row-check" data-pajak-table-row-check value="1" aria-label="1 selected">
+        </td>
+    
+                        <td class="pajak-table__td" data-column-key="name">
+    Alice Smith
+</td>
+            
+    </tr>
+                            </tbody>
+        </table>
+    </div>
+
+    
+    <div class="pajak-table-restore-loader" aria-hidden="true">
+        <svg class="pajak-spinner pajak-spinner--xl pajak-spinner--primary" viewbox="0 0 24 24" fill="none">
+            <circle class="pajak-spinner__track" cx="12" cy="12" r="9" stroke-width="2.5" stroke-dasharray="56.5" stroke-dashoffset="0"></circle>
+            <circle class="pajak-spinner__head" cx="12" cy="12" r="9" stroke-width="2.5" stroke-dasharray="56.5" stroke-dashoffset="38" stroke-linecap="round"></circle>
+        </svg>
+    </div>
+
+    
+    
+    
+    
+    
+    </div>
+</body></html>

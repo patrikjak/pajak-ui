@@ -9,6 +9,7 @@ return [
         'apply' => 'Apply',
         'clear' => 'Clear',
         'cancel' => 'Cancel',
+        'copy' => 'Copy',
     ],
 
     'form' => [

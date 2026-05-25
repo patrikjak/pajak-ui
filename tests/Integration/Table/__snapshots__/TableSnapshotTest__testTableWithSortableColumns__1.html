@@ -1,0 +1,107 @@
+<html><body>
+<div class="pajak-table-wrapper" id="pajak-table-users" data-pajak-table data-table-name="users">
+    <script>
+        (function () {
+            try {
+                var key = 'pajak_table_users';
+                var raw = sessionStorage.getItem(key);
+                if (raw) {
+                    var s = JSON.parse(raw);
+                    var hasState = s.search || s.sort || (s.filters && Object.keys(s.filters).length > 0) || s.page > 1 || s.perPage;
+                    if (hasState) {
+                        document.currentScript.parentElement.classList.add('is-restoring');
+                    }
+                }
+            } catch (e) {}
+        })();
+    </script>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="pajak-table-scroll">
+        <table class="pajak-table">
+            <thead class="pajak-table__head">
+                <tr class="pajak-table__row">
+                    
+                                                                        <?php (assert($column instanceof TableColumn))
+@php
+    /** @var ?TableSortState $currentSort */
+    /** @var bool $isActiveSort */
+?>
+
+<th class="pajak-table__th" data-column-key="name" data-pajak-table-column>
+            <button type="button" class="pajak-table__sort-btn" data-pajak-table-sort="name">
+            Name
+            <span class="pajak-table__sort-icons" aria-hidden="true">
+                                    <svg width="11" height="11" class="pajak-table__sort-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"></path>
+</svg>                            </span>
+        </button>
+    </th>
+                                                                                                <?php (assert($column instanceof TableColumn))
+@php
+    /** @var ?TableSortState $currentSort */
+    /** @var bool $isActiveSort */
+?>
+
+<th class="pajak-table__th" data-column-key="email" data-pajak-table-column>
+            <button type="button" class="pajak-table__sort-btn" data-pajak-table-sort="email">
+            Email
+            <span class="pajak-table__sort-icons" aria-hidden="true">
+                                    <svg width="11" height="11" class="pajak-table__sort-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"></path>
+</svg>                            </span>
+        </button>
+    </th>
+                                                                                                <?php (assert($column instanceof TableColumn))
+@php
+    /** @var ?TableSortState $currentSort */
+    /** @var bool $isActiveSort */
+?>
+
+<th class="pajak-table__th" data-column-key="role" data-pajak-table-column>
+            Role
+    </th>
+                                            
+                                    </tr>
+            </thead>
+
+            <tbody class="pajak-table__body" data-pajak-table-body>
+                                    <tr class="pajak-table__row" data-row-id="1">
+    
+                        <td class="pajak-table__td" data-column-key="name">
+    Alice Smith
+</td>
+                                <td class="pajak-table__td" data-column-key="email">
+    alice@example.com
+</td>
+                                <td class="pajak-table__td" data-column-key="role">
+    Admin
+</td>
+            
+    </tr>
+                            </tbody>
+        </table>
+    </div>
+
+    
+    <div class="pajak-table-restore-loader" aria-hidden="true">
+        <svg class="pajak-spinner pajak-spinner--xl pajak-spinner--primary" viewbox="0 0 24 24" fill="none">
+            <circle class="pajak-spinner__track" cx="12" cy="12" r="9" stroke-width="2.5" stroke-dasharray="56.5" stroke-dashoffset="0"></circle>
+            <circle class="pajak-spinner__head" cx="12" cy="12" r="9" stroke-width="2.5" stroke-dasharray="56.5" stroke-dashoffset="38" stroke-linecap="round"></circle>
+        </svg>
+    </div>
+
+    
+    
+    
+    
+    
+    </div>
+</body></html>

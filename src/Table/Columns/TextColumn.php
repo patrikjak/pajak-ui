@@ -21,6 +21,7 @@ class TextColumn implements TableColumn
 
     public static function make(string $key): static
     {
+        // @phpstan-ignore new.static (subclasses inherit this factory and must receive the correct static type)
         return new static($key);
     }
 

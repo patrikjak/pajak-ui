@@ -11,14 +11,14 @@ final class RadioTest extends TestCase
 {
     public function testInputIdFallsBackToSlug(): void
     {
-        $radio = new Radio(name: 'foo', value: 'bar');
+        $radio = new Radio('foo', 'bar');
 
         $this->assertSame('foo_bar', $radio->inputId());
     }
 
     public function testInputIdUsesExplicitId(): void
     {
-        $radio = new Radio(name: 'foo', value: 'bar', id: 'my-radio');
+        $radio = new Radio('foo', 'bar', false, false, null, null, 'my-radio');
 
         $this->assertSame('my-radio', $radio->inputId());
     }

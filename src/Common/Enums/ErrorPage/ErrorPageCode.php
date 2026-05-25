@@ -32,5 +32,4 @@ enum ErrorPageCode: int
             self::ServiceUnavailable => 'Maintenance',
         };
     }
-
 }

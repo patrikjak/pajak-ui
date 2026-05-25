@@ -1,0 +1,115 @@
+<html><body>
+<div class="pajak-table-wrapper" id="pajak-table-users" data-pajak-table data-table-name="users">
+    <script>
+        (function () {
+            try {
+                var key = 'pajak_table_users';
+                var raw = sessionStorage.getItem(key);
+                if (raw) {
+                    var s = JSON.parse(raw);
+                    var hasState = s.search || s.sort || (s.filters && Object.keys(s.filters).length > 0) || s.page > 1 || s.perPage;
+                    if (hasState) {
+                        document.currentScript.parentElement.classList.add('is-restoring');
+                    }
+                }
+            } catch (e) {}
+        })();
+    </script>
+    
+    
+    
+            <div class="pajak-table-toolbar">
+            
+            <div class="pajak-table-toolbar__right">
+                                    <button type="button" class="pajak-table-toolbar__btn" data-pajak-table-filter-toggle>
+                        <svg width="16" height="16" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z"></path>
+</svg>                        Add filter
+                    </button>
+                
+                            </div>
+        </div>
+    
+    
+            <div class="pajak-table-filter-chips" data-pajak-table-filter-chips hidden>
+    <div class="pajak-table-filter-chips__list" data-pajak-table-chips-list></div>
+    <button type="button" class="pajak-table-filter-chips__clear" data-pajak-table-filter-clear-all>
+        Clear all
+    </button>
+</div>
+    
+    
+    
+    
+    <div class="pajak-table-scroll">
+        <table class="pajak-table">
+            <thead class="pajak-table__head">
+                <tr class="pajak-table__row">
+                    
+                                                                        <?php (assert($column instanceof TableColumn))
+@php
+    /** @var ?TableSortState $currentSort */
+    /** @var bool $isActiveSort */
+?>
+
+<th class="pajak-table__th" data-column-key="name" data-pajak-table-column>
+            Name
+    </th>
+                                            
+                                    </tr>
+            </thead>
+
+            <tbody class="pajak-table__body" data-pajak-table-body>
+                                                        <tr class="pajak-table__row pajak-table__row--empty">
+    <td class="pajak-table__td pajak-table__td--empty" colspan="1">
+        <div class="pajak-table-empty">
+                            <svg width="40" height="40" aria-hidden="true" class="pajak-table-empty__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon">
+  <path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"></path>
+</svg>                <p class="pajak-table-empty__title">Nothing here yet</p>
+                <p class="pajak-table-empty__description">No items have been added.</p>
+                        
+        </div>
+    </td>
+</tr>
+                            </tbody>
+        </table>
+    </div>
+
+    
+    <div class="pajak-table-restore-loader" aria-hidden="true">
+        <svg class="pajak-spinner pajak-spinner--xl pajak-spinner--primary" viewbox="0 0 24 24" fill="none">
+            <circle class="pajak-spinner__track" cx="12" cy="12" r="9" stroke-width="2.5" stroke-dasharray="56.5" stroke-dashoffset="0"></circle>
+            <circle class="pajak-spinner__head" cx="12" cy="12" r="9" stroke-width="2.5" stroke-dasharray="56.5" stroke-dashoffset="38" stroke-linecap="round"></circle>
+        </svg>
+    </div>
+
+    
+    
+    
+                        <div class="pajak-table-filter-editor" data-pajak-filter-key="name" hidden>
+                <div class="pajak-table-filter-editor__inner">
+    <p class="pajak-table-filter-editor__label">Name</p>
+    <div class="pajak-select-wrap pajak-select-wrap--default" data-pajak-select data-pajak-filter-operator-select>
+        <select class="pajak-select__native" data-pajak-filter-operator>
+                            <option value="contains">Contains</option>
+                            <option value="not_contains">Does not contain</option>
+                            <option value="equals">Equals</option>
+                            <option value="not_equals">Does not equal</option>
+                    </select>
+        <div class="pajak-select__trigger" aria-hidden="true">
+            <span class="pajak-select__value"></span>
+            <svg width="16" height="16" class="pajak-select__chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+  <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+</svg>        </div>
+        <div class="pajak-select__dropdown" role="listbox" hidden></div>
+    </div>
+    <input type="text" class="pajak-input pajak-input--sm" data-pajak-filter-value placeholder="Name">
+    <button type="button" class="pajak-table-filter-editor__apply" data-pajak-filter-apply>
+        Apply
+    </button>
+</div>
+            </div>
+            
+    
+    </div>
+</body></html>

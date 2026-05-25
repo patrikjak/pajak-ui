@@ -109,6 +109,10 @@ export default defineConfig({
                 'resources/assets/css/table/table-standalone.scss',
                 'resources/assets/js/table/table.ts',
 
+                // Copy button
+                'resources/assets/css/copy-button/copy-button-standalone.scss',
+                'resources/assets/js/copy-button/copy-button.ts',
+
                 // Email templates
                 'resources/assets/css/email/email-standalone.scss',
             ],

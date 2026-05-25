@@ -13,28 +13,28 @@ final class SelectTest extends TestCase
 {
     public function testInputIdFallsBackToName(): void
     {
-        $select = new Select(name: 'country');
+        $select = new Select('country');
 
         $this->assertSame('country', $select->inputId());
     }
 
     public function testInputIdUsesExplicitId(): void
     {
-        $select = new Select(name: 'country', id: 'country-select');
+        $select = new Select('country', null, null, false, false, false, null, [], State::Default, 'country-select');
 
         $this->assertSame('country-select', $select->inputId());
     }
 
     public function testResolvedStateReturnsErrorWhenErrorSet(): void
     {
-        $select = new Select(name: 'country', error: 'Required');
+        $select = new Select('country', null, null, false, false, false, null, [], State::Default, null, 'Required');
 
         $this->assertSame(State::Error, $select->resolvedState());
     }
 
     public function testResolvedStateReturnsStatePropWhenNoError(): void
     {
-        $select = new Select(name: 'country', state: State::Success);
+        $select = new Select('country', null, null, false, false, false, null, [], State::Success);
 
         $this->assertSame(State::Success, $select->resolvedState());
     }
@@ -42,7 +42,7 @@ final class SelectTest extends TestCase
     public function testIterableOptionsConvertedToArray(): void
     {
         $iterator = new ArrayIterator(['a' => 'Option A', 'b' => 'Option B']);
-        $select = new Select(name: 'country', options: $iterator);
+        $select = new Select('country', null, null, false, false, false, null, $iterator);
 
         $this->assertIsArray($select->options);
         $this->assertSame(['a' => 'Option A', 'b' => 'Option B'], $select->options);
@@ -50,28 +50,28 @@ final class SelectTest extends TestCase
 
     public function testResolvedPlaceholderUsesExplicitValue(): void
     {
-        $select = new Select(name: 'country', placeholder: 'Pick a country');
+        $select = new Select('country', null, 'Pick a country');
 
         $this->assertSame('Pick a country', $select->resolvedPlaceholder());
     }
 
     public function testResolvedPlaceholderFallsBackToTranslation(): void
     {
-        $select = new Select(name: 'country');
+        $select = new Select('country');
 
         $this->assertSame(__('pajak::ui.form.select.placeholder'), $select->resolvedPlaceholder());
     }
 
     public function testResolvedSearchPlaceholderUsesExplicitValue(): void
     {
-        $select = new Select(name: 'country', searchPlaceholder: 'Find…');
+        $select = new Select('country', null, null, false, false, false, 'Find…');
 
         $this->assertSame('Find…', $select->resolvedSearchPlaceholder());
     }
 
     public function testResolvedSearchPlaceholderFallsBackToTranslation(): void
     {
-        $select = new Select(name: 'country');
+        $select = new Select('country');
 
         $this->assertSame(__('pajak::ui.form.select.search_placeholder'), $select->resolvedSearchPlaceholder());
     }

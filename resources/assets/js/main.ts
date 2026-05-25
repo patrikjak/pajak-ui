@@ -12,3 +12,4 @@ export { PajakDrawer } from './drawer/drawer';
 export { PajakPopover } from './popover/popover';
 export type { HttpMethod, HttpPayload, HttpResult, HttpSuccess, HttpError } from './http/connector';
 export { PajakTable } from './table/table';
+export { PajakCopyButton } from './copy-button/copy-button';

@@ -8,6 +8,7 @@ return [
         'dismiss' => 'Zavřít',
         'apply' => 'Použít',
         'clear' => 'Vymazat',
+        'copy' => 'Kopírovat',
         'cancel' => 'Zrušit',
     ],
 
