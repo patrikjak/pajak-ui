@@ -7,7 +7,7 @@
 
 PAJAK UI is a Laravel package providing reusable Blade components for common UI patterns, along with accompanying frontend assets (SCSS, TypeScript) built with Vite. It is designed to be installed into Laravel projects via Composer, offering a consistent and customizable UI foundation.
 
-Live component previews and usage examples are available at **[design.pajak.sk](https://design.pajak.sk)**.
+Live component previews and usage examples are available at **[design.pajak.studio](https://design.pajak.studio)**.
 
 ## Requirements
 
