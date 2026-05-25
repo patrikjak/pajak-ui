@@ -14,35 +14,35 @@ final class ImageGridTest extends TestCase
 {
     public function testInputIdFallsBackToName(): void
     {
-        $grid = new ImageGrid(name: 'gallery');
+        $grid = new ImageGrid('gallery');
 
         $this->assertSame('gallery', $grid->inputId());
     }
 
     public function testInputIdUsesExplicitId(): void
     {
-        $grid = new ImageGrid(name: 'gallery', id: 'my-grid');
+        $grid = new ImageGrid('gallery', [], null, State::Default, false, 'my-grid');
 
         $this->assertSame('my-grid', $grid->inputId());
     }
 
     public function testResolvedStateReturnsErrorWhenErrorSet(): void
     {
-        $grid = new ImageGrid(name: 'gallery', error: 'At least one image required');
+        $grid = new ImageGrid('gallery', [], null, State::Default, false, null, 'At least one image required');
 
         $this->assertSame(State::Error, $grid->resolvedState());
     }
 
     public function testResolvedStateReturnsStatePropWhenNoError(): void
     {
-        $grid = new ImageGrid(name: 'gallery', state: State::Success);
+        $grid = new ImageGrid('gallery', [], null, State::Success);
 
         $this->assertSame(State::Success, $grid->resolvedState());
     }
 
     public function testResolvedStateDefaultsToDefaultWhenNoErrorAndNoState(): void
     {
-        $grid = new ImageGrid(name: 'gallery');
+        $grid = new ImageGrid('gallery');
 
         $this->assertSame(State::Default, $grid->resolvedState());
     }
@@ -50,7 +50,7 @@ final class ImageGridTest extends TestCase
     public function testImagesArrayIsStoredFromArray(): void
     {
         $image = new UploadedFile(1, 'photo.jpg', 204800, '/uploads/photo.jpg');
-        $grid = new ImageGrid(name: 'gallery', images: [$image]);
+        $grid = new ImageGrid('gallery', [$image]);
 
         $this->assertCount(1, $grid->images);
         $this->assertSame($image, $grid->images[0]);
@@ -59,7 +59,7 @@ final class ImageGridTest extends TestCase
     public function testImagesArrayIsStoredFromIterable(): void
     {
         $image = new UploadedFile(1, 'photo.jpg', 204800, '/uploads/photo.jpg');
-        $grid = new ImageGrid(name: 'gallery', images: new ArrayIterator([$image]));
+        $grid = new ImageGrid('gallery', new ArrayIterator([$image]));
 
         $this->assertCount(1, $grid->images);
         $this->assertSame($image, $grid->images[0]);
@@ -67,7 +67,7 @@ final class ImageGridTest extends TestCase
 
     public function testEmptyImagesArray(): void
     {
-        $grid = new ImageGrid(name: 'gallery');
+        $grid = new ImageGrid('gallery');
 
         $this->assertSame([], $grid->images);
     }

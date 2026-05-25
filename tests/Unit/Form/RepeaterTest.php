@@ -11,14 +11,14 @@ final class RepeaterTest extends TestCase
 {
     public function testResolvedAddLabelUsesCustomLabel(): void
     {
-        $repeater = new Repeater(name: 'items', addLabel: 'Add item');
+        $repeater = new Repeater('items', null, 0, null, 1, 'Add item');
 
         $this->assertSame('Add item', $repeater->resolvedAddLabel());
     }
 
     public function testResolvedAddLabelFallsBackToTranslation(): void
     {
-        $repeater = new Repeater(name: 'items');
+        $repeater = new Repeater('items');
 
         $this->assertIsString($repeater->resolvedAddLabel());
         $this->assertNotEmpty($repeater->resolvedAddLabel());
@@ -26,14 +26,14 @@ final class RepeaterTest extends TestCase
 
     public function testResolvedRemoveLabelUsesCustomLabel(): void
     {
-        $repeater = new Repeater(name: 'items', removeLabel: 'Remove item');
+        $repeater = new Repeater('items', null, 0, null, 1, null, 'Remove item');
 
         $this->assertSame('Remove item', $repeater->resolvedRemoveLabel());
     }
 
     public function testResolvedRemoveLabelFallsBackToTranslation(): void
     {
-        $repeater = new Repeater(name: 'items');
+        $repeater = new Repeater('items');
 
         $this->assertIsString($repeater->resolvedRemoveLabel());
         $this->assertNotEmpty($repeater->resolvedRemoveLabel());
@@ -41,7 +41,7 @@ final class RepeaterTest extends TestCase
 
     public function testReplaceIndexRewritesNameAttribute(): void
     {
-        $repeater = new Repeater(name: 'items');
+        $repeater = new Repeater('items');
         $html = ' name="title"';
 
         $result = $repeater->replaceIndex($html, 0);
@@ -51,7 +51,7 @@ final class RepeaterTest extends TestCase
 
     public function testReplaceIndexRewritesIdAttribute(): void
     {
-        $repeater = new Repeater(name: 'items');
+        $repeater = new Repeater('items');
         $html = ' id="title"';
 
         $result = $repeater->replaceIndex($html, 0);
@@ -61,7 +61,7 @@ final class RepeaterTest extends TestCase
 
     public function testReplaceIndexRewritesForAttribute(): void
     {
-        $repeater = new Repeater(name: 'items');
+        $repeater = new Repeater('items');
         $html = ' for="title"';
 
         $result = $repeater->replaceIndex($html, 0);
@@ -71,7 +71,7 @@ final class RepeaterTest extends TestCase
 
     public function testReplaceIndexSubstitutesIndexPlaceholder(): void
     {
-        $repeater = new Repeater(name: 'items');
+        $repeater = new Repeater('items');
         $html = ' id="row-__INDEX__"';
 
         $result = $repeater->replaceIndex($html, 3);
@@ -81,7 +81,7 @@ final class RepeaterTest extends TestCase
 
     public function testReplaceIndexSubstitutesNamePlaceholder(): void
     {
-        $repeater = new Repeater(name: 'products');
+        $repeater = new Repeater('products');
         $html = ' id="__NAME__-row"';
 
         $result = $repeater->replaceIndex($html, 1);
@@ -91,7 +91,7 @@ final class RepeaterTest extends TestCase
 
     public function testReplaceIndexDoesNotDoubleWrapAlreadyBracketedName(): void
     {
-        $repeater = new Repeater(name: 'items');
+        $repeater = new Repeater('items');
         $html = ' name="items[0][title]"';
 
         $result = $repeater->replaceIndex($html, 0);
@@ -101,7 +101,7 @@ final class RepeaterTest extends TestCase
 
     public function testReplaceIndexWorksWithStringIndex(): void
     {
-        $repeater = new Repeater(name: 'items');
+        $repeater = new Repeater('items');
         $html = ' name="title"';
 
         $result = $repeater->replaceIndex($html, 'abc');
@@ -111,7 +111,7 @@ final class RepeaterTest extends TestCase
 
     public function testReplaceIndexReplacesMultipleAttributes(): void
     {
-        $repeater = new Repeater(name: 'rows');
+        $repeater = new Repeater('rows');
         $html = ' name="email" id="email" for="email"';
 
         $result = $repeater->replaceIndex($html, 2);

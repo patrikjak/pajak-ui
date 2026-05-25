@@ -18,7 +18,6 @@ final class DatePickerTest extends TestCase
 
     public function testInputIdUsesExplicitId(): void
     {
-        // name, range, time, value, start, end, placeholder, disabled, min, max, id
         $picker = new DatePicker('birthday', false, false, null, null, null, null, false, null, null, 'bday-picker');
 
         $this->assertSame('bday-picker', $picker->inputId());
