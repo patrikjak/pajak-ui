@@ -113,6 +113,9 @@ export default defineConfig({
                 'resources/assets/css/copy-button/copy-button-standalone.scss',
                 'resources/assets/js/copy-button/copy-button.ts',
 
+                // Detail
+                'resources/assets/css/detail/detail-standalone.scss',
+
                 // Email templates
                 'resources/assets/css/email/email-standalone.scss',
             ],
