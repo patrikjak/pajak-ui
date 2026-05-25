@@ -1,4 +1,4 @@
-<div class="pajak-field">
+<div class="pajak-field pajak-field--option">
     <label @class(['pajak-checkbox', 'pajak-checkbox--disabled' => $disabled, 'pajak-checkbox--with-desc' => $description, 'pajak-checkbox--error' => $error !== null])>
         <input
             class="pajak-checkbox__input"

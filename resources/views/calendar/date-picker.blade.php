@@ -22,7 +22,7 @@
         data-prev-label="{{ __('pajak::ui.calendar.prev_month') }}"
         data-next-label="{{ __('pajak::ui.calendar.next_month') }}"
         data-today-label="{{ __('pajak::ui.calendar.today') }}"
-        data-apply-label="{{ __('pajak::ui.calendar.apply') }}"
+        data-apply-label="{{ __('pajak::ui.common.apply') }}"
         data-time-label="{{ __('pajak::ui.calendar.time') }}"
         data-start-time-label="{{ __('pajak::ui.calendar.start_time') }}"
         data-end-time-label="{{ __('pajak::ui.calendar.end_time') }}"
@@ -44,18 +44,9 @@
             aria-expanded="false"
             aria-haspopup="dialog"
         >
-            <svg class="pajak-datepicker__ico" width="15" height="15" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="4" width="18" height="18" rx="2"/>
-                <line x1="16" y1="2" x2="16" y2="6"/>
-                <line x1="8" y1="2" x2="8" y2="6"/>
-                <line x1="3" y1="10" x2="21" y2="10"/>
-            </svg>
+            <x-heroicon-o-calendar class="pajak-datepicker__ico" width="15" height="15" />
             <span class="pajak-datepicker__display is-placeholder">{{ $resolvedPlaceholder() }}</span>
-            <svg class="pajak-datepicker__chev" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="6 9 12 15 18 9"/>
-            </svg>
+            <x-heroicon-o-chevron-down class="pajak-datepicker__chev" width="14" height="14" />
         </button>
 
         {{-- Calendar panel (JS portals this to <body> when open) --}}
@@ -70,17 +61,11 @@
                 {{-- Month/year navigation --}}
                 <div class="pajak-datepicker__header">
                     <button type="button" class="pajak-datepicker__nav pajak-datepicker__nav--prev">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="15 18 9 12 15 6"/>
-                        </svg>
+                        <x-heroicon-o-chevron-left width="14" height="14" />
                     </button>
                     <div class="pajak-datepicker__title"></div>
                     <button type="button" class="pajak-datepicker__nav pajak-datepicker__nav--next">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="9 18 15 12 9 6"/>
-                        </svg>
+                        <x-heroicon-o-chevron-right width="14" height="14" />
                     </button>
                 </div>
 
@@ -112,7 +97,7 @@
                     @endif
                     @if($range)
                         <button type="button" class="pajak-datepicker__action pajak-datepicker__action--apply">
-                            {{ __('pajak::ui.calendar.apply') }}
+                            {{ __('pajak::ui.common.apply') }}
                         </button>
                     @else
                         <button type="button" class="pajak-datepicker__action pajak-datepicker__action--today">

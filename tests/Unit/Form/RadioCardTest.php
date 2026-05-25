@@ -11,14 +11,14 @@ final class RadioCardTest extends TestCase
 {
     public function testInputIdFallsBackToSlug(): void
     {
-        $radioCard = new RadioCard(name: 'foo', value: 'bar');
+        $radioCard = new RadioCard('foo', 'bar');
 
         $this->assertSame('foo_bar', $radioCard->inputId());
     }
 
     public function testInputIdUsesExplicitId(): void
     {
-        $radioCard = new RadioCard(name: 'foo', value: 'bar', id: 'my-radio-card');
+        $radioCard = new RadioCard('foo', 'bar', false, false, null, null, 'my-radio-card');
 
         $this->assertSame('my-radio-card', $radioCard->inputId());
     }

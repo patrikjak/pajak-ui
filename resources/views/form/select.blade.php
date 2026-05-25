@@ -56,10 +56,7 @@
         @if(!$multiple)
             <div class="pajak-select__trigger" aria-hidden="true">
                 <span class="pajak-select__value">{{ $resolvedPlaceholder() }}</span>
-                <svg class="pajak-select__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="6 9 12 15 18 9"/>
-                </svg>
+                <x-heroicon-o-chevron-down class="pajak-select__chevron" width="16" height="16" />
             </div>
         @endif
 
@@ -75,10 +72,7 @@
                     aria-autocomplete="list"
                     aria-label="{{ $labelText() ?? $resolvedPlaceholder() }}"
                 >
-                <svg class="pajak-select__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="6 9 12 15 18 9"/>
-                </svg>
+                <x-heroicon-o-chevron-down class="pajak-select__chevron" width="16" height="16" />
             </div>
         @endif
 
@@ -91,11 +85,7 @@
         >
             @if($searchable && !$multiple)
                 <div class="pajak-select__search">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8"/>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-                    </svg>
+                    <x-heroicon-o-magnifying-glass width="14" height="14" />
                     <input
                         class="pajak-select__search-input"
                         type="text"

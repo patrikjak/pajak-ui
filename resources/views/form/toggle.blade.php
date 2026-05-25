@@ -1,4 +1,4 @@
-<div class="pajak-field">
+<div class="pajak-field pajak-field--option">
     <label @class(['pajak-toggle', "pajak-toggle--{$size->value}", 'pajak-toggle--disabled' => $disabled, 'pajak-toggle--error' => $error])>
         <input
             class="pajak-toggle__input"

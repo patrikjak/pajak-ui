@@ -1,0 +1,80 @@
+.pajak-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-body);
+    font-weight: var(--fw-semibold);
+    border-radius: 9999px;
+    white-space: nowrap;
+    border: 1.5px solid transparent;
+
+    // ── Sizes ──────────────────────────────────────────────────────────────────
+    &--sm { font-size: 9px;  padding: 2px 7px; }
+    &--md { font-size: 11px; padding: 3px 10px; }
+    &--lg { font-size: 13px; padding: 5px 14px; }
+
+    // ── Colors (filled) ────────────────────────────────────────────────────────
+    &--primary {
+        background: var(--color-primary-500);
+        color: var(--fg-on-primary);
+
+        .pajak-badge__dot { background: var(--fg-on-primary); }
+    }
+
+    &--success {
+        background: var(--color-success-light);
+        color: var(--color-success-dark);
+
+        .pajak-badge__dot { background: var(--color-success); }
+    }
+
+    &--warning {
+        background: var(--color-warning-light);
+        color: var(--color-warning-dark);
+
+        .pajak-badge__dot { background: var(--color-warning); }
+    }
+
+    &--error {
+        background: var(--color-error-light);
+        color: var(--color-error-dark);
+
+        .pajak-badge__dot { background: var(--color-error); }
+    }
+
+    &--info {
+        background: var(--color-info-light);
+        color: var(--color-info-dark);
+
+        .pajak-badge__dot { background: var(--color-info); }
+    }
+
+    &--neutral {
+        background: var(--color-neutral-50);
+        color: var(--color-neutral-600);
+
+        .pajak-badge__dot { background: var(--color-neutral-300); }
+    }
+
+    // ── Outline modifier ───────────────────────────────────────────────────────
+    &--outline {
+        background: transparent;
+
+        &.pajak-badge--primary { border-color: var(--color-primary-500); color: var(--color-primary-500); }
+        &.pajak-badge--success { border-color: var(--color-success);       color: var(--color-success); }
+        &.pajak-badge--warning { border-color: var(--color-warning);       color: var(--color-warning); }
+        &.pajak-badge--error   { border-color: var(--color-error);         color: var(--color-error); }
+        &.pajak-badge--info    { border-color: var(--color-info);          color: var(--color-info); }
+        &.pajak-badge--neutral { border-color: var(--color-neutral-300);   color: var(--color-neutral-600); }
+
+        .pajak-badge__dot { background: currentColor; }
+    }
+
+    // ── Dot ────────────────────────────────────────────────────────────────────
+    &__dot {
+        flex: none;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+    }
+}

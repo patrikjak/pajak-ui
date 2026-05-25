@@ -1,0 +1,187 @@
+<html><body>
+<div class="pajak-table-wrapper" id="pajak-table-users" data-pajak-table data-table-name="users">
+    <script>
+        (function () {
+            try {
+                var key = 'pajak_table_users';
+                var raw = sessionStorage.getItem(key);
+                if (raw) {
+                    var s = JSON.parse(raw);
+                    var hasState = s.search || s.sort || (s.filters && Object.keys(s.filters).length > 0) || s.page > 1 || s.perPage;
+                    if (hasState) {
+                        document.currentScript.parentElement.classList.add('is-restoring');
+                    }
+                }
+            } catch (e) {}
+        })();
+    </script>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="pajak-table-scroll">
+        <table class="pajak-table">
+            <thead class="pajak-table__head">
+                <tr class="pajak-table__row">
+                    
+                                                                        <?php (assert($column instanceof TableColumn))
+@php
+    /** @var ?TableSortState $currentSort */
+    /** @var bool $isActiveSort */
+?>
+
+<th class="pajak-table__th" data-column-key="name" data-pajak-table-column>
+            Name
+    </th>
+                                            
+                                    </tr>
+            </thead>
+
+            <tbody class="pajak-table__body" data-pajak-table-body>
+                                    <tr class="pajak-table__row" data-row-id="1">
+    
+                        <td class="pajak-table__td" data-column-key="name">
+    User 1
+</td>
+            
+    </tr>
+                                    <tr class="pajak-table__row" data-row-id="2">
+    
+                        <td class="pajak-table__td" data-column-key="name">
+    User 2
+</td>
+            
+    </tr>
+                                    <tr class="pajak-table__row" data-row-id="3">
+    
+                        <td class="pajak-table__td" data-column-key="name">
+    User 3
+</td>
+            
+    </tr>
+                                    <tr class="pajak-table__row" data-row-id="4">
+    
+                        <td class="pajak-table__td" data-column-key="name">
+    User 4
+</td>
+            
+    </tr>
+                                    <tr class="pajak-table__row" data-row-id="5">
+    
+                        <td class="pajak-table__td" data-column-key="name">
+    User 5
+</td>
+            
+    </tr>
+                                    <tr class="pajak-table__row" data-row-id="6">
+    
+                        <td class="pajak-table__td" data-column-key="name">
+    User 6
+</td>
+            
+    </tr>
+                                    <tr class="pajak-table__row" data-row-id="7">
+    
+                        <td class="pajak-table__td" data-column-key="name">
+    User 7
+</td>
+            
+    </tr>
+                                    <tr class="pajak-table__row" data-row-id="8">
+    
+                        <td class="pajak-table__td" data-column-key="name">
+    User 8
+</td>
+            
+    </tr>
+                                    <tr class="pajak-table__row" data-row-id="9">
+    
+                        <td class="pajak-table__td" data-column-key="name">
+    User 9
+</td>
+            
+    </tr>
+                                    <tr class="pajak-table__row" data-row-id="10">
+    
+                        <td class="pajak-table__td" data-column-key="name">
+    User 10
+</td>
+            
+    </tr>
+                            </tbody>
+        </table>
+    </div>
+
+    
+    <div class="pajak-table-restore-loader" aria-hidden="true">
+        <svg class="pajak-spinner pajak-spinner--xl pajak-spinner--primary" viewbox="0 0 24 24" fill="none">
+            <circle class="pajak-spinner__track" cx="12" cy="12" r="9" stroke-width="2.5" stroke-dasharray="56.5" stroke-dashoffset="0"></circle>
+            <circle class="pajak-spinner__head" cx="12" cy="12" r="9" stroke-width="2.5" stroke-dasharray="56.5" stroke-dashoffset="38" stroke-linecap="round"></circle>
+        </svg>
+    </div>
+
+    
+            <div class="pajak-table-pagination">
+    <span class="pajak-table-pagination__info">
+        Page 1 of 3
+        &nbsp;&mdash;&nbsp;
+        30 results
+    </span>
+
+    <div class="pajak-table-pagination__controls">
+                                <div class="pajak-field">
+    
+    <div class="pajak-select-wrap pajak-select-wrap--default" data-pajak-select data-placeholder="Select option" data-search-placeholder="Search&acirc;&#128;&brvbar;">
+        <select class="pajak-select__native" name="per_page" id="per_page" data-pajak-table-per-page="data-pajak-table-per-page" aria-label="Rows per page">
+                            <option value="" disabled>Select option</option>
+            
+                                                <option value="10" selected>10</option>
+                                                                <option value="25">25</option>
+                                                                <option value="50">50</option>
+                                        
+        </select>
+
+        
+                    <div class="pajak-select__trigger" aria-hidden="true">
+                <span class="pajak-select__value">Select option</span>
+                <svg width="16" height="16" class="pajak-select__chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+  <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+</svg>            </div>
+        
+        
+        
+        <div class="pajak-select__dropdown" role="listbox" hidden>
+                        
+        </div>
+    </div>
+
+    </div>
+        
+        <div class="pajak-table-pagination__pager">
+            <button type="button" class="pajak-table-pagination__btn pajak-table-pagination__btn--icon" data-pajak-table-page="0" disabled aria-label="Previous">
+                <svg width="13" height="13" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"></path>
+</svg>            </button>
+
+                                                <button type="button" class="pajak-table-pagination__btn pajak-table-pagination__btn--page  is-current " data-pajak-table-page="1" disabled aria-label="Page 1" aria-current="page">1</button>
+                                                                <button type="button" class="pajak-table-pagination__btn pajak-table-pagination__btn--page " data-pajak-table-page="2" aria-label="Page 2">2</button>
+                                                                <button type="button" class="pajak-table-pagination__btn pajak-table-pagination__btn--page " data-pajak-table-page="3" aria-label="Page 3">3</button>
+                            
+            <button type="button" class="pajak-table-pagination__btn pajak-table-pagination__btn--icon" data-pajak-table-page="2" aria-label="Next">
+                <svg width="13" height="13" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon">
+  <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"></path>
+</svg>            </button>
+        </div>
+    </div>
+</div>
+    
+    
+    
+    
+    </div>
+</body></html>

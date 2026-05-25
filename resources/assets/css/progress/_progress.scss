@@ -1,0 +1,48 @@
+.pajak-progress {
+    background: var(--color-neutral-50);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+
+    // ── Sizes ──────────────────────────────────────────────────────────────────
+    &--sm { height: 4px; }
+    &--md { height: 6px; }
+    &--lg { height: 10px; }
+
+    // ── Fill ───────────────────────────────────────────────────────────────────
+    &__fill {
+        height: 100%;
+        border-radius: var(--radius-full);
+        transition: width 400ms var(--ease-out);
+
+        &--primary { background: var(--color-primary-500); }
+        &--success { background: var(--color-success); }
+        &--warning { background: var(--color-warning); }
+        &--danger  { background: var(--color-error); }
+    }
+}
+
+// ── Labeled row ────────────────────────────────────────────────────────────────
+.pajak-progress-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    &__label {
+        font-family: var(--font-body);
+        font-size: 12px;
+        font-weight: var(--fw-medium);
+        color: var(--fg-secondary);
+        flex: 1;
+    }
+
+    .pajak-progress { flex: 2; }
+
+    &__value {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        font-weight: var(--fw-semibold);
+        color: var(--fg-primary);
+        min-width: 36px;
+        text-align: right;
+    }
+}

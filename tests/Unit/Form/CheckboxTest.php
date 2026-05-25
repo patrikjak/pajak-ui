@@ -11,14 +11,14 @@ final class CheckboxTest extends TestCase
 {
     public function testInputIdFallsBackToName(): void
     {
-        $checkbox = new Checkbox(name: 'agree', value: 1, label: 'I agree');
+        $checkbox = new Checkbox('agree', 1, 'I agree');
 
         $this->assertSame('agree', $checkbox->inputId());
     }
 
     public function testInputIdUsesExplicitId(): void
     {
-        $checkbox = new Checkbox(name: 'agree', value: 1, label: 'I agree', id: 'agree-checkbox');
+        $checkbox = new Checkbox('agree', 1, 'I agree', false, false, null, 'agree-checkbox');
 
         $this->assertSame('agree-checkbox', $checkbox->inputId());
     }

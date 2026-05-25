@@ -12,8 +12,36 @@
 @use 'form/dropzone';
 @use 'form/file-upload';
 
+@use 'accordion/accordion';
+@use 'card/card';
+@use 'alert/alert';
+@use 'banner/banner';
+@use 'avatar/avatar';
+@use 'badge/badge';
+@use 'breadcrumb/breadcrumb';
 @use 'button/button';
-
+@use 'divider/divider';
+@use 'empty-state/empty-state';
+@use 'error-page/error-page';
+@use 'progress/progress';
+@use 'skeleton/skeleton';
+@use 'stepper/stepper';
+@use 'spinner/spinner';
+@use 'copy-button/copy-button';
+@use 'detail/detail';
+@use 'tooltip/tooltip';
+@use 'tabs/tabs';
 @use 'toast/toast';
+@use 'list/list';
+@use 'dialog/dialog';
+@use 'modal/modal';
+@use 'segmented/segmented';
+@use 'drawer/drawer';
+@use 'popover/popover';
+@use 'navbar/navbar';
+@use 'navbar/nav-tab-bar';
+@use 'sidebar/sidebar';
 
 @use 'calendar/calendar';
+@use 'table/table';
+@use 'email/email';

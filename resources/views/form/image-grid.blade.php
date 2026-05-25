@@ -41,7 +41,7 @@
                             class="pajak-image-grid__delete"
                             aria-label="{{ __('pajak::ui.form.image_grid.remove') }}"
                         >
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            <x-heroicon-m-x-mark width="12" height="12" />
                         </button>
                     @endif
                 </div>
@@ -55,7 +55,7 @@
                     data-pajak-grid-add
                     aria-label="{{ __('pajak::ui.form.image_grid.add') }}"
                 >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    <x-heroicon-o-plus width="20" height="20" />
                     <span>{{ __('pajak::ui.form.image_grid.add') }}</span>
                 </div>
             @endif

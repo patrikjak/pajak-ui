@@ -1,0 +1,250 @@
+@use '../variables' as *;
+
+// ── Error Page ──────────────────────────────────────────────────────────────
+
+@keyframes pajak-ep-breathe {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+.pajak-error-page {
+    // Layout
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+
+    // Dot-grid background
+    background-color: var(--color-neutral-25);
+    background-image: radial-gradient(circle, var(--color-neutral-200) 1px, transparent 1px);
+    background-size: 28px 28px;
+
+    // Colour tokens (overridden per modifier)
+    --ep-color:        var(--color-primary-500);
+    --ep-icon-bg:      var(--color-primary-50);
+    --ep-pill-bg:      var(--color-primary-50);
+    --ep-pill-fg:      var(--color-primary-700);
+    --ep-dot:          var(--color-primary-500);
+
+    // ── Watermark ───────────────────────────────────────────────────────────
+
+    &__wm {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: var(--font-body);
+        font-size: min(320px, 32vw);
+        font-weight: 800;
+        letter-spacing: -0.06em;
+        line-height: 1;
+        white-space: nowrap;
+        pointer-events: none;
+        user-select: none;
+        color: var(--ep-color);
+        opacity: 0.045;
+    }
+
+    // ── Brand corner ────────────────────────────────────────────────────────
+
+    &__brand {
+        position: absolute;
+        top: 28px;
+        left: 32px;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        z-index: 1;
+    }
+
+    // ── Core content ────────────────────────────────────────────────────────
+
+    &__content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 14px;
+        max-width: 440px;
+        padding: 0 32px;
+    }
+
+    // ── Icon box ────────────────────────────────────────────────────────────
+
+    &__icon {
+        width: 72px;
+        height: 72px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin-bottom: 2px;
+        background: var(--ep-icon-bg);
+        color: var(--ep-color);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    // ── Status pill ─────────────────────────────────────────────────────────
+
+    &__pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 11px 4px 8px;
+        border-radius: 9999px;
+        font-size: 11px;
+        font-weight: var(--fw-semibold);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        background: var(--ep-pill-bg);
+        color: var(--ep-pill-fg);
+        margin-bottom: -2px;
+    }
+
+    &__dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        background: var(--ep-dot);
+    }
+
+    // ── Title ────────────────────────────────────────────────────────────────
+
+    &__title {
+        font-family: var(--font-body);
+        font-size: 32px;
+        font-weight: var(--fw-bold);
+        color: var(--fg-primary);
+        line-height: 1.15;
+        letter-spacing: -0.025em;
+        margin-top: -2px;
+    }
+
+    // ── Description ──────────────────────────────────────────────────────────
+
+    &__desc {
+        font-size: 15px;
+        color: var(--color-neutral-500);
+        line-height: 1.65;
+        max-width: 360px;
+        text-wrap: pretty;
+    }
+
+    // ── Actions ──────────────────────────────────────────────────────────────
+
+    &__actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-top: 6px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    // ── Support footer ────────────────────────────────────────────────────────
+
+    &__footer {
+        position: absolute;
+        bottom: 28px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 12.5px;
+        color: var(--color-neutral-300);
+        text-align: center;
+        width: max-content;
+        max-width: calc(100vw - 48px);
+        z-index: 1;
+    }
+
+    // ── 503 maintenance stripe ────────────────────────────────────────────────
+
+    &__stripe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: repeating-linear-gradient(
+            90deg,
+            var(--color-warning) 0px,
+            var(--color-warning) 18px,
+            var(--color-neutral-900) 18px,
+            var(--color-neutral-900) 36px
+        );
+        opacity: 0.55;
+    }
+
+    // ── Progress bar (503) ────────────────────────────────────────────────────
+
+    &__progress {
+        width: 220px;
+        height: 5px;
+        background: var(--color-neutral-100);
+        border-radius: 9999px;
+        overflow: hidden;
+        margin-top: 2px;
+    }
+
+    &__progress-fill {
+        height: 100%;
+        border-radius: 9999px;
+        background: linear-gradient(90deg, var(--color-primary-500) 0%, var(--color-accent-400) 100%);
+        width: 62%;
+        animation: pajak-ep-breathe 2.4s ease-in-out infinite;
+    }
+
+    // ── State modifiers ───────────────────────────────────────────────────────
+
+    // Applied to the 503 page; provides a hook for consumer overrides
+    // and co-locates the maintenance-specific layout with the colour modifier.
+    &--maintenance {
+        &.pajak-error-page--blue {
+            --ep-pill-bg:  var(--color-warning-light);
+            --ep-pill-fg:  var(--color-warning-dark);
+            --ep-dot:      var(--color-warning);
+        }
+    }
+
+    // ── Colour modifiers ──────────────────────────────────────────────────────
+
+    &--blue {
+        --ep-color:    var(--color-primary-500);
+        --ep-icon-bg:  var(--color-primary-50);
+        --ep-pill-bg:  var(--color-primary-50);
+        --ep-pill-fg:  var(--color-primary-700);
+        --ep-dot:      var(--color-primary-500);
+    }
+
+    &--red {
+        --ep-color:    var(--color-error);
+        --ep-icon-bg:  var(--color-error-light);
+        --ep-pill-bg:  var(--color-error-light);
+        --ep-pill-fg:  var(--color-error-dark);
+        --ep-dot:      var(--color-error);
+    }
+
+    &--amber {
+        --ep-color:    var(--color-warning);
+        --ep-icon-bg:  var(--color-warning-light);
+        --ep-pill-bg:  var(--color-warning-light);
+        --ep-pill-fg:  var(--color-warning-dark);
+        --ep-dot:      var(--color-warning);
+    }
+
+    &--neutral {
+        --ep-color:    var(--color-neutral-500);
+        --ep-icon-bg:  var(--color-neutral-50);
+        --ep-pill-bg:  var(--color-neutral-50);
+        --ep-pill-fg:  var(--color-neutral-600);
+        --ep-dot:      var(--color-neutral-400);
+    }
+}

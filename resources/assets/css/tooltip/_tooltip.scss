@@ -1,0 +1,95 @@
+.pajak-tooltip-wrap {
+    position: relative;
+    display: inline-flex;
+
+    // ── Bubble ─────────────────────────────────────────────────────────────────
+    .pajak-tooltip {
+        position: absolute;
+        z-index: 10;
+        background: var(--color-neutral-800);
+        color: var(--color-neutral-0);
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-family: var(--font-body);
+        font-size: 12px;
+        font-weight: var(--fw-medium);
+        white-space: nowrap;
+        box-shadow: 0 4px 12px rgba(31, 42, 62, 0.24);
+        pointer-events: none;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+            opacity var(--duration-micro) var(--ease-out),
+            visibility var(--duration-micro) var(--ease-out);
+
+        // ── Arrow ───────────────────────────────────────────────────────────────
+        &::after {
+            content: "";
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--color-neutral-800);
+            transform: rotate(45deg);
+        }
+    }
+
+    // ── Show on hover / focus ──────────────────────────────────────────────────
+    &:hover .pajak-tooltip,
+    &:focus-within .pajak-tooltip {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    // ── Placements ─────────────────────────────────────────────────────────────
+    &--top .pajak-tooltip {
+        bottom: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%);
+
+        &::after {
+            top: 100%;
+            left: 50%;
+            margin-left: -4px;
+            margin-top: -4px;
+        }
+    }
+
+    &--bottom .pajak-tooltip {
+        top: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%);
+
+        &::after {
+            bottom: 100%;
+            left: 50%;
+            margin-left: -4px;
+            margin-bottom: -4px;
+        }
+    }
+
+    &--right .pajak-tooltip {
+        left: calc(100% + 8px);
+        top: 50%;
+        transform: translateY(-50%);
+
+        &::after {
+            right: 100%;
+            top: 50%;
+            margin-top: -4px;
+            margin-right: -4px;
+        }
+    }
+
+    &--left .pajak-tooltip {
+        right: calc(100% + 8px);
+        top: 50%;
+        transform: translateY(-50%);
+
+        &::after {
+            left: 100%;
+            top: 50%;
+            margin-top: -4px;
+            margin-left: -4px;
+        }
+    }
+}

@@ -1,0 +1,72 @@
+.pajak-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    color: #fff;
+    font-family: var(--font-body);
+    font-weight: var(--fw-bold);
+    flex-shrink: 0;
+    position: relative;
+    user-select: none;
+
+    // ── Sizes ──────────────────────────────────────────────────────────────────
+    &--xs { width: 20px; height: 20px; font-size: 9px; }
+    &--sm { width: 28px; height: 28px; font-size: 11px; }
+    &--md { width: 36px; height: 36px; font-size: 13px; }
+    &--lg { width: 48px; height: 48px; font-size: 16px; }
+    &--xl { width: 64px; height: 64px; font-size: 22px; }
+
+    // ── Color variants ─────────────────────────────────────────────────────────
+    &--blue   { background: #5386E4; }
+    &--sand   { background: #C9A96E; }
+    &--teal   { background: #1C8880; }
+    &--purple { background: #6B4EBA; }
+    &--coral  { background: #E07A5F; }
+    &--slate  { background: var(--color-neutral-500); }
+
+    // ── Ring ───────────────────────────────────────────────────────────────────
+    &--ring {
+        box-shadow: 0 0 0 2px var(--bg-surface), 0 0 0 4px var(--color-primary-500);
+    }
+
+    // ── Status dot ─────────────────────────────────────────────────────────────
+    &__dot {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        border-radius: var(--radius-full);
+        border: 2px solid var(--bg-surface);
+
+        &--online  { background: var(--color-success); }
+        &--away    { background: var(--color-warning); }
+        &--offline { background: var(--color-neutral-300); }
+    }
+
+    // dot size scales with avatar size
+    &--xs &__dot { width: 7px;  height: 7px; }
+    &--sm &__dot { width: 9px;  height: 9px; }
+    &--md &__dot { width: 11px; height: 11px; }
+    &--lg &__dot { width: 13px; height: 13px; }
+    &--xl &__dot { width: 16px; height: 16px; }
+
+    // ── Overflow count (used inside avatar-group) ───────────────────────────────
+    &--overflow {
+        background: var(--color-neutral-50);
+        color: var(--color-neutral-500);
+        font-size: 11px;
+    }
+}
+
+// ── Avatar group ───────────────────────────────────────────────────────────────
+.pajak-avatar-group {
+    display: inline-flex;
+
+    .pajak-avatar {
+        border: 2px solid var(--bg-surface);
+        box-sizing: content-box;
+        margin-left: -8px;
+
+        &:first-child { margin-left: 0; }
+    }
+}

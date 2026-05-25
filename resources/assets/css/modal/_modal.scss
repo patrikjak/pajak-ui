@@ -1,0 +1,152 @@
+// ── Modal ─────────────────────────────────────────────────────────────────────
+
+.pajak-modal {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 440px;
+    padding: 0;
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+
+    // Reset browser defaults for <dialog>
+    margin: auto;
+    color: inherit;
+
+    &[hidden] {
+        display: none;
+    }
+
+    // ── Backdrop ──────────────────────────────────────────────────────────────
+
+    &::backdrop {
+        background: rgba(31, 42, 62, 0.32);
+        backdrop-filter: blur(2px);
+    }
+
+    // ── Size modifiers ────────────────────────────────────────────────────────
+
+    &--sm { max-width: 360px; }
+    &--lg { max-width: 520px; }
+
+    // ── Head ──────────────────────────────────────────────────────────────────
+
+    &__head {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 22px 22px 14px;
+    }
+
+    &__icon {
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-primary-tint);
+        color: var(--color-primary-500);
+    }
+
+    &__head-body {
+        flex: 1;
+        min-width: 0;
+    }
+
+    &__title {
+        font-size: 17px;
+        font-weight: var(--fw-bold);
+        color: var(--fg-primary);
+        line-height: var(--lh-snug);
+        margin-bottom: 4px;
+    }
+
+    &__description {
+        font-size: var(--fs-sm);
+        color: var(--fg-secondary);
+        line-height: var(--lh-normal);
+    }
+
+    // ── Close button ──────────────────────────────────────────────────────────
+
+    &__close {
+        margin-left: auto;
+        flex-shrink: 0;
+        background: none;
+        border: none;
+        color: var(--fg-tertiary);
+        padding: 4px;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: color var(--duration-micro), background var(--duration-micro);
+
+        &:hover {
+            color: var(--fg-primary);
+            background: var(--bg-subtle);
+        }
+    }
+
+    // ── Body ──────────────────────────────────────────────────────────────────
+
+    &__body {
+        padding: 4px 22px 18px;
+        font-size: var(--fs-sm);
+        color: var(--fg-secondary);
+        line-height: var(--lh-normal);
+        overflow-y: auto;
+    }
+
+    // ── Footer ────────────────────────────────────────────────────────────────
+
+    &__footer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 8px;
+        padding: 14px 22px;
+        background: var(--bg-page);
+        border-top: 1px solid var(--border-default);
+    }
+
+    // ── Sheet variant (bottom sheet) ──────────────────────────────────────────
+
+    &--sheet {
+        border-radius: 20px 20px 0 0;
+        border-bottom: none;
+        max-width: 100%;
+        width: 100%;
+        margin: auto 0 0;
+        box-shadow: 0 -12px 32px rgba(var(--color-primary-500-rgb), 0.18);
+        padding: 16px 22px 22px;
+
+        .pajak-modal__head {
+            padding: 0 0 14px;
+        }
+
+        .pajak-modal__body {
+            padding: 0 0 0;
+        }
+
+        .pajak-modal__footer {
+            padding: 14px 0 0;
+            background: transparent;
+            border-top: none;
+        }
+    }
+
+    // ── Grabber (sheet only) ──────────────────────────────────────────────────
+
+    &__grabber {
+        width: 40px;
+        height: 4px;
+        background: var(--border-strong);
+        border-radius: var(--radius-full);
+        margin: 0 auto 14px;
+    }
+}

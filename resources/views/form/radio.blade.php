@@ -1,4 +1,4 @@
-<div class="pajak-field">
+<div class="pajak-field pajak-field--option">
     <label @class(['pajak-radio', 'pajak-radio--disabled' => $disabled, 'pajak-radio--with-desc' => $description, 'pajak-radio--error' => $error !== null])>
         <input
             class="pajak-radio__input"
