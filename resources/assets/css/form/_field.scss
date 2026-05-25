@@ -144,6 +144,7 @@
     // visible control + label, not the full container width.
     &--option {
         display: inline-flex;
+        align-self: flex-start;
     }
 
     &__label {

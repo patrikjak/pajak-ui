@@ -1,11 +1,22 @@
 .pajak-divider {
     // ── Horizontal (default) ───────────────────────────────────────────────────
-    &:not(&--vertical):not(&--labeled) {
+    // Exclude style/strength modifiers so their own rules are not overridden.
+    &:not(&--vertical):not(&--labeled):not(&--dashed):not(&--dotted):not(&--strong):not(&--subtle) {
         display: block;
         height: 1px;
         border: none;
         margin: 0;
         background: var(--color-neutral-100);
+    }
+
+    // Shared layout for all solid horizontal variants (default/strong/subtle).
+    &--default,
+    &--strong,
+    &--subtle {
+        display: block;
+        height: 1px;
+        border: none;
+        margin: 0;
     }
 
     // ── Strength modifiers (solid only) ────────────────────────────────────────
@@ -17,13 +28,17 @@
     &--dashed {
         height: 0;
         background: none;
+        border: none;
         border-top: 1px dashed var(--color-neutral-200);
+        margin: 0;
     }
 
     &--dotted {
         height: 0;
         background: none;
+        border: none;
         border-top: 1.5px dotted var(--color-neutral-200);
+        margin: 0;
     }
 
     // ── Vertical ───────────────────────────────────────────────────────────────
