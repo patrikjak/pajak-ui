@@ -128,6 +128,22 @@ Vertical stack with a left indicator bar on the active tab. Wrap alongside a pan
 
 ---
 
+## Keyboard navigation
+
+Tab groups follow the WAI-ARIA tablist pattern. Only the active tab is in the tab order (`tabindex="0"`); all others have `tabindex="-1"` (roving tabindex).
+
+| Key | Action |
+|-----|--------|
+| `Tab` | Move focus into / out of the tab list |
+| `→` / `↓` | Focus the next enabled tab (wraps to first) |
+| `←` / `↑` | Focus the previous enabled tab (wraps to last) |
+| `Home` | Focus the first enabled tab |
+| `End` | Focus the last enabled tab |
+
+Selecting a tab via arrow key activates it immediately (automatic selection mode).
+
+---
+
 ## JS API
 
 ```ts

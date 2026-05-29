@@ -49,6 +49,10 @@ php artisan vendor:publish --tag=pajak-ui-sources
 <x-pajak::button type="submit">Save</x-pajak::button>
 <x-pajak::button type="reset">Reset</x-pajak::button>
 
+{{-- Link button — renders as <a> --}}
+<x-pajak::button href="/dashboard">Go to Dashboard</x-pajak::button>
+<x-pajak::button href="/settings" variant="outline">Settings</x-pajak::button>
+
 {{-- Disabled --}}
 <x-pajak::button disabled>Unavailable</x-pajak::button>
 
@@ -64,10 +68,11 @@ php artisan vendor:publish --tag=pajak-ui-sources
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `type` | `string` | `'button'` | HTML button type: `button` \| `submit` \| `reset` |
+| `type` | `string` | `'button'` | HTML button type: `button` \| `submit` \| `reset` (ignored when `href` is set) |
 | `size` | `string` | `'md'` | `sm` \| `md` \| `lg` |
 | `variant` | `string` | `'primary'` | `primary` \| `secondary` \| `outline` \| `ghost` \| `danger` |
-| `disabled` | `bool` | `false` | Disables the button |
+| `href` | `?string` | `null` | When set, renders an `<a>` tag instead of `<button>` |
+| `disabled` | `bool` | `false` | Disables the button; on link buttons adds `is-disabled` class + `aria-disabled` |
 | `loading` | `bool` | `false` | Shows arc spinner; dims label; sets `cursor: progress` and blocks pointer events |
 
 **Slot:** `$slot` — button label content. Can include SVG icons alongside text for icon+label buttons. For icon-only buttons, pass `class="px-0"` and set `aria-label`.

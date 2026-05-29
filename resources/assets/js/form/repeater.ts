@@ -52,6 +52,21 @@ function upgradeRepeater(wrap: HTMLElement): RepeaterInstance {
     const max = wrap.dataset.max !== undefined ? parseInt(wrap.dataset.max, 10) : null;
     const name = wrap.dataset.name ?? '';
 
+    // Live region for screen-reader announcements
+    const liveEl = document.createElement('div');
+    liveEl.setAttribute('role', 'status');
+    liveEl.setAttribute('aria-live', 'polite');
+    liveEl.setAttribute('aria-atomic', 'true');
+    liveEl.className = 'sr-only';
+    wrap.appendChild(liveEl);
+
+    const announceToSR = (text: string): void => {
+        liveEl.textContent = '';
+        requestAnimationFrame(() => {
+            liveEl.textContent = text;
+        });
+    };
+
     let nextIndex = rowsContainer.querySelectorAll(':scope > .pajak-repeater__row').length;
 
     const getRows = (): HTMLElement[] =>
@@ -83,6 +98,7 @@ function upgradeRepeater(wrap: HTMLElement): RepeaterInstance {
     const removeRow = (row: HTMLElement): void => {
         row.remove();
         wrap.dispatchEvent(new CustomEvent('pajak:repeater:remove', { bubbles: true }));
+        announceToSR(wrap.dataset.removeAnnouncement ?? 'Row removed');
         syncState();
     };
 
@@ -111,6 +127,7 @@ function upgradeRepeater(wrap: HTMLElement): RepeaterInstance {
         rowsContainer.appendChild(row);
 
         wrap.dispatchEvent(new CustomEvent('pajak:repeater:add', { bubbles: true }));
+        announceToSR(wrap.dataset.addAnnouncement ?? 'Row added');
         syncState();
     };
 

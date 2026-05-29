@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-05-29
+
+### Added
+
+- **Button link variant** — `<x-pajak::button>` now accepts an `href` prop; when set, the component renders as an `<a>` tag with full button styling; disabled state uses `is-disabled` class and `aria-disabled` instead of the HTML `disabled` attribute
+
+### Fixed
+
+- Keyboard navigation for **Accordion** — Arrow Up/Down, Home, and End move focus between headers (WAI-ARIA accordion pattern)
+- Keyboard navigation for **Tabs** — Arrow keys, Home, and End cycle focus through enabled tabs; roving tabindex ensures only the active tab is in the tab stop sequence
+- Keyboard navigation for **Segmented control** — Arrow keys, Home, and End move focus and select the next/previous enabled option; roving tabindex applied on init
+- Keyboard navigation for **Select** — Arrow keys navigate options in the open dropdown; Escape closes the dropdown and returns focus to the trigger; Backspace on an empty multiselect input removes the last chip with a screen-reader announcement; ArrowDown on the trigger or search input moves focus into the option list
+- Keyboard navigation for **Calendar** — Arrow keys, Page Up/Down, Home, and End navigate the day grid; roving tabindex resolves the focusable day on each render; month navigation announcements delivered via an `aria-live` region; panel open/close returns focus correctly to the trigger
+- Keyboard navigation for **Popover** — opening moves focus to the first focusable element inside the panel (or the panel itself); closing returns focus to the trigger
+- **Button hover colour** — link buttons no longer lose their variant text colour on hover due to `<a>` tag colour inheritance; all button variants now explicitly restore their colour in the `:hover` rule
+- **Calendar day hover** — selected, range-start, and range-end days no longer revert to the neutral hover background; they retain the primary-600 background on hover
+- Screen-reader announcements for **Repeater** row add/remove via a `role="status"` live region; announcement strings come from the `pajak::ui.form.repeater.row_added` and `row_removed` translation keys (CS and SK translations included)
+- Screen-reader announcement for **Copy button** — successful copy is announced via a `role="status"` live region; the bubble is now also dismissed immediately on page scroll
+- Decorative SVG icons in **Toast** and **Copy button** marked `aria-hidden="true"`
+- **Nav tab** `tabindex` attribute — inactive tabs now receive `tabindex="-1"` so keyboard users skip them; the active tab gets `tabindex="0"`
+- **Calendar** ARIA improvements — trigger and dialog panel have `aria-label`; navigation buttons have `aria-label`; weekday header cells have `role="columnheader"` and full day-name `aria-label`; day grid has `role="grid"`; day buttons have `role="gridcell"`, full date `aria-label`, and `aria-pressed` state; decorative elements are `aria-hidden`; screen-reader live region added for month navigation announcements
+
 ## [0.2.0] - 2026-05-25
 
 ### Added

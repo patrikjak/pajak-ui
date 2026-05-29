@@ -17,6 +17,7 @@ final class Button extends Component
         public readonly Variant $variant = Variant::Primary,
         public readonly bool $disabled = false,
         public readonly bool $loading = false,
+        public readonly ?string $href = null,
     ) {
     }
 

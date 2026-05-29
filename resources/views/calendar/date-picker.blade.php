@@ -43,6 +43,7 @@
             @if($disabled) disabled @endif
             aria-expanded="false"
             aria-haspopup="dialog"
+            aria-label="{{ $label ?? __('pajak::ui.calendar.trigger_label') }}"
         >
             <x-heroicon-o-calendar class="pajak-datepicker__ico" width="15" height="15" />
             <span class="pajak-datepicker__display is-placeholder">{{ $resolvedPlaceholder() }}</span>
@@ -50,7 +51,7 @@
         </button>
 
         {{-- Calendar panel (JS portals this to <body> when open) --}}
-        <div class="pajak-datepicker__panel" role="dialog" aria-modal="true" hidden>
+        <div class="pajak-datepicker__panel" role="dialog" aria-modal="true" aria-label="{{ __('pajak::ui.calendar.dialog_label') }}" hidden>
 
             {{-- Optional presets sidebar (range only) --}}
             @isset($presets)
@@ -58,22 +59,27 @@
             @endisset
 
             <div class="pajak-datepicker__cal">
+                {{-- Screen-reader live region for month navigation announcements --}}
+                <div class="pajak-datepicker__announce sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+
                 {{-- Month/year navigation --}}
                 <div class="pajak-datepicker__header">
-                    <button type="button" class="pajak-datepicker__nav pajak-datepicker__nav--prev">
-                        <x-heroicon-o-chevron-left width="14" height="14" />
+                    <button type="button" class="pajak-datepicker__nav pajak-datepicker__nav--prev"
+                            aria-label="{{ __('pajak::ui.calendar.prev_month') }}">
+                        <x-heroicon-o-chevron-left width="14" height="14" aria-hidden="true" />
                     </button>
-                    <div class="pajak-datepicker__title"></div>
-                    <button type="button" class="pajak-datepicker__nav pajak-datepicker__nav--next">
-                        <x-heroicon-o-chevron-right width="14" height="14" />
+                    <div class="pajak-datepicker__title" aria-hidden="true"></div>
+                    <button type="button" class="pajak-datepicker__nav pajak-datepicker__nav--next"
+                            aria-label="{{ __('pajak::ui.calendar.next_month') }}">
+                        <x-heroicon-o-chevron-right width="14" height="14" aria-hidden="true" />
                     </button>
                 </div>
 
                 {{-- Weekday header row (populated by JS) --}}
-                <div class="pajak-datepicker__weekdays"></div>
+                <div class="pajak-datepicker__weekdays" aria-hidden="true"></div>
 
                 {{-- Day grid (populated by JS) --}}
-                <div class="pajak-datepicker__grid"></div>
+                <div class="pajak-datepicker__grid" role="grid"></div>
 
                 {{-- Footer --}}
                 <div class="pajak-datepicker__footer">

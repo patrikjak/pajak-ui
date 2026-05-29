@@ -15,7 +15,11 @@ function initAccordion(root: HTMLElement): void {
 
     const mode = root.dataset.pajakAccordion ?? 'single';
 
-    root.querySelectorAll<HTMLElement>(':scope > .pajak-acc__item > .pajak-acc__header').forEach((header) => {
+    const headers = Array.from(
+        root.querySelectorAll<HTMLElement>(':scope > .pajak-acc__item > .pajak-acc__header'),
+    );
+
+    headers.forEach((header) => {
         header.addEventListener('click', () => {
             const item = header.parentElement as HTMLElement;
             const isOpen = item.hasAttribute('open');
@@ -38,6 +42,27 @@ function initAccordion(root: HTMLElement): void {
             } else {
                 item.setAttribute('open', '');
                 header.setAttribute('aria-expanded', 'true');
+            }
+        });
+
+        // Arrow key navigation between accordion headers (WAI-ARIA accordion pattern)
+        header.addEventListener('keydown', (e: KeyboardEvent) => {
+            const idx = headers.indexOf(header);
+            let next: HTMLElement | null = null;
+
+            if (e.key === 'ArrowDown') {
+                next = headers[idx + 1] ?? headers[0] ?? null;
+            } else if (e.key === 'ArrowUp') {
+                next = headers[idx - 1] ?? headers[headers.length - 1] ?? null;
+            } else if (e.key === 'Home') {
+                next = headers[0] ?? null;
+            } else if (e.key === 'End') {
+                next = headers[headers.length - 1] ?? null;
+            }
+
+            if (next) {
+                e.preventDefault();
+                next.focus();
             }
         });
     });

@@ -4,6 +4,8 @@
     data-name="{{ $name }}"
     data-min="{{ $min }}"
     @isset($max) data-max="{{ $max }}" @endisset
+    data-add-announcement="{{ __('pajak::ui.form.repeater.row_added') }}"
+    data-remove-announcement="{{ __('pajak::ui.form.repeater.row_removed') }}"
 >
     @isset($label)
         <div class="pajak-repeater__label">{{ $label }}</div>
