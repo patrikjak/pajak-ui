@@ -118,6 +118,20 @@ PajakAccordion.initAll();
 
 ---
 
+## Keyboard navigation
+
+Accordion headers are standard `<button>` elements. In addition to click activation, the following keys navigate between headers:
+
+| Key | Action |
+|-----|--------|
+| `Enter` / `Space` | Toggle the focused accordion item |
+| `↓` | Move focus to the next header (wraps to first) |
+| `↑` | Move focus to the previous header (wraps to last) |
+| `Home` | Move focus to the first header |
+| `End` | Move focus to the last header |
+
+---
+
 ## JS API
 
 ```ts

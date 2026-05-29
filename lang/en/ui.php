@@ -42,6 +42,8 @@ return [
         'repeater' => [
             'add' => 'Add item',
             'remove' => 'Remove',
+            'row_added' => 'Row added',
+            'row_removed' => 'Row removed',
         ],
     ],
 
@@ -82,6 +84,8 @@ return [
         'time' => 'Time',
         'start_time' => 'Start time',
         'end_time' => 'End time',
+        'dialog_label' => 'Date picker',
+        'trigger_label' => 'Open date picker',
     ],
 
 ];

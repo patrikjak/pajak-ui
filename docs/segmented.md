@@ -176,6 +176,20 @@ Omit `label` to render an icon-only button with compact padding.
 
 ---
 
+## Keyboard navigation
+
+Follows the WAI-ARIA tablist pattern with roving tabindex — only the active option is in the tab order.
+
+| Key | Action |
+|-----|--------|
+| `Tab` | Move focus into / out of the segmented control |
+| `→` / `↓` | Focus and select the next enabled option (wraps) |
+| `←` / `↑` | Focus and select the previous enabled option (wraps) |
+| `Home` | Focus and select the first enabled option |
+| `End` | Focus and select the last enabled option |
+
+---
+
 ## JS API
 
 ```ts

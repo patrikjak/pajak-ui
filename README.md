@@ -1,11 +1,11 @@
-# PAJAK - UI
+# Pajak - UI
 
 [![PHP Version](https://img.shields.io/badge/php-8.5-blue.svg)](https://www.php.net/releases/8.5/)
 [![Laravel](https://img.shields.io/badge/laravel-13-red.svg)](https://laravel.com/)
 [![Node Version](https://img.shields.io/badge/node-25-green.svg)](https://nodejs.org/en/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-PAJAK UI is a Laravel package providing reusable Blade components for common UI patterns, along with accompanying frontend assets (SCSS, TypeScript) built with Vite. It is designed to be installed into Laravel projects via Composer, offering a consistent and customizable UI foundation.
+Pajak UI is a Laravel package providing reusable Blade components for common UI patterns, along with accompanying frontend assets (SCSS, TypeScript) built with Vite. It is designed to be installed into Laravel projects via Composer, offering a consistent and customizable UI foundation.
 
 Live component previews and usage examples are available at **[design.pajak.studio](https://design.pajak.studio)**.
 

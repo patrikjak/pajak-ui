@@ -8,11 +8,16 @@ const initialized = new WeakSet<HTMLElement>();
 const initializedTriggers = new WeakSet<HTMLElement>();
 let documentListenersAttached = false;
 
+// Maps popover id → the trigger element that last opened it (for focus restoration)
+const lastTrigger = new Map<string, HTMLElement>();
+
+const FOCUSABLE = 'a[href], button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])';
+
 function getPopover(id: string): HTMLElement | null {
     return document.querySelector<HTMLElement>(`[data-pajak-popover]#${id}`);
 }
 
-function openPopover(id: string): void {
+function openPopover(id: string, trigger?: HTMLElement): void {
     const pop = getPopover(id);
     if (!pop) {
         return;
@@ -24,14 +29,27 @@ function openPopover(id: string): void {
         }
     });
 
+    if (trigger) {
+        lastTrigger.set(id, trigger);
+    }
+
     pop.removeAttribute('hidden');
     requestAnimationFrame(() => {
         pop.classList.add('is-open');
         pop.setAttribute('aria-hidden', 'false');
+
+        // Move focus into the popover
+        const firstFocusable = pop.querySelector<HTMLElement>(FOCUSABLE);
+        if (firstFocusable) {
+            firstFocusable.focus();
+        } else {
+            pop.setAttribute('tabindex', '-1');
+            pop.focus();
+        }
     });
 
-    document.querySelectorAll<HTMLElement>(`[data-pajak-popover-trigger="${id}"]`).forEach((trigger) => {
-        trigger.setAttribute('aria-expanded', 'true');
+    document.querySelectorAll<HTMLElement>(`[data-pajak-popover-trigger="${id}"]`).forEach((t) => {
+        t.setAttribute('aria-expanded', 'true');
     });
 }
 
@@ -40,15 +58,27 @@ function closePopoverEl(pop: HTMLElement): void {
     pop.setAttribute('aria-hidden', 'true');
 
     const id = pop.id;
-    document.querySelectorAll<HTMLElement>(`[data-pajak-popover-trigger="${id}"]`).forEach((trigger) => {
-        trigger.setAttribute('aria-expanded', 'false');
+    document.querySelectorAll<HTMLElement>(`[data-pajak-popover-trigger="${id}"]`).forEach((t) => {
+        t.setAttribute('aria-expanded', 'false');
     });
 
-    pop.addEventListener('transitionend', () => {
-        if (!pop.classList.contains('is-open')) {
+    let hiddenApplied = false;
+    const applyHidden = (): void => {
+        if (!hiddenApplied && !pop.classList.contains('is-open')) {
+            hiddenApplied = true;
             pop.setAttribute('hidden', '');
         }
-    }, { once: true });
+    };
+    pop.addEventListener('transitionend', applyHidden, { once: true });
+    // Fallback: if no CSS transition is defined, transitionend never fires
+    setTimeout(applyHidden, 0);
+
+    // Return focus to the trigger that opened this popover
+    const trigger = lastTrigger.get(id);
+    if (trigger) {
+        trigger.focus();
+        lastTrigger.delete(id);
+    }
 }
 
 function closePopover(id: string): void {
@@ -58,7 +88,7 @@ function closePopover(id: string): void {
     }
 }
 
-function togglePopover(id: string): void {
+function togglePopover(id: string, trigger?: HTMLElement): void {
     const pop = getPopover(id);
     if (!pop) {
         return;
@@ -67,7 +97,7 @@ function togglePopover(id: string): void {
     if (pop.classList.contains('is-open')) {
         closePopoverEl(pop);
     } else {
-        openPopover(id);
+        openPopover(id, trigger);
     }
 }
 
@@ -97,7 +127,7 @@ function initAll(): void {
         initializedTriggers.add(trigger);
         trigger.addEventListener('click', (e) => {
             e.stopPropagation();
-            togglePopover(id);
+            togglePopover(id, trigger as HTMLElement);
         });
     });
 
@@ -127,9 +157,9 @@ function initAll(): void {
 }
 
 export const PajakPopover = {
-    open: openPopover,
+    open: (id: string) => openPopover(id),
     close: closePopover,
-    toggle: togglePopover,
+    toggle: (id: string) => togglePopover(id),
     initAll,
 } as const;
 

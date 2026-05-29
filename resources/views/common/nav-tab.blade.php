@@ -1,4 +1,4 @@
-<div {{ $attributes->merge(['class' => 'pajak-tabbar__tab'])->class(['is-active' => $active]) }} role="tab" @if($active) aria-selected="true" @else aria-selected="false" @endif>
+<div {{ $attributes->merge(['class' => 'pajak-tabbar__tab'])->class(['is-active' => $active]) }} role="tab" tabindex="{{ $active ? '0' : '-1' }}" @if($active) aria-selected="true" @else aria-selected="false" @endif>
     @isset($icon)
         <span class="pajak-tabbar__icon">
             {{ $icon }}

@@ -108,6 +108,14 @@ Popovers also close on Escape or a click outside.
 
 ---
 
+## Keyboard & focus behaviour
+
+- When a popover opens, focus moves to the first focusable element inside it. If the popover contains no focusable children, the popover element itself receives focus.
+- When a popover closes (via `Escape`, outside click, or a close button), focus returns to the trigger that opened it.
+- `Escape` closes any open popover.
+
+---
+
 ## JS API
 
 ```js

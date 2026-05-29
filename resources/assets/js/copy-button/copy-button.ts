@@ -10,8 +10,27 @@ const VISIBLE_CLASS = 'is-visible';
 
 const initialized = new WeakSet<HTMLElement>();
 
+let srRegion: HTMLElement | null = null;
+
+function getSrRegion(): HTMLElement {
+    if (!srRegion || !document.body.contains(srRegion)) {
+        srRegion = document.createElement('div');
+        srRegion.setAttribute('role', 'status');
+        srRegion.setAttribute('aria-live', 'polite');
+        srRegion.setAttribute('aria-atomic', 'true');
+        srRegion.className = 'sr-only';
+        document.body.appendChild(srRegion);
+    }
+    return srRegion;
+}
+
 function toPx(value: number): string {
     return `${Math.round(value)}px`;
+}
+
+function dismissBubble(bubble: HTMLElement): void {
+    bubble.classList.remove(VISIBLE_CLASS);
+    bubble.addEventListener('transitionend', () => bubble.remove(), { once: true });
 }
 
 function showBubble(trigger: HTMLElement, label: string): void {
@@ -30,10 +49,12 @@ function showBubble(trigger: HTMLElement, label: string): void {
         bubble.classList.add(VISIBLE_CLASS);
     });
 
-    setTimeout(() => {
-        bubble.classList.remove(VISIBLE_CLASS);
-        bubble.addEventListener('transitionend', () => bubble.remove(), { once: true });
-    }, BUBBLE_VISIBLE_MS);
+    const timer = setTimeout(() => dismissBubble(bubble), BUBBLE_VISIBLE_MS);
+
+    window.addEventListener('scroll', () => {
+        clearTimeout(timer);
+        dismissBubble(bubble);
+    }, { once: true, passive: true, capture: true });
 }
 
 function initCopyTrigger(trigger: HTMLElement, label: string): void {
@@ -53,6 +74,13 @@ function initCopyTrigger(trigger: HTMLElement, label: string): void {
         }
 
         showBubble(trigger, label);
+
+        // Announce to screen readers via live region
+        const region = getSrRegion();
+        region.textContent = '';
+        requestAnimationFrame(() => {
+            region.textContent = label;
+        });
     });
 }
 

@@ -649,6 +649,22 @@ The `data-meta` attribute on an `<option>` renders a secondary label aligned to 
 
 **Slot:** `$slot` — `<option>` and `<optgroup>` elements. Options accept a `data-meta` attribute for secondary label text.
 
+### Keyboard navigation
+
+The trigger follows the ARIA combobox pattern. The dropdown options support full keyboard navigation.
+
+| Key | Action |
+|-----|--------|
+| `Enter` / `Space` | Open / close the dropdown from the trigger |
+| `Escape` | Close the dropdown and return focus to the trigger |
+| `↓` (on trigger or search input) | Move focus into the options list |
+| `↑` / `↓` (in dropdown) | Move focus between options |
+| `Home` / `End` | Jump to first / last option |
+| `Enter` (on focused option) | Select the option |
+| `Backspace` (multi, empty input) | Remove the last chip; announces removal to screen readers |
+
+In multiselect, chip removal (via the × button or Backspace) is announced to screen readers via a live region.
+
 ### JS initialisation
 
 ```ts
@@ -896,6 +912,10 @@ PajakRepeater.initAll(document.getElementById('my-section'));
 |-------|-----------|
 | `pajak:repeater:add` | A row is added |
 | `pajak:repeater:remove` | A row is removed |
+
+### Accessibility
+
+Row additions and removals are announced to screen readers via a `role="status"` live region injected into the repeater wrapper. The announcement text comes from the `pajak::ui.form.repeater.row_added` / `row_removed` translation keys.
 
 ---
 

@@ -42,6 +42,8 @@ return [
         'repeater' => [
             'add' => 'Pridať položku',
             'remove' => 'Odstrániť',
+            'row_added' => 'Riadok pridaný',
+            'row_removed' => 'Riadok odstránený',
         ],
     ],
 
@@ -82,6 +84,8 @@ return [
         'time' => 'Čas',
         'start_time' => 'Čas začiatku',
         'end_time' => 'Čas konca',
+        'dialog_label' => 'Výber dátumu',
+        'trigger_label' => 'Otvoriť výber dátumu',
     ],
 
 ];

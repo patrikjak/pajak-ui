@@ -168,6 +168,24 @@ If `data-start-time`/`data-end-time` are omitted and time mode is on, the preset
 
 ---
 
+## Keyboard navigation
+
+| Key | Action |
+|-----|--------|
+| `Enter` / `Space` | Open the calendar panel from the trigger |
+| `Escape` | Close the panel and return focus to the trigger |
+| `←` `→` `↑` `↓` | Move focus between day buttons |
+| `PageUp` / `PageDown` | Navigate to previous / next month |
+| `Home` / `End` | Jump to the first / last selectable day of the current month |
+| `Enter` | Select the focused day and close the panel |
+| `Tab` | Move focus through the panel controls (time inputs, action button) |
+
+The day grid uses a roving tabindex — only the currently focused day is in the tab order. When the panel opens, focus moves automatically to the selected day (or today, or the first available day). When the panel closes, focus returns to the trigger button.
+
+Month navigation is announced to screen readers via a live region.
+
+---
+
 ## JS API
 
 `PajakCalendar` is available on `window.Pajak.PajakCalendar` when using the full or calendar bundle.

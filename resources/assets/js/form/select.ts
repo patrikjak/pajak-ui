@@ -129,6 +129,80 @@ function buildOption(
     return el;
 }
 
+// ─── Live region singleton ───────────────────────────────────────────────────
+
+let liveRegion: HTMLElement | null = null;
+
+function getLiveRegion(): HTMLElement {
+    if (!liveRegion || !document.body.contains(liveRegion)) {
+        liveRegion = document.createElement('div');
+        liveRegion.setAttribute('role', 'status');
+        liveRegion.setAttribute('aria-live', 'polite');
+        liveRegion.setAttribute('aria-atomic', 'true');
+        liveRegion.className = 'sr-only';
+        document.body.appendChild(liveRegion);
+    }
+    return liveRegion;
+}
+
+function announceToSR(text: string): void {
+    const el = getLiveRegion();
+    el.textContent = '';
+    requestAnimationFrame(() => {
+        el.textContent = text;
+    });
+}
+
+// ─── Dropdown keyboard navigation ────────────────────────────────────────────
+
+function wireDropdownKeyboard(
+    dropdown: HTMLElement,
+    trigger: HTMLElement,
+    onSelect: (opt: HTMLElement) => void,
+    onClose: () => void,
+): void {
+    dropdown.addEventListener('keydown', (e: KeyboardEvent) => {
+        const options = Array.from(
+            dropdown.querySelectorAll<HTMLElement>('.pajak-select__option:not([aria-disabled="true"])'),
+        );
+        const focused = document.activeElement as HTMLElement | null;
+        const idx = focused ? options.indexOf(focused) : -1;
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            const next = options[idx + 1] ?? options[0];
+            next?.focus({ preventScroll: true });
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            const prev = options[idx - 1] ?? options[options.length - 1];
+            prev?.focus({ preventScroll: true });
+        } else if (e.key === 'Home') {
+            e.preventDefault();
+            options[0]?.focus({ preventScroll: true });
+        } else if (e.key === 'End') {
+            e.preventDefault();
+            options[options.length - 1]?.focus({ preventScroll: true });
+        } else if (e.key === 'Enter' || e.key === ' ') {
+            if (focused && options.includes(focused)) {
+                e.preventDefault();
+                onSelect(focused);
+            }
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            onClose();
+            trigger.focus({ preventScroll: true });
+        }
+    });
+}
+
+function makeOptionsFocusable(dropdown: HTMLElement): void {
+    dropdown.querySelectorAll<HTMLElement>('.pajak-select__option').forEach((opt) => {
+        if (opt.getAttribute('aria-disabled') !== 'true') {
+            opt.setAttribute('tabindex', '-1');
+        }
+    });
+}
+
 // ─── Dropdown portal helpers ─────────────────────────────────────────────────
 
 function positionDropdown(trigger: HTMLElement, dropdown: HTMLElement): void {
@@ -254,6 +328,7 @@ function upgradeSingle(
             searchInput.value = '';
         }
         populateDropdown();
+        makeOptionsFocusable(dropdown);
         attachDropdown(dropdown);
         dropdown.removeAttribute('hidden');
         positionDropdown(trigger, dropdown);
@@ -262,17 +337,21 @@ function upgradeSingle(
         window.addEventListener('scroll', reposition, { passive: true, capture: true });
         window.addEventListener('resize', reposition, { passive: true });
         if (searchInput) {
-            setTimeout(() => searchInput.focus(), 0);
+            setTimeout(() => searchInput.focus({ preventScroll: true }), 0);
         }
     };
 
     const close = (): void => {
+        const focusInside = wrap.contains(document.activeElement) || dropdown.contains(document.activeElement);
         dropdown.setAttribute('hidden', '');
         detachDropdown(wrap, dropdown);
         wrap.classList.remove('is-open');
         trigger.setAttribute('aria-expanded', 'false');
         window.removeEventListener('scroll', reposition, true);
         window.removeEventListener('resize', reposition);
+        if (focusInside) {
+            trigger.focus({ preventScroll: true });
+        }
     };
 
     const toggle = (): void => {
@@ -294,6 +373,11 @@ function upgradeSingle(
         if (e.key === 'Escape') {
             close();
         }
+        if (e.key === 'ArrowDown' && wrap.classList.contains('is-open')) {
+            e.preventDefault();
+            const first = dropdown.querySelector<HTMLElement>('.pajak-select__option:not([aria-disabled="true"])');
+            first?.focus({ preventScroll: true });
+        }
     };
 
     trigger.removeAttribute('aria-hidden');
@@ -307,14 +391,34 @@ function upgradeSingle(
     trigger.addEventListener('keydown', onTriggerKeydown);
     document.addEventListener('click', onDocClick);
 
+    // Wire dropdown arrow-key navigation
+    wireDropdownKeyboard(
+        dropdown,
+        trigger,
+        (opt) => {
+            const val = opt.dataset.value ?? '';
+            native.value = val;
+            native.dispatchEvent(new Event('change', { bubbles: true }));
+            syncValue();
+            close();
+        },
+        close,
+    );
+
     if (searchInput) {
         searchInput.addEventListener('input', () => {
             filterText = searchInput.value;
             populateDropdown();
+            makeOptionsFocusable(dropdown);
         });
         searchInput.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 close();
+            }
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                const first = dropdown.querySelector<HTMLElement>('.pajak-select__option:not([aria-disabled="true"])');
+                first?.focus({ preventScroll: true });
             }
         });
     }
@@ -378,9 +482,11 @@ function upgradeMulti(
             e.stopPropagation();
             opt.selected = false;
             native.dispatchEvent(new Event('change', { bubbles: true }));
+            announceToSR(sprintf('Removed %s', opt.text));
             syncChips();
             if (wrap.classList.contains('is-open')) {
                 populateDropdown();
+                makeOptionsFocusable(dropdown);
             }
         });
         chip.appendChild(btn);
@@ -438,6 +544,7 @@ function upgradeMulti(
                             chipInput.value = '';
                             syncChips();
                             populateDropdown(); // re-render to update checkmarks
+                            makeOptionsFocusable(dropdown);
                         }
                     }),
                 );
@@ -459,6 +566,7 @@ function upgradeMulti(
             return;
         }
         populateDropdown();
+        makeOptionsFocusable(dropdown);
         attachDropdown(dropdown);
         dropdown.removeAttribute('hidden');
         positionDropdown(trigger, dropdown);
@@ -466,10 +574,11 @@ function upgradeMulti(
         trigger.setAttribute('aria-expanded', 'true');
         window.addEventListener('scroll', reposition, { passive: true, capture: true });
         window.addEventListener('resize', reposition, { passive: true });
-        chipInput.focus();
+        chipInput.focus({ preventScroll: true });
     };
 
     const close = (): void => {
+        const focusInside = wrap.contains(document.activeElement) || dropdown.contains(document.activeElement);
         dropdown.setAttribute('hidden', '');
         detachDropdown(wrap, dropdown);
         wrap.classList.remove('is-open');
@@ -478,6 +587,9 @@ function upgradeMulti(
         window.removeEventListener('resize', reposition);
         filterText = '';
         chipInput.value = '';
+        if (focusInside) {
+            chipInput.focus({ preventScroll: true });
+        }
     };
 
     const onDocClick = (e: MouseEvent): void => {
@@ -515,6 +627,7 @@ function upgradeMulti(
             open();
         } else {
             populateDropdown();
+            makeOptionsFocusable(dropdown);
         }
     });
 
@@ -522,20 +635,46 @@ function upgradeMulti(
         if (e.key === 'Escape') {
             close();
         }
+        if (e.key === 'ArrowDown' && wrap.classList.contains('is-open')) {
+            e.preventDefault();
+            const first = dropdown.querySelector<HTMLElement>('.pajak-select__option:not([aria-disabled="true"])');
+            first?.focus({ preventScroll: true });
+        }
         if (e.key === 'Backspace' && chipInput.value === '') {
-            // Remove last chip on backspace with empty input
             const selected = Array.from(native.options).filter((o) => o.selected && o.value);
             const last = selected[selected.length - 1];
             if (last) {
                 last.selected = false;
                 native.dispatchEvent(new Event('change', { bubbles: true }));
+                announceToSR(sprintf('Removed %s', last.text));
                 syncChips();
                 if (wrap.classList.contains('is-open')) {
                     populateDropdown();
+                    makeOptionsFocusable(dropdown);
                 }
             }
         }
     });
+
+    // Wire dropdown arrow-key navigation
+    wireDropdownKeyboard(
+        dropdown,
+        chipInput,
+        (opt) => {
+            const val = opt.dataset.value ?? '';
+            const nativeOpt = Array.from(native.options).find((o) => o.value === val);
+            if (nativeOpt) {
+                nativeOpt.selected = !nativeOpt.selected;
+                native.dispatchEvent(new Event('change', { bubbles: true }));
+                filterText = '';
+                chipInput.value = '';
+                syncChips();
+                populateDropdown();
+                makeOptionsFocusable(dropdown);
+            }
+        },
+        close,
+    );
 
     document.addEventListener('click', onDocClick);
     syncChips();
