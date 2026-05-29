@@ -6,7 +6,7 @@
                     <input type="hidden" name="birthday" class="pajak-datepicker__input" value="">
         
         
-        <button type="button" id="birthday" class="pajak-datepicker__trigger" aria-expanded="false" aria-haspopup="dialog">
+        <button type="button" id="birthday" class="pajak-datepicker__trigger" aria-expanded="false" aria-haspopup="dialog" aria-label="Open date picker">
             <svg width="15" height="15" class="pajak-datepicker__ico" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
   <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"></path>
 </svg>            <span class="pajak-datepicker__display is-placeholder">Select date</span>
@@ -15,29 +15,32 @@
 </svg>        </button>
 
         
-        <div class="pajak-datepicker__panel" role="dialog" aria-modal="true" hidden>
+        <div class="pajak-datepicker__panel" role="dialog" aria-modal="true" aria-label="Date picker" hidden>
 
             
             
             <div class="pajak-datepicker__cal">
                 
+                <div class="pajak-datepicker__announce sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+
+                
                 <div class="pajak-datepicker__header">
-                    <button type="button" class="pajak-datepicker__nav pajak-datepicker__nav--prev">
-                        <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                    <button type="button" class="pajak-datepicker__nav pajak-datepicker__nav--prev" aria-label="Previous month">
+                        <svg width="14" height="14" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon">
   <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"></path>
 </svg>                    </button>
-                    <div class="pajak-datepicker__title"></div>
-                    <button type="button" class="pajak-datepicker__nav pajak-datepicker__nav--next">
-                        <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                    <div class="pajak-datepicker__title" aria-hidden="true"></div>
+                    <button type="button" class="pajak-datepicker__nav pajak-datepicker__nav--next" aria-label="Next month">
+                        <svg width="14" height="14" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon">
   <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"></path>
 </svg>                    </button>
                 </div>
 
                 
-                <div class="pajak-datepicker__weekdays"></div>
+                <div class="pajak-datepicker__weekdays" aria-hidden="true"></div>
 
                 
-                <div class="pajak-datepicker__grid"></div>
+                <div class="pajak-datepicker__grid" role="grid"></div>
 
                 
                 <div class="pajak-datepicker__footer">
