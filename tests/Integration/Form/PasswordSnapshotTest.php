@@ -21,4 +21,18 @@ final class PasswordSnapshotTest extends TestCase
 
         $this->assertMatchesHtmlSnapshot($html);
     }
+
+    public function testPasswordWithToggle(): void
+    {
+        $html = (string) $this->blade('<x-pajak-form::password name="password" :with-toggle="true" />');
+
+        $this->assertMatchesHtmlSnapshot($html);
+    }
+
+    public function testPasswordWithConfirmationAndToggle(): void
+    {
+        $html = (string) $this->blade('<x-pajak-form::password name="password" :confirmation="true" :with-toggle="true" />');
+
+        $this->assertMatchesHtmlSnapshot($html);
+    }
 }

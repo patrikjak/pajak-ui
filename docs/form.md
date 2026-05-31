@@ -402,6 +402,9 @@ A password input with an inline label and an optional inline confirmation field.
 {{-- Custom label --}}
 <x-pajak-form::password name="password" label="Your password" placeholder="Enter password" />
 
+{{-- With visibility toggle --}}
+<x-pajak-form::password name="password" :with-toggle="true" />
+
 {{-- With confirmation field --}}
 <x-pajak-form::password
     name="password"
@@ -409,6 +412,12 @@ A password input with an inline label and an optional inline confirmation field.
     confirmation-placeholder="Confirm password"
     confirmation-error="{{ $errors->first('password_confirmation') }}"
 />
+
+{{-- With confirmation field and separate icon --}}
+<x-pajak-form::password name="password" :confirmation="true">
+    <x-slot:icon><x-heroicon-o-lock-closed /></x-slot:icon>
+    <x-slot:confirmation-icon><x-heroicon-o-lock-open /></x-slot:confirmation-icon>
+</x-pajak-form::password>
 
 {{-- With error handling --}}
 <x-pajak-form::password
@@ -428,6 +437,7 @@ A password input with an inline label and an optional inline confirmation field.
 | `confirmation-placeholder` | `string\|null` | `null` | Placeholder for the confirmation field |
 | `confirmation-error` | `string\|null` | `null` | Error message shown below the confirmation field |
 | `confirmation-autocomplete` | `string` | `'new-password'` | `autocomplete` for the confirmation field |
+| `with-toggle` | `bool` | `false` | When `true`, renders a show/hide button on each password field |
 | `placeholder` | `string\|null` | `null` | Placeholder for the primary field |
 | `value` | `mixed` | `null` | Pre-filled value (primary field only) |
 | `state` | `string` | `'default'` | `default` \| `error` \| `success` |
@@ -436,6 +446,11 @@ A password input with an inline label and an optional inline confirmation field.
 | `id` | `string\|null` | `null` | Overrides the primary field `id` (falls back to `name`) |
 | `error` | `string\|null` | `null` | Error message shown below the primary field; automatically sets `state` to `error` |
 | `autocomplete` | `string` | `'new-password'` | `autocomplete` for the primary field |
+
+| Slot | Description |
+|------|-------------|
+| `icon` | Icon shown inside the primary password field (left side) |
+| `confirmation-icon` | Icon shown inside the confirmation field (left side); only used when `confirmation` is `true` |
 
 ---
 
@@ -746,6 +761,9 @@ A styled checkbox with a required label, optional description, and indeterminate
 
 {{-- Custom value --}}
 <x-pajak-form::checkbox name="roles[]" value="admin" label="Admin" />
+
+{{-- HTML in label (rendered unescaped) --}}
+<x-pajak-form::checkbox name="agree" value="1" label='I agree to the <a href="/terms">Terms of Service</a>' />
 ```
 
 | Prop | Type | Default | Description |
@@ -754,7 +772,7 @@ A styled checkbox with a required label, optional description, and indeterminate
 | `value` | `mixed` | — | Value submitted when checked (required) |
 | `checked` | `bool` | `false` | Initial checked state |
 | `disabled` | `bool` | `false` | Disables the checkbox |
-| `label` | `string` | — | Label text (required) |
+| `label` | `string` | — | Label text (required); HTML is rendered unescaped, so you can embed links or formatting |
 | `description` | `string\|null` | `null` | Secondary description text below the label |
 | `id` | `string\|null` | `null` | Overrides the default `id` (falls back to `name`) |
 | `error` | `string\|null` | `null` | Error message shown below the checkbox |

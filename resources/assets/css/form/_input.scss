@@ -48,6 +48,33 @@
     }
 
     &--has-icon .pajak-input { padding-left: 34px; }
+
+    &--has-toggle .pajak-input { padding-right: 38px; }
+
+    &__toggle {
+        position: absolute;
+        right: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--color-neutral-300);
+        transition: color var(--duration-micro) var(--ease-out);
+
+        &:hover { color: var(--fg-primary); }
+
+        svg { width: 16px; height: 16px; }
+
+        &-icon--hide { display: none; }
+
+        &[aria-pressed="true"] {
+            .pajak-input-wrap__toggle-icon--show { display: none; }
+            .pajak-input-wrap__toggle-icon--hide { display: block; }
+        }
+    }
 }
 
 .pajak-input {

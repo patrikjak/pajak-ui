@@ -21,6 +21,8 @@ return [
         'password' => [
             'label' => 'Password',
             'confirmation_label' => 'Confirm password',
+            'show' => 'Show password',
+            'hide' => 'Hide password',
         ],
         'file' => [
             'placeholder' => 'No file chosen',

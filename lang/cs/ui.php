@@ -21,6 +21,8 @@ return [
         'password' => [
             'label' => 'Heslo',
             'confirmation_label' => 'Potvrďte heslo',
+            'show' => 'Zobrazit heslo',
+            'hide' => 'Skrýt heslo',
         ],
         'file' => [
             'placeholder' => 'Žádný soubor nevybrán',
