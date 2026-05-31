@@ -17,7 +17,7 @@
         </span>
 
         <span class="pajak-checkbox__content">
-            <span class="pajak-checkbox__label">{{ $label }}</span>
+            <span class="pajak-checkbox__label">{!! $label !!}</span>
             @isset($description)
                 <span class="pajak-checkbox__description">{{ $description }}</span>
             @endisset

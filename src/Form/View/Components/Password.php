@@ -18,6 +18,7 @@ final class Password extends Input
         public readonly ?string $confirmationPlaceholder = null,
         public readonly ?string $confirmationError = null,
         public readonly string $confirmationAutocomplete = 'new-password',
+        public readonly bool $withToggle = false,
         ?string $placeholder = null,
         mixed $value = null,
         State $state = State::Default,

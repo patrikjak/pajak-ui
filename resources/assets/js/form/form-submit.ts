@@ -271,6 +271,8 @@ async function submitForm(form: HTMLFormElement, btn: HTMLButtonElement | null):
             applyErrors(form, errors);
         }
 
+        maybeShowToast(form, result.data);
+
         return;
     }
 

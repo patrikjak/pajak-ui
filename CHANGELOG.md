@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-05-31
+
+### Added
+
+- **Password visibility toggle** — `<x-pajak-form::password>` accepts a new `:with-toggle="true"` prop; renders a show/hide button inside each password field that toggles between `type="password"` and `type="text"`; button uses eye / eye-slash heroicons and updates `aria-label` / `aria-pressed` on each click; `PajakPassword` JS API exposed on `window.Pajak` and included in `initAll()`
+- **Password confirmation icon slot** — `<x-pajak-form::password>` now accepts a `confirmation-icon` named slot for the confirmation field; previously the confirmation field always reused the primary field's icon
+
+### Fixed
+
+- Checkbox `label` prop — HTML is now documented as supported; the label is rendered unescaped, allowing embedded links or inline formatting
+
 ## [0.2.1] - 2026-05-29
 
 ### Added
