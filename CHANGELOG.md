@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-06-01
+
+### Fixed
+
+- External submit buttons (`<x-pajak::button data-pajak-form="...">`) now show the loading spinner on click; previously the button was disabled but the loading state was never applied because the button reference was not passed to the form submission handler
+
 ## [0.3.0] - 2026-05-31
 
 ### Added
