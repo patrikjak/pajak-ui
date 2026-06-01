@@ -320,11 +320,7 @@ async function handleExternalButtonClick(e: Event): Promise<void> {
         return;
     }
 
-    btn.disabled = true;
-
-    await submitForm(form, null);
-
-    btn.disabled = false;
+    await submitForm(form, btn);
 }
 
 // ─── Public API ─────────────────────────────────────────────────────────────
