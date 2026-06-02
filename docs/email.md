@@ -195,7 +195,7 @@ Coloured hero band below the header. Background colour is set via the `color` pr
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `color` | `string` | `'var(--color-primary-600)'` | CSS colour value for the hero band background |
+| `color` | `string` | `'#5386E4'` | CSS colour value for the hero band background |
 
 | Slot | Description |
 |------|-------------|
