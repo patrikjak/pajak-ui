@@ -6,7 +6,7 @@ import { PajakRepeater } from './repeater';
 import { PajakSelect } from './select';
 import { PajakSlider } from './slider';
 import { PajakToggle } from './toggle';
-import { initFormSubmitLoaders, PajakForm } from './form-submit';
+import { initFormSubmitLoaders, PajakForm, PajakButton } from './form-submit';
 import { PajakToast } from '../toast/toast';
 
 export { PajakCheckbox } from './checkbox';
@@ -17,7 +17,7 @@ export { PajakRepeater } from './repeater';
 export { PajakSelect } from './select';
 export { PajakSlider } from './slider';
 export { PajakToggle } from './toggle';
-export { initFormSubmitLoaders, PajakForm } from './form-submit';
+export { initFormSubmitLoaders, PajakForm, PajakButton } from './form-submit';
 export { PajakToast } from '../toast/toast';
 export type { ToastOptions } from '../toast/toast';
 
@@ -41,7 +41,7 @@ declare global {
     }
 }
 
-window.Pajak = { ...window.Pajak, PajakSelect, PajakToggle, PajakCheckbox, PajakFile, PajakPassword, PajakRepeater, PajakSlider, PajakDropzone, PajakAvatar, PajakImageGrid, PajakForm, PajakToast, initFormSubmitLoaders, initAll };
+window.Pajak = { ...window.Pajak, PajakSelect, PajakToggle, PajakCheckbox, PajakFile, PajakPassword, PajakRepeater, PajakSlider, PajakDropzone, PajakAvatar, PajakImageGrid, PajakForm, PajakButton, PajakToast, initFormSubmitLoaders, initAll };
 
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => initAll());

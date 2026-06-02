@@ -62,14 +62,30 @@ function spinnerSvg(): SVGSVGElement {
     return svg;
 }
 
-function startLoading(btn: HTMLButtonElement): void {
+function startLoading(btn: HTMLButtonElement, loadingText?: string): void {
     btn.classList.add('is-loading');
     btn.appendChild(spinnerSvg());
+
+    if (loadingText !== undefined) {
+        const label = btn.querySelector<HTMLElement>('.pajak-btn__label');
+
+        if (label) {
+            label.dataset.pajakBtnLabel = label.textContent ?? '';
+            label.textContent = loadingText;
+        }
+    }
 }
 
 function stopLoading(btn: HTMLButtonElement): void {
     btn.classList.remove('is-loading');
     btn.querySelector('.pajak-btn__spinner')?.remove();
+
+    const label = btn.querySelector<HTMLElement>('.pajak-btn__label');
+
+    if (label && 'pajakBtnLabel' in label.dataset) {
+        label.textContent = label.dataset.pajakBtnLabel ?? '';
+        delete label.dataset.pajakBtnLabel;
+    }
 }
 
 // ─── Error display ──────────────────────────────────────────────────────────
@@ -324,6 +340,16 @@ async function handleExternalButtonClick(e: Event): Promise<void> {
 }
 
 // ─── Public API ─────────────────────────────────────────────────────────────
+
+export const PajakButton = {
+    startLoading(btn: HTMLButtonElement, loadingText?: string): void {
+        startLoading(btn, loadingText);
+    },
+
+    stopLoading(btn: HTMLButtonElement): void {
+        stopLoading(btn);
+    },
+} as const;
 
 const initializedForms = new WeakSet<HTMLFormElement>();
 const initializedExternalButtons = new WeakSet<HTMLButtonElement>();

@@ -88,3 +88,41 @@ Additional HTML attributes (e.g. `class`, `id`, `data-*`) are forwarded to the `
 | `outline` | Neutral actions with visible boundary |
 | `ghost` | Tertiary actions, cancel, close |
 | `danger` | Destructive actions, delete, remove |
+
+---
+
+## JS API
+
+`PajakButton` is exported from the full bundle (`main.js`) and the form bundle (`form.js`). It is also available at `window.Pajak.PajakButton` when either bundle is loaded via a script tag.
+
+```ts
+import { PajakButton } from 'vendor/pajak/ui/js/form/form';
+// or
+const { PajakButton } = window.Pajak;
+```
+
+### Methods
+
+| Method | Signature | Description |
+|--------|-----------|-------------|
+| `startLoading` | `(btn: HTMLButtonElement, loadingText?: string) => void` | Adds the `is-loading` class and injects the arc spinner. If `loadingText` is provided, replaces the label text for the duration of loading. |
+| `stopLoading` | `(btn: HTMLButtonElement) => void` | Removes the `is-loading` class, the spinner, and restores the original label text if it was changed. |
+
+### Example — Cloudflare Turnstile intercept
+
+```ts
+const btn = document.querySelector<HTMLButtonElement>('#login-btn')!;
+
+btn.addEventListener('click', (e) => {
+    e.stopImmediatePropagation(); // intercept before pajak-form sees the click
+    PajakButton.startLoading(btn, 'Verifying…');
+
+    turnstile.execute('#turnstile-widget', {
+        callback(token: string) {
+            PajakForm.addData(form, 'cf-turnstile-response', token);
+            PajakButton.stopLoading(btn); // restores original label text
+            form.requestSubmit(btn);
+        },
+    });
+}, { capture: true });
+```
