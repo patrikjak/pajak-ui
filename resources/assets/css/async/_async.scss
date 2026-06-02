@@ -1,0 +1,45 @@
+@use '../variables';
+
+.pajak-async {
+    position: relative;
+
+    // ── Overlay ────────────────────────────────────────────────────────────────
+
+    &__overlay {
+        display: none;
+        position: absolute;
+        inset: 0;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: rgba(var(--bg-surface-rgb, 255 255 255) / 0.78);
+        backdrop-filter: blur(6px);
+        border-radius: inherit;
+        z-index: 10;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--fg-secondary);
+    }
+
+    // ── Loading state ──────────────────────────────────────────────────────────
+
+    &.is-loading &__overlay {
+        display: flex;
+    }
+
+    &.is-loading &__content {
+        pointer-events: none;
+    }
+
+    // ── Error state ────────────────────────────────────────────────────────────
+
+    &.is-error &__overlay {
+        display: flex;
+        background: rgba(var(--bg-surface-rgb, 255 255 255) / 0.9);
+        color: var(--color-error);
+    }
+
+    &[hidden] {
+        display: none;
+    }
+}

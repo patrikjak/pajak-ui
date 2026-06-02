@@ -87,13 +87,14 @@ Quick reference for selecting the right component. Each entry lists the Blade ta
 | Progress | `<x-pajak::progress>` | Linear determinate progress bar | `value` (0–100), `size`, `color` |
 | Skeleton | `<x-pajak::skeleton>` | Shimmer placeholder while content loads | `shape`, `style` (set width inline) |
 | Stepper | `<x-pajak::stepper>` + `<x-pajak::stepper-step>` | Multi-step progress indicator | `variant` (`horizontal`/`pill`/`vertical`/`bar`); step: `step`, `title`, `state` (`StepperStepState`) |
+| Async | `<x-pajak::async>` | Fetches HTML from a URL on page load and shows a spinner overlay while loading | `url`, `size`, `label` |
 
 > **Choosing Spinner vs Skeleton vs Progress:**
 > - **Spinner** — unknown duration, simple in-place loading (button, overlay)
 > - **Skeleton** — replaces real UI while loading to prevent layout shift
 > - **Progress** — known percentage completion (upload, multi-step process)
 
-> **Docs:** [badge.md](badge.md) · [spinner.md](spinner.md) · [progress.md](progress.md) · [skeleton.md](skeleton.md) · [stepper.md](stepper.md)
+> **Docs:** [badge.md](badge.md) · [spinner.md](spinner.md) · [progress.md](progress.md) · [skeleton.md](skeleton.md) · [stepper.md](stepper.md) · [async.md](async.md)
 
 ---
 

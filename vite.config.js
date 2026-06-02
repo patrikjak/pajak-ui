@@ -109,6 +109,10 @@ export default defineConfig({
                 'resources/assets/css/table/table-standalone.scss',
                 'resources/assets/js/table/table.ts',
 
+                // Async loader
+                'resources/assets/css/async/async-standalone.scss',
+                'resources/assets/js/async/async.ts',
+
                 // Copy button
                 'resources/assets/css/copy-button/copy-button-standalone.scss',
                 'resources/assets/js/copy-button/copy-button.ts',
