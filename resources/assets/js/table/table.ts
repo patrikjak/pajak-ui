@@ -7,8 +7,8 @@ declare global {
 type PajakWithSelect = Record<string, unknown> & { PajakSelect?: { init: (el: HTMLElement) => unknown } };
 
 function upgradeFilterSelects(editor: HTMLElement): void {
-    editor.querySelectorAll<HTMLElement>('[data-pajak-select]').forEach((wrap) => {
-        (window.Pajak as PajakWithSelect | undefined)?.PajakSelect?.init(wrap);
+    editor.querySelectorAll<HTMLElement>('[data-pajak-select]').forEach((selectWrapper) => {
+        (window.Pajak as PajakWithSelect | undefined)?.PajakSelect?.init(selectWrapper);
     });
 }
 
@@ -22,14 +22,14 @@ function ensureDocumentClickListener(): void {
     documentClickListenerRegistered = true;
 
     document.addEventListener('click', () => {
-        document.querySelectorAll<HTMLElement>('[data-pajak-table-overflow-menu]').forEach((m) => {
-            m.hidden = true;
+        document.querySelectorAll<HTMLElement>('[data-pajak-table-overflow-menu]').forEach((menu) => {
+            menu.hidden = true;
         });
-        document.querySelectorAll<HTMLElement>('.pajak-table-columns-menu').forEach((m) => {
-            m.hidden = true;
+        document.querySelectorAll<HTMLElement>('.pajak-table-columns-menu').forEach((menu) => {
+            menu.hidden = true;
         });
-        document.querySelectorAll<HTMLElement>('.pajak-table-filter-picker').forEach((m) => {
-            m.hidden = true;
+        document.querySelectorAll<HTMLElement>('.pajak-table-filter-picker').forEach((menu) => {
+            menu.hidden = true;
         });
         closeAllFilterEditors();
     });
@@ -408,7 +408,7 @@ function initFilters(wrapper: HTMLElement, tableName: string): void {
 
         pickerMenu.querySelectorAll<HTMLElement>('[data-filter-picker-key]').forEach((item) => {
             const key = item.dataset.filterPickerKey ?? '';
-            const editor = filterEditors[Array.from(filterEditors).findIndex((e) => e.dataset.pajakFilterKey === key)];
+            const editor = filterEditors[Array.from(filterEditors).findIndex((filterEditor) => filterEditor.dataset.pajakFilterKey === key)];
 
             if (editor) {
                 item.addEventListener('click', (event) => {
@@ -454,8 +454,8 @@ function populateFilterEditor(editor: HTMLElement, filter: FilterEntry): void {
         }
     } else if (checkboxes.length > 0) {
         const selected = Array.isArray(filter.value) ? (filter.value as string[]) : [];
-        checkboxes.forEach((cb) => {
-            cb.checked = selected.includes(cb.value);
+        checkboxes.forEach((checkbox) => {
+            checkbox.checked = selected.includes(checkbox.value);
         });
     } else if (minInput || maxInput) {
         const range = filter.value as { from?: string | null; to?: string | null } | null;
@@ -488,10 +488,10 @@ function chipValueSummary(editor: HTMLElement | null, filter: FilterEntry): stri
         const selected = Array.isArray(filter.value) ? (filter.value as string[]) : [];
         const labels: string[] = [];
 
-        checkboxes.forEach((cb) => {
-            if (selected.includes(cb.value)) {
-                const labelEl = cb.closest('label')?.querySelector('.pajak-checkbox__label');
-                labels.push(labelEl?.textContent?.trim() ?? cb.value);
+        checkboxes.forEach((checkbox) => {
+            if (selected.includes(checkbox.value)) {
+                const labelEl = checkbox.closest('label')?.querySelector('.pajak-checkbox__label');
+                labels.push(labelEl?.textContent?.trim() ?? checkbox.value);
             }
         });
 
@@ -640,7 +640,7 @@ function initBulkSelection(wrapper: HTMLElement, tableName: string): void {
         }
 
         const all = Array.from(getRowCheckboxes());
-        const checkedCount = all.filter((cb) => cb.checked).length;
+        const checkedCount = all.filter((checkbox) => checkbox.checked).length;
 
         if (checkedCount === 0) {
             selectAll.checked = false;
@@ -655,7 +655,7 @@ function initBulkSelection(wrapper: HTMLElement, tableName: string): void {
     }
 
     function updateBulkBar(): void {
-        const checked = Array.from(getRowCheckboxes()).filter((cb) => cb.checked);
+        const checked = Array.from(getRowCheckboxes()).filter((checkbox) => checkbox.checked);
 
         updateSelectAllState();
 
@@ -678,8 +678,8 @@ function initBulkSelection(wrapper: HTMLElement, tableName: string): void {
     if (selectAll) {
         selectAll.addEventListener('change', () => {
             const shouldCheck = !selectAll.indeterminate && selectAll.checked;
-            getRowCheckboxes().forEach((cb) => {
-                cb.checked = shouldCheck;
+            getRowCheckboxes().forEach((checkbox) => {
+                checkbox.checked = shouldCheck;
             });
             selectAll.indeterminate = false;
             updateBulkBar();
@@ -696,8 +696,8 @@ function initBulkSelection(wrapper: HTMLElement, tableName: string): void {
 
     if (clearBtn) {
         clearBtn.addEventListener('click', () => {
-            getRowCheckboxes().forEach((cb) => {
-                cb.checked = false;
+            getRowCheckboxes().forEach((checkbox) => {
+                checkbox.checked = false;
             });
 
             if (selectAll) {
@@ -713,8 +713,8 @@ function initBulkSelection(wrapper: HTMLElement, tableName: string): void {
         btn.addEventListener('click', () => {
             const actionKey = btn.dataset.pajakTableBulkAction ?? '';
             const selectedIds = Array.from(getRowCheckboxes())
-                .filter((cb) => cb.checked)
-                .map((cb) => cb.value);
+                .filter((checkbox) => checkbox.checked)
+                .map((checkbox) => checkbox.value);
 
             wrapper.dispatchEvent(new CustomEvent('pajak:table:bulk-action', {
                 bubbles: true,
@@ -877,8 +877,8 @@ function initOverflowMenus(wrapper: HTMLElement): void {
             event.stopPropagation();
             const isOpen = !menu.hidden;
 
-            document.querySelectorAll<HTMLElement>('[data-pajak-table-overflow-menu]').forEach((m) => {
-                m.hidden = true;
+            document.querySelectorAll<HTMLElement>('[data-pajak-table-overflow-menu]').forEach((menu) => {
+                menu.hidden = true;
             });
 
             if (!isOpen) {
@@ -902,7 +902,7 @@ function initColumnVisibility(wrapper: HTMLElement, tableName: string): void {
 
     const state = loadState(tableName);
     const columns = wrapper.querySelectorAll<HTMLElement>('[data-pajak-table-column]');
-    const allColKeys = Array.from(columns).map((c) => c.dataset.columnKey ?? '');
+    const allColKeys = Array.from(columns).map((column) => column.dataset.columnKey ?? '');
 
     columns.forEach((col) => {
         const key = col.dataset.columnKey ?? '';
@@ -920,10 +920,10 @@ function initColumnVisibility(wrapper: HTMLElement, tableName: string): void {
         checkbox.addEventListener('change', () => {
             const currentState = loadState(tableName);
 
-            currentState.visibleColumns = allColKeys.filter((colKey) => {
-                const cb = menu.querySelector<HTMLInputElement>(`input[data-col="${colKey}"]`);
+            currentState.visibleColumns = allColKeys.filter((columnKey) => {
+                const checkbox = menu.querySelector<HTMLInputElement>(`input[data-col="${columnKey}"]`);
 
-                return cb ? cb.checked : true;
+                return checkbox ? checkbox.checked : true;
             });
 
             saveState(tableName, currentState);
@@ -1003,7 +1003,7 @@ function initTable(wrapper: HTMLElement): void {
         updateFilterChips(wrapper, state);
     }
 
-    if (hasPersistedState(state)) {
+    if (hasPersistedState(state) || wrapper.dataset.pajakTableAsync !== undefined) {
         restoreSearchInput(wrapper, state);
         wrapper.classList.add('is-restoring');
         fetchTable(wrapper, state);

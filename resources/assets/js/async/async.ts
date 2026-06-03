@@ -4,7 +4,7 @@ declare global {
     }
 }
 
-async function fetchContent(el: HTMLElement): Promise<void> {
+async function fetchContent(el: HTMLElement, isRefresh: boolean): Promise<void> {
     const url = el.dataset.url;
 
     if (!url) {
@@ -12,7 +12,11 @@ async function fetchContent(el: HTMLElement): Promise<void> {
     }
 
     el.classList.remove('is-loaded', 'is-error');
-    el.classList.add('is-loading');
+
+    if (isRefresh) {
+        el.classList.add('is-refreshing');
+    }
+
     el.dispatchEvent(new CustomEvent('pajak:async:loading', { bubbles: true }));
 
     const csrfToken = document.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.content ?? '';
@@ -27,14 +31,14 @@ async function fetchContent(el: HTMLElement): Promise<void> {
             },
         });
     } catch {
-        el.classList.remove('is-loading');
+        el.classList.remove('is-refreshing');
         el.classList.add('is-error');
         el.dispatchEvent(new CustomEvent('pajak:async:error', { bubbles: true }));
 
         return;
     }
 
-    el.classList.remove('is-loading');
+    el.classList.remove('is-refreshing');
 
     if (!response.ok) {
         el.classList.add('is-error');
@@ -60,12 +64,12 @@ function init(el: HTMLElement): void {
     }
 
     el.dataset.pajakAsyncInit = '1';
-    fetchContent(el);
+    fetchContent(el, false);
 }
 
 function refresh(el: HTMLElement): void {
-    delete el.dataset.pajakAsyncInit;
-    init(el);
+    el.dataset.pajakAsyncInit = '1';
+    fetchContent(el, true);
 }
 
 function initAll(): void {

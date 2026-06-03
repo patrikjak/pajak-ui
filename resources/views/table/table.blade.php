@@ -1,9 +1,10 @@
 <div
-    class="pajak-table-wrapper"
+    @class(['pajak-table-wrapper', 'is-restoring' => $table->isAsync()])
     id="pajak-table-{{ $table->name() }}"
     data-pajak-table
     data-table-name="{{ $table->name() }}"
     @if($table->url()) data-url="{{ $table->url() }}" @endif
+    @if($table->isAsync()) data-pajak-table-async @endif
 >
     <script>
         (function () {
@@ -42,7 +43,7 @@
                         data-pajak-table-filter-toggle
                     >
                         <x-heroicon-o-funnel width="16" height="16" aria-hidden="true" />
-                        {{ __('pajak::table.filter.add') }}
+                        @lang('pajak::table.filter.add')
                     </button>
                 @endif
 
@@ -53,7 +54,7 @@
                         data-pajak-table-columns-toggle
                     >
                         <x-heroicon-o-table-cells width="16" height="16" aria-hidden="true" />
-                        {{ __('pajak::table.columns.toggle') }}
+                        @lang('pajak::table.columns.toggle')
                     </button>
                 @endif
             </div>
@@ -99,20 +100,22 @@
             </thead>
 
             <tbody class="pajak-table__body" data-pajak-table-body>
-                @forelse($paginator->items() as $index => $row)
-                    <x-pajak-table::table-row :row="$row" :table="$table" :index="$index" />
-                @empty
-                    @php
-                        $req = request()->all();
-                        $hasActiveFilters = !empty($req['search']) || !empty($req['filters']);
-                    @endphp
-                    <x-pajak-table::table-empty :columnCount="$table->totalColumnCount()" :hasActiveFilters="$hasActiveFilters" />
-                @endforelse
+                @if($table->isAsync())
+                    @foreach(range(1, $table->getSkeletonRows()) as $i)
+                        @include('pajak::table.partials.table-skeleton-row', ['table' => $table])
+                    @endforeach
+                @else
+                    @forelse($paginator->items() as $index => $row)
+                        <x-pajak-table::table-row :row="$row" :table="$table" :index="$index" />
+                    @empty
+                        <x-pajak-table::table-empty :columnCount="$table->totalColumnCount()" :hasActiveFilters="false" />
+                    @endforelse
+                @endif
             </tbody>
         </table>
     </div>
 
-    {{-- Restore loader --}}
+    {{-- Restore loader (hidden in async mode via CSS — skeleton rows serve as the loading indicator) --}}
     <div class="pajak-table-restore-loader" aria-hidden="true">
         <svg class="pajak-spinner pajak-spinner--xl pajak-spinner--primary" viewBox="0 0 24 24" fill="none">
             <circle class="pajak-spinner__track" cx="12" cy="12" r="9" stroke-width="2.5" stroke-dasharray="56.5" stroke-dashoffset="0"/>

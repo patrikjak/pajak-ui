@@ -105,7 +105,7 @@ final class TableSnapshotTest extends TestCase
         $table = Table::make('users')
             ->columns([TextColumn::make('name')->label('Name')])
             ->actions([
-                LinkAction::make('edit')->label('Edit')->url(fn ($row) => '/users/' . $row['id'] . '/edit'),
+                LinkAction::make('edit')->label('Edit')->url(fn ($row) => sprintf('/users/%d/edit', $row['id'])),
             ]);
 
         $paginator = ArrayPaginator::fromArray([
@@ -211,6 +211,26 @@ final class TableSnapshotTest extends TestCase
         $paginator = ArrayPaginator::fromArray([
             ['id' => 1, 'name' => 'Alice Smith', 'email' => 'alice@example.com', 'role' => 'Admin'],
         ]);
+
+        $html = (string) $this->blade(
+            '<x-pajak-table::table :table="$table" :paginator="$paginator" />',
+            ['table' => $table, 'paginator' => $paginator],
+        );
+
+        $this->assertMatchesHtmlSnapshot($html);
+    }
+
+    public function testAsyncTable(): void
+    {
+        $table = Table::make('invoices')
+            ->dataUrl('/invoices/table')
+            ->async(2)
+            ->columns([
+                TextColumn::make('number')->label('Number'),
+                TextColumn::make('amount')->label('Amount'),
+            ]);
+
+        $paginator = ArrayPaginator::fromArray([]);
 
         $html = (string) $this->blade(
             '<x-pajak-table::table :table="$table" :paginator="$paginator" />',

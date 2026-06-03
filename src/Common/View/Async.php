@@ -6,6 +6,7 @@ namespace Pajak\Ui\Common\View;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use Illuminate\View\ComponentSlot;
 use Pajak\Ui\Common\Enums\SpinnerSize;
 
 final class Async extends Component
@@ -14,6 +15,7 @@ final class Async extends Component
         public readonly string $url,
         public readonly SpinnerSize $size = SpinnerSize::Md,
         public readonly string $label = 'Loading',
+        public readonly ComponentSlot $skeleton = new ComponentSlot(),
     ) {
     }
 

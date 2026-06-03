@@ -1,9 +1,9 @@
 <html><body>
-<div class="pajak-table-wrapper" id="pajak-table-users" data-pajak-table data-table-name="users">
+<div class="pajak-table-wrapper is-restoring" id="pajak-table-invoices" data-pajak-table data-table-name="invoices" data-url="/invoices/table" data-pajak-table-async>
     <script>
         (function () {
             try {
-                var key = 'pajak_table_users';
+                var key = 'pajak_table_invoices';
                 var raw = sessionStorage.getItem(key);
                 if (raw) {
                     var s = JSON.parse(raw);
@@ -35,8 +35,8 @@
     /** @var bool $isActiveSort */
 ?>
 
-<th class="pajak-table__th" data-column-key="name" data-pajak-table-column>
-            Name
+<th class="pajak-table__th" data-column-key="number" data-pajak-table-column>
+            Number
     </th>
                                                                                                 <?php (assert($column instanceof TableColumn))
 @php
@@ -44,33 +44,29 @@
     /** @var bool $isActiveSort */
 ?>
 
-<th class="pajak-table__th" data-column-key="email" data-pajak-table-column>
-            Email
+<th class="pajak-table__th" data-column-key="amount" data-pajak-table-column>
+            Amount
     </th>
                                             
                                     </tr>
             </thead>
 
             <tbody class="pajak-table__body" data-pajak-table-body>
-                                                            <tr class="pajak-table__row" data-row-id="1">
-    
-                        <td class="pajak-table__td" data-column-key="name">
-    Alice Smith
-</td>
-                                <td class="pajak-table__td" data-column-key="email">
-    alice@example.com
-</td>
-            
+                                                            <tr class="pajak-table__row pajak-table__row--skeleton" aria-hidden="true">
+            <td class="pajak-table__td">
+            <div class="pajak-sk--line pajak-sk" style="width: 60%;" aria-hidden="true"></div>
+        </td>
+            <td class="pajak-table__td">
+            <div class="pajak-sk--line pajak-sk" style="width: 40%;" aria-hidden="true"></div>
+        </td>
     </tr>
-                                            <tr class="pajak-table__row" data-row-id="2">
-    
-                        <td class="pajak-table__td" data-column-key="name">
-    Bob Jones
-</td>
-                                <td class="pajak-table__td" data-column-key="email">
-    bob@example.com
-</td>
-            
+                                            <tr class="pajak-table__row pajak-table__row--skeleton" aria-hidden="true">
+            <td class="pajak-table__td">
+            <div class="pajak-sk--line pajak-sk" style="width: 60%;" aria-hidden="true"></div>
+        </td>
+            <td class="pajak-table__td">
+            <div class="pajak-sk--line pajak-sk" style="width: 40%;" aria-hidden="true"></div>
+        </td>
     </tr>
                                                 </tbody>
         </table>
