@@ -126,5 +126,4 @@ final class SidebarSnapshotTest extends TestCase
 
         $this->assertMatchesHtmlSnapshot($html);
     }
-
 }

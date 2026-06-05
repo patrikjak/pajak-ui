@@ -40,7 +40,9 @@ final class AsyncSnapshotTest extends TestCase
     public function testWithSkeletonSlot(): void
     {
         $html = (string) $this->blade(
-            '<x-pajak::async url="/api/stats"><x-slot:skeleton><div class="skeleton-placeholder">Loading…</div></x-slot:skeleton></x-pajak::async>',
+            '<x-pajak::async url="/api/stats">'
+            . '<x-slot:skeleton><div class="skeleton-placeholder">Loading…</div></x-slot:skeleton>'
+            . '</x-pajak::async>',
         );
 
         $this->assertMatchesHtmlSnapshot($html);
