@@ -14,3 +14,4 @@ export type { HttpMethod, HttpPayload, HttpResult, HttpSuccess, HttpError } from
 export { PajakTable } from './table/table';
 export { PajakCopyButton } from './copy-button/copy-button';
 export { PajakAsync } from './async/async';
+export { PajakSidebar } from './sidebar/sidebar';

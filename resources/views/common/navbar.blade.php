@@ -1,4 +1,5 @@
 @use('Pajak\Ui\Common\Enums\Navbar\NavbarVariant')
+@use('Pajak\Ui\Common\Enums\Sidebar\SidebarVariant')
 
 @if($variant === NavbarVariant::Stacked)
     <nav {{ $attributes->merge(['class' => 'pajak-navbar pajak-navbar--stacked']) }}>
@@ -13,6 +14,12 @@
 
             @isset($actions)
                 <div class="pajak-navbar__actions">{{ $actions }}</div>
+            @endisset
+
+            @isset($menu)
+                <button class="pajak-navbar__menu-btn" type="button" aria-label="Menu" data-pajak-sidebar-trigger="{{ $menuDialogId }}">
+                    <x-heroicon-o-bars-3 width="20" height="20" aria-hidden="true" />
+                </button>
             @endisset
         </div>
 
@@ -34,6 +41,12 @@
             @isset($actions)
                 <div class="pajak-navbar__actions">{{ $actions }}</div>
             @endisset
+
+            @isset($menu)
+                <button class="pajak-navbar__menu-btn" type="button" aria-label="Menu" data-pajak-sidebar-trigger="{{ $menuDialogId }}">
+                    <x-heroicon-o-bars-3 width="20" height="20" aria-hidden="true" />
+                </button>
+            @endisset
         </div>
     </nav>
 @else
@@ -51,5 +64,27 @@
         @isset($actions)
             <div class="pajak-navbar__actions">{{ $actions }}</div>
         @endisset
+
+        @isset($menu)
+            <button class="pajak-navbar__menu-btn" type="button" aria-label="Menu" data-pajak-sidebar-trigger="{{ $menuDialogId }}">
+                <x-heroicon-o-bars-3 width="20" height="20" aria-hidden="true" />
+            </button>
+        @endisset
     </nav>
 @endif
+
+@isset($menu)
+    <dialog id="{{ $menuDialogId }}" data-pajak-sidebar>
+        <x-pajak::sidebar :variant="$variant === NavbarVariant::Dark ? SidebarVariant::Dark : SidebarVariant::Standard">
+            @if(isset($brand))
+                <x-slot:brand>{{ $brand }}</x-slot:brand>
+            @elseif(isset($title))
+                <x-slot:brand>{{ $title }}</x-slot:brand>
+            @endif
+            @isset($menuFooter)
+                <x-slot:footer>{{ $menuFooter }}</x-slot:footer>
+            @endisset
+            {{ $menu }}
+        </x-pajak::sidebar>
+    </dialog>
+@endisset

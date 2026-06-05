@@ -1,3 +1,5 @@
+@use '../variables' as *;
+
 // ── Drawer ────────────────────────────────────────────────────────────────────
 
 .pajak-drawer {
@@ -23,7 +25,7 @@
     // ── Backdrop ──────────────────────────────────────────────────────────────
 
     &::backdrop {
-        background: rgba(31, 42, 62, 0.32);
+        background: var(--backdrop-bg);
         backdrop-filter: blur(2px);
     }
 
@@ -141,5 +143,17 @@
         border-top: 1px solid var(--border-default);
         background: var(--bg-page);
         flex-shrink: 0;
+    }
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+
+@media (max-width: #{$bp-mobile - 1px}) {
+    .pajak-drawer--right {
+        width: min(340px, 92vw);
+    }
+
+    .pajak-drawer--left {
+        width: min(280px, 92vw);
     }
 }

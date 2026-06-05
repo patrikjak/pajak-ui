@@ -1,3 +1,5 @@
+@use '../variables' as *;
+
 // ── Navbar — base ─────────────────────────────────────────────────────────────
 
 .pajak-navbar {
@@ -36,6 +38,28 @@
         align-items: center;
         gap: 8px;
         flex-shrink: 0;
+    }
+
+    // ── Mobile menu trigger ───────────────────────────────────────────────────
+
+    &__menu-btn {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border: none;
+        background: none;
+        color: var(--fg-secondary);
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: background var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+
+        &:hover {
+            background: var(--color-neutral-50);
+            color: var(--fg-primary);
+        }
     }
 }
 
@@ -127,7 +151,8 @@
 .pajak-navbar--dark {
     background: var(--color-neutral-900);
     border-color: var(--color-neutral-900);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    box-shadow: var(--shadow-sm);
+    color: var(--color-neutral-0);
 
     .pajak-nav-link {
         color: var(--color-neutral-300);
@@ -138,9 +163,14 @@
         }
 
         &.is-active {
-            background: rgba(83, 134, 228, 0.18);
+            background: rgba(var(--color-primary-500-rgb), 0.18);
             color: var(--color-neutral-0);
         }
+    }
+
+    .pajak-navbar__menu-btn:hover {
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--color-neutral-0);
     }
 }
 
@@ -149,7 +179,6 @@
 .pajak-navbar--split {
     padding: 0;
     height: 64px;
-    overflow: hidden;
 
     &__brand-area,
     .pajak-navbar__brand-area {
@@ -174,7 +203,7 @@
 
     &__title,
     .pajak-navbar__title {
-        font-size: 15px;
+        font-size: var(--fs-base);
         font-weight: var(--fw-semibold);
         color: var(--fg-primary);
         flex: 1;
@@ -200,7 +229,7 @@
         padding: 0 20px;
         height: 56px;
         gap: 24px;
-        border-bottom: 1px solid var(--color-neutral-50);
+        border-bottom: 1px solid var(--border-default);
     }
 
     .pajak-navbar__links {
@@ -216,7 +245,7 @@
         background: var(--bg-page);
 
         .pajak-nav-link {
-            font-size: 12.5px;
+            font-size: var(--fs-sm);
             color: var(--color-neutral-500);
             padding: 6px 10px;
             border-radius: var(--radius-sm);
@@ -251,7 +280,7 @@
 
     &__title-line,
     .pajak-navbar__title-line {
-        font-size: 15px;
+        font-size: var(--fs-base);
         font-weight: var(--fw-bold);
         color: var(--fg-primary);
         white-space: nowrap;
@@ -261,7 +290,60 @@
 
     &__subtitle,
     .pajak-navbar__subtitle {
-        font-size: 11px;
+        font-size: var(--fs-xs);
         color: var(--color-neutral-400);
+    }
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+
+@media (max-width: #{$bp-mobile - 1px}) {
+    .pajak-navbar {
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        box-shadow: none;
+    }
+
+    .pajak-navbar__links {
+        display: none;
+    }
+
+    .pajak-navbar--stacked .pajak-navbar__sub {
+        display: none;
+    }
+
+    .pajak-navbar--stacked .pajak-navbar__top {
+        border-bottom: none;
+    }
+
+    .pajak-navbar__actions {
+        display: none;
+    }
+
+    .pajak-navbar__menu-btn {
+        display: inline-flex;
+        margin-left: auto;
+    }
+
+    .pajak-navbar--split {
+        .pajak-navbar__brand-area {
+            display: none;
+        }
+
+        .pajak-navbar__main {
+            padding: 0 12px;
+        }
+
+        .pajak-navbar__menu-btn {
+            margin-left: 0;
+        }
+    }
+}
+
+@media (min-width: $bp-mobile) {
+
+    .pajak-navbar--split .pajak-navbar__menu-btn {
+        display: none;
     }
 }

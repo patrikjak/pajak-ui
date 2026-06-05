@@ -831,6 +831,12 @@ function initFormActions(wrapper: HTMLElement): void {
     });
 }
 
+function positionColumnsMenu(menu: HTMLElement, trigger: HTMLElement): void {
+    const rect = trigger.getBoundingClientRect();
+    menu.style.top = `${rect.bottom + 4}px`;
+    menu.style.left = `${rect.right - menu.offsetWidth}px`;
+}
+
 function positionOverflowMenu(menu: HTMLElement, trigger: HTMLElement): void {
     const rect = trigger.getBoundingClientRect();
     const menuHeight = menu.offsetHeight;
@@ -936,12 +942,15 @@ function initColumnVisibility(wrapper: HTMLElement, tableName: string): void {
         menu.appendChild(item);
     });
 
-    toggleBtn.parentElement?.style.setProperty('position', 'relative');
-    toggleBtn.insertAdjacentElement('afterend', menu);
+    document.body.appendChild(menu);
 
     toggleBtn.addEventListener('click', (event) => {
         event.stopPropagation();
-        menu.hidden = !menu.hidden;
+        const isOpen = !menu.hidden;
+        menu.hidden = isOpen;
+        if (!isOpen) {
+            positionColumnsMenu(menu, toggleBtn);
+        }
     });
 
     if (state.visibleColumns.length > 0) {
