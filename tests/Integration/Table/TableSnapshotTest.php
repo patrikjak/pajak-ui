@@ -220,6 +220,35 @@ final class TableSnapshotTest extends TestCase
         $this->assertMatchesHtmlSnapshot($html);
     }
 
+    public function testTableWithIconOnlyActions(): void
+    {
+        $table = Table::make('invoices')
+            ->columns([TextColumn::make('number')->label('Number')])
+            ->actions([
+                LinkAction::make('view')
+                    ->label('View')
+                    ->icon('heroicon-o-eye')
+                    ->iconOnly()
+                    ->url(fn ($row) => sprintf('/invoices/%d', $row['id'])),
+                LinkAction::make('edit')
+                    ->label('Edit')
+                    ->icon('heroicon-o-pencil')
+                    ->iconOnly()
+                    ->url(fn ($row) => sprintf('/invoices/%d/edit', $row['id'])),
+            ]);
+
+        $paginator = ArrayPaginator::fromArray([
+            ['id' => 1, 'number' => 'INV-001'],
+        ]);
+
+        $html = (string) $this->blade(
+            '<x-pajak-table::table :table="$table" :paginator="$paginator" />',
+            ['table' => $table, 'paginator' => $paginator],
+        );
+
+        $this->assertMatchesHtmlSnapshot($html);
+    }
+
     public function testAsyncTable(): void
     {
         $table = Table::make('invoices')

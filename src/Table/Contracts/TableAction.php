@@ -20,4 +20,8 @@ interface TableAction
     public function isDanger(): bool;
 
     public function isVisibleFor(mixed $row): bool;
+
+    public function getIcon(): ?string;
+
+    public function isIconOnly(): bool;
 }

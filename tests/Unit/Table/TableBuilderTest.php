@@ -93,4 +93,31 @@ final class TableBuilderTest extends TestCase
 
         $this->assertTrue($table->hasColumnVisibility());
     }
+
+    public function testIconOnlyActionHasIconAndIsIconOnly(): void
+    {
+        $action = LinkAction::make('view')
+            ->label('View')
+            ->icon('heroicon-o-eye')
+            ->iconOnly();
+
+        $this->assertSame('heroicon-o-eye', $action->getIcon());
+        $this->assertTrue($action->isIconOnly());
+    }
+
+    public function testIconOnlyReturnsFalseWithoutIcon(): void
+    {
+        $action = LinkAction::make('view')->label('View')->iconOnly();
+
+        $this->assertNull($action->getIcon());
+        $this->assertFalse($action->isIconOnly());
+    }
+
+    public function testIconWithoutIconOnlyIsNotIconOnly(): void
+    {
+        $action = LinkAction::make('view')->label('View')->icon('heroicon-o-eye');
+
+        $this->assertSame('heroicon-o-eye', $action->getIcon());
+        $this->assertFalse($action->isIconOnly());
+    }
 }

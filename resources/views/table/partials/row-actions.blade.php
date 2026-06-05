@@ -10,36 +10,56 @@
                 @if($action instanceof ModalAction)
                     <button
                         type="button"
-                        @class(['pajak-table-actions__btn', 'pajak-table-actions__btn--danger' => $action->isDanger()])
+                        @class(['pajak-table-actions__btn', 'pajak-table-actions__btn--icon' => $action->isIconOnly(), 'pajak-table-actions__btn--danger' => $action->isDanger()])
                         data-pajak-modal-open="{{ $action->resolveModalId($row) }}"
+                        @if($action->isIconOnly()) title="{{ $action->getLabel() }}" @endif
                     >
-                        {{ $action->getLabel() }}
+                        @if($action->isIconOnly())
+                            <x-dynamic-component :component="$action->getIcon()" width="15" height="15" aria-hidden="true" />
+                        @else
+                            {{ $action->getLabel() }}
+                        @endif
                     </button>
                 @elseif($action instanceof ConfirmAction)
                     <button
                         type="button"
-                        @class(['pajak-table-actions__btn', 'pajak-table-actions__btn--danger' => $action->isDanger()])
+                        @class(['pajak-table-actions__btn', 'pajak-table-actions__btn--icon' => $action->isIconOnly(), 'pajak-table-actions__btn--danger' => $action->isDanger()])
                         data-pajak-table-confirm="{{ $action->key() }}"
                         data-pajak-table-confirm-url="{{ $action->resolveUrl($row) }}"
                         data-pajak-table-confirm-method="{{ $action->httpMethod()->value }}"
+                        @if($action->isIconOnly()) title="{{ $action->getLabel() }}" @endif
                     >
-                        {{ $action->getLabel() }}
+                        @if($action->isIconOnly())
+                            <x-dynamic-component :component="$action->getIcon()" width="15" height="15" aria-hidden="true" />
+                        @else
+                            {{ $action->getLabel() }}
+                        @endif
                     </button>
                 @elseif($action instanceof FormAction)
                     <button
                         type="button"
-                        @class(['pajak-table-actions__btn', 'pajak-table-actions__btn--danger' => $action->isDanger()])
+                        @class(['pajak-table-actions__btn', 'pajak-table-actions__btn--icon' => $action->isIconOnly(), 'pajak-table-actions__btn--danger' => $action->isDanger()])
                         data-pajak-table-form-action="{{ $action->resolveUrl($row) }}"
                         data-pajak-table-form-method="{{ $action->httpMethod()->value }}"
+                        @if($action->isIconOnly()) title="{{ $action->getLabel() }}" @endif
                     >
-                        {{ $action->getLabel() }}
+                        @if($action->isIconOnly())
+                            <x-dynamic-component :component="$action->getIcon()" width="15" height="15" aria-hidden="true" />
+                        @else
+                            {{ $action->getLabel() }}
+                        @endif
                     </button>
                 @else
                     <a
                         href="{{ $action->resolveUrl($row) }}"
-                        @class(['pajak-table-actions__btn', 'pajak-table-actions__btn--danger' => $action->isDanger()])
+                        @class(['pajak-table-actions__btn', 'pajak-table-actions__btn--icon' => $action->isIconOnly(), 'pajak-table-actions__btn--danger' => $action->isDanger()])
+                        @if($action->isIconOnly()) title="{{ $action->getLabel() }}" @endif
                     >
-                        {{ $action->getLabel() }}
+                        @if($action->isIconOnly())
+                            <x-dynamic-component :component="$action->getIcon()" width="15" height="15" aria-hidden="true" />
+                        @else
+                            {{ $action->getLabel() }}
+                        @endif
                     </a>
                 @endif
             @endif

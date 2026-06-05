@@ -7,10 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.4.0] - 2026-06-03
+## [0.4.0] - 2026-06-05
 
 ### Added
 
+- **Table icon-only inline actions** — all action types (`LinkAction`, `FormAction`, `ConfirmAction`, `ModalAction`) now accept `->icon(string $heroiconName)->iconOnly()`; renders a 28×28 borderless icon button that fades in on row hover; the `label` is preserved as a native `title` tooltip for accessibility
 - **Async content loader** — new `<x-pajak::async>` component fetches a URL on init and injects the response HTML into its content slot; supports an optional `skeleton` slot shown while loading, an arc spinner overlay on refresh, and `size` / `label` props; `PajakAsync` JS API (`initAll`, `init`, `refresh`) exposed on `window.Pajak`
 - **`PajakButton` JS API** — `PajakButton.startLoading(btn, loadingText?)` and `PajakButton.stopLoading(btn)` allow manually controlling button loading state from JS; optional `loadingText` swaps the label text during loading and restores it on stop; exported from `main.js` and `form.js`
 - **Table async init** — `Table::make()->async()` skips server-rendering rows on first paint and always fires an AJAX fetch on init; renders skeleton placeholder rows while loading; useful when the initial query is expensive or SSR should be avoided entirely

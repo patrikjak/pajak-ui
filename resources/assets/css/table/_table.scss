@@ -580,6 +580,10 @@
 
         &:hover:not(&--empty) {
             background: var(--bg-subtle);
+
+            .pajak-table-actions__btn--icon {
+                opacity: 1;
+            }
         }
 
         &--empty {
@@ -764,6 +768,21 @@
         &:hover {
             background: var(--bg-subtle);
             color: var(--fg-primary);
+        }
+
+        &--icon {
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            justify-content: center;
+            border: none;
+            background: none;
+            opacity: 0;
+            transition: opacity var(--duration-micro), background var(--duration-micro), color var(--duration-micro);
+
+            &:hover {
+                background: var(--bg-subtle);
+            }
         }
 
         &--danger {

@@ -363,6 +363,36 @@ ModalAction::make('edit')
 | `->visibleIf(Closure $fn)` | Conditional visibility per row (`fn($row): bool`) |
 | `->inlineOnly()` | Show only as inline button (not in overflow menu) |
 | `->overflowOnly()` | Show only in the `…` overflow menu |
+| `->icon(string $icon)` | Heroicon component name (e.g. `'heroicon-o-eye'`) |
+| `->iconOnly()` | Render as a 28×28 icon button (requires `->icon()`); fades in on row hover; label becomes the native `title` tooltip |
+
+#### Icon-only inline actions
+
+Use `->icon()->iconOnly()` to render compact icon buttons that appear on row hover, matching the design system pattern. The `label` is still required — it becomes the `title` attribute for accessibility.
+
+```php
+->actions([
+    LinkAction::make('view')
+        ->label('View')
+        ->icon('heroicon-o-eye')
+        ->iconOnly()
+        ->url(fn($row) => route('invoices.show', $row->id)),
+    LinkAction::make('edit')
+        ->label('Edit')
+        ->icon('heroicon-o-pencil')
+        ->iconOnly()
+        ->url(fn($row) => route('invoices.edit', $row->id)),
+    ConfirmAction::make('delete')
+        ->label('Delete')
+        ->icon('heroicon-o-trash')
+        ->iconOnly()
+        ->danger()
+        ->url(fn($row) => route('invoices.destroy', $row->id))
+        ->method(Method::Delete),
+])
+```
+
+Icon-only and overflow positions are independent — an action can be both icon-only inline and also appear in the `…` overflow menu (the default). Call `->inlineOnly()` to suppress the overflow entry.
 
 ---
 
