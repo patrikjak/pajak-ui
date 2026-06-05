@@ -1,12 +1,15 @@
+@use '../variables' as *;
+
 // ── Bottom tab bar ─────────────────────────────────────────────────────────────
 
 .pajak-tabbar {
     display: flex;
     align-items: stretch;
+    width: 100%;
     background: var(--bg-surface);
     border: 1px solid var(--border-default);
     border-radius: 18px;
-    box-shadow: 0 -2px 8px rgba(83, 134, 228, 0.06), var(--shadow-sm);
+    box-shadow: 0 -2px 8px rgba(var(--color-primary-500-rgb), 0.06), var(--shadow-sm);
     padding: 6px;
 
     // ── Tab item ──────────────────────────────────────────────────────────────
@@ -22,7 +25,7 @@
         border-radius: 12px;
         color: var(--color-neutral-400);
         font-family: var(--font-body);
-        font-size: 10.5px;
+        font-size: var(--fs-xs);
         font-weight: var(--fw-medium);
         transition: color var(--duration-fast) var(--ease-out), background var(--duration-fast) var(--ease-out);
 

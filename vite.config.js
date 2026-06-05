@@ -104,10 +104,15 @@ export default defineConfig({
 
                 // Sidebar
                 'resources/assets/css/sidebar/sidebar-standalone.scss',
+                'resources/assets/js/sidebar/sidebar.ts',
 
                 // Table
                 'resources/assets/css/table/table-standalone.scss',
                 'resources/assets/js/table/table.ts',
+
+                // Async loader
+                'resources/assets/css/async/async-standalone.scss',
+                'resources/assets/js/async/async.ts',
 
                 // Copy button
                 'resources/assets/css/copy-button/copy-button-standalone.scss',

@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace Pajak\Ui\Table\Actions;
 
 use Closure;
+use Pajak\Ui\Table\Actions\Concerns\HasIcon;
 use Pajak\Ui\Table\Contracts\TableAction;
 use Pajak\Ui\Table\Enums\ActionPosition;
 
 class LinkAction implements TableAction
 {
+    use HasIcon;
+
     protected string $actionLabel;
 
     protected bool $danger = false;

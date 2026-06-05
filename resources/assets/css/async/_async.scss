@@ -1,0 +1,63 @@
+@use '../variables';
+
+.pajak-async {
+    position: relative;
+
+    // ── Skeleton ───────────────────────────────────────────────────────────────
+
+    &__skeleton {
+        display: block;
+    }
+
+    &.is-loaded &__skeleton {
+        display: none;
+    }
+
+    // ── Content ────────────────────────────────────────────────────────────────
+
+    &__content {
+        display: none;
+    }
+
+    &.is-loaded &__content {
+        display: block;
+    }
+
+    // ── Overlay (refresh / error) ──────────────────────────────────────────────
+
+    &__overlay {
+        display: none;
+        position: absolute;
+        inset: 0;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-3);
+        background: rgba(var(--bg-surface-rgb) / 0.78);
+        backdrop-filter: blur(6px);
+        border-radius: inherit;
+        z-index: 50;
+        font-size: var(--fs-sm);
+        font-weight: 500;
+        color: var(--fg-secondary);
+    }
+
+    &.is-refreshing &__overlay {
+        display: flex;
+    }
+
+    &.is-refreshing &__content {
+        pointer-events: none;
+    }
+
+    // ── Error state ────────────────────────────────────────────────────────────
+
+    &.is-error &__overlay {
+        display: flex;
+        background: rgba(var(--bg-surface-rgb) / 0.9);
+        color: var(--color-error);
+    }
+
+    &[hidden] {
+        display: none;
+    }
+}

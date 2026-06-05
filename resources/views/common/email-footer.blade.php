@@ -1,4 +1,4 @@
-<div {{ $attributes->merge(['class' => 'pajak-email-footer']) }}>
+<div {{ $attributes->merge(['class' => 'pajak-email-footer']) }} style="background: #F7F9FF;">
     @isset($logo)
         <div class="pajak-email-footer__logo">{{ $logo }}</div>
     @endisset

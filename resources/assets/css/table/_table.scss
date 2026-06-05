@@ -1,4 +1,4 @@
-@use '../variables';
+@use '../variables' as *;
 
 // ── Utilities ─────────────────────────────────────────────────────────────────
 
@@ -19,7 +19,6 @@
 .pajak-table-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 0;
     background: var(--bg-surface);
     border: 1px solid var(--border-default);
     border-radius: 12px;
@@ -35,8 +34,8 @@
     padding: 16px 20px 14px;
 
     &__title {
-        font-size: 17px;
-        font-weight: 700;
+        font-size: var(--fs-md);
+        font-weight: var(--fw-bold);
         color: var(--fg-primary);
         margin: 0;
     }
@@ -63,14 +62,14 @@
         align-items: center;
         gap: 6px;
         padding: 6px 12px;
-        border-radius: 7px;
+        border-radius: var(--radius-sm);
         border: 1px solid var(--border-default);
         background: var(--bg-surface);
         color: var(--fg-secondary);
         font-size: 13px;
-        font-weight: 500;
+        font-weight: var(--fw-medium);
         cursor: pointer;
-        transition: background 150ms, color 150ms, border-color 150ms;
+        transition: background var(--duration-micro), color var(--duration-micro), border-color var(--duration-micro);
 
         &:hover {
             background: var(--bg-subtle);
@@ -103,13 +102,13 @@
     &__input {
         width: 220px;
         padding: 6px 28px 6px 34px;
-        border-radius: 7px;
+        border-radius: var(--radius-sm);
         border: 1px solid var(--border-default);
         background: var(--bg-surface);
         color: var(--fg-primary);
         font-size: 13px;
         outline: none;
-        transition: border-color 150ms;
+        transition: border-color var(--duration-micro);
 
         &::placeholder {
             color: var(--fg-tertiary);
@@ -131,8 +130,8 @@
         background: none;
         color: var(--fg-tertiary);
         cursor: pointer;
-        border-radius: 4px;
-        transition: color 150ms;
+        border-radius: var(--radius-xs);
+        transition: color var(--duration-micro);
 
         &:hover {
             color: var(--fg-primary);
@@ -184,7 +183,6 @@
 .pajak-table-filter-chip {
     display: inline-flex;
     align-items: center;
-    gap: 0;
     height: 28px;
     padding: 0 4px 0 10px;
     border-radius: 99px;
@@ -192,7 +190,7 @@
     border: 1px solid var(--color-primary-200);
     color: var(--color-primary-700);
     font-size: 12px;
-    font-weight: 500;
+    font-weight: var(--fw-medium);
 
     &__text {
         margin-right: 2px;
@@ -244,7 +242,7 @@
     min-width: 180px;
     background: var(--bg-surface);
     border: 1px solid var(--border-default);
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     box-shadow: var(--shadow-lg);
     padding: 8px;
     z-index: 200;
@@ -276,7 +274,7 @@
     position: fixed;
     background: var(--bg-surface);
     border: 1px solid var(--border-default);
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     box-shadow: var(--shadow-lg);
     z-index: 200;
 
@@ -294,7 +292,7 @@
 
     &__label {
         font-size: 13px;
-        font-weight: 600;
+        font-weight: var(--fw-semibold);
         color: var(--fg-primary);
         margin: 0;
     }
@@ -318,14 +316,14 @@
 
     &__apply {
         padding: 7px 14px;
-        border-radius: 7px;
+        border-radius: var(--radius-sm);
         border: none;
         background: var(--bg-primary);
         color: var(--fg-on-primary);
         font-size: 13px;
-        font-weight: 500;
+        font-weight: var(--fw-medium);
         cursor: pointer;
-        transition: background 150ms;
+        transition: background var(--duration-micro);
 
         &:hover {
             background: var(--bg-primary-hover);
@@ -356,7 +354,7 @@
 
     &__count {
         font-size: 13px;
-        font-weight: 600;
+        font-weight: var(--fw-semibold);
         color: var(--color-primary-700);
     }
 
@@ -385,14 +383,14 @@
         align-items: center;
         gap: 6px;
         padding: 6px 12px;
-        border-radius: 7px;
+        border-radius: var(--radius-sm);
         border: 1px solid var(--border-default);
         background: var(--bg-surface);
         color: var(--fg-secondary);
         font-size: 13px;
-        font-weight: 500;
+        font-weight: var(--fw-medium);
         cursor: pointer;
-        transition: background 150ms;
+        transition: background var(--duration-micro);
 
         &:hover {
             background: var(--bg-subtle);
@@ -414,7 +412,6 @@
 
 .pajak-table-scroll {
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
 }
 
 // ── Loading states ─────────────────────────────────────────────────────────────
@@ -424,8 +421,12 @@
     position: relative;
 }
 
-.pajak-table-wrapper.is-restoring .pajak-table-scroll {
+.pajak-table-wrapper.is-restoring:not([data-pajak-table-async]) .pajak-table-scroll {
     visibility: hidden;
+}
+
+.pajak-table-wrapper.is-restoring[data-pajak-table-async] .pajak-table-scroll {
+    pointer-events: none;
 }
 
 .pajak-table-wrapper.is-loading .pajak-table-scroll {
@@ -441,8 +442,8 @@
     justify-content: center;
     pointer-events: none;
 
-    .pajak-table-wrapper.is-restoring &,
-    .pajak-table-wrapper.is-loading & {
+    .pajak-table-wrapper.is-restoring:not([data-pajak-table-async]) &,
+    .pajak-table-wrapper.is-loading:not([data-pajak-table-async]) & {
         display: flex;
     }
 }
@@ -465,7 +466,7 @@
         padding: 10px 16px;
         text-align: left;
         font-size: 12px;
-        font-weight: 600;
+        font-weight: var(--fw-semibold);
         color: var(--fg-secondary);
         white-space: nowrap;
 
@@ -489,7 +490,7 @@
         width: 16px;
         height: 16px;
         flex-shrink: 0;
-        border-radius: 4px;
+        border-radius: var(--radius-xs);
         border: 1.5px solid var(--color-neutral-200);
         background: var(--bg-input, var(--bg-surface));
         cursor: pointer;
@@ -497,9 +498,9 @@
         align-items: center;
         justify-content: center;
         transition:
-            border-color 120ms,
-            background 120ms,
-            box-shadow 120ms;
+            border-color var(--duration-micro),
+            background var(--duration-micro),
+            box-shadow var(--duration-micro);
 
         &:hover {
             border-color: var(--color-primary-500);
@@ -507,7 +508,7 @@
 
         &:focus-visible {
             outline: none;
-            box-shadow: 0 0 0 3px rgba(83, 134, 228, 0.18);
+            box-shadow: 0 0 0 3px rgba(var(--color-primary-500-rgb), 0.18);
         }
 
         &:checked {
@@ -540,7 +541,7 @@
         padding: 0;
         cursor: pointer;
         font-size: 12px;
-        font-weight: 600;
+        font-weight: var(--fw-semibold);
         color: var(--fg-secondary);
 
         &:hover {
@@ -555,7 +556,7 @@
 
     &__sort-icon {
         color: var(--fg-tertiary);
-        transition: color 120ms;
+        transition: color var(--duration-micro);
 
         &.is-active {
             color: var(--color-primary-500);
@@ -575,13 +576,25 @@
     }
 
     &__row {
-        transition: background 120ms;
+        transition: background var(--duration-micro);
 
         &:hover:not(&--empty) {
             background: var(--bg-subtle);
+
+            .pajak-table-actions__btn--icon {
+                opacity: 1;
+            }
         }
 
         &--empty {
+            &:hover {
+                background: none;
+            }
+        }
+
+        &--skeleton {
+            pointer-events: none;
+
             &:hover {
                 background: none;
             }
@@ -630,7 +643,7 @@
     padding: 3px 10px;
     border-radius: 99px;
     font-size: 12px;
-    font-weight: 500;
+    font-weight: var(--fw-medium);
     background: var(--bg-subtle);
     color: var(--fg-secondary);
 
@@ -647,7 +660,7 @@
     padding: 2px 8px;
     border-radius: 5px;
     font-size: 11px;
-    font-weight: 600;
+    font-weight: var(--fw-semibold);
     text-transform: uppercase;
     letter-spacing: 0.03em;
     background: var(--bg-subtle);
@@ -666,7 +679,7 @@
     gap: 2px;
 
     &__primary {
-        font-weight: 500;
+        font-weight: var(--fw-medium);
         color: var(--fg-primary);
     }
 
@@ -701,7 +714,7 @@
 
     &__initials {
         font-size: 13px;
-        font-weight: 600;
+        font-weight: var(--fw-semibold);
         color: var(--color-primary-600);
     }
 
@@ -712,7 +725,7 @@
     }
 
     &__name {
-        font-weight: 500;
+        font-weight: var(--fw-medium);
         color: var(--fg-primary);
     }
 
@@ -724,7 +737,7 @@
 
 .pajak-table-amount {
     font-variant-numeric: tabular-nums;
-    font-weight: 500;
+    font-weight: var(--fw-medium);
 
     &--negative {
         color: var(--color-error);
@@ -747,14 +760,29 @@
         background: var(--bg-surface);
         color: var(--fg-secondary);
         font-size: 12px;
-        font-weight: 500;
+        font-weight: var(--fw-medium);
         cursor: pointer;
         text-decoration: none;
-        transition: background 120ms, color 120ms;
+        transition: background var(--duration-micro), color var(--duration-micro);
 
         &:hover {
             background: var(--bg-subtle);
             color: var(--fg-primary);
+        }
+
+        &--icon {
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            justify-content: center;
+            border: none;
+            background: none;
+            opacity: 0;
+            transition: opacity var(--duration-micro), background var(--duration-micro), color var(--duration-micro);
+
+            &:hover {
+                background: var(--bg-subtle);
+            }
         }
 
         &--danger {
@@ -778,7 +806,7 @@
         background: var(--bg-surface);
         color: var(--fg-secondary);
         cursor: pointer;
-        transition: background 120ms, color 120ms;
+        transition: background var(--duration-micro), color var(--duration-micro);
 
         &:hover {
             background: var(--bg-subtle);
@@ -791,7 +819,7 @@
         min-width: 160px;
         background: var(--bg-surface);
         border: 1px solid var(--border-default);
-        border-radius: 8px;
+        border-radius: var(--radius-sm);
         box-shadow: var(--shadow-lg);
         z-index: 50;
         overflow: hidden;
@@ -812,7 +840,7 @@
         border: none;
         cursor: pointer;
         text-decoration: none;
-        transition: background 100ms;
+        transition: background var(--duration-micro);
 
         &:hover {
             background: var(--bg-subtle);
@@ -846,7 +874,7 @@
 
     &__title {
         font-size: 15px;
-        font-weight: 600;
+        font-weight: var(--fw-semibold);
         color: var(--fg-primary);
         margin: 0;
     }
@@ -891,7 +919,7 @@
         height: 28px;
         padding: 0 var(--space-3);
         font-size: 12px;
-        border-radius: 7px;
+        border-radius: var(--radius-sm);
     }
 
     &__pager {
@@ -906,14 +934,14 @@
         justify-content: center;
         gap: 4px;
         padding: 5px 10px;
-        border-radius: 7px;
+        border-radius: var(--radius-sm);
         border: 1px solid var(--border-default);
         background: var(--bg-surface);
         color: var(--fg-secondary);
         font-size: 12px;
-        font-weight: 500;
+        font-weight: var(--fw-medium);
         cursor: pointer;
-        transition: background 120ms, color 120ms, border-color 120ms;
+        transition: background var(--duration-micro), color var(--duration-micro), border-color var(--duration-micro);
 
         &:hover:not(:disabled) {
             background: var(--bg-subtle);
@@ -947,9 +975,9 @@
             background: var(--bg-primary);
             border-color: var(--bg-primary);
             color: var(--fg-on-primary);
-            font-weight: 600;
+            font-weight: var(--fw-semibold);
             cursor: default;
-            box-shadow: 0 1px 4px rgba(83, 134, 228, 0.35);
+            box-shadow: 0 1px 4px rgba(var(--color-primary-500-rgb), 0.35);
         }
     }
 
@@ -982,7 +1010,7 @@
     }
 
     &::backdrop {
-        background: rgba(31, 42, 62, 0.32);
+        background: var(--backdrop-bg);
         backdrop-filter: blur(2px);
     }
 
@@ -995,7 +1023,7 @@
 
     &__title {
         font-size: 16px;
-        font-weight: 600;
+        font-weight: var(--fw-semibold);
         color: var(--fg-primary);
         margin: 0;
     }
@@ -1015,14 +1043,14 @@
 
     &__cancel {
         padding: 8px 16px;
-        border-radius: 8px;
+        border-radius: var(--radius-sm);
         border: 1px solid var(--border-default);
         background: var(--bg-surface);
         color: var(--fg-secondary);
         font-size: 13px;
-        font-weight: 500;
+        font-weight: var(--fw-medium);
         cursor: pointer;
-        transition: background 120ms;
+        transition: background var(--duration-micro);
 
         &:hover {
             background: var(--bg-subtle);
@@ -1031,14 +1059,14 @@
 
     &__submit {
         padding: 8px 16px;
-        border-radius: 8px;
+        border-radius: var(--radius-sm);
         border: none;
         background: var(--bg-primary);
         color: var(--fg-on-primary);
         font-size: 13px;
-        font-weight: 500;
+        font-weight: var(--fw-medium);
         cursor: pointer;
-        transition: background 120ms;
+        transition: background var(--duration-micro);
 
         &:hover {
             background: var(--bg-primary-hover);
@@ -1057,13 +1085,11 @@
 // ── Column visibility popover ─────────────────────────────────────────────────
 
 .pajak-table-columns-menu {
-    position: absolute;
-    top: calc(100% + 4px);
-    right: 0;
+    position: fixed;
     min-width: 180px;
     background: var(--bg-surface);
     border: 1px solid var(--border-default);
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     box-shadow: var(--shadow-lg);
     padding: 8px;
     z-index: 50;
@@ -1093,13 +1119,13 @@
         flex-shrink: 0;
         width: 16px;
         height: 16px;
-        border-radius: 4px;
+        border-radius: var(--radius-xs);
         border: 1.5px solid var(--color-neutral-200);
         background: var(--bg-input, var(--bg-surface));
         cursor: pointer;
         transition:
-            border-color 120ms,
-            background 120ms;
+            border-color var(--duration-micro),
+            background var(--duration-micro);
 
         &:hover {
             border-color: var(--color-primary-500);
@@ -1112,6 +1138,29 @@
             background-repeat: no-repeat;
             background-position: center;
             background-size: 10px 8px;
+        }
+    }
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+
+@media (max-width: #{$bp-mobile - 1px}) {
+    .pajak-table-toolbar {
+        flex-wrap: wrap;
+
+        &__right {
+            margin-left: 0;
+            width: 100%;
+        }
+    }
+
+    .pajak-table-search {
+        &__input {
+            width: 100%;
+        }
+
+        &__wrap {
+            flex: 1;
         }
     }
 }

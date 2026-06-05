@@ -40,6 +40,10 @@ final class Table
 
     private bool $withColumnVisibility = false;
 
+    private bool $asyncLoad = false;
+
+    private int $skeletonRows = 3;
+
     /**
      * @var array<int, int>
      */
@@ -129,6 +133,14 @@ final class Table
         return $this;
     }
 
+    public function async(int $rows = 3): self
+    {
+        $this->asyncLoad = true;
+        $this->skeletonRows = max(1, $rows);
+
+        return $this;
+    }
+
     /**
      * @param array<int, int> $options
      */
@@ -162,6 +174,16 @@ final class Table
     public function hasColumnVisibility(): bool
     {
         return $this->withColumnVisibility;
+    }
+
+    public function isAsync(): bool
+    {
+        return $this->asyncLoad;
+    }
+
+    public function getSkeletonRows(): int
+    {
+        return $this->skeletonRows;
     }
 
     public function isSelectable(): bool

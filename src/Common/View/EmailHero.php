@@ -9,7 +9,7 @@ use Illuminate\View\Component;
 
 final class EmailHero extends Component
 {
-    public function __construct(public readonly string $color = 'var(--color-primary-600)')
+    public function __construct(public readonly string $color = '#5386E4')
     {
     }
 

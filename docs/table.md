@@ -148,6 +148,29 @@ Creates a table builder. `$name` is used as a unique identifier for sessionStora
 | `->selectable()` | Enable row checkboxes (auto-enabled when `bulkActions` are set) |
 | `->columnVisibility()` | Show the column visibility toggle button in the toolbar |
 | `->perPageOptions(array $options)` | Show a per-page selector with the given options (e.g. `[10, 25, 50]`) |
+| `->async()` | Skip SSR rows on first paint and always fetch via AJAX on init |
+
+### Async initial load
+
+Call `->async()` when the table data is expensive to query or should never be server-rendered on first paint. The Blade output renders the table chrome (heading, toolbar) with skeleton placeholder rows in the `<tbody>`; the JS init immediately fires `fetchTable()` and replaces the skeleton rows with real data on the first AJAX response.
+
+```php
+$table = Table::make('invoices')
+    ->dataUrl(route('invoices.table'))
+    ->async()
+    ->columns([...]);
+```
+
+You can customise the number of skeleton rows shown while the first fetch is in flight:
+
+```php
+$table = Table::make('invoices')
+    ->dataUrl(route('invoices.table'))
+    ->async(rows: 5)
+    ->columns([...]);
+```
+
+This is equivalent to the existing "restore from session state" path — the same `fetchTable()` call is used. The difference is that it fires unconditionally on every page load rather than only when persisted state exists.
 
 ---
 
@@ -340,6 +363,36 @@ ModalAction::make('edit')
 | `->visibleIf(Closure $fn)` | Conditional visibility per row (`fn($row): bool`) |
 | `->inlineOnly()` | Show only as inline button (not in overflow menu) |
 | `->overflowOnly()` | Show only in the `…` overflow menu |
+| `->icon(string $icon)` | Heroicon component name (e.g. `'heroicon-o-eye'`) |
+| `->iconOnly()` | Render as a 28×28 icon button (requires `->icon()`); fades in on row hover; label becomes the native `title` tooltip |
+
+#### Icon-only inline actions
+
+Use `->icon()->iconOnly()` to render compact icon buttons that appear on row hover, matching the design system pattern. The `label` is still required — it becomes the `title` attribute for accessibility.
+
+```php
+->actions([
+    LinkAction::make('view')
+        ->label('View')
+        ->icon('heroicon-o-eye')
+        ->iconOnly()
+        ->url(fn($row) => route('invoices.show', $row->id)),
+    LinkAction::make('edit')
+        ->label('Edit')
+        ->icon('heroicon-o-pencil')
+        ->iconOnly()
+        ->url(fn($row) => route('invoices.edit', $row->id)),
+    ConfirmAction::make('delete')
+        ->label('Delete')
+        ->icon('heroicon-o-trash')
+        ->iconOnly()
+        ->danger()
+        ->url(fn($row) => route('invoices.destroy', $row->id))
+        ->method(Method::Delete),
+])
+```
+
+Icon-only and overflow positions are independent — an action can be both icon-only inline and also appear in the `…` overflow menu (the default). Call `->inlineOnly()` to suppress the overflow entry.
 
 ---
 

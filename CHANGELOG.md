@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-06-05
+
+### Added
+
+- **Table icon-only inline actions** — all action types (`LinkAction`, `FormAction`, `ConfirmAction`, `ModalAction`) now accept `->icon(string $heroiconName)->iconOnly()`; renders a 28×28 borderless icon button that fades in on row hover; the `label` is preserved as a native `title` tooltip for accessibility
+- **Async content loader** — new `<x-pajak::async>` component fetches a URL on init and injects the response HTML into its content slot; supports an optional `skeleton` slot shown while loading, an arc spinner overlay on refresh, and `size` / `label` props; `PajakAsync` JS API (`initAll`, `init`, `refresh`) exposed on `window.Pajak`
+- **`PajakButton` JS API** — `PajakButton.startLoading(btn, loadingText?)` and `PajakButton.stopLoading(btn)` allow manually controlling button loading state from JS; optional `loadingText` swaps the label text during loading and restores it on stop; exported from `main.js` and `form.js`
+- **Table async init** — `Table::make()->async()` skips server-rendering rows on first paint and always fires an AJAX fetch on init; renders skeleton placeholder rows while loading; useful when the initial query is expensive or SSR should be avoided entirely
+- **Responsive layout** — layout-level components now adapt below 768 px: **Sidebar** hides by default and can be shown as a slide-in dialog overlay (`<dialog data-pajak-sidebar>`) controlled by the new `PajakSidebar` JS API; **Navbar** collapses the links area on mobile; **Table toolbar** wraps search and filter controls to a second row; **Modal** gains horizontal margin so it never bleeds to screen edges; **Drawer** side variants clamp their width on small screens; **Error page** scales the title from 32 px to 24 px; breakpoint SCSS variables (`$bp-mobile`, `$bp-tablet`) added to `variables.scss`
+
+### Fixed
+
+- Email components now include inline `style` attributes for background colours, borders, and typography; previously styles were applied only via CSS class, which mobile email clients (Gmail app, Outlook) would strip, causing unstyled output
+
 ## [0.3.1] - 2026-06-01
 
 ### Fixed

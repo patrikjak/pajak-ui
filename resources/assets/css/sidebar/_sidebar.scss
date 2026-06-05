@@ -1,3 +1,5 @@
+@use '../variables' as *;
+
 // ── Sidebar shell ──────────────────────────────────────────────────────────────
 
 .pajak-sb {
@@ -16,7 +18,7 @@
         gap: 10px;
         height: 60px;
         padding: 0 16px;
-        border-bottom: 1px solid var(--color-neutral-50);
+        border-bottom: 1px solid var(--border-default);
         flex-shrink: 0;
     }
 
@@ -65,7 +67,7 @@
     &__footer {
         flex-shrink: 0;
         padding: 12px;
-        border-top: 1px solid var(--color-neutral-50);
+        border-top: 1px solid var(--border-default);
     }
 }
 
@@ -271,7 +273,7 @@
             opacity: 0;
             pointer-events: none;
             transition: opacity var(--duration-micro) var(--ease-out);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.20);
+            box-shadow: var(--shadow-md);
             z-index: 10;
 
             &::before {
@@ -302,6 +304,7 @@
 .pajak-sb--dark {
     background: var(--color-neutral-900);
     border-right-color: var(--color-neutral-900);
+    color: var(--color-neutral-0);
 
     .pajak-sb__brand {
         border-bottom-color: rgba(255, 255, 255, 0.06);
@@ -324,7 +327,7 @@
         }
 
         &.is-active {
-            background: rgba(83, 134, 228, 0.18);
+            background: rgba(var(--color-primary-500-rgb), 0.18);
             color: var(--color-neutral-0);
 
             &::before {
@@ -338,7 +341,7 @@
         }
 
         &.is-active &__count {
-            background: rgba(83, 134, 228, 0.40);
+            background: rgba(var(--color-primary-500-rgb), 0.4);
             color: var(--color-neutral-0);
         }
     }
@@ -388,5 +391,184 @@
 
     .pajak-sb__footer {
         border-top-color: var(--border-default);
+    }
+}
+
+// ── Mobile toggle button (hamburger → ✕) ─────────────────────────────────────
+
+.pajak-sb-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    border: none;
+    background: transparent;
+    color: var(--fg-secondary);
+    cursor: pointer;
+    transition: background var(--duration-micro) var(--ease-out), color var(--duration-micro) var(--ease-out), transform var(--duration-micro) var(--ease-out);
+
+    &:hover {
+        background: var(--color-neutral-100);
+        color: var(--fg-primary);
+    }
+
+    &:active {
+        transform: scale(0.92);
+    }
+
+    // Three-bar hamburger (default state)
+    &__icon {
+        display: flex;
+        flex-direction: column;
+        gap: 4.5px;
+        width: 16px;
+
+        span {
+            display: block;
+            height: 1.5px;
+            background: currentColor;
+            border-radius: 2px;
+            transition: transform var(--duration-base) var(--ease-out), opacity var(--duration-base) var(--ease-out), width var(--duration-base) var(--ease-out);
+            transform-origin: center;
+
+            &:nth-child(2) {
+                width: 11px;
+            }
+        }
+    }
+
+    // When sidebar is open: morph to ✕
+    &.is-open &__icon span {
+        &:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        &:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        &:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+    }
+
+    // Close variant — lives inside the sidebar brand area, only shown on mobile in dialog
+    &--close {
+        display: none;
+        margin-left: auto;
+        flex-shrink: 0;
+    }
+
+    @media (max-width: #{$bp-mobile - 1px}) {
+        display: inline-flex;
+    }
+}
+
+@media (max-width: #{$bp-mobile - 1px}) {
+    dialog[data-pajak-sidebar] .pajak-sb-toggle--close {
+        display: inline-flex;
+        margin-left: auto;
+
+        .pajak-sb-toggle__icon span {
+            &:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+            &:nth-child(2) { opacity: 0; transform: scaleX(0); }
+            &:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+        }
+    }
+
+    dialog[data-pajak-sidebar] .pajak-sb > .pajak-sb-toggle--close {
+        align-self: flex-end;
+        margin: 8px 8px 0;
+    }
+}
+
+// ── Mobile: sidebar as dialog overlay ─────────────────────────────────────────
+
+@media (max-width: #{$bp-mobile - 1px}) {
+    // Dialog is always rendered, open/closed controlled via .is-open class
+    dialog[data-pajak-sidebar] {
+        display: block;
+        background: transparent;
+        border: none;
+        padding: 0;
+        margin: 0;
+        max-width: none;
+        max-height: none;
+        width: 0;
+        height: 0;
+        overflow: visible;
+        pointer-events: none;
+    }
+
+    // Backdrop div — injected by JS, handles click-outside
+    .pajak-sb-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(31, 42, 62, 0); // animated from transparent to --backdrop-bg
+        backdrop-filter: blur(0px);
+        transition: background var(--duration-base) var(--ease-out), backdrop-filter var(--duration-base) var(--ease-out);
+        z-index: 99;
+        pointer-events: none;
+    }
+
+    dialog[data-pajak-sidebar].is-open .pajak-sb-backdrop {
+        background: var(--backdrop-bg);
+        backdrop-filter: blur(2px);
+        pointer-events: auto;
+    }
+
+    dialog[data-pajak-sidebar] .pajak-sb {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100dvh;
+        width: 100%;
+        border-right: none;
+        z-index: 100;
+        transform: translateX(-100%);
+        transition: transform var(--duration-entrance) var(--ease-out);
+        pointer-events: none;
+    }
+
+    dialog[data-pajak-sidebar].is-open .pajak-sb {
+        transform: translateX(0);
+        pointer-events: auto;
+    }
+
+    // Stagger nav items on open
+    dialog[data-pajak-sidebar].is-open .pajak-sb-item-wrap,
+    dialog[data-pajak-sidebar].is-open .pajak-sb__section {
+        animation: sb-item-in 380ms var(--ease-out) both;
+    }
+
+    @for $i from 1 through 12 {
+        dialog[data-pajak-sidebar].is-open .pajak-sb-item-wrap:nth-child(#{$i}),
+        dialog[data-pajak-sidebar].is-open .pajak-sb__section:nth-child(#{$i}) {
+            animation-delay: #{60 + ($i - 1) * 28}ms;
+        }
+    }
+
+    .pajak-sb {
+        display: none;
+    }
+
+    dialog[data-pajak-sidebar] .pajak-sb {
+        display: flex;
+    }
+}
+
+@keyframes sb-item-in {
+    from {
+        opacity: 0;
+        transform: translateX(-12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
     }
 }

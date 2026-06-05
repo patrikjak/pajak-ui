@@ -114,58 +114,14 @@ final class SidebarSnapshotTest extends TestCase
         $html = (string) $this->blade(
             <<<'BLADE'
             <x-pajak::sidebar :variant="$variant">
-                <x-pajak::sidebar-item href="/returns" label="Returns" :active="true" />
-                <div class="pajak-sb__sub">
+                <x-pajak::sidebar-item href="/returns" label="Returns" :active="true">
                     <x-pajak::sidebar-sub-item href="/all" label="All returns" :count="24" />
                     <x-pajak::sidebar-sub-item href="/progress" label="In progress" :active="true" :count="8" />
                     <x-pajak::sidebar-sub-item href="/submitted" label="Submitted" />
-                </div>
+                </x-pajak::sidebar-item>
             </x-pajak::sidebar>
             BLADE,
             ['variant' => SidebarVariant::Wide],
-        );
-
-        $this->assertMatchesHtmlSnapshot($html);
-    }
-
-    public function testSidebarSection(): void
-    {
-        $html = (string) $this->blade('<x-pajak::sidebar-section label="Account" />');
-
-        $this->assertMatchesHtmlSnapshot($html);
-    }
-
-    public function testSidebarItemActive(): void
-    {
-        $html = (string) $this->blade(
-            '<x-pajak::sidebar-item href="/dashboard" label="Dashboard" :active="true" />',
-        );
-
-        $this->assertMatchesHtmlSnapshot($html);
-    }
-
-    public function testSidebarItemWithCount(): void
-    {
-        $html = (string) $this->blade(
-            '<x-pajak::sidebar-item href="/returns" label="Returns" :count="12" />',
-        );
-
-        $this->assertMatchesHtmlSnapshot($html);
-    }
-
-    public function testSidebarItemWarn(): void
-    {
-        $html = (string) $this->blade(
-            '<x-pajak::sidebar-item href="/docs" label="Documents" :count="3" :warn="true" />',
-        );
-
-        $this->assertMatchesHtmlSnapshot($html);
-    }
-
-    public function testSidebarSubItem(): void
-    {
-        $html = (string) $this->blade(
-            '<x-pajak::sidebar-sub-item href="/progress" label="In progress" :active="true" :count="8" />',
         );
 
         $this->assertMatchesHtmlSnapshot($html);

@@ -99,8 +99,8 @@
         align-items: center;
         gap: 6px;
         padding: 4px 11px 4px 8px;
-        border-radius: 9999px;
-        font-size: 11px;
+        border-radius: var(--radius-full);
+        font-size: var(--fs-xs);
         font-weight: var(--fw-semibold);
         letter-spacing: 0.06em;
         text-transform: uppercase;
@@ -132,7 +132,7 @@
     // ── Description ──────────────────────────────────────────────────────────
 
     &__desc {
-        font-size: 15px;
+        font-size: var(--fs-base);
         color: var(--color-neutral-500);
         line-height: 1.65;
         max-width: 360px;
@@ -189,14 +189,14 @@
         width: 220px;
         height: 5px;
         background: var(--color-neutral-100);
-        border-radius: 9999px;
+        border-radius: var(--radius-full);
         overflow: hidden;
         margin-top: 2px;
     }
 
     &__progress-fill {
         height: 100%;
-        border-radius: 9999px;
+        border-radius: var(--radius-full);
         background: linear-gradient(90deg, var(--color-primary-500) 0%, var(--color-accent-400) 100%);
         width: 62%;
         animation: pajak-ep-breathe 2.4s ease-in-out infinite;
@@ -246,5 +246,28 @@
         --ep-pill-bg:  var(--color-neutral-50);
         --ep-pill-fg:  var(--color-neutral-600);
         --ep-dot:      var(--color-neutral-400);
+    }
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+
+@media (max-width: #{$bp-mobile - 1px}) {
+    .pajak-error-page {
+        &__title {
+            font-size: 24px;
+        }
+
+        &__brand {
+            top: 20px;
+            left: 20px;
+        }
+
+        &__footer {
+            bottom: 20px;
+        }
+
+        &__content {
+            padding: 0 20px;
+        }
     }
 }

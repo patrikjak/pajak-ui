@@ -1,3 +1,10 @@
+// ── Breakpoints ────────────────────────────────────────────────────────────────
+
+$bp-mobile: 768px;
+$bp-tablet: 1024px;
+
+// ── Design tokens ──────────────────────────────────────────────────────────────
+
 :root {
     // Primary Blue Scale
     --color-primary-50:  #EBF0FB;
@@ -39,6 +46,7 @@
     --color-primary-500-rgb: 83, 134, 228;
     --color-error-rgb:       229, 57, 53;
     --color-success-rgb:     39, 174, 96;
+    --bg-surface-rgb:        255, 255, 255;
 
     // Semantic Colors
     --color-success-light: #E8F7EF;
@@ -78,6 +86,9 @@
     --fg-on-primary: #FFFFFF;
     --fg-link:       var(--color-primary-500);
     --fg-link-hover: var(--color-primary-700);
+
+    // Backdrop
+    --backdrop-bg: rgba(31, 42, 62, 0.32);
 
     // Shadow / Elevation
     --shadow-xs: 0 1px 2px rgba(19, 51, 110, 0.04);
@@ -191,6 +202,7 @@
     // RGB channels updated for dark semantic colors
     --color-error-rgb:   255, 107, 104;
     --color-success-rgb: 61, 214, 140;
+    --bg-surface-rgb:    21, 27, 44;
 
     // Semantic UI aliases — page sits one step darker than surface
     --bg-page:          #0B0F1A;

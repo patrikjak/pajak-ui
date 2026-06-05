@@ -1,0 +1,7 @@
+var e=new WeakSet;function t(e){return document.querySelector(`dialog#${e}[data-pajak-sidebar]`)}function n(e){return document.querySelector(`[data-pajak-sidebar-trigger="${e}"]`)}function r(e,t){let r=n(e);r&&r.classList.toggle(`is-open`,t)}function i(e){let n=t(e);n&&(n.classList.add(`is-open`),r(e,!0))}function a(e){let n=t(e);n&&(n.classList.remove(`is-open`),r(e,!1))}function o(e){let t=document.createElement(`button`);return t.className=`pajak-sb-toggle pajak-sb-toggle--floating`,t.setAttribute(`data-pajak-sidebar-trigger`,e),t.setAttribute(`aria-label`,`Open navigation`),t.innerHTML=`
+        <span class="pajak-sb-toggle__icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+    `,t.addEventListener(`click`,()=>i(e)),t}function s(){document.querySelectorAll(`dialog[data-pajak-sidebar]`).forEach(t=>{if(e.has(t))return;e.add(t);let r=t.id;if(!r)return;if(!n(r)){let e=document.querySelector(`[data-pajak-sidebar-trigger-slot="${r}"]`);if(e){let t=o(r);e.appendChild(t)}}let i=document.createElement(`div`);i.className=`pajak-sb-backdrop`,t.appendChild(i),i.addEventListener(`click`,()=>a(r)),t.querySelectorAll(`[data-pajak-sidebar-close]`).forEach(e=>{e.addEventListener(`click`,()=>a(r))})}),document.querySelectorAll(`[data-pajak-sidebar-trigger]`).forEach(e=>{let t=e.dataset.pajakSidebarTrigger??``;t&&(e.classList.contains(`pajak-sb-toggle--floating`)||e.addEventListener(`click`,()=>i(t)))})}var c={open:i,close:a,initAll:s};window.Pajak={...window.Pajak,PajakSidebar:c};export{c as PajakSidebar};

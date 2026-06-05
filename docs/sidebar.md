@@ -138,6 +138,53 @@ Standard width with a `header` slot above the scroll area — used for workspace
 
 ---
 
+## Mobile overlay
+
+On screens narrower than `$bp-mobile` (768 px) the sidebar hides and an animated overlay dialog is used instead.
+
+### Markup
+
+Wrap the sidebar in a `<dialog>` with a unique `id` and `data-pajak-sidebar`. Place a toggle button anywhere with `data-pajak-sidebar-trigger="<id>"`. The JS bundle handles open/close and syncs the `is-open` class on the trigger for the hamburger → ✕ morph.
+
+```blade
+{{-- Toggle button — place in your navbar or header --}}
+<button class="pajak-sb-toggle" data-pajak-sidebar-trigger="main-nav">
+    <span class="pajak-sb-toggle__icon">
+        <span></span>
+        <span></span>
+        <span></span>
+    </span>
+</button>
+
+{{-- Sidebar wrapped in a dialog --}}
+<dialog id="main-nav" data-pajak-sidebar>
+    <x-pajak::sidebar>
+        …
+    </x-pajak::sidebar>
+</dialog>
+```
+
+### JS
+
+```js
+import { PajakSidebar } from 'vendor/pajak/ui/js/sidebar/sidebar';
+PajakSidebar.initAll();
+
+// Programmatic control
+PajakSidebar.open('main-nav');
+PajakSidebar.close('main-nav');
+```
+
+### Behaviour
+
+- Sidebar slides in from the left with a spring easing (320 ms).
+- Nav items stagger in with a fade-up animation (12 items supported, 28 ms per step).
+- Backdrop fades in and blurs separately from the panel.
+- Clicking outside the panel or any `[data-pajak-sidebar-close]` element closes the dialog.
+- The toggle button gains `is-open` when open, morphing the three-bar icon to ✕.
+
+---
+
 ## Sidebar props
 
 | Prop | Type | Default | Description |
