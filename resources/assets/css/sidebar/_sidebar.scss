@@ -193,6 +193,13 @@
     }
 }
 
+// ── Suppress transitions during localStorage restore (prevent flash on load) ──
+
+.pajak-sb--no-transition,
+.pajak-sb--no-transition * {
+    transition: none !important;
+}
+
 // ── Rail toggle button ────────────────────────────────────────────────────────
 
 .pajak-sb-rail-btn {

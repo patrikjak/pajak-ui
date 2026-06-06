@@ -37,6 +37,7 @@ function closeSidebar(id: string): void {
     }
 }
 
+// Key format must match the inline script in sidebar.blade.php
 function getRailStorageKey(id: string): string {
     return `pajak-sb-rail:${id}`;
 }
@@ -121,9 +122,15 @@ function initAll(): void {
             btn.addEventListener('click', () => closeSidebar(id));
         });
 
-        const savedRail = localStorage.getItem(getRailStorageKey(id));
-        if (savedRail !== null) {
-            applyRailState(sidebar, savedRail === '1');
+        if (localStorage.getItem(getRailStorageKey(id)) === '1') {
+            const aside = sidebar.querySelector<HTMLElement>('.pajak-sb');
+            aside?.classList.add('pajak-sb--no-transition');
+            applyRailState(sidebar, true);
+            // Double-rAF ensures layout is flushed before removing the class,
+            // so transitions are not triggered during the restore.
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => aside?.classList.remove('pajak-sb--no-transition'));
+            });
         }
 
         sidebar.querySelectorAll<HTMLElement>('[data-pajak-sidebar-rail]').forEach((btn) => {

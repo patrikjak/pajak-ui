@@ -3,6 +3,20 @@
 <aside {{ $attributes->merge(['class' => 'pajak-sb'])->class([
     "pajak-sb--$variant->value" => $variant !== SidebarVariant::Standard,
 ]) }}>
+    <script>
+        (function () {
+            try {
+                var dialog = document.currentScript.closest('dialog[data-pajak-sidebar]');
+                if (dialog && dialog.id) {
+                    var saved = localStorage.getItem('pajak-sb-rail:' + dialog.id);
+                    var aside = dialog.querySelector('.pajak-sb');
+                    if (aside && saved === '1') {
+                        aside.classList.add('pajak-sb--rail');
+                    }
+                }
+            } catch (e) {}
+        })();
+    </script>
     @if(isset($brand))
         <div class="pajak-sb__brand">
             {{ $brand }}
