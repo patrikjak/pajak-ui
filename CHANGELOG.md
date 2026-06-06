@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-06-06
+
+### Added
+
+- **Stat card** — new `<x-pajak::stat-card>` component for dashboard metric displays; accepts `label`, `value`, `:color` (`StatCardColor`: primary/success/warning/sand/error), and `:trend-direction` (`StatCardTrend`: up/down/warn) props; optional `$icon`, `$trend`, and `$sub` named slots; icon is displayed in a colour-tinted bubble; trend text colour is driven by the direction enum; standalone CSS available as `stat-card-standalone.css`
+- **Sidebar rail toggle** — sidebar can now be collapsed to a narrow icon-only rail mode; add `[data-pajak-sidebar-rail]` to a button in the brand area to enable a toggle; rail state is persisted to `localStorage` per sidebar `id`; nav items in rail mode show a tooltip on hover with the item label; new `PajakSidebar.rail(id)` JS method available for programmatic toggling
+
+### Fixed
+
+- Email inline styles extended to remaining components — `<x-pajak::email-hero>`, `email-cta`, `email-divider`, `email-note>`, `email-step`, and `email-infocard-row` now carry inline `style` attributes for all layout and typography properties; previously these components relied on CSS classes that mobile email clients strip
+
 ## [0.4.0] - 2026-06-05
 
 ### Added

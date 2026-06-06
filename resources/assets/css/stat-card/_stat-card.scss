@@ -1,0 +1,106 @@
+// ── Stat Card ─────────────────────────────────────────────────────────────────
+
+.pajak-stat-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    box-shadow: var(--shadow-sm);
+
+    // ── Layout ────────────────────────────────────────────────────────────────
+
+    &__header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: var(--space-3);
+    }
+
+    &__meta {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-1);
+        min-width: 0;
+    }
+
+    // ── Label ─────────────────────────────────────────────────────────────────
+
+    &__label {
+        font-size: var(--fs-xs);
+        font-weight: var(--fw-semibold);
+        color: var(--fg-tertiary);
+        letter-spacing: var(--ls-wider);
+        text-transform: uppercase;
+    }
+
+    // ── Value ─────────────────────────────────────────────────────────────────
+
+    &__value {
+        font-size: 28px;
+        font-weight: var(--fw-bold);
+        color: var(--fg-primary);
+        line-height: var(--lh-tight);
+    }
+
+    // ── Trend ─────────────────────────────────────────────────────────────────
+
+    &__trend {
+        font-size: var(--fs-sm);
+        font-weight: var(--fw-medium);
+        color: var(--fg-secondary);
+
+        &--up   { color: var(--color-success-dark); }
+        &--down { color: var(--color-error-dark); }
+        &--warn { color: var(--color-warning-dark); }
+    }
+
+    // ── Sub ───────────────────────────────────────────────────────────────────
+
+    &__sub {
+        font-size: var(--fs-sm);
+        color: var(--fg-tertiary);
+        line-height: var(--lh-normal);
+    }
+
+    // ── Icon bubble ───────────────────────────────────────────────────────────
+
+    &__icon {
+        flex: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--space-10);
+        height: var(--space-10);
+        border-radius: var(--radius-sm);
+
+        svg {
+            width: var(--space-5);
+            height: var(--space-5);
+        }
+
+        &--primary {
+            background: var(--color-primary-50);
+            color: var(--color-primary-500);
+        }
+
+        &--success {
+            background: var(--color-success-light);
+            color: var(--color-success-dark);
+        }
+
+        &--warning {
+            background: var(--color-warning-light);
+            color: var(--color-warning-dark);
+        }
+
+        &--sand {
+            background: var(--color-accent-100);
+            color: var(--color-accent-600);
+        }
+
+        &--error {
+            background: var(--color-error-light);
+            color: var(--color-error-dark);
+        }
+    }
+}
