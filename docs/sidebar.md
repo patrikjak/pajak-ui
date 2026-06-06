@@ -185,6 +185,45 @@ PajakSidebar.close('main-nav');
 
 ---
 
+## Rail toggle
+
+Any button inside the sidebar with `data-pajak-sidebar-rail` becomes a rail toggle. The package JS wires the click listener automatically in `initAll()`, persists the preference to `localStorage` (key: `pajak-sb-rail:<id>`), and adds `is-rail` to the button when the sidebar is collapsed so the chevron can flip via CSS.
+
+### Markup
+
+```blade
+<dialog id="main-nav" data-pajak-sidebar>
+    <x-pajak::sidebar>
+        <x-slot:brand>
+            <img src="/logo.svg" alt="Logo">
+            <button class="pajak-sb-rail-btn" data-pajak-sidebar-rail aria-label="Toggle rail">
+                <x-heroicon-o-chevron-left style="width:16px;height:16px" />
+            </button>
+        </x-slot:brand>
+        …
+    </x-pajak::sidebar>
+</dialog>
+```
+
+### CSS
+
+`.pajak-sb-rail-btn` is always visible (not mobile-only). In the expanded state it sits at the end of the brand row via `margin-left: auto`. In rail mode (`.pajak-sb--rail`) the brand area switches to a column layout and the button centres below the logo. The `is-rail` rotation on the icon SVG is built into the package — no custom CSS is needed.
+
+### JS
+
+```js
+// Programmatic toggle
+PajakSidebar.rail('main-nav');
+```
+
+### Behaviour
+
+- Clicking `[data-pajak-sidebar-rail]` toggles `pajak-sb--rail` on the `<aside>` and flips the `is-rail` class on the button.
+- State is persisted to `localStorage` and restored on the next `initAll()` call.
+- If no saved preference exists, the sidebar starts in whatever state the server renders (standard or rail via the `variant` prop).
+
+---
+
 ## Sidebar props
 
 | Prop | Type | Default | Description |

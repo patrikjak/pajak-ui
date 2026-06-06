@@ -34,6 +34,7 @@
         flex: 1;
         min-height: 0;
         overflow-y: auto;
+        overflow-x: clip;
         padding: 10px 8px;
         display: flex;
         flex-direction: column;
@@ -193,14 +194,66 @@
     }
 }
 
+// ── Suppress transitions during localStorage restore (prevent flash on load) ──
+
+.pajak-sb--no-transition,
+.pajak-sb--no-transition * {
+    transition: none !important;
+}
+
+// ── Rail toggle button ────────────────────────────────────────────────────────
+
+.pajak-sb-rail-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    margin-left: auto;
+    border: none;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--fg-tertiary);
+    cursor: pointer;
+    transition: background var(--duration-micro) var(--ease-out), color var(--duration-micro) var(--ease-out);
+
+    svg {
+        width: 16px;
+        height: 16px;
+        transition: transform var(--duration-base) var(--ease-out);
+    }
+
+    &:hover {
+        background: var(--color-neutral-100);
+        color: var(--fg-primary);
+    }
+
+    &:active {
+        transform: scale(0.92);
+    }
+
+    &.is-rail svg {
+        transform: rotate(180deg);
+    }
+}
+
 // ── Variant: Rail ─────────────────────────────────────────────────────────────
 
 .pajak-sb--rail {
     width: 72px;
 
     .pajak-sb__brand {
+        flex-direction: column;
+        align-items: center;
         justify-content: center;
-        padding: 0;
+        height: auto;
+        padding: 12px 0;
+        gap: 8px;
+    }
+
+    .pajak-sb-rail-btn {
+        margin-left: 0;
     }
 
     .pajak-sb__scroll {
@@ -356,6 +409,15 @@
 
         &.is-active {
             color: var(--color-primary-200);
+        }
+    }
+
+    .pajak-sb-rail-btn {
+        color: var(--color-neutral-400);
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--color-neutral-0);
         }
     }
 }

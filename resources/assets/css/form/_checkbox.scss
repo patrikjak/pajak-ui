@@ -34,27 +34,21 @@
             box-shadow var(--duration-micro) var(--ease-out);
     }
 
+    &__check {
+        display: none;
+        color: var(--color-neutral-0);
+    }
+
     &__indet {
         display: none;
         fill: var(--color-neutral-0);
-    }
-
-    &__box::after {
-        content: '';
-        display: none;
-        width: 3.5px;
-        height: 7px;
-        border-right: 2px solid var(--color-neutral-0);
-        border-bottom: 2px solid var(--color-neutral-0);
-        transform: rotate(45deg) translate(-1px, -1px);
-        border-radius: 1px;
     }
 
     &__input:checked ~ &__box {
         background: var(--color-primary-500);
         border-color: var(--color-primary-500);
 
-        &::after {
+        .pajak-checkbox__check {
             display: block;
             animation: pajak-checkbox-fade var(--duration-micro) var(--ease-out);
         }

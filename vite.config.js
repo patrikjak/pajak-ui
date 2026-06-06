@@ -18,6 +18,9 @@ export default defineConfig({
                 // Card
                 'resources/assets/css/card/card-standalone.scss',
 
+                // Stat card
+                'resources/assets/css/stat-card/stat-card-standalone.scss',
+
                 // Alert
                 'resources/assets/css/alert/alert-standalone.scss',
 

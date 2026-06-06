@@ -120,6 +120,7 @@ Quick reference for selecting the right component. Each entry lists the Blade ta
 | Component | Blade tag | Purpose | Key props |
 |-----------|-----------|---------|-----------|
 | Card | `<x-pajak::card>` | Surface container for grouped content | `kicker`, `title`; slots: `$header`, `$footer` |
+| Stat card | `<x-pajak::stat-card>` | Dashboard metric card with icon, value, trend, and sub-text | `label`, `value`, `:color` (`StatCardColor`), `:trend-direction` (`StatCardTrend`); slots: `$icon`, `$trend`, `$sub` |
 | Divider | `<x-pajak::divider>` | Horizontal rule or inline OR-separator | `strength` (`subtle`/`default`/`strong`), `label` |
 | Accordion | `<x-pajak::accordion>` + `<x-pajak::accordion-item>` | Expandable/collapsible content sections | `variant`, `mode`; item: `title`, `subtitle`, `open` |
 | Detail | `<x-pajak::detail>` + `<x-pajak::detail-row>` | Structured key-value data display | `variant`; row: `key`, slot = value |
@@ -128,7 +129,7 @@ Quick reference for selecting the right component. Each entry lists the Blade ta
 | Empty state | `<x-pajak::empty-state>` | Placeholder for empty lists or search results | `title`, `message`; slots: `$icon`, `$actions` |
 | Error page | `<x-pajak::error-page>` | Full-viewport HTTP error page | `:code` (`404`/`500`/`403`/`401`/`503`), `title`, `description`; slot: `$actions` |
 
-> **Docs:** [card.md](card.md) · [divider.md](divider.md) · [accordion.md](accordion.md) · [detail.md](detail.md) · [list.md](list.md) · [table.md](table.md) · [empty-state.md](empty-state.md) · [error-page.md](error-page.md)
+> **Docs:** [card.md](card.md) · [stat-card.md](stat-card.md) · [divider.md](divider.md) · [accordion.md](accordion.md) · [detail.md](detail.md) · [list.md](list.md) · [table.md](table.md) · [empty-state.md](empty-state.md) · [error-page.md](error-page.md)
 
 ---
 

@@ -272,6 +272,13 @@
     padding: 0 14px;
     gap: 0;
 
+    &__brand,
+    .pajak-navbar__brand {
+        padding-right: 14px;
+        margin-right: 14px;
+        border-right: 1px solid var(--border-default);
+    }
+
     &__title,
     .pajak-navbar__title {
         flex: 1;

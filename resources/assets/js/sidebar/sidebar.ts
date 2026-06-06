@@ -37,6 +37,43 @@ function closeSidebar(id: string): void {
     }
 }
 
+// Key format must match the inline script in sidebar.blade.php
+function getRailStorageKey(id: string): string {
+    return `pajak-sb-rail:${id}`;
+}
+
+function applyRailState(sidebar: HTMLDialogElement, isRail: boolean): boolean {
+    const aside = sidebar.querySelector<HTMLElement>('.pajak-sb');
+    if (!aside) {
+        return false;
+    }
+
+    aside.classList.toggle('pajak-sb--rail', isRail);
+
+    sidebar.querySelectorAll<HTMLElement>('[data-pajak-sidebar-rail]').forEach((btn) => {
+        btn.classList.toggle('is-rail', isRail);
+    });
+
+    return true;
+}
+
+function toggleRail(id: string): void {
+    const sidebar = getSidebar(id);
+    if (!sidebar) {
+        return;
+    }
+
+    const aside = sidebar.querySelector<HTMLElement>('.pajak-sb');
+    if (!aside) {
+        return;
+    }
+
+    const isRail = !aside.classList.contains('pajak-sb--rail');
+    if (applyRailState(sidebar, isRail)) {
+        localStorage.setItem(getRailStorageKey(id), isRail ? '1' : '0');
+    }
+}
+
 function createTriggerButton(id: string): HTMLButtonElement {
     const btn = document.createElement('button');
     btn.className = 'pajak-sb-toggle pajak-sb-toggle--floating';
@@ -84,6 +121,21 @@ function initAll(): void {
         sidebar.querySelectorAll<HTMLElement>('[data-pajak-sidebar-close]').forEach((btn) => {
             btn.addEventListener('click', () => closeSidebar(id));
         });
+
+        if (localStorage.getItem(getRailStorageKey(id)) === '1') {
+            const aside = sidebar.querySelector<HTMLElement>('.pajak-sb');
+            aside?.classList.add('pajak-sb--no-transition');
+            applyRailState(sidebar, true);
+            // Double-rAF ensures layout is flushed before removing the class,
+            // so transitions are not triggered during the restore.
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => aside?.classList.remove('pajak-sb--no-transition'));
+            });
+        }
+
+        sidebar.querySelectorAll<HTMLElement>('[data-pajak-sidebar-rail]').forEach((btn) => {
+            btn.addEventListener('click', () => toggleRail(id));
+        });
     });
 
     // Also wire up any manually placed triggers
@@ -102,6 +154,7 @@ function initAll(): void {
 export const PajakSidebar = {
     open: openSidebar,
     close: closeSidebar,
+    rail: toggleRail,
     initAll,
 } as const;
 
