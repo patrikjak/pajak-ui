@@ -5,6 +5,7 @@ declare global {
 }
 
 const initializedSidebars = new WeakSet<HTMLDialogElement>();
+const initializedRailButtons = new WeakSet<HTMLElement>();
 
 function getSidebar(id: string): HTMLDialogElement | null {
     return document.querySelector<HTMLDialogElement>(`dialog#${id}[data-pajak-sidebar]`);
@@ -42,35 +43,48 @@ function getRailStorageKey(id: string): string {
     return `pajak-sb-rail:${id}`;
 }
 
-function applyRailState(sidebar: HTMLDialogElement, isRail: boolean): boolean {
-    const aside = sidebar.querySelector<HTMLElement>('.pajak-sb');
-    if (!aside) {
-        return false;
+// A sidebar's `.pajak-sb` aside is either standalone with its own id (desktop, always
+// rendered) or nested inside a `<dialog data-pajak-sidebar>` that carries the id instead
+// (mobile overlay) — the id used for persistence follows whichever one actually has it.
+function railStorageId(aside: HTMLElement): string | null {
+    const dialog = aside.closest<HTMLElement>('dialog[data-pajak-sidebar]');
+
+    return dialog?.id || aside.id || null;
+}
+
+// Resolves a sidebar's `.pajak-sb` aside from its public id — either the id of the
+// `<dialog>` wrapping it (mobile overlay) or the id on the aside itself (standalone desktop).
+function getRailAside(id: string): HTMLElement | null {
+    const dialog = document.querySelector<HTMLElement>(`dialog#${id}[data-pajak-sidebar]`);
+    if (dialog) {
+        return dialog.querySelector<HTMLElement>('.pajak-sb');
     }
 
+    return document.querySelector<HTMLElement>(`.pajak-sb#${id}`);
+}
+
+function applyRailState(aside: HTMLElement, isRail: boolean): void {
     aside.classList.toggle('pajak-sb--rail', isRail);
 
-    sidebar.querySelectorAll<HTMLElement>('[data-pajak-sidebar-rail]').forEach((btn) => {
+    aside.querySelectorAll<HTMLElement>('[data-pajak-sidebar-rail]').forEach((btn) => {
         btn.classList.toggle('is-rail', isRail);
     });
+}
 
-    return true;
+function toggleRailAside(aside: HTMLElement): void {
+    const isRail = !aside.classList.contains('pajak-sb--rail');
+    applyRailState(aside, isRail);
+
+    const id = railStorageId(aside);
+    if (id) {
+        localStorage.setItem(getRailStorageKey(id), isRail ? '1' : '0');
+    }
 }
 
 function toggleRail(id: string): void {
-    const sidebar = getSidebar(id);
-    if (!sidebar) {
-        return;
-    }
-
-    const aside = sidebar.querySelector<HTMLElement>('.pajak-sb');
-    if (!aside) {
-        return;
-    }
-
-    const isRail = !aside.classList.contains('pajak-sb--rail');
-    if (applyRailState(sidebar, isRail)) {
-        localStorage.setItem(getRailStorageKey(id), isRail ? '1' : '0');
+    const aside = getRailAside(id);
+    if (aside) {
+        toggleRailAside(aside);
     }
 }
 
@@ -121,20 +135,28 @@ function initAll(): void {
         sidebar.querySelectorAll<HTMLElement>('[data-pajak-sidebar-close]').forEach((btn) => {
             btn.addEventListener('click', () => closeSidebar(id));
         });
+    });
 
-        if (localStorage.getItem(getRailStorageKey(id)) === '1') {
-            const aside = sidebar.querySelector<HTMLElement>('.pajak-sb');
-            aside?.classList.add('pajak-sb--no-transition');
-            applyRailState(sidebar, true);
+    // Rail (collapse-to-icons) applies to every `.pajak-sb`, standalone or dialog-wrapped.
+    document.querySelectorAll<HTMLElement>('.pajak-sb').forEach((aside) => {
+        const id = railStorageId(aside);
+        if (id && localStorage.getItem(getRailStorageKey(id)) === '1') {
+            aside.classList.add('pajak-sb--no-transition');
+            applyRailState(aside, true);
             // Double-rAF ensures layout is flushed before removing the class,
             // so transitions are not triggered during the restore.
             requestAnimationFrame(() => {
-                requestAnimationFrame(() => aside?.classList.remove('pajak-sb--no-transition'));
+                requestAnimationFrame(() => aside.classList.remove('pajak-sb--no-transition'));
             });
         }
 
-        sidebar.querySelectorAll<HTMLElement>('[data-pajak-sidebar-rail]').forEach((btn) => {
-            btn.addEventListener('click', () => toggleRail(id));
+        aside.querySelectorAll<HTMLElement>('[data-pajak-sidebar-rail]').forEach((btn) => {
+            if (initializedRailButtons.has(btn)) {
+                return;
+            }
+
+            initializedRailButtons.add(btn);
+            btn.addEventListener('click', () => toggleRailAside(aside));
         });
     });
 

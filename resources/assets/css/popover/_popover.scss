@@ -1,3 +1,9 @@
+// Positions .pajak-pop relative to itself, so it must share a `position: relative`
+// ancestor with its trigger — wrap the pair in .pajak-pop-anchor for that.
+.pajak-pop-anchor {
+    position: relative;
+}
+
 .pajak-pop {
     position: absolute;
     z-index: 50;
@@ -21,6 +27,34 @@
         opacity: 1;
         transform: translateY(0) scale(1);
         pointer-events: auto;
+    }
+
+    // ── Placement ────────────────────────────────────────────────────────────────
+
+    &[data-placement="bottom"] {
+        top: calc(100% + 12px);
+        left: 0;
+    }
+
+    &[data-placement="bottom-end"] {
+        top: calc(100% + 12px);
+        right: 0;
+    }
+
+    &[data-placement="top"] {
+        bottom: calc(100% + 12px);
+        left: 0;
+        transform: translateY(4px) scale(0.98);
+    }
+
+    &[data-placement="right"] {
+        left: calc(100% + 12px);
+        top: 0;
+    }
+
+    &[data-placement="left"] {
+        right: calc(100% + 12px);
+        top: 0;
     }
 
     // ── Arrow ──────────────────────────────────────────────────────────────────

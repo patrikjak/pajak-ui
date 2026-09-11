@@ -30,6 +30,12 @@
     &__logo {
         display: flex;
         align-items: center;
+        color: #fff;
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+
+        img { max-height: 28px; }
     }
 
     // ── Tag chip ──────────────────────────────────────────────────────────────
@@ -339,7 +345,14 @@
     &__logo {
         display: flex;
         justify-content: center;
+        align-items: center;
         margin-bottom: 10px;
+        font-size: 16px;
+        font-weight: 800;
+        color: #5386E4;
+        letter-spacing: -0.03em;
+
+        img { max-height: 24px; }
     }
 
     // ── Links ─────────────────────────────────────────────────────────────────

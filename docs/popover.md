@@ -39,20 +39,25 @@ PajakPopover.initAll();
 
 ## Basic usage
 
-```blade
-{{-- Trigger (any element) --}}
-<button data-pajak-popover-trigger="my-pop" aria-expanded="false" aria-haspopup="true">
-    Open
-</button>
+The popover is positioned absolutely against its nearest positioned ancestor, so wrap the
+trigger and the popover in `.pajak-pop-anchor` (any element, `position: relative`):
 
-{{-- Popover --}}
-<x-pajak::popover id="my-pop" title="Polish tax bracket">
-    Your income up to <strong>120 000 zł</strong> is taxed at <strong>17%</strong>.
-    <x-slot:footer>
-        <x-pajak::button variant="ghost">Got it</x-pajak::button>
-        <x-pajak::button>Learn more</x-pajak::button>
-    </x-slot:footer>
-</x-pajak::popover>
+```blade
+<div class="pajak-pop-anchor">
+    {{-- Trigger (any element) --}}
+    <button data-pajak-popover-trigger="my-pop" aria-expanded="false" aria-haspopup="true">
+        Open
+    </button>
+
+    {{-- Popover --}}
+    <x-pajak::popover id="my-pop" title="Polish tax bracket">
+        Your income up to <strong>120 000 zł</strong> is taxed at <strong>17%</strong>.
+        <x-slot:footer>
+            <x-pajak::button variant="ghost">Got it</x-pajak::button>
+            <x-pajak::button>Learn more</x-pajak::button>
+        </x-slot:footer>
+    </x-pajak::popover>
+</div>
 ```
 
 ---
