@@ -67,7 +67,7 @@ php artisan vendor:publish --tag=pajak-ui-sources
 
 ### Rail
 
-72 px icon-only collapsed rail. Labels are hidden via CSS; a tooltip appears on hover. The `icon` slot of `SidebarItem` is required for this variant to be useful.
+72 px icon-only collapsed rail. Labels are hidden via CSS; a tooltip appears on hover. Sub-items (`.pajak-sb__sub`) are hidden too - the rail variant doesn't support inline sub-nav. The `icon` slot of `SidebarItem` is required for this variant to be useful.
 
 ```blade
 <x-pajak::sidebar variant="rail">

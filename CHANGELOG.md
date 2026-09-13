@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Sidebar rail sub-items no longer overflow** - `.pajak-sb__sub` is now hidden in the collapsed rail variant, consistent with how section headers and item labels are already hidden there
 - **Button icon + label alignment** - `.pajak-btn__label` is now `display: inline-flex` with the same gap as the button, so an icon and text passed together in the slot line up vertically and space correctly
 - **`PajakButton.startLoading()` with `loadingText` no longer discards the button's icon** - the original label content (icon included) is now restored by `stopLoading()` instead of only the text; the injected spinner also now renders before the label instead of after, matching the Blade `loading` prop
 
