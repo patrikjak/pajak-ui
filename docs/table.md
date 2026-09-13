@@ -2,7 +2,7 @@
 
 A server-driven AJAX data table with a PHP builder API. Consumers define columns, filters, actions, and bulk actions entirely in PHP; Blade renders the output. All interactive state (search, sort, filters, pagination, column visibility) is managed in the browser without full-page reloads.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -170,7 +170,7 @@ $table = Table::make('invoices')
     ->columns([...]);
 ```
 
-This is equivalent to the existing "restore from session state" path — the same `fetchTable()` call is used. The difference is that it fires unconditionally on every page load rather than only when persisted state exists.
+This is equivalent to the existing "restore from session state" path - the same `fetchTable()` call is used. The difference is that it fires unconditionally on every page load rather than only when persisted state exists.
 
 ---
 
@@ -213,7 +213,7 @@ Bold primary text + muted secondary text.
 TwoLineColumn::make('client')->label('Client')->secondary('nip')
 ```
 
-`->secondary(string $key)` — row key for the secondary/muted line.
+`->secondary(string $key)` - row key for the secondary/muted line.
 
 ### BadgeColumn
 
@@ -252,7 +252,7 @@ DateColumn::make('issued_at')->label('Date')->format('d/m/Y')
 
 ### AmountColumn
 
-Sign-aware monetary display. Expects a `Money` value object — currency symbol, placement, and decimals come from the VO itself.
+Sign-aware monetary display. Expects a `Money` value object - currency symbol, placement, and decimals come from the VO itself.
 
 ```php
 AmountColumn::make('amount')->label('Amount')->sortable()
@@ -285,7 +285,7 @@ SelectFilter::make('status')->label('Status')->options([
 ])
 ```
 
-`->options(array<string, string> $options)` — value → label map.
+`->options(array<string, string> $options)` - value → label map.
 
 ### DateFilter
 
@@ -368,7 +368,7 @@ ModalAction::make('edit')
 
 #### Icon-only inline actions
 
-Use `->icon()->iconOnly()` to render compact icon buttons that appear on row hover, matching the design system pattern. The `label` is still required — it becomes the `title` attribute for accessibility.
+Use `->icon()->iconOnly()` to render compact icon buttons that appear on row hover, matching the design system pattern. The `label` is still required - it becomes the `title` attribute for accessibility.
 
 ```php
 ->actions([
@@ -392,7 +392,7 @@ Use `->icon()->iconOnly()` to render compact icon buttons that appear on row hov
 ])
 ```
 
-Icon-only and overflow positions are independent — an action can be both icon-only inline and also appear in the `…` overflow menu (the default). Call `->inlineOnly()` to suppress the overflow entry.
+Icon-only and overflow positions are independent - an action can be both icon-only inline and also appear in the `…` overflow menu (the default). Call `->inlineOnly()` to suppress the overflow entry.
 
 ---
 
@@ -435,7 +435,7 @@ $price = new Money(-2550);                                              // −25
 
 | Param | Type | Default | Description |
 |-------|------|---------|-------------|
-| `$minorUnits` | `int` | — | Amount in smallest currency unit |
+| `$minorUnits` | `int` | - | Amount in smallest currency unit |
 | `$currency` | `string` | `'€'` | Currency symbol |
 | `$multiplier` | `int` | `100` | Minor units per major unit |
 | `$currencyBefore` | `bool` | `false` | Put symbol before the amount |
@@ -520,9 +520,9 @@ The table dispatches a custom event when a bulk action button is clicked:
 ```js
 document.addEventListener('pajak:table:bulk-action', (event) => {
     const { action, ids, tableName } = event.detail;
-    // action: string — the action key
-    // ids: string[] — selected row IDs
-    // tableName: string — table name
+    // action: string - the action key
+    // ids: string[] - selected row IDs
+    // tableName: string - table name
 });
 ```
 

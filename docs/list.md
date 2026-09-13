@@ -2,7 +2,7 @@
 
 A grouped list of rows with optional leading, body, and trailing slots. Renders as a card-like container with dividers between rows.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -48,7 +48,7 @@ php artisan vendor:publish --tag=pajak-ui-sources
 
 ### `<x-pajak::list>`
 
-Container wrapper. No props — accepts only `$slot`.
+Container wrapper. No props - accepts only `$slot`.
 
 ### `<x-pajak::list-row>`
 
@@ -64,10 +64,10 @@ Individual row inside the list.
 
 | Slot | Required | Description |
 |------|----------|-------------|
-| `leading` | No | Left-side content — icon tile, avatar, checkbox |
+| `leading` | No | Left-side content - icon tile, avatar, checkbox |
 | `title` | No | Primary label text |
 | `subtitle` | No | Secondary/supporting text below the title |
-| `trailing` | No | Right-side content — badge, meta value, toggle, chevron |
+| `trailing` | No | Right-side content - badge, meta value, toggle, chevron |
 | `$slot` | No | Free-form body content (rendered after title/subtitle) |
 
 `title` and `subtitle` can be passed as attributes instead of named slots when the value is a plain string:

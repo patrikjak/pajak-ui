@@ -2,7 +2,7 @@
 
 Transient notification overlay that auto-dismisses after a configurable duration.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -75,7 +75,7 @@ ToastType::Info     // 'info'
 
 ## Form integration
 
-Any form using `data-pajak-form` automatically shows a toast when the JSON response contains a `toast` key — no extra configuration needed.
+Any form using `data-pajak-form` automatically shows a toast when the JSON response contains a `toast` key - no extra configuration needed.
 
 ```html
 <form data-pajak-form action="/settings" method="POST">

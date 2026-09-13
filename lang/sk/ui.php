@@ -69,11 +69,11 @@ return [
         ],
         '401' => [
             'title' => 'Relácia vypršala',
-            'description' => 'Vaša relácia vypršala z bezpečnostných dôvodov. Prihláste sa znova a pokračujte — váš postup bol uložený.',
+            'description' => 'Vaša relácia vypršala z bezpečnostných dôvodov. Prihláste sa znova a pokračujte - váš postup bol uložený.',
         ],
         '503' => [
             'title' => 'Hneď sa vrátime',
-            'description' => 'Vykonávame plánovanú údržbu na zlepšenie spoľahlivosti a výkonu. Vydržte — budeme späť o niekoľko minút.',
+            'description' => 'Vykonávame plánovanú údržbu na zlepšenie spoľahlivosti a výkonu. Vydržte - budeme späť o niekoľko minút.',
         ],
     ],
 

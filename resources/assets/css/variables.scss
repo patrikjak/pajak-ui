@@ -168,7 +168,7 @@ $bp-tablet: 1024px;
 // All component styles use the semantic aliases above, so only those aliases
 // (plus the raw palette tokens components reference directly) need overriding.
 [data-theme="dark"] {
-    // Dark surface scale — blue-tinted neutrals
+    // Dark surface scale - blue-tinted neutrals
     --color-neutral-0:   #151B2C;   // surface  (was white)
     --color-neutral-25:  #11162B;   // subtle bg (was near-white)
     --color-neutral-50:  #1F2740;   // elevated  (was lightest grey)
@@ -182,7 +182,7 @@ $bp-tablet: 1024px;
     --color-neutral-800: #EEF2FB;   // primary fg
     --color-neutral-900: #EEF2FB;   // primary fg (darkest)
 
-    // Semantic colors — brightened for AA contrast on dark surfaces
+    // Semantic colors - brightened for AA contrast on dark surfaces
     --color-success-light: rgba(61, 214, 140, 0.14);
     --color-success:       #3DD68C;
     --color-success-dark:  #3DD68C;
@@ -204,7 +204,7 @@ $bp-tablet: 1024px;
     --color-success-rgb: 61, 214, 140;
     --bg-surface-rgb:    21, 27, 44;
 
-    // Semantic UI aliases — page sits one step darker than surface
+    // Semantic UI aliases - page sits one step darker than surface
     --bg-page:          #0B0F1A;
     --bg-surface:       #151B2C;
     --bg-elevated:      #1F2740;
@@ -226,7 +226,7 @@ $bp-tablet: 1024px;
     --fg-link:       #84A5E7;
     --fg-link-hover: #6B93DF;
 
-    // Shadows — heavier on dark to create visible elevation
+    // Shadows - heavier on dark to create visible elevation
     --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.45), 0 2px 4px rgba(0, 0, 0, 0.3);

@@ -69,11 +69,11 @@ return [
         ],
         '401' => [
             'title' => 'Relace vypršela',
-            'description' => 'Vaše relace vypršela z bezpečnostních důvodů. Přihlaste se znovu a pokračujte — váš postup byl uložen.',
+            'description' => 'Vaše relace vypršela z bezpečnostních důvodů. Přihlaste se znovu a pokračujte - váš postup byl uložen.',
         ],
         '503' => [
             'title' => 'Hned se vrátíme',
-            'description' => 'Provádíme plánovanou údržbu za účelem zlepšení spolehlivosti a výkonu. Vydržte — budeme zpět za několik minut.',
+            'description' => 'Provádíme plánovanou údržbu za účelem zlepšení spolehlivosti a výkonu. Vydržte - budeme zpět za několik minut.',
         ],
     ],
 

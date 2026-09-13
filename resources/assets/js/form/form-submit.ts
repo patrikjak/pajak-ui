@@ -62,15 +62,19 @@ function spinnerSvg(): SVGSVGElement {
     return svg;
 }
 
+// Saved label content (text nodes, icons, ...) while loadingText is showing - keyed by the
+// label element rather than a data attribute so it survives non-text children like icon SVGs.
+const savedLabelContent = new WeakMap<HTMLElement, Node[]>();
+
 function startLoading(btn: HTMLButtonElement, loadingText?: string): void {
     btn.classList.add('is-loading');
-    btn.appendChild(spinnerSvg());
+    btn.prepend(spinnerSvg());
 
     if (loadingText !== undefined) {
         const label = btn.querySelector<HTMLElement>('.pajak-btn__label');
 
-        if (label) {
-            label.dataset.pajakBtnLabel = label.textContent ?? '';
+        if (label && !savedLabelContent.has(label)) {
+            savedLabelContent.set(label, Array.from(label.childNodes));
             label.textContent = loadingText;
         }
     }
@@ -81,10 +85,11 @@ function stopLoading(btn: HTMLButtonElement): void {
     btn.querySelector('.pajak-btn__spinner')?.remove();
 
     const label = btn.querySelector<HTMLElement>('.pajak-btn__label');
+    const original = label ? savedLabelContent.get(label) : undefined;
 
-    if (label && 'pajakBtnLabel' in label.dataset) {
-        label.textContent = label.dataset.pajakBtnLabel ?? '';
-        delete label.dataset.pajakBtnLabel;
+    if (label && original) {
+        label.replaceChildren(...original);
+        savedLabelContent.delete(label);
     }
 }
 
@@ -97,7 +102,7 @@ function clearErrors(form: HTMLFormElement): void {
 
     form.querySelectorAll<HTMLElement>('[data-pajak-error-input]').forEach((el) => {
         el.removeAttribute('data-pajak-error-input');
-        // Strip error state modifier — replace --error with --default
+        // Strip error state modifier - replace --error with --default
         el.classList.forEach((cls) => {
             if (cls.endsWith('--error')) {
                 el.classList.remove(cls);

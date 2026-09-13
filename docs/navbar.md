@@ -1,8 +1,8 @@
 # Navbar
 
-A top navigation bar component supporting six layout variants, plus a separate bottom tab bar for mobile. No JavaScript required — active state is controlled via props.
+A top navigation bar component supporting six layout variants, plus a separate bottom tab bar for mobile. No JavaScript required - active state is controlled via props.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -35,7 +35,7 @@ php artisan vendor:publish --tag=pajak-ui-sources
 
 ### Standard (default)
 
-Rounded pill navbar — the default app shell, light background.
+Rounded pill navbar - the default app shell, light background.
 
 ```blade
 <x-pajak::navbar>
@@ -57,7 +57,7 @@ Rounded pill navbar — the default app shell, light background.
 
 ### Underline
 
-Flat bottom-border with underline active indicator — for content-heavy pages.
+Flat bottom-border with underline active indicator - for content-heavy pages.
 
 ```blade
 <x-pajak::navbar variant="underline">
@@ -72,7 +72,7 @@ Flat bottom-border with underline active indicator — for content-heavy pages.
 
 ### Dark
 
-Dark background — for marketing or contrast pages.
+Dark background - for marketing or contrast pages.
 
 ```blade
 <x-pajak::navbar variant="dark">
@@ -86,7 +86,7 @@ Dark background — for marketing or contrast pages.
 
 ### Split
 
-Fixed 240 px brand panel on the left, flexible main area on the right — pairs with a persistent sidebar.
+Fixed 240 px brand panel on the left, flexible main area on the right - pairs with a persistent sidebar.
 
 ```blade
 <x-pajak::navbar variant="split">
@@ -162,7 +162,7 @@ Compact 56 px bar with a hamburger button, title stack, and action icons.
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `label` | `string` | — | **Required.** Link text. |
+| `label` | `string` | - | **Required.** Link text. |
 | `href` | `string` | `'#'` | Link URL. |
 | `active` | `bool` | `false` | Marks the link as the current page. |
 | `count` | `int\|null` | `null` | Pill badge with a number (e.g. unread count). |
@@ -197,7 +197,7 @@ A mobile bottom navigation bar with icon + label tab items.
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `label` | `string` | — | **Required.** Tab label text. |
+| `label` | `string` | - | **Required.** Tab label text. |
 | `active` | `bool` | `false` | Marks this tab as selected. |
 | `dot` | `bool` | `false` | Small red notification dot overlaid on the icon. |
 
@@ -205,4 +205,4 @@ A mobile bottom navigation bar with icon + label tab items.
 
 | Slot | Description |
 |------|-------------|
-| `icon` | SVG icon rendered above the label. Optional — tab renders label only if absent. |
+| `icon` | SVG icon rendered above the label. Optional - tab renders label only if absent. |

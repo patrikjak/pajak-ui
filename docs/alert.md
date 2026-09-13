@@ -2,7 +2,7 @@
 
 Contextual feedback messages for user actions or system state.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -59,7 +59,7 @@ php artisan vendor:publish --tag=pajak-ui-sources
     26 days remaining until April 30, 2026.
 </x-pajak::alert>
 
-{{-- Inline variant — compact, no title --}}
+{{-- Inline variant - compact, no title --}}
 <x-pajak::alert type="error" variant="inline">PESEL must be exactly 11 digits.</x-pajak::alert>
 ```
 

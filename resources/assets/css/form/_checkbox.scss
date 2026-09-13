@@ -9,7 +9,7 @@
     &--disabled  { cursor: not-allowed; }
     &--error &__box { border-color: var(--color-error); }
 
-    // hidden accessibly — opacity/size keeps it in the a11y tree
+    // hidden accessibly - opacity/size keeps it in the a11y tree
     &__input {
         position: absolute;
         opacity: 0;

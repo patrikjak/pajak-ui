@@ -26,7 +26,7 @@ Quick reference for selecting the right component. Each entry lists the Blade ta
 | Slider | `<x-pajak-form::slider>` | Range slider | `name`, `label`, `min`, `max`, `step`, `value` |
 | Repeater | `<x-pajak-form::repeater>` | Dynamic add/remove row list | `name`, `label`, `min`, `max` |
 | Form section | `<x-pajak-form::section>` | Titled section divider inside a form | `title`, `description` |
-| Form group | `<x-pajak-form::group>` | Groups fields side-by-side | — |
+| Form group | `<x-pajak-form::group>` | Groups fields side-by-side | - |
 | Hidden | `<x-pajak-form::hidden>` | Hidden input | `name`, `value` |
 | Avatar (form) | `<x-pajak-form::avatar>` | Avatar image picker within a form | `name`, `label` |
 | Date picker | `<x-pajak-calendar::date-picker>` | Floating date / date-range picker with optional time and presets | `name`, `label`, `value`, `range`, `time`, `presets` |
@@ -52,20 +52,20 @@ Quick reference for selecting the right component. Each entry lists the Blade ta
 
 | Component | Blade tag | Purpose | When to use |
 |-----------|-----------|---------|-------------|
-| Toast | `<x-pajak::toast>` + JS `PajakToast` | Transient auto-dismissing overlay notification | Confirmations, async results — not for persistent warnings |
-| Alert | `<x-pajak::alert>` | Inline contextual message (info/success/warning/error) | Persistent, in-page feedback tied to content — not dismissible by default |
+| Toast | `<x-pajak::toast>` + JS `PajakToast` | Transient auto-dismissing overlay notification | Confirmations, async results - not for persistent warnings |
+| Alert | `<x-pajak::alert>` | Inline contextual message (info/success/warning/error) | Persistent, in-page feedback tied to content - not dismissible by default |
 | Banner | `<x-pajak::banner>` | Full-width page-level notice with optional dismiss | Announcements, maintenance notices, onboarding prompts at the top of a page |
 | Dialog | `<x-pajak::dialog>` | Small centered confirmation dialog (native `<dialog>`) | Simple yes/no confirmations and small notices |
 | Modal | `<x-pajak::modal>` | Larger overlay with head/body/footer and close button | Forms, detail views, multi-step flows inside an overlay |
 | Drawer | `<x-pajak::drawer>` | Panel sliding in from a viewport edge | Filter panels, side-sheets, mobile navigation |
 
 > **Choosing between overlays:**
-> - **Toast** — fire-and-forget, auto-dismisses, no user decision needed
-> - **Alert** — inline, stays visible, tied to a specific section
-> - **Banner** — page-top, full-width, one call-to-action
-> - **Dialog** — requires a binary decision (confirm/cancel), compact
-> - **Modal** — richer content that needs the user's full attention (forms, details)
-> - **Drawer** — supplementary panel without leaving the current page (filters, navigation)
+> - **Toast** - fire-and-forget, auto-dismisses, no user decision needed
+> - **Alert** - inline, stays visible, tied to a specific section
+> - **Banner** - page-top, full-width, one call-to-action
+> - **Dialog** - requires a binary decision (confirm/cancel), compact
+> - **Modal** - richer content that needs the user's full attention (forms, details)
+> - **Drawer** - supplementary panel without leaving the current page (filters, navigation)
 
 > **Key props:**
 > - `alert`: `type` (`info`/`success`/`warning`/`error`), `title`, `dismissible`
@@ -90,9 +90,9 @@ Quick reference for selecting the right component. Each entry lists the Blade ta
 | Async | `<x-pajak::async>` | Fetches HTML from a URL on page load and shows a spinner overlay while loading | `url`, `size`, `label` |
 
 > **Choosing Spinner vs Skeleton vs Progress:**
-> - **Spinner** — unknown duration, simple in-place loading (button, overlay)
-> - **Skeleton** — replaces real UI while loading to prevent layout shift
-> - **Progress** — known percentage completion (upload, multi-step process)
+> - **Spinner** - unknown duration, simple in-place loading (button, overlay)
+> - **Skeleton** - replaces real UI while loading to prevent layout shift
+> - **Progress** - known percentage completion (upload, multi-step process)
 
 > **Docs:** [badge.md](badge.md) · [spinner.md](spinner.md) · [progress.md](progress.md) · [skeleton.md](skeleton.md) · [stepper.md](stepper.md) · [async.md](async.md)
 
@@ -182,7 +182,7 @@ Composable CSS-only Blade components for transactional emails. No JavaScript, no
 
 | Resource | What it is |
 |----------|-----------|
-| `PajakToast` JS API | `window.Pajak.toast.show({ message, type, duration })` — see [toast.md](toast.md) |
-| HTTP connector | `PajakConnector` — typed `fetch` wrapper for AJAX form submission — see [http.md](http.md) |
-| Value objects | PHP classes in `Pajak\Ui\Common\ValueObject\` — see [value-objects.md](value-objects.md) |
-| Dark mode | `data-theme="dark"` on any ancestor — see [dark-mode.md](dark-mode.md) |
+| `PajakToast` JS API | `window.Pajak.toast.show({ message, type, duration })` - see [toast.md](toast.md) |
+| HTTP connector | `PajakConnector` - typed `fetch` wrapper for AJAX form submission - see [http.md](http.md) |
+| Value objects | PHP classes in `Pajak\Ui\Common\ValueObject\` - see [value-objects.md](value-objects.md) |
+| Dark mode | `data-theme="dark"` on any ancestor - see [dark-mode.md](dark-mode.md) |

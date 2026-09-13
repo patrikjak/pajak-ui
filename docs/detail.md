@@ -2,7 +2,7 @@
 
 A key-value display component for showing structured data in a styled card. Available as `<x-pajak::detail>` (outer shell) and `<x-pajak::detail-row>` (each row).
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -87,12 +87,12 @@ Additional HTML attributes are forwarded to the outer `<div>`.
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `key` | `string` | — | Label shown in the left column |
+| `key` | `string` | - | Label shown in the left column |
 | `mono` | `bool` | `false` | Renders the value in a monospace font |
 | `muted` | `bool` | `false` | Renders the value in muted/italic style |
 | `copyable` | `bool` | `false` | Adds hover highlight for the row; pair with `<x-pajak::copy-button>` in the slot |
 
-**Slot:** `$slot` — the value cell content. Accepts plain text, HTML, `<a>` tags, badge components, `<x-pajak::copy-button>`, or any inline content.
+**Slot:** `$slot` - the value cell content. Accepts plain text, HTML, `<a>` tags, badge components, `<x-pajak::copy-button>`, or any inline content.
 
 ---
 
@@ -110,7 +110,7 @@ Standard card with white background, border, and shadow.
 
 ### Compact
 
-Tighter padding and smaller font — useful for dense UIs or sidebars.
+Tighter padding and smaller font - useful for dense UIs or sidebars.
 
 ```blade
 <x-pajak::detail variant="compact" title="Employer">
@@ -140,7 +140,7 @@ Two-column layout. Rows go inside a `<x-slot:body>` named slot so the CSS grid c
 
 ### Flush
 
-Borderless/backgroundless — designed to embed inside an existing card or panel.
+Borderless/backgroundless - designed to embed inside an existing card or panel.
 
 ```blade
 <div class="pajak-card">

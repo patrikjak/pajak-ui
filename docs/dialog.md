@@ -2,7 +2,7 @@
 
 A small, centered confirmation dialog built on the native `<dialog>` element. Use for notices, confirmations, warnings, and success celebrations. For larger content with a close button, scrollable body, or form fields, use the [Modal](modal.md) component instead.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -62,7 +62,7 @@ PajakDialog.initAll();
 | `id` | `string` | required | Unique ID used by JS and trigger attributes to open/close |
 | `type` | `DialogType` | `DialogType::Info` | Colours the icon tile |
 | `stacked` | `bool` | `false` | Stacks action buttons vertically (mobile-friendly) |
-| `open` | `bool` | `false` | Renders `<dialog open>` server-side — for server-driven state |
+| `open` | `bool` | `false` | Renders `<dialog open>` server-side - for server-driven state |
 
 ## Slots
 
@@ -79,10 +79,10 @@ PajakDialog.initAll();
 ```php
 use Pajak\Ui\Common\Enums\Dialog\DialogType;
 
-DialogType::Info    // blue  — notices, informational
-DialogType::Success // green — confirmations, celebrations
-DialogType::Warning // amber — cautions, missing fields
-DialogType::Danger  // red   — destructive actions
+DialogType::Info    // blue  - notices, informational
+DialogType::Success // green - confirmations, celebrations
+DialogType::Warning // amber - cautions, missing fields
+DialogType::Danger  // red   - destructive actions
 ```
 
 ---
@@ -109,7 +109,7 @@ Clicking the backdrop (outside the dialog box) also closes it automatically.
 
 ### Server-driven (PHP `open` prop)
 
-Pass `:open="true"` to render `<dialog open>` — useful after a form submission or redirect where you want to show a dialog immediately.
+Pass `:open="true"` to render `<dialog open>` - useful after a form submission or redirect where you want to show a dialog immediately.
 
 ```blade
 <x-pajak::dialog id="submit-success" :open="$justSubmitted" :type="$successType" title="Return submitted">
@@ -124,7 +124,7 @@ Pass `:open="true"` to render `<dialog open>` — useful after a form submission
 
 ## Examples
 
-### Notice — single action
+### Notice - single action
 
 ```blade
 <x-pajak::dialog id="session-ended" title="Your session has ended">

@@ -2,7 +2,7 @@
 
 A general-purpose button component. Available as `<x-pajak::button>`.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -49,7 +49,7 @@ php artisan vendor:publish --tag=pajak-ui-sources
 <x-pajak::button type="submit">Save</x-pajak::button>
 <x-pajak::button type="reset">Reset</x-pajak::button>
 
-{{-- Link button — renders as <a> --}}
+{{-- Link button - renders as <a> --}}
 <x-pajak::button href="/dashboard">Go to Dashboard</x-pajak::button>
 <x-pajak::button href="/settings" variant="outline">Settings</x-pajak::button>
 
@@ -75,7 +75,7 @@ php artisan vendor:publish --tag=pajak-ui-sources
 | `disabled` | `bool` | `false` | Disables the button; on link buttons adds `is-disabled` class + `aria-disabled` |
 | `loading` | `bool` | `false` | Shows arc spinner; dims label; sets `cursor: progress` and blocks pointer events |
 
-**Slot:** `$slot` — button label content. Can include SVG icons alongside text for icon+label buttons. For icon-only buttons, pass `class="px-0"` and set `aria-label`.
+**Slot:** `$slot` - button label content. Can include SVG icons alongside text for icon+label buttons. For icon-only buttons, pass `class="px-0"` and set `aria-label`.
 
 Additional HTML attributes (e.g. `class`, `id`, `data-*`) are forwarded to the `<button>` element. Consumer-provided `class` values are merged with the component's own classes, not replaced.
 
@@ -105,10 +105,10 @@ const { PajakButton } = window.Pajak;
 
 | Method | Signature | Description |
 |--------|-----------|-------------|
-| `startLoading` | `(btn: HTMLButtonElement, loadingText?: string) => void` | Adds the `is-loading` class and injects the arc spinner. If `loadingText` is provided, replaces the label text for the duration of loading. |
-| `stopLoading` | `(btn: HTMLButtonElement) => void` | Removes the `is-loading` class, the spinner, and restores the original label text if it was changed. |
+| `startLoading` | `(btn: HTMLButtonElement, loadingText?: string) => void` | Adds the `is-loading` class and injects the arc spinner. If `loadingText` is provided, replaces the label content (text and any icon) with the loading text for the duration of loading. |
+| `stopLoading` | `(btn: HTMLButtonElement) => void` | Removes the `is-loading` class, the spinner, and restores the original label content - including any icon - if it was changed. |
 
-### Example — Cloudflare Turnstile intercept
+### Example - Cloudflare Turnstile intercept
 
 ```ts
 const btn = document.querySelector<HTMLButtonElement>('#login-btn')!;

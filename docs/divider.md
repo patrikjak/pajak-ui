@@ -2,7 +2,7 @@
 
 A flexible separator component covering horizontal rules, vertical inline dividers, and labeled "OR"-style separators.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 

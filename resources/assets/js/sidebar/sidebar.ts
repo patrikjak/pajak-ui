@@ -45,14 +45,14 @@ function getRailStorageKey(id: string): string {
 
 // A sidebar's `.pajak-sb` aside is either standalone with its own id (desktop, always
 // rendered) or nested inside a `<dialog data-pajak-sidebar>` that carries the id instead
-// (mobile overlay) — the id used for persistence follows whichever one actually has it.
+// (mobile overlay) - the id used for persistence follows whichever one actually has it.
 function railStorageId(aside: HTMLElement): string | null {
     const dialog = aside.closest<HTMLElement>('dialog[data-pajak-sidebar]');
 
     return dialog?.id || aside.id || null;
 }
 
-// Resolves a sidebar's `.pajak-sb` aside from its public id — either the id of the
+// Resolves a sidebar's `.pajak-sb` aside from its public id - either the id of the
 // `<dialog>` wrapping it (mobile overlay) or the id on the aside itself (standalone desktop).
 function getRailAside(id: string): HTMLElement | null {
     const dialog = document.querySelector<HTMLElement>(`dialog#${id}[data-pajak-sidebar]`);

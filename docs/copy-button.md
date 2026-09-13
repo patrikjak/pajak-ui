@@ -2,9 +2,9 @@
 
 A wrapper that makes any slotted content copy a value to the clipboard on click. Available as `<x-pajak::copy-button>`.
 
-When clicked, a small "Copied!" tooltip bubble appears above the trigger for 1.5 seconds, then fades out. The inner content is left unchanged — it can be plain text, a `<code>` block, a button, an icon, or anything else.
+When clicked, a small "Copied!" tooltip bubble appears above the trigger for 1.5 seconds, then fades out. The inner content is left unchanged - it can be plain text, a `<code>` block, a button, an icon, or anything else.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -59,10 +59,10 @@ php artisan vendor:publish --tag=pajak-ui-sources
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `value` | `string` | — | **Required.** The text written to the clipboard on click. |
+| `value` | `string` | - | **Required.** The text written to the clipboard on click. |
 | `icon` | `bool` | `false` | When `true`, renders a built-in clipboard icon button. The `$slot` is ignored. |
 
-**Slot:** `$slot` — the clickable trigger content (used when `icon` is `false`). Can be any markup — text, `<code>`, `<button>`, icons, etc.
+**Slot:** `$slot` - the clickable trigger content (used when `icon` is `false`). Can be any markup - text, `<code>`, `<button>`, icons, etc.
 
 Additional HTML attributes (`class`, `id`, `data-*`, etc.) are merged onto the wrapper `<span>`.
 
@@ -87,7 +87,7 @@ window.Pajak.PajakCopyButton.initAll();
 
 | Method | Signature | Description |
 |--------|-----------|-------------|
-| `initAll` | `(label?: string) => void` | Attaches click handlers to every `[data-pajak-copy]` element in the document. `label` is the tooltip text shown on success — defaults to `'Copied!'`. Safe to call multiple times; already-initialised triggers are skipped. |
+| `initAll` | `(label?: string) => void` | Attaches click handlers to every `[data-pajak-copy]` element in the document. `label` is the tooltip text shown on success - defaults to `'Copied!'`. Safe to call multiple times; already-initialised triggers are skipped. |
 
 ### Re-initialising after DOM mutations
 

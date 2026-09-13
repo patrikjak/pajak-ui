@@ -34,4 +34,13 @@ final class SidebarItemSnapshotTest extends TestCase
 
         $this->assertMatchesHtmlSnapshot($html);
     }
+
+    public function testSidebarItemDisabled(): void
+    {
+        $html = (string) $this->blade(
+            '<x-pajak::sidebar-item href="/admin" label="Admin" :disabled="true" />',
+        );
+
+        $this->assertMatchesHtmlSnapshot($html);
+    }
 }

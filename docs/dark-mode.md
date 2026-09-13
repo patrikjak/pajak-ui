@@ -14,7 +14,7 @@ All components support dark mode via a `data-theme="dark"` attribute on any ance
 </div>
 ```
 
-No additional CSS imports are required — the dark token overrides are included in the same bundle as the light theme.
+No additional CSS imports are required - the dark token overrides are included in the same bundle as the light theme.
 
 ## How it works
 
@@ -42,7 +42,7 @@ The package ships a `[data-theme="dark"]` CSS block in `variables.scss` that re-
 
 ### Input backgrounds
 
-Form controls (`input`, `textarea`, `select`, `checkbox`, `radio`) use `--bg-input` rather than `--bg-surface`. In dark mode this resolves to the page background (`#0B0F1A`) so controls sit visually inset below the card surface — matching the design.
+Form controls (`input`, `textarea`, `select`, `checkbox`, `radio`) use `--bg-input` rather than `--bg-surface`. In dark mode this resolves to the page background (`#0B0F1A`) so controls sit visually inset below the card surface - matching the design.
 
 ## Toggling at runtime
 
@@ -80,7 +80,7 @@ document.getElementById('theme-toggle').addEventListener('change', e => {
 
 ## Source import
 
-When using the source import approach, the dark token block lives in `variables.scss`. Import it once — the individual component partials inherit the overrides automatically:
+When using the source import approach, the dark token block lives in `variables.scss`. Import it once - the individual component partials inherit the overrides automatically:
 
 ```scss
 @use 'vendor/pajak/ui/css/variables';   // includes both :root and [data-theme="dark"]

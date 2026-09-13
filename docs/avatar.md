@@ -2,7 +2,7 @@
 
 Circular user avatar displaying initials. Available as `<x-pajak::avatar>` and `<x-pajak::avatar-group>`.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -79,7 +79,7 @@ php artisan vendor:publish --tag=pajak-ui-sources
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `initials` | `string` | — | Text shown inside the avatar (required) |
+| `initials` | `string` | - | Text shown inside the avatar (required) |
 | `color` | `AvatarColor` | `AvatarColor::Blue` | Background color |
 | `size` | `AvatarSize` | `AvatarSize::Md` | Avatar size |
 | `status` | `AvatarStatus\|null` | `null` | Shows a status dot when set |
@@ -92,7 +92,7 @@ php artisan vendor:publish --tag=pajak-ui-sources
 | `size` | `AvatarSize` | `AvatarSize::Md` | Size applied to the overflow count bubble |
 | `overflow` | `int` | `0` | Number shown in the trailing overflow bubble; hidden when 0 |
 
-**Slot:** `$slot` — one or more `<x-pajak::avatar>` components.
+**Slot:** `$slot` - one or more `<x-pajak::avatar>` components.
 
 ### `AvatarColor` values
 

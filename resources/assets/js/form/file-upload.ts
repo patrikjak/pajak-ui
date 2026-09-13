@@ -409,7 +409,7 @@ function upgradeAvatar(wrap: HTMLElement): AvatarInstance {
 
         if (imgEl) {
             if (hadExistingImage) {
-                // Restore to original src — it is still in the DOM with data-avatar-img
+                // Restore to original src - it is still in the DOM with data-avatar-img
             } else {
                 imgEl.remove();
                 imgEl = null;

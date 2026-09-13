@@ -2,7 +2,7 @@
 
 Composable expandable/collapsible content sections with four visual variants and two expand modes.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -74,7 +74,7 @@ PajakAccordion.initAll();
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `title` | `string` | — | Header label |
+| `title` | `string` | - | Header label |
 | `subtitle` | `?string` | `null` | Secondary line below the title |
 | `badge` | `?string` | `null` | Count/status pill rendered after the title stack |
 | `open` | `bool` | `false` | Whether the item starts expanded |
@@ -83,7 +83,7 @@ PajakAccordion.initAll();
 
 | Slot | Description |
 |------|-------------|
-| `$slot` (default) | Panel content — arbitrary HTML |
+| `$slot` (default) | Panel content - arbitrary HTML |
 | `$icon` | Optional leading icon (SVG); renders in a coloured icon box |
 
 ### With leading icon
@@ -111,7 +111,7 @@ PajakAccordion.initAll();
         For most individuals the PIT return is due by <strong>30 April</strong>.
     </x-pajak::accordion-item>
     <x-pajak::accordion-item title="Can I file jointly with my spouse?">
-        Yes — joint filing is supported for married couples.
+        Yes - joint filing is supported for married couples.
     </x-pajak::accordion-item>
 </x-pajak::accordion>
 ```

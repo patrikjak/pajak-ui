@@ -40,7 +40,7 @@ final class EmptyStateSnapshotTest extends TestCase
                         stroke="#5386E4" stroke-width="1.75"><line x1="12" y1="5" x2="12" y2="19"/></svg>
                 </x-slot:icon>
                 <x-slot:title>Drop documents here</x-slot:title>
-                <x-slot:message>PDF, JPG, PNG — up to 10 MB each</x-slot:message>
+                <x-slot:message>PDF, JPG, PNG - up to 10 MB each</x-slot:message>
             </x-pajak::empty-state>
             BLADE,
             ['variant' => EmptyStateVariant::Dashed],

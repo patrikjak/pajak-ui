@@ -2,7 +2,7 @@
 
 Blade components for building forms. All components use the `pajak-form` namespace.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -22,7 +22,7 @@ Or include only the form bundle:
 <script type="module" src="{{ asset('vendor/pajak/ui/form.js') }}"></script>
 ```
 
-The pre-built bundle **auto-initialises** every component on the page once the DOM is ready — no manual `initAll()` call is required. For dynamically-added markup, the APIs are also exposed on `window.Pajak` (e.g. `window.Pajak.PajakCheckbox.initAll(container)` or `window.Pajak.initAll()` to re-scan everything).
+The pre-built bundle **auto-initialises** every component on the page once the DOM is ready - no manual `initAll()` call is required. For dynamically-added markup, the APIs are also exposed on `window.Pajak` (e.g. `window.Pajak.PajakCheckbox.initAll(container)` or `window.Pajak.initAll()` to re-scan everything).
 
 ### Source import (recommended for production)
 
@@ -58,7 +58,7 @@ import { PajakCheckbox } from 'vendor/pajak/ui/js/form/checkbox';
 import { PajakFile } from 'vendor/pajak/ui/js/form/file';
 ```
 
-> **Double-init safety:** every component tracks its instances in a `WeakMap`. Calling `init()` or `initAll()` on an already-upgraded element returns the existing instance — no duplicate listeners are attached. Calling `destroy()` removes the element from the registry so it can be re-initialised cleanly afterwards.
+> **Double-init safety:** every component tracks its instances in a `WeakMap`. Calling `init()` or `initAll()` on an already-upgraded element returns the existing instance - no duplicate listeners are attached. Calling `destroy()` removes the element from the registry so it can be re-initialised cleanly afterwards.
 
 ---
 
@@ -78,7 +78,7 @@ A `<form>` wrapper that handles CSRF injection, method spoofing (for PUT, PATCH,
     ...
 </x-pajak-form::form>
 
-{{-- PUT — automatically adds @method('PUT') and posts via POST --}}
+{{-- PUT - automatically adds @method('PUT') and posts via POST --}}
 <x-pajak-form::form action="/users/1" :method="\Pajak\Ui\Common\Enums\Method::Put">
     ...
 </x-pajak-form::form>
@@ -92,14 +92,14 @@ A `<form>` wrapper that handles CSRF injection, method spoofing (for PUT, PATCH,
 >
 </x-pajak-form::form>
 
-{{-- Inline layout — label (160 px) beside each input --}}
+{{-- Inline layout - label (160 px) beside each input --}}
 <x-pajak-form::form action="/deductions/add" :layout="\Pajak\Ui\Form\Enums\FormLayout::Inline">
     <x-pajak-form::select name="category" label="Category" :options="$categories" />
     <x-pajak-form::input name="amount" label="Amount" />
     <x-pajak-form::textarea name="notes" label="Notes" />
 </x-pajak-form::form>
 
-{{-- Sectioned layout — use with <x-pajak-form::section> --}}
+{{-- Sectioned layout - use with <x-pajak-form::section> --}}
 <x-pajak-form::form action="/settings" :layout="\Pajak\Ui\Form\Enums\FormLayout::Sectioned">
     <x-pajak-form::section title="Account" description="How you sign in and how we reach you.">
         <x-pajak-form::input name="display_name" label="Display name" />
@@ -117,7 +117,7 @@ A `<form>` wrapper that handles CSRF injection, method spoofing (for PUT, PATCH,
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `action` | `string` | — | Form `action` URL |
+| `action` | `string` | - | Form `action` URL |
 | `method` | `Method` | `Method::Post` | HTTP method enum. GET and POST map directly; PUT, PATCH, DELETE post with `@method` spoofing |
 | `submit-text` | `string\|null` | `null` | Submit button label. When `null`, falls back to the current locale translation (`pajak::ui.form.submit`) |
 | `submit-size` | `string` | `'md'` | Submit button size: `sm` \| `md` \| `lg` |
@@ -130,12 +130,12 @@ A `<form>` wrapper that handles CSRF injection, method spoofing (for PUT, PATCH,
 ```php
 use Pajak\Ui\Form\Enums\FormLayout;
 
-FormLayout::Stacked   // default — label above input, fields stacked vertically
+FormLayout::Stacked   // default - label above input, fields stacked vertically
 FormLayout::Inline    // label (160 px) beside input on the same row, collapses on mobile
 FormLayout::Sectioned // no-gap form; use <x-pajak-form::section> for labelled sections
 ```
 
-**Slot:** `$slot` — form fields rendered before the submit button.
+**Slot:** `$slot` - form fields rendered before the submit button.
 
 Additional HTML attributes (e.g. `class`, `enctype`, `id`) are forwarded to the `<form>` element.
 
@@ -153,7 +153,7 @@ Method::Delete // <form method="POST"> + @method('DELETE')
 
 ### Async submission
 
-Every `<x-pajak-form::form>` submits asynchronously via `fetch` — no page refresh. The submit button shows an arc spinner while the request is in-flight and is re-enabled once it completes.
+Every `<x-pajak-form::form>` submits asynchronously via `fetch` - no page refresh. The submit button shows an arc spinner while the request is in-flight and is re-enabled once it completes.
 
 **Validation errors (HTTP 422)** are parsed and displayed inline, attached to the matching field's `.pajak-field` wrapper. Each error removes itself as soon as the user changes the input.
 
@@ -183,7 +183,7 @@ document.querySelector('form').addEventListener('pajak:form:error', (e) => {
 
 Place the submit button outside the form by hiding the built-in one with `hide-submit` and adding `data-pajak-form` to any `<button>` element. The value must be a CSS selector that resolves to the target `<form>`.
 
-The external button participates in the full async flow: arc spinner while in-flight, validation error display, toast, and redirect — identical to the built-in submit button.
+The external button participates in the full async flow: arc spinner while in-flight, validation error display, toast, and redirect - identical to the built-in submit button.
 
 ```blade
 {{-- Form without its own submit button --}}
@@ -210,13 +210,13 @@ The external button participates in the full async flow: arc spinner while in-fl
 
 Two mechanisms let you add custom fields to the `FormData` before it is sent.
 
-**`pajak:form:before-submit` event** — fired on the form element immediately before the HTTP request, after any registered extra data (see below) has already been merged in. The event is cancelable: calling `e.preventDefault()` aborts the submission entirely (the spinner stops, no request is made).
+**`pajak:form:before-submit` event** - fired on the form element immediately before the HTTP request, after any registered extra data (see below) has already been merged in. The event is cancelable: calling `e.preventDefault()` aborts the submission entirely (the spinner stops, no request is made).
 
 ```js
 const form = document.querySelector('form');
 
 form.addEventListener('pajak:form:before-submit', (e) => {
-    // e.detail.data is the FormData that will be sent — mutate it freely
+    // e.detail.data is the FormData that will be sent - mutate it freely
     e.detail.data.set('source', 'sidebar');
     e.detail.data.set('userId', getCurrentUserId());
 
@@ -225,7 +225,7 @@ form.addEventListener('pajak:form:before-submit', (e) => {
 });
 ```
 
-**`PajakForm` imperative API** — register static extra fields on a form instance upfront. These are merged into `FormData` on every submit (before the event fires), so the event handler sees them too.
+**`PajakForm` imperative API** - register static extra fields on a form instance upfront. These are merged into `FormData` on every submit (before the event fires), so the event handler sees them too.
 
 ```js
 import { PajakForm } from 'vendor/pajak/ui/js/form/form';
@@ -266,7 +266,7 @@ return [
 
 A layout wrapper for form fields. By default it stacks fields vertically with consistent spacing (`--space-4`, 16 px). Add `:inline="true"` to place fields side by side in equal-width columns.
 
-Use it whenever you need to group fields outside of a `<x-pajak-form::form>` — for example, inside a modal, a sidebar panel, or a partial that isn't a full form.
+Use it whenever you need to group fields outside of a `<x-pajak-form::form>` - for example, inside a modal, a sidebar panel, or a partial that isn't a full form.
 
 ```blade
 {{-- Vertical stack (default) --}}
@@ -275,7 +275,7 @@ Use it whenever you need to group fields outside of a `<x-pajak-form::form>` —
     <x-pajak-form::input name="last_name" label="Last name" />
 </x-pajak-form::group>
 
-{{-- Inline row — fields share the width equally, aligned to their input bottom edge --}}
+{{-- Inline row - fields share the width equally, aligned to their input bottom edge --}}
 <x-pajak-form::group :inline="true">
     <x-pajak-form::input name="first_name" label="First name" />
     <x-pajak-form::input name="last_name" label="Last name" />
@@ -295,13 +295,13 @@ Use it whenever you need to group fields outside of a `<x-pajak-form::form>` —
 </x-pajak-form::group>
 ```
 
-`<x-pajak-form::form>` already applies the same gap between its direct children, so you do **not** need `<x-pajak-form::group>` inside a `<x-pajak-form::form>` — unless you want an inline row inside the form.
+`<x-pajak-form::form>` already applies the same gap between its direct children, so you do **not** need `<x-pajak-form::group>` inside a `<x-pajak-form::form>` - unless you want an inline row inside the form.
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `inline` | `bool` | `false` | When `true`, fields are laid out in a horizontal row with equal widths |
 
-**Slot:** `$slot` — any form components or arbitrary HTML.
+**Slot:** `$slot` - any form components or arbitrary HTML.
 
 Additional HTML attributes (e.g. `class`, `id`) are forwarded to the wrapper `<div>`.
 
@@ -337,7 +337,7 @@ A two-column section divider for use inside a `FormLayout::Sectioned` form. The 
 | `title` | `string\|null` | `null` | Section heading shown in the left meta column |
 | `description` | `string\|null` | `null` | Supporting text shown below the title |
 
-**Slot:** `$slot` — form fields or any HTML rendered in the right body column.
+**Slot:** `$slot` - form fields or any HTML rendered in the right body column.
 
 Additional HTML attributes (e.g. `class`, `id`) are forwarded to the wrapper `<div>`.
 
@@ -375,7 +375,7 @@ A text input with optional label, icon slot, size, and state modifiers.
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `name` | `string` | — | `name` attribute |
+| `name` | `string` | - | `name` attribute |
 | `label` | `string\|null` | `null` | Label text shown above the input. When `null`, no label is rendered |
 | `type` | `string` | `'text'` | Input type (`text`, `search`, etc.) |
 | `placeholder` | `string\|null` | `null` | Placeholder text |
@@ -388,7 +388,7 @@ A text input with optional label, icon slot, size, and state modifiers.
 | `autocomplete` | `string\|null` | `null` | Value for the `autocomplete` attribute. When `null`, the attribute is omitted |
 | `pattern` | `string\|null` | `null` | HTML `pattern` attribute regex. When `null`, the attribute is omitted |
 
-**Slots:** `icon` — SVG or icon element shown inside the left edge of the input.
+**Slots:** `icon` - SVG or icon element shown inside the left edge of the input.
 
 ---
 
@@ -430,7 +430,7 @@ A password input with an inline label and an optional inline confirmation field.
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `name` | `string` | — | `name` attribute; confirmation field uses `{name}_confirmation` |
+| `name` | `string` | - | `name` attribute; confirmation field uses `{name}_confirmation` |
 | `label` | `string\|null` | `null` | Label shown above the primary field. Falls back to the locale translation (`pajak::ui.form.password.label`) |
 | `confirmation` | `bool` | `false` | When `true`, renders a second confirm password field |
 | `confirmation-label` | `string\|null` | `null` | Label shown above the confirmation field. Falls back to the locale translation (`pajak::ui.form.password.confirmation_label`) |
@@ -534,7 +534,7 @@ A hidden input for passing data with a form without rendering any UI.
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `name` | `string` | — | `name` attribute |
+| `name` | `string` | - | `name` attribute |
 | `value` | `mixed` | `null` | Value submitted with the form |
 
 ---
@@ -555,7 +555,7 @@ A resizable multi-line text input with an optional label.
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `name` | `string` | — | `name` attribute |
+| `name` | `string` | - | `name` attribute |
 | `label` | `string\|null` | `null` | Label text shown above the textarea. When `null`, no label is rendered |
 | `placeholder` | `string\|null` | `null` | Placeholder text |
 | `value` | `mixed` | `null` | Pre-filled value |
@@ -573,7 +573,7 @@ A custom-styled select backed by a native `<select>`. Requires JS to upgrade the
 
 ### Single select
 
-Pass options via the `:options` prop (a `key => label` array or any iterable), or write `<option>` tags directly in the slot. Both can be combined — prop options render first, slot options append after.
+Pass options via the `:options` prop (a `key => label` array or any iterable), or write `<option>` tags directly in the slot. Both can be combined - prop options render first, slot options append after.
 
 ```blade
 {{-- Via :options prop --}}
@@ -649,7 +649,7 @@ The `data-meta` attribute on an `<option>` renders a secondary label aligned to 
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `name` | `string` | — | `name` attribute (`[]` appended automatically in multi mode) |
+| `name` | `string` | - | `name` attribute (`[]` appended automatically in multi mode) |
 | `label` | `string\|null` | `null` | Label text shown above the select. When `null`, no label is rendered |
 | `options` | `iterable` | `[]` | Flat `key => label` or grouped `group => [key => label]` iterable rendered as `<option>`/`<optgroup>` elements |
 | `value` | `mixed` | `null` | Pre-selected value (string) or array of values for multi-select |
@@ -662,7 +662,7 @@ The `data-meta` attribute on an `<option>` renders a secondary label aligned to 
 | `id` | `string\|null` | `null` | Overrides the default `id` (falls back to `name`) |
 | `error` | `string\|null` | `null` | Error message shown below the select; automatically sets `state` to `error` |
 
-**Slot:** `$slot` — `<option>` and `<optgroup>` elements. Options accept a `data-meta` attribute for secondary label text.
+**Slot:** `$slot` - `<option>` and `<optgroup>` elements. Options accept a `data-meta` attribute for secondary label text.
 
 ### Keyboard navigation
 
@@ -713,7 +713,7 @@ An accessible on/off switch (`role="switch"`). Emits a `pajak:toggle` custom eve
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `name` | `string` | — | `name` attribute |
+| `name` | `string` | - | `name` attribute |
 | `checked` | `bool` | `false` | Initial checked state |
 | `disabled` | `bool` | `false` | Disables the toggle |
 | `size` | `string` | `'md'` | `sm` \| `md` \| `lg` |
@@ -721,7 +721,7 @@ An accessible on/off switch (`role="switch"`). Emits a `pajak:toggle` custom eve
 | `id` | `string\|null` | `null` | Overrides the default `id` (falls back to `name`) |
 | `error` | `string\|null` | `null` | Error message shown below the toggle |
 
-**Slot:** `$slot` — additional content rendered inside the `<label>`.
+**Slot:** `$slot` - additional content rendered inside the `<label>`.
 
 ### JS initialisation
 
@@ -768,16 +768,16 @@ A styled checkbox with a required label, optional description, and indeterminate
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `name` | `string` | — | `name` attribute |
-| `value` | `mixed` | — | Value submitted when checked (required) |
+| `name` | `string` | - | `name` attribute |
+| `value` | `mixed` | - | Value submitted when checked (required) |
 | `checked` | `bool` | `false` | Initial checked state |
 | `disabled` | `bool` | `false` | Disables the checkbox |
-| `label` | `string` | — | Label text (required); HTML is rendered unescaped, so you can embed links or formatting |
+| `label` | `string` | - | Label text (required); HTML is rendered unescaped, so you can embed links or formatting |
 | `description` | `string\|null` | `null` | Secondary description text below the label |
 | `id` | `string\|null` | `null` | Overrides the default `id` (falls back to `name`) |
 | `error` | `string\|null` | `null` | Error message shown below the checkbox |
 
-**Slot:** `$slot` — additional content rendered inside the `<label>`.
+**Slot:** `$slot` - additional content rendered inside the `<label>`.
 
 ### JS initialisation
 
@@ -817,8 +817,8 @@ A styled radio button with optional label and description.
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `name` | `string` | — | `name` attribute (same for all radios in a group) |
-| `value` | `mixed` | — | Submitted value (required) |
+| `name` | `string` | - | `name` attribute (same for all radios in a group) |
+| `value` | `mixed` | - | Submitted value (required) |
 | `checked` | `bool` | `false` | Initial checked state |
 | `disabled` | `bool` | `false` | Disables the radio |
 | `label` | `string\|null` | `null` | Label text |
@@ -826,13 +826,13 @@ A styled radio button with optional label and description.
 | `id` | `string\|null` | `null` | Overrides the default `id` (falls back to `name_value`) |
 | `error` | `string\|null` | `null` | Error message shown below the radio |
 
-**Slot:** `$slot` — additional content rendered inside the `<label>`.
+**Slot:** `$slot` - additional content rendered inside the `<label>`.
 
 ---
 
 ## Radio Card
 
-A card-style radio button with a label and optional hint. The checked state is driven by the native `:checked` HTML attribute — no JS required.
+A card-style radio button with a label and optional hint. The checked state is driven by the native `:checked` HTML attribute - no JS required.
 
 ```blade
 <x-pajak-form::radio-card name="plan" value="free" label="Free" hint="Up to 3 projects" checked />
@@ -841,8 +841,8 @@ A card-style radio button with a label and optional hint. The checked state is d
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `name` | `string` | — | `name` attribute |
-| `value` | `mixed` | — | Submitted value (required) |
+| `name` | `string` | - | `name` attribute |
+| `value` | `mixed` | - | Submitted value (required) |
 | `checked` | `bool` | `false` | Initial checked state |
 | `disabled` | `bool` | `false` | Disables the radio card |
 | `label` | `string\|null` | `null` | Primary label text |
@@ -850,7 +850,7 @@ A card-style radio button with a label and optional hint. The checked state is d
 | `id` | `string\|null` | `null` | Overrides the default `id` (falls back to `name_value`) |
 | `error` | `string\|null` | `null` | Error message shown below the radio card |
 
-**Slot:** `$slot` — additional content rendered inside the card content area.
+**Slot:** `$slot` - additional content rendered inside the card content area.
 
 ---
 
@@ -858,7 +858,7 @@ A card-style radio button with a label and optional hint. The checked state is d
 
 A dynamic field-group component that lets users add and remove rows of form fields at runtime.
 
-Write field components inside the slot using plain field-key names — the repeater automatically composes `name`, `id`, and `for` attributes into array notation for both server-rendered rows and dynamically added rows.
+Write field components inside the slot using plain field-key names - the repeater automatically composes `name`, `id`, and `for` attributes into array notation for both server-rendered rows and dynamically added rows.
 
 ### Simple repeater (one field per row)
 
@@ -890,7 +890,7 @@ The repeater rewrites attributes in its slot at both render time (Blade) and whe
 | `id="field"` | `id="repeaterName_index_field"` |
 | `for="field"` | `for="repeaterName_index_field"` |
 
-Auto-binding applies when the attribute value contains no `[` character. To bypass auto-binding — for example when nesting repeaters or supplying a fully-qualified name — write the full value explicitly:
+Auto-binding applies when the attribute value contains no `[` character. To bypass auto-binding - for example when nesting repeaters or supplying a fully-qualified name - write the full value explicitly:
 
 ```blade
 <x-pajak-form::input name="links[0][label]" label="Label" />
@@ -902,8 +902,8 @@ Auto-binding applies when the attribute value contains no `[` character. To bypa
 |------|------|---------|-------------|
 | `name` | `string` | required | Array key prefix used as the repeater namespace |
 | `label` | `string\|null` | `null` | Optional section heading rendered above the rows |
-| `min` | `int` | `0` | Minimum rows — remove button is disabled when row count equals `min` |
-| `max` | `int\|null` | `null` | Maximum rows — add button is hidden when row count equals `max` |
+| `min` | `int` | `0` | Minimum rows - remove button is disabled when row count equals `min` |
+| `max` | `int\|null` | `null` | Maximum rows - add button is hidden when row count equals `max` |
 | `count` | `int` | `1` | Number of empty rows pre-rendered on page load |
 | `add-label` | `string\|null` | `null` | Label for the add button. Falls back to the `pajak::ui.form.repeater.add` translation |
 | `remove-label` | `string\|null` | `null` | Label and `aria-label` for per-row remove buttons. Falls back to `pajak::ui.form.repeater.remove` |
@@ -977,7 +977,7 @@ Range sliders submit two hidden inputs: `name[min]` and `name[max]`.
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `name` | `string` | — | Form field name (required) |
+| `name` | `string` | - | Form field name (required) |
 | `min` | `float` | `0` | Minimum value |
 | `max` | `float` | `100` | Maximum value |
 | `step` | `float` | `1` | Snap interval |
@@ -1032,7 +1032,7 @@ Both variants dispatch `pajak:slider` on the track-wrap element (bubbles).
 
 ## File
 
-A styled `<input type="file">`. Requires JS — the filename updates via `PajakFile` when the user selects a file.
+A styled `<input type="file">`. Requires JS - the filename updates via `PajakFile` when the user selects a file.
 
 ```blade
 <x-pajak-form::file name="attachment" label="Attachment" />
@@ -1053,12 +1053,12 @@ A styled `<input type="file">`. Requires JS — the filename updates via `PajakF
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `name` | `string` | — | Input name |
+| `name` | `string` | - | Input name |
 | `label` | `?string` | `null` | Label text above the input |
 | `state` | `State` | `State::Default` | Explicit state (`State::Error`, `State::Success`) |
 | `disabled` | `bool` | `false` | Disables the input |
 | `id` | `?string` | `null` | Overrides the HTML `id` (defaults to `name`) |
-| `error` | `?string` | `null` | Error message — sets state to `State::Error` automatically |
+| `error` | `?string` | `null` | Error message - sets state to `State::Error` automatically |
 | `accept` | `?string` | `null` | `accept` attribute passed to the native input |
 | `placeholder` | `?string` | `null` | Text shown before a file is chosen; defaults to the `pajak::ui.form.file.placeholder` translation |
 
@@ -1072,13 +1072,13 @@ const instance = PajakFile.init(labelEl); // initialise one
 instance.destroy();
 ```
 
-The pre-built bundle initialises `PajakFile` automatically — no manual call required.
+The pre-built bundle initialises `PajakFile` automatically - no manual call required.
 
 ---
 
 ## Dropzone
 
-A drag-and-drop upload zone that shows a file list below it. Supports single and multiple file modes. Works with standard HTML form submission — no async upload.
+A drag-and-drop upload zone that shows a file list below it. Supports single and multiple file modes. Works with standard HTML form submission - no async upload.
 
 ### Pre-populated files (edit forms)
 
@@ -1121,7 +1121,7 @@ When the user removes a pre-populated file, a hidden `<input name="documents_del
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `name` | `string` | — | Input name (files submitted as `name[]`) |
+| `name` | `string` | - | Input name (files submitted as `name[]`) |
 | `multiple` | `bool` | `true` | Allow multiple files |
 | `files` | `iterable<UploadedFile>` | `[]` | Pre-populated existing files |
 | `label` | `?string` | `null` | Label text |
@@ -1154,7 +1154,7 @@ Both events bubble from the dropzone wrapper element.
 
 ## Avatar
 
-A circular image upload with an initials fallback. Suitable for profile photos. Standard form submission — no async upload.
+A circular image upload with an initials fallback. Suitable for profile photos. Standard form submission - no async upload.
 
 ### Usage
 
@@ -1178,7 +1178,7 @@ When the user removes the existing image, a hidden `<input name="avatar_delete" 
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `name` | `string` | — | Input name |
+| `name` | `string` | - | Input name |
 | `initials` | `?string` | `null` | 1–2 character fallback shown when no image |
 | `src` | `?string` | `null` | Current image URL (server-side) |
 | `label` | `?string` | `null` | Label text |
@@ -1195,7 +1195,7 @@ import { PajakAvatar } from 'vendor/pajak/ui/js/form/form';
 
 PajakAvatar.initAll();
 const instance = PajakAvatar.init(wrapEl);
-instance.hasImage;    // boolean — true when an image (new or existing) is shown
+instance.hasImage;    // boolean - true when an image (new or existing) is shown
 instance.destroy();
 ```
 
@@ -1247,7 +1247,7 @@ Removed images get a `<input name="receipts_delete[]" value="{id}">` hidden inpu
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `name` | `string` | — | Input name (new files submitted as `name[]`) |
+| `name` | `string` | - | Input name (new files submitted as `name[]`) |
 | `images` | `iterable<UploadedFile>` | `[]` | Pre-populated existing images (`url` required) |
 | `label` | `?string` | `null` | Label text |
 | `state` | `State` | `State::Default` | Explicit state |
@@ -1298,7 +1298,7 @@ class StoreDocumentsRequest extends FormRequest
 | `uploadedAvatar(string $name)` | `?UploadedFile` | Avatar |
 | `avatarDeleted(string $name)` | `bool` | Avatar |
 
-### Example — Dropzone
+### Example - Dropzone
 
 ```php
 // Controller
@@ -1316,7 +1316,7 @@ public function update(StoreDocumentsRequest $request, Project $project): Redire
 }
 ```
 
-### Example — Avatar
+### Example - Avatar
 
 ```php
 public function update(UpdateProfileRequest $request, User $user): RedirectResponse
@@ -1331,7 +1331,7 @@ public function update(UpdateProfileRequest $request, User $user): RedirectRespo
 }
 ```
 
-### Example — Image Grid
+### Example - Image Grid
 
 ```php
 public function update(UpdateReceiptsRequest $request, Expense $expense): RedirectResponse

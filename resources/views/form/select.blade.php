@@ -60,7 +60,7 @@
             </div>
         @endif
 
-        {{-- Multi-select trigger — chip container --}}
+        {{-- Multi-select trigger - chip container --}}
         @if($multiple)
             <div class="pajak-select__trigger pajak-select__trigger--multi" aria-hidden="true">
                 <div class="pajak-select__chips"></div>

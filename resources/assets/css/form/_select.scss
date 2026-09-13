@@ -155,7 +155,7 @@
     &::placeholder { color: var(--color-neutral-300); }
 }
 
-// Dropdown panel — portalled to <body>, positioned via JS
+// Dropdown panel - portalled to <body>, positioned via JS
 .pajak-select__dropdown {
     position: fixed;
     z-index: 9000;

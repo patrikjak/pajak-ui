@@ -40,6 +40,13 @@
         visibility: visible;
     }
 
+    // ── Disabled - suppresses the bubble without touching the trigger content ──
+    &--disabled:hover .pajak-tooltip,
+    &--disabled:focus-within .pajak-tooltip {
+        opacity: 0;
+        visibility: hidden;
+    }
+
     // ── Placements ─────────────────────────────────────────────────────────────
     &--top .pajak-tooltip {
         bottom: calc(100% + 8px);

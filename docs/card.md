@@ -2,7 +2,7 @@
 
 A surface container for presenting grouped content. Supports an optional kicker label, title, body, and footer slot. Lifts on hover via a CSS transition.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
