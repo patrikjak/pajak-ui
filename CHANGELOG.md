@@ -13,8 +13,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Sidebar-item `disabled` prop** - `<x-pajak::sidebar-item :disabled="true">` dims the item, blocks pointer events, and marks it `aria-disabled` + `tabindex="-1"`
 - **Async `data-count` attribute and `pajak:async:empty` event** - after each load (including `refresh()`), `<x-pajak::async>` sets `data-count` to the number of loaded elements and fires `pajak:async:empty` when that count is `0`
 
+### Added
+
+- **`--color-purple` token trio** - `--color-purple-light` / `--color-purple` / `--color-purple-dark`, plus a `.pajak-table-badge--purple` variant, matching the existing green/red/yellow/blue/gray pattern (light and dark theme)
+
 ### Fixed
 
+- **422 validation errors with no matching form field no longer fail silently** - `PajakForm`'s submit handler now falls back to an error toast built from the response's top-level `message` when a 422 error key doesn't correspond to any `[name="..."]` input in the form (e.g. an error keyed on a URL segment rather than a form field); previously the error was dropped with no inline message and no toast
+- **Form components no longer show a false-positive error state for an empty-string `error` prop** - `Input`, `Textarea`, `Select`, `File`, `Dropzone`, `ImageGrid`, `Avatar`, and `Password` (including its confirmation field) now treat `error=""` the same as no error, both for the red border state and for suppressing the empty `<x-pajak-form::field-message>`; this also fixes every other form component using the same `@isset($error)` field-message guard (`Checkbox`, `Radio`, `RadioCard`, `Toggle`, `Slider`), since `isset('')` is `true` in PHP - a bare `:error="$errors->first('field')"` no longer renders a permanently red field on a fresh GET request
 - **Sidebar rail sub-items no longer overflow** - `.pajak-sb__sub` is now hidden in the collapsed rail variant, consistent with how section headers and item labels are already hidden there
 - **Button icon + label alignment** - `.pajak-btn__label` is now `display: inline-flex` with the same gap as the button, so an icon and text passed together in the slot line up vertically and space correctly
 - **`PajakButton.startLoading()` with `loadingText` no longer discards the button's icon** - the original label content (icon included) is now restored by `stopLoading()` instead of only the text; the injected spinner also now renders before the label instead of after, matching the Blade `loading` prop

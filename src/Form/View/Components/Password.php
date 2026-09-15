@@ -60,7 +60,7 @@ final class Password extends Input
 
     public function confirmationState(): State
     {
-        return $this->confirmationError !== null ? State::Error : $this->state;
+        return $this->confirmationError !== null && $this->confirmationError !== '' ? State::Error : $this->state;
     }
 
     public function render(): View

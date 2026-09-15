@@ -29,6 +29,13 @@ final class FileSnapshotTest extends TestCase
         $this->assertMatchesHtmlSnapshot($html);
     }
 
+    public function testFileWithEmptyStringError(): void
+    {
+        $html = (string) $this->blade('<x-pajak-form::file name="attachment" error="" />');
+
+        $this->assertMatchesHtmlSnapshot($html);
+    }
+
     public function testDisabledFile(): void
     {
         $html = (string) $this->blade('<x-pajak-form::file name="attachment" :disabled="true" />');

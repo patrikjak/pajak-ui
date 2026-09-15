@@ -29,6 +29,13 @@ final class InputSnapshotTest extends TestCase
         $this->assertMatchesHtmlSnapshot($html);
     }
 
+    public function testInputWithEmptyStringError(): void
+    {
+        $html = (string) $this->blade('<x-pajak-form::input name="email" error="" />');
+
+        $this->assertMatchesHtmlSnapshot($html);
+    }
+
     public function testDisabledInput(): void
     {
         $html = (string) $this->blade('<x-pajak-form::input name="email" :disabled="true" />');

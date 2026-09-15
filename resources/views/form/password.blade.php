@@ -39,9 +39,9 @@
             @endif
         </div>
 
-        @isset($error)
+        @if(filled($error))
             <x-pajak-form::field-message>{{ $error }}</x-pajak-form::field-message>
-        @endisset
+        @endif
     </div>
 
     @if($confirmation)
@@ -81,9 +81,9 @@
                 @endif
             </div>
 
-            @isset($confirmationError)
+            @if(filled($confirmationError))
                 <x-pajak-form::field-message>{{ $confirmationError }}</x-pajak-form::field-message>
-            @endisset
+            @endif
         </div>
     @endif
 </div>

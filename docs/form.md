@@ -155,7 +155,7 @@ Method::Delete // <form method="POST"> + @method('DELETE')
 
 Every `<x-pajak-form::form>` submits asynchronously via `fetch` - no page refresh. The submit button shows an arc spinner while the request is in-flight and is re-enabled once it completes.
 
-**Validation errors (HTTP 422)** are parsed and displayed inline, attached to the matching field's `.pajak-field` wrapper. Each error removes itself as soon as the user changes the input.
+**Validation errors (HTTP 422)** are parsed and displayed inline, attached to the matching field's `.pajak-field` wrapper. Each error removes itself as soon as the user changes the input. If a 422 response's error key doesn't match any `[name="..."]` input in the form (e.g. a validation error keyed on a URL segment rather than a form field) and the response carries a `toast` key, the response's `toast` object is shown instead of being silently dropped; otherwise the response's top-level `message` (which Laravel's `ValidationException` always populates) is shown as an error toast. Opt out entirely with `data-no-toast` on the `<form>`.
 
 **On success**, the form checks for a `data-redirect` attribute and performs a hard redirect if present. Otherwise it fires a `pajak:form:success` event on the form element.
 

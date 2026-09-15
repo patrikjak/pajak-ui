@@ -220,7 +220,9 @@ TwoLineColumn::make('client')->label('Client')->secondary('nip')
 Small uppercase chip with optional color.
 
 ```php
-BadgeColumn::make('type')->label('Type')->colors(['invoice' => 'blue'])
+BadgeColumn::make('type')->label('Type')->colors([
+    'invoice' => 'blue', // green | red | yellow | blue | purple | gray
+])
 ```
 
 ### AvatarColumn

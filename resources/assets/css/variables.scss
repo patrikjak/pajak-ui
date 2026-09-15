@@ -65,6 +65,10 @@ $bp-tablet: 1024px;
     --color-info:          #5386E4;
     --color-info-dark:     #3366CC;
 
+    --color-purple-light:  #F3EEFC;
+    --color-purple:        #7C4FD1;
+    --color-purple-dark:   #55328F;
+
     // Semantic UI Aliases
     --bg-page:          var(--color-neutral-25);
     --bg-surface:       var(--color-neutral-0);
@@ -198,6 +202,10 @@ $bp-tablet: 1024px;
     --color-info-light:    rgba(132, 165, 231, 0.14);
     --color-info:          #84A5E7;
     --color-info-dark:     #84A5E7;
+
+    --color-purple-light:  rgba(167, 139, 250, 0.14);
+    --color-purple:        #A78BFA;
+    --color-purple-dark:   #A78BFA;
 
     // RGB channels updated for dark semantic colors
     --color-error-rgb:   255, 107, 104;

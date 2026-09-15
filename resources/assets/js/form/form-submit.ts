@@ -112,8 +112,10 @@ function clearErrors(form: HTMLFormElement): void {
     });
 }
 
-function applyErrors(form: HTMLFormElement, errors: ValidationErrors): void {
+function applyErrors(form: HTMLFormElement, errors: ValidationErrors): boolean {
     clearErrors(form);
+
+    let attached = false;
 
     for (const [field, messages] of Object.entries(errors)) {
         const message = messages[0];
@@ -128,6 +130,8 @@ function applyErrors(form: HTMLFormElement, errors: ValidationErrors): void {
         if (!input) {
             continue;
         }
+
+        attached = true;
 
         // Mark input with error state
         input.setAttribute('data-pajak-error-input', '');
@@ -163,6 +167,8 @@ function applyErrors(form: HTMLFormElement, errors: ValidationErrors): void {
             });
         }, { once: true });
     }
+
+    return attached;
 }
 
 // ─── HTTP method resolution ─────────────────────────────────────────────────
@@ -232,16 +238,20 @@ async function sendForm(form: HTMLFormElement): Promise<HttpResult | null> {
 
 // ─── Toast integration ───────────────────────────────────────────────────────
 
-function maybeShowToast(form: HTMLFormElement, data: unknown): void {
+function maybeShowToast(form: HTMLFormElement, data: unknown): boolean {
     if (form.hasAttribute('data-no-toast')) {
-        return;
+        return false;
     }
 
     const toast = (data as { toast?: ToastOptions })?.toast;
 
     if (toast) {
         PajakToast.show(toast);
+
+        return true;
     }
+
+    return false;
 }
 
 // ─── Submit handler ─────────────────────────────────────────────────────────
@@ -287,12 +297,16 @@ async function submitForm(form: HTMLFormElement, btn: HTMLButtonElement | null):
 
     if (result.status === 422) {
         const errors = (result.data as { errors?: ValidationErrors })?.errors;
+        const attached = errors ? applyErrors(form, errors) : false;
+        const shownToast = maybeShowToast(form, result.data);
 
-        if (errors) {
-            applyErrors(form, errors);
+        if (!attached && !shownToast) {
+            const message = (result.data as { message?: string })?.message;
+
+            if (message) {
+                maybeShowToast(form, { toast: { type: 'error', title: message } });
+            }
         }
-
-        maybeShowToast(form, result.data);
 
         return;
     }

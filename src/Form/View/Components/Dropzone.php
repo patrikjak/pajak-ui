@@ -40,7 +40,7 @@ final class Dropzone extends Component
 
     public function resolvedState(): State
     {
-        return $this->error !== null ? State::Error : $this->state;
+        return $this->error !== null && $this->error !== '' ? State::Error : $this->state;
     }
 
     public function formatSize(int $bytes): string
