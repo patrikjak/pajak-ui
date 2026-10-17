@@ -19,7 +19,7 @@
 <div class="pajak-table-pagination">
     <span class="pajak-table-pagination__info">
         {{ __('pajak::table.pagination.page') }} {{ $current }} {{ __('pajak::table.pagination.of') }} {{ $last }}
-        &nbsp;&mdash;&nbsp;
+        &nbsp;&ndash;&nbsp;
         {{ $paginator->total() }} {{ __('pajak::table.pagination.results') }}
     </span>
 

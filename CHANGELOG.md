@@ -7,15 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-10-17
+
 ### Added
 
 - **Tooltip `disabled` prop** - `<x-pajak::tooltip :disabled="true">` suppresses the bubble on hover/focus without touching the trigger; can also be toggled at runtime via the `pajak-tooltip-wrap--disabled` class
 - **Sidebar-item `disabled` prop** - `<x-pajak::sidebar-item :disabled="true">` dims the item, blocks pointer events, and marks it `aria-disabled` + `tabindex="-1"`
 - **Async `data-count` attribute and `pajak:async:empty` event** - after each load (including `refresh()`), `<x-pajak::async>` sets `data-count` to the number of loaded elements and fires `pajak:async:empty` when that count is `0`
-
-### Added
-
 - **`--color-purple` token trio** - `--color-purple-light` / `--color-purple` / `--color-purple-dark`, plus a `.pajak-table-badge--purple` variant, matching the existing green/red/yellow/blue/gray pattern (light and dark theme)
+- **Scoped `box-sizing: border-box` reset** - applied to `[class^="pajak-"]`/`[class*=" pajak-"]` elements (and their `::before`/`::after`) in `variables.scss`, reaching every bundle without a project-supplied reset
+- **`Card` `interactive` prop** - `<x-pajak::card :interactive="false">` removes the hover-lift and widens the title's bottom margin, for stacked settings/profile-style cards that aren't dashboard tiles
+- **`Select` `disabled-options` prop** - `<x-pajak-form::select :disabled-options="['locked']">` renders the matching `<option>` entries (including ones nested inside an `<optgroup>`) as `disabled`; the JS dropdown already honoured native `disabled` options
 
 ### Fixed
 
@@ -24,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Sidebar rail sub-items no longer overflow** - `.pajak-sb__sub` is now hidden in the collapsed rail variant, consistent with how section headers and item labels are already hidden there
 - **Button icon + label alignment** - `.pajak-btn__label` is now `display: inline-flex` with the same gap as the button, so an icon and text passed together in the slot line up vertically and space correctly
 - **`PajakButton.startLoading()` with `loadingText` no longer discards the button's icon** - the original label content (icon included) is now restored by `stopLoading()` instead of only the text; the injected spinner also now renders before the label instead of after, matching the Blade `loading` prop
+- **`PajakForm`'s message-to-toast fallback now applies to any failed response, not just 422** - a 403/404/500 with no matching field errors now also falls back to showing the response's `toast` or top-level `message` as an error toast; the `pajak:form:error` event now also fires on 422 (with `errors` in its detail), not just other statuses
 
 ## [0.5.0] - 2026-06-06
 

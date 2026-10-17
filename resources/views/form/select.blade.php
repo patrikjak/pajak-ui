@@ -37,6 +37,7 @@
                                 @if($multiple && is_array($value) && in_array((string) $optValue, array_map('strval', $value))) selected
                                 @elseif(!$multiple && (string) $optValue === (string) $value) selected
                                 @endif
+                                @if(in_array((string) $optValue, array_map('strval', $disabledOptions), true)) disabled @endif
                             >{{ $optLabel }}</option>
                         @endforeach
                     </optgroup>
@@ -46,6 +47,7 @@
                         @if($multiple && is_array($value) && in_array((string) $groupOrValue, array_map('strval', $value))) selected
                         @elseif(!$multiple && (string) $groupOrValue === (string) $value) selected
                         @endif
+                        @if(in_array((string) $groupOrValue, array_map('strval', $disabledOptions), true)) disabled @endif
                     >{{ $labelOrGroup }}</option>
                 @endif
             @endforeach

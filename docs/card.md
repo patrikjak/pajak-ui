@@ -70,11 +70,25 @@ Renders with a primary-colour background. Text inside `$kicker` and `$title` slo
 
 ---
 
+## Static (non-interactive) usage
+
+For a card that isn't a clickable dashboard tile - e.g. a stacked settings/profile section - disable the hover-lift and use the wider title spacing meant for a heading-then-fields layout instead of a tight title-then-value stack.
+
+```blade
+<x-pajak::card :interactive="false">
+    <x-slot:title>Personal Details</x-slot:title>
+    Update your name and contact information.
+</x-pajak::card>
+```
+
+---
+
 ## Props
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `variant` | `CardVariant` | `CardVariant::Default` | `Default` (white surface) or `Accent` (primary fill) |
+| `interactive` | `bool` | `true` | When `false`, removes the hover-lift and widens the title's bottom margin, for non-clickable, non-dashboard cards |
 
 ## Slots
 

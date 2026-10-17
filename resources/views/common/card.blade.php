@@ -1,6 +1,9 @@
 @use('Pajak\Ui\Common\Enums\Card\CardVariant')
 
-<div {{ $attributes->merge(['class' => 'pajak-card'])->class(['pajak-card--accent' => $variant === CardVariant::Accent]) }}>
+<div {{ $attributes->merge(['class' => 'pajak-card'])->class([
+    'pajak-card--accent' => $variant === CardVariant::Accent,
+    'pajak-card--static' => !$interactive,
+]) }}>
     @isset($kicker)
         <div class="pajak-card__kicker">{{ $kicker }}</div>
     @endisset

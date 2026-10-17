@@ -155,11 +155,11 @@ Method::Delete // <form method="POST"> + @method('DELETE')
 
 Every `<x-pajak-form::form>` submits asynchronously via `fetch` - no page refresh. The submit button shows an arc spinner while the request is in-flight and is re-enabled once it completes.
 
-**Validation errors (HTTP 422)** are parsed and displayed inline, attached to the matching field's `.pajak-field` wrapper. Each error removes itself as soon as the user changes the input. If a 422 response's error key doesn't match any `[name="..."]` input in the form (e.g. a validation error keyed on a URL segment rather than a form field) and the response carries a `toast` key, the response's `toast` object is shown instead of being silently dropped; otherwise the response's top-level `message` (which Laravel's `ValidationException` always populates) is shown as an error toast. Opt out entirely with `data-no-toast` on the `<form>`.
+**Validation errors (HTTP 422)** are parsed and displayed inline, attached to the matching field's `.pajak-field` wrapper. Each error removes itself as soon as the user changes the input. **Any failed response** (422 or otherwise) whose error key doesn't match any `[name="..."]` input in the form (e.g. a validation error keyed on a URL segment rather than a form field, or a 403/404/500 with no fields at all) falls back to a toast: the response's `toast` object if present, otherwise its top-level `message` (which Laravel's `ValidationException` always populates on 422, and which most exception handlers set on other error responses too) is shown as an error toast. Opt out entirely with `data-no-toast` on the `<form>`.
 
 **On success**, the form checks for a `data-redirect` attribute and performs a hard redirect if present. Otherwise it fires a `pajak:form:success` event on the form element.
 
-**On other errors**, a `pajak:form:error` event is fired so the consumer can show a toast or notification.
+**On any failed response** (422 included), a `pajak:form:error` event is fired with the response status, body, and parsed `errors` (if any) so the consumer can react beyond the built-in toast/inline handling.
 
 ```blade
 {{-- Redirect after successful submission --}}
@@ -175,7 +175,7 @@ document.querySelector('form').addEventListener('pajak:form:success', (e) => {
 });
 
 document.querySelector('form').addEventListener('pajak:form:error', (e) => {
-    console.log(e.detail.status, e.detail.response);
+    console.log(e.detail.status, e.detail.response, e.detail.errors);
 });
 ```
 
@@ -661,6 +661,7 @@ The `data-meta` attribute on an `<option>` renders a secondary label aligned to 
 | `disabled` | `bool` | `false` | Disables the select |
 | `id` | `string\|null` | `null` | Overrides the default `id` (falls back to `name`) |
 | `error` | `string\|null` | `null` | Error message shown below the select; automatically sets `state` to `error` |
+| `disabled-options` | `array` | `[]` | Option values (keys of `options`) to render as disabled `<option>` entries, including ones nested inside an `<optgroup>` |
 
 **Slot:** `$slot` - `<option>` and `<optgroup>` elements. Options accept a `data-meta` attribute for secondary label text.
 

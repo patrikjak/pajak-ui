@@ -253,3 +253,15 @@ $bp-tablet: 1024px;
     --color-primary-800: #A8C0F0;
     --color-primary-900: #C5D5F5;
 }
+
+// ── Reset ──────────────────────────────────────────────────────────────────────
+
+[class^="pajak-"],
+[class*=" pajak-"] {
+    box-sizing: border-box;
+
+    &::before,
+    &::after {
+        box-sizing: border-box;
+    }
+}

@@ -295,27 +295,21 @@ async function submitForm(form: HTMLFormElement, btn: HTMLButtonElement | null):
         return;
     }
 
-    if (result.status === 422) {
-        const errors = (result.data as { errors?: ValidationErrors })?.errors;
-        const attached = errors ? applyErrors(form, errors) : false;
-        const shownToast = maybeShowToast(form, result.data);
+    const errors = (result.data as { errors?: ValidationErrors })?.errors;
+    const attached = result.status === 422 && errors ? applyErrors(form, errors) : false;
+    const shownToast = maybeShowToast(form, result.data);
 
-        if (!attached && !shownToast) {
-            const message = (result.data as { message?: string })?.message;
+    if (!attached && !shownToast) {
+        const message = (result.data as { message?: string })?.message;
 
-            if (message) {
-                maybeShowToast(form, { toast: { type: 'error', title: message } });
-            }
+        if (message) {
+            maybeShowToast(form, { toast: { type: 'error', title: message } });
         }
-
-        return;
     }
-
-    maybeShowToast(form, result.data);
 
     form.dispatchEvent(new CustomEvent('pajak:form:error', {
         bubbles: true,
-        detail: { status: result.status, response: result.data },
+        detail: { status: result.status, response: result.data, errors },
     }));
 }
 
