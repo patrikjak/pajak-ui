@@ -1,9 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { PajakButton, initFormSubmitLoaders } from '../../resources/assets/js/form/form-submit';
+import { PajakToast } from '../../resources/assets/js/toast/toast';
 
 beforeEach(() => {
     vi.restoreAllMocks();
     document.body.innerHTML = '';
+    sessionStorage.clear();
 });
 
 function makeForm(): HTMLFormElement {
@@ -167,5 +169,35 @@ describe('422 handling', () => {
         await flushPromises();
 
         expect(document.querySelector('.pajak-toast')).toBeNull();
+    });
+});
+
+describe('redirect with a success toast', () => {
+    it('stashes the toast instead of rendering it before navigating away', async () => {
+        mockFetchJson({ toast: { type: 'success', title: 'Saved' } }, 200);
+        const stash = vi.spyOn(PajakToast, 'stashForRedirect');
+
+        const form = makeForm();
+        form.dataset.redirect = '/thanks';
+
+        submit(form);
+        await flushPromises();
+
+        expect(stash).toHaveBeenCalledWith({ type: 'success', title: 'Saved' });
+        expect(document.querySelector('.pajak-toast')).toBeNull();
+    });
+
+    it('does not stash a toast when the form opts out via data-no-toast', async () => {
+        mockFetchJson({ toast: { type: 'success', title: 'Saved' } }, 200);
+        const stash = vi.spyOn(PajakToast, 'stashForRedirect');
+
+        const form = makeForm();
+        form.dataset.redirect = '/thanks';
+        form.setAttribute('data-no-toast', '');
+
+        submit(form);
+        await flushPromises();
+
+        expect(stash).not.toHaveBeenCalled();
     });
 });

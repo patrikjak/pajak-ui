@@ -238,12 +238,16 @@ async function sendForm(form: HTMLFormElement): Promise<HttpResult | null> {
 
 // ─── Toast integration ───────────────────────────────────────────────────────
 
-function maybeShowToast(form: HTMLFormElement, data: unknown): boolean {
+function resolveToast(form: HTMLFormElement, data: unknown): ToastOptions | null {
     if (form.hasAttribute('data-no-toast')) {
-        return false;
+        return null;
     }
 
-    const toast = (data as { toast?: ToastOptions })?.toast;
+    return (data as { toast?: ToastOptions })?.toast ?? null;
+}
+
+function maybeShowToast(form: HTMLFormElement, data: unknown): boolean {
+    const toast = resolveToast(form, data);
 
     if (toast) {
         PajakToast.show(toast);
@@ -278,14 +282,20 @@ async function submitForm(form: HTMLFormElement, btn: HTMLButtonElement | null):
     }
 
     if (result.ok) {
-        maybeShowToast(form, result.data);
-
         const redirect = form.dataset.redirect;
 
         if (redirect) {
+            const toast = resolveToast(form, result.data);
+
+            if (toast) {
+                PajakToast.stashForRedirect(toast);
+            }
+
             window.location.href = redirect;
             return;
         }
+
+        maybeShowToast(form, result.data);
 
         form.dispatchEvent(new CustomEvent('pajak:form:success', {
             bubbles: true,

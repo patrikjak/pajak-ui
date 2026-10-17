@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Button icon + label alignment** - `.pajak-btn__label` is now `display: inline-flex` with the same gap as the button, so an icon and text passed together in the slot line up vertically and space correctly
 - **`PajakButton.startLoading()` with `loadingText` no longer discards the button's icon** - the original label content (icon included) is now restored by `stopLoading()` instead of only the text; the injected spinner also now renders before the label instead of after, matching the Blade `loading` prop
 - **`PajakForm`'s message-to-toast fallback now applies to any failed response, not just 422** - a 403/404/500 with no matching field errors now also falls back to showing the response's `toast` or top-level `message` as an error toast; the `pajak:form:error` event now also fires on 422 (with `errors` in its detail), not just other statuses
+- **A success toast is no longer lost when a form redirects via `data-redirect`** - showing the toast right before a hard navigation never gave it time to render; it's now stashed via the new `PajakToast.stashForRedirect()` and shown automatically once the next page loads
 
 ## [0.5.0] - 2026-06-06
 

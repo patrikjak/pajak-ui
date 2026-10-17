@@ -88,6 +88,12 @@ function dismissEl(el: HTMLElement): void {
     el.addEventListener('animationend', () => el.remove(), { once: true });
 }
 
+// ─── Redirect persistence ───────────────────────────────────────────────────
+
+// A toast shown right before a hard navigation (e.g. a form's data-redirect) never gets
+// time to render, so it's stashed here instead and replayed once the next page loads.
+const REDIRECT_TOAST_KEY = 'pajak_redirect_toast';
+
 // ─── Public API ───────────────────────────────────────────────────────────────
 
 let counter = 0;
@@ -119,4 +125,30 @@ export const PajakToast = {
     dismissAll(): void {
         document.querySelectorAll<HTMLElement>('[data-toast-id]').forEach((el) => dismissEl(el));
     },
+
+    stashForRedirect(options: ToastOptions): void {
+        sessionStorage.setItem(REDIRECT_TOAST_KEY, JSON.stringify(options));
+    },
 } as const;
+
+function replayRedirectToast(): void {
+    const raw = sessionStorage.getItem(REDIRECT_TOAST_KEY);
+
+    if (!raw) {
+        return;
+    }
+
+    sessionStorage.removeItem(REDIRECT_TOAST_KEY);
+
+    try {
+        PajakToast.show(JSON.parse(raw) as ToastOptions);
+    } catch {
+        // Malformed stashed toast - nothing to show.
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', replayRedirectToast);
+} else {
+    replayRedirectToast();
+}

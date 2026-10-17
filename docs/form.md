@@ -157,7 +157,7 @@ Every `<x-pajak-form::form>` submits asynchronously via `fetch` - no page refres
 
 **Validation errors (HTTP 422)** are parsed and displayed inline, attached to the matching field's `.pajak-field` wrapper. Each error removes itself as soon as the user changes the input. **Any failed response** (422 or otherwise) whose error key doesn't match any `[name="..."]` input in the form (e.g. a validation error keyed on a URL segment rather than a form field, or a 403/404/500 with no fields at all) falls back to a toast: the response's `toast` object if present, otherwise its top-level `message` (which Laravel's `ValidationException` always populates on 422, and which most exception handlers set on other error responses too) is shown as an error toast. Opt out entirely with `data-no-toast` on the `<form>`.
 
-**On success**, the form checks for a `data-redirect` attribute and performs a hard redirect if present. Otherwise it fires a `pajak:form:success` event on the form element.
+**On success**, the form checks for a `data-redirect` attribute and performs a hard redirect if present. Otherwise it fires a `pajak:form:success` event on the form element. A response's `toast` key would never have time to render before the redirect's navigation, so it's stashed via [`PajakToast.stashForRedirect()`](toast.md#pajaktoaststashforredirectoptions) and shown automatically once the next page loads instead.
 
 **On any failed response** (422 included), a `pajak:form:error` event is fired with the response status, body, and parsed `errors` (if any) so the consumer can react beyond the built-in toast/inline handling.
 
