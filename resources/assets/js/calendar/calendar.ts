@@ -694,7 +694,7 @@ function upgradeRange(wrap: HTMLElement): ComponentInstance {
         }
         const s = range.start ? formatRangeDate(range.start, startTime) : '?';
         const e = range.end ? formatRangeDate(range.end, endTime) : '?';
-        const label = range.end ? `${s} — ${e}, ${range.end.year}` : s;
+        const label = range.end ? `${s} - ${e}, ${range.end.year}` : s;
         display.textContent = label;
         display.classList.remove('is-placeholder');
         metaEl.textContent = label;

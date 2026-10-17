@@ -1,6 +1,6 @@
 # HTTP Connector
 
-A lightweight, typed HTTP client built on the native `fetch` API. No dependencies — no axios, no jQuery.
+A lightweight, typed HTTP client built on the native `fetch` API. No dependencies - no axios, no jQuery.
 
 ## Assets
 
@@ -61,7 +61,7 @@ interface HttpSuccess<T> { ok: true;  status: number; data: T       }
 interface HttpError      { ok: false; status: number; data: unknown  }
 ```
 
-Network failures (no response) return `{ ok: false, status: 0, data: null }` — they never throw.
+Network failures (no response) return `{ ok: false, status: 0, data: null }` - they never throw.
 
 ---
 
@@ -107,7 +107,7 @@ const result = await get<Item[]>('/api/items', { page: '2', search: 'foo' });
 |---------|-----------|
 | CSRF | Reads `meta[name="csrf-token"]` and sends it as `X-CSRF-TOKEN` on every mutating request |
 | JSON | Sets `Content-Type: application/json` and serialises the body automatically for plain objects |
-| FormData | Detected automatically — `Content-Type` is left unset so the browser sets the correct `multipart/form-data` boundary |
+| FormData | Detected automatically - `Content-Type` is left unset so the browser sets the correct `multipart/form-data` boundary |
 | GET params | A plain object passed to `get()` is appended as a query string |
 | Errors | Non-2xx responses return `{ ok: false }` with the parsed response body as `data` |
-| Network failure | Returns `{ ok: false, status: 0, data: null }` — never throws |
+| Network failure | Returns `{ ok: false, status: 0, data: null }` - never throws |

@@ -21,4 +21,11 @@ final class TextareaSnapshotTest extends TestCase
 
         $this->assertMatchesHtmlSnapshot($html);
     }
+
+    public function testTextareaWithEmptyStringError(): void
+    {
+        $html = (string) $this->blade('<x-pajak-form::textarea name="bio" error="" />');
+
+        $this->assertMatchesHtmlSnapshot($html);
+    }
 }

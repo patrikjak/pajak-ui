@@ -33,7 +33,7 @@ function initSegmented(root: HTMLElement): void {
 
     const options = getOptions(root);
 
-    // Roving tabindex — only the selected option (or first enabled) is tabbable
+    // Roving tabindex - only the selected option (or first enabled) is tabbable
     const initialSelected =
         options.find((b) => b.getAttribute('aria-selected') === 'true' && !b.disabled) ??
         options.find((b) => !b.disabled) ??

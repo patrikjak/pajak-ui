@@ -2,7 +2,7 @@
 
 A floating date picker and date range picker with optional presets sidebar and optional time inputs (HH:MM).
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -152,7 +152,7 @@ If `data-start-time`/`data-end-time` are omitted and time mode is on, the preset
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `name` | `string` | — | Input name. Range mode appends `_start` / `_end`. |
+| `name` | `string` | - | Input name. Range mode appends `_start` / `_end`. |
 | `range` | `bool` | `false` | Enable range selection mode. |
 | `time` | `bool` | `false` | Show HH:MM time inputs in the footer. |
 | `value` | `string\|null` | `null` | Initial value for single mode (`Y-m-d` or `Y-m-d H:i`). |
@@ -180,7 +180,7 @@ If `data-start-time`/`data-end-time` are omitted and time mode is on, the preset
 | `Enter` | Select the focused day and close the panel |
 | `Tab` | Move focus through the panel controls (time inputs, action button) |
 
-The day grid uses a roving tabindex — only the currently focused day is in the tab order. When the panel opens, focus moves automatically to the selected day (or today, or the first available day). When the panel closes, focus returns to the trigger button.
+The day grid uses a roving tabindex - only the currently focused day is in the tab order. When the panel opens, focus moves automatically to the selected day (or today, or the first available day). When the panel closes, focus returns to the trigger button.
 
 Month navigation is announced to screen readers via a live region.
 

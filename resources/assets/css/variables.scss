@@ -65,6 +65,10 @@ $bp-tablet: 1024px;
     --color-info:          #5386E4;
     --color-info-dark:     #3366CC;
 
+    --color-purple-light:  #F3EEFC;
+    --color-purple:        #7C4FD1;
+    --color-purple-dark:   #55328F;
+
     // Semantic UI Aliases
     --bg-page:          var(--color-neutral-25);
     --bg-surface:       var(--color-neutral-0);
@@ -168,7 +172,7 @@ $bp-tablet: 1024px;
 // All component styles use the semantic aliases above, so only those aliases
 // (plus the raw palette tokens components reference directly) need overriding.
 [data-theme="dark"] {
-    // Dark surface scale — blue-tinted neutrals
+    // Dark surface scale - blue-tinted neutrals
     --color-neutral-0:   #151B2C;   // surface  (was white)
     --color-neutral-25:  #11162B;   // subtle bg (was near-white)
     --color-neutral-50:  #1F2740;   // elevated  (was lightest grey)
@@ -182,7 +186,7 @@ $bp-tablet: 1024px;
     --color-neutral-800: #EEF2FB;   // primary fg
     --color-neutral-900: #EEF2FB;   // primary fg (darkest)
 
-    // Semantic colors — brightened for AA contrast on dark surfaces
+    // Semantic colors - brightened for AA contrast on dark surfaces
     --color-success-light: rgba(61, 214, 140, 0.14);
     --color-success:       #3DD68C;
     --color-success-dark:  #3DD68C;
@@ -199,12 +203,16 @@ $bp-tablet: 1024px;
     --color-info:          #84A5E7;
     --color-info-dark:     #84A5E7;
 
+    --color-purple-light:  rgba(167, 139, 250, 0.14);
+    --color-purple:        #A78BFA;
+    --color-purple-dark:   #A78BFA;
+
     // RGB channels updated for dark semantic colors
     --color-error-rgb:   255, 107, 104;
     --color-success-rgb: 61, 214, 140;
     --bg-surface-rgb:    21, 27, 44;
 
-    // Semantic UI aliases — page sits one step darker than surface
+    // Semantic UI aliases - page sits one step darker than surface
     --bg-page:          #0B0F1A;
     --bg-surface:       #151B2C;
     --bg-elevated:      #1F2740;
@@ -226,7 +234,7 @@ $bp-tablet: 1024px;
     --fg-link:       #84A5E7;
     --fg-link-hover: #6B93DF;
 
-    // Shadows — heavier on dark to create visible elevation
+    // Shadows - heavier on dark to create visible elevation
     --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.45), 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -244,4 +252,16 @@ $bp-tablet: 1024px;
     --color-primary-700: #84A5E7;
     --color-primary-800: #A8C0F0;
     --color-primary-900: #C5D5F5;
+}
+
+// ── Reset ──────────────────────────────────────────────────────────────────────
+
+[class^="pajak-"],
+[class*=" pajak-"] {
+    box-sizing: border-box;
+
+    &::before,
+    &::after {
+        box-sizing: border-box;
+    }
 }

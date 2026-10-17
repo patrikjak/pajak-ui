@@ -2,7 +2,7 @@
 
 A segmented control (button group selector) for switching between mutually exclusive options. Use for view switchers, filter toggles, and compact option pickers.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -51,7 +51,7 @@ PajakSegmented.initAll();
 
 ## Components
 
-### `<x-pajak::segmented>` — container
+### `<x-pajak::segmented>` - container
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
@@ -59,11 +59,11 @@ PajakSegmented.initAll();
 | `size` | `Size` | `Size::Md` | Control size |
 | `full` | `bool` | `false` | Stretches to full container width with equal-width options |
 
-### `<x-pajak::segmented-option>` — option button
+### `<x-pajak::segmented-option>` - option button
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `label` | `?string` | `null` | Button text — omit for icon-only |
+| `label` | `?string` | `null` | Button text - omit for icon-only |
 | `active` | `bool` | `false` | Initial selected state |
 | `disabled` | `bool` | `false` | Disables this option |
 | `value` | `?string` | `null` | Value emitted in the `pajak-segmented:change` event |
@@ -90,9 +90,9 @@ SegmentedVariant::Bordered  // white track with border, tinted selected state
 ```php
 use Pajak\Ui\Common\Enums\Size;
 
-Size::Sm   // compact — 12px font, reduced padding
+Size::Sm   // compact - 12px font, reduced padding
 Size::Md   // default
-Size::Lg   // large  — 14px font, generous padding
+Size::Lg   // large  - 14px font, generous padding
 ```
 
 ---
@@ -178,7 +178,7 @@ Omit `label` to render an icon-only button with compact padding.
 
 ## Keyboard navigation
 
-Follows the WAI-ARIA tablist pattern with roving tabindex — only the active option is in the tab order.
+Follows the WAI-ARIA tablist pattern with roving tabindex - only the active option is in the tab order.
 
 | Key | Action |
 |-----|--------|

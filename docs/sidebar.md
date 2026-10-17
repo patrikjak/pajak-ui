@@ -1,8 +1,8 @@
 # Sidebar
 
-A vertical navigation sidebar supporting six layout variants. No JavaScript required — active state and variant differences are controlled via props and CSS.
+A vertical navigation sidebar supporting six layout variants. No JavaScript required - active state and variant differences are controlled via props and CSS.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -67,7 +67,7 @@ php artisan vendor:publish --tag=pajak-ui-sources
 
 ### Rail
 
-72 px icon-only collapsed rail. Labels are hidden via CSS; a tooltip appears on hover. The `icon` slot of `SidebarItem` is required for this variant to be useful.
+72 px icon-only collapsed rail. Labels are hidden via CSS; a tooltip appears on hover. Sub-items (`.pajak-sb__sub`) are hidden too - the rail variant doesn't support inline sub-nav. The `icon` slot of `SidebarItem` is required for this variant to be useful.
 
 ```blade
 <x-pajak::sidebar variant="rail">
@@ -80,7 +80,7 @@ php artisan vendor:publish --tag=pajak-ui-sources
 
 ### Dark
 
-Same structure as Standard with dark background — for admin or high-contrast app shells.
+Same structure as Standard with dark background - for admin or high-contrast app shells.
 
 ```blade
 <x-pajak::sidebar variant="dark">…</x-pajak::sidebar>
@@ -88,7 +88,7 @@ Same structure as Standard with dark background — for admin or high-contrast a
 
 ### Workspace
 
-Standard width with a `header` slot above the scroll area — used for workspace switchers, primary CTA buttons, or similar.
+Standard width with a `header` slot above the scroll area - used for workspace switchers, primary CTA buttons, or similar.
 
 ```blade
 <x-pajak::sidebar variant="workspace">
@@ -103,7 +103,7 @@ Standard width with a `header` slot above the scroll area — used for workspace
 
 ### Wide
 
-280 px — same as Standard but wider. Used when items have sub-nav expanded inline.
+280 px - same as Standard but wider. Used when items have sub-nav expanded inline.
 
 ```blade
 <x-pajak::sidebar variant="wide">
@@ -123,7 +123,7 @@ Standard width with a `header` slot above the scroll area — used for workspace
 
 ### Filters
 
-260 px, subtle page background. The scroll slot holds free-form filter content (checkboxes, chips, sliders) — no filter-specific sub-components are provided.
+260 px, subtle page background. The scroll slot holds free-form filter content (checkboxes, chips, sliders) - no filter-specific sub-components are provided.
 
 ```blade
 <x-pajak::sidebar variant="filters">
@@ -147,7 +147,7 @@ On screens narrower than `$bp-mobile` (768 px) the sidebar hides and an animated
 Wrap the sidebar in a `<dialog>` with a unique `id` and `data-pajak-sidebar`. Place a toggle button anywhere with `data-pajak-sidebar-trigger="<id>"`. The JS bundle handles open/close and syncs the `is-open` class on the trigger for the hamburger → ✕ morph.
 
 ```blade
-{{-- Toggle button — place in your navbar or header --}}
+{{-- Toggle button - place in your navbar or header --}}
 <button class="pajak-sb-toggle" data-pajak-sidebar-trigger="main-nav">
     <span class="pajak-sb-toggle__icon">
         <span></span>
@@ -207,7 +207,7 @@ Any button inside the sidebar with `data-pajak-sidebar-rail` becomes a rail togg
 
 ### CSS
 
-`.pajak-sb-rail-btn` is always visible (not mobile-only). In the expanded state it sits at the end of the brand row via `margin-left: auto`. In rail mode (`.pajak-sb--rail`) the brand area switches to a column layout and the button centres below the logo. The `is-rail` rotation on the icon SVG is built into the package — no custom CSS is needed.
+`.pajak-sb-rail-btn` is always visible (not mobile-only). In the expanded state it sits at the end of the brand row via `margin-left: auto`. In rail mode (`.pajak-sb--rail`) the brand area switches to a column layout and the button centres below the logo. The `is-rail` rotation on the icon SVG is built into the package - no custom CSS is needed.
 
 ### JS
 
@@ -235,9 +235,9 @@ PajakSidebar.rail('main-nav');
 | Slot | Description |
 |------|-------------|
 | `brand` | Top brand/logo area. |
-| `header` | Optional area between brand and scroll body — workspace switcher, CTA, etc. |
-| `$slot` (default) | Scrollable body — section labels, nav items, sub-nav. |
-| `footer` | Bottom pinned area — user card, action buttons. |
+| `header` | Optional area between brand and scroll body - workspace switcher, CTA, etc. |
+| `$slot` (default) | Scrollable body - section labels, nav items, sub-nav. |
+| `footer` | Bottom pinned area - user card, action buttons. |
 
 ---
 
@@ -245,12 +245,13 @@ PajakSidebar.rail('main-nav');
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `label` | `string` | — | **Required.** Nav item text (also used as rail tooltip). |
+| `label` | `string` | - | **Required.** Nav item text (also used as rail tooltip). |
 | `href` | `string` | `'#'` | Link URL. |
 | `active` | `bool` | `false` | Marks the item as the current page. |
 | `count` | `int\|null` | `null` | Pill badge with a number. |
 | `dot` | `bool` | `false` | Small red notification dot (replaces count). |
 | `warn` | `bool` | `false` | Applies red/warning color to the count badge. |
+| `disabled` | `bool` | `false` | Dims the item (`opacity: .4`), blocks pointer events, and adds `aria-disabled="true"` + `tabindex="-1"` so it's also unreachable by keyboard. |
 
 ## SidebarItem slots
 
@@ -264,7 +265,7 @@ PajakSidebar.rail('main-nav');
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `label` | `string` | — | **Required.** Section heading text. Hidden in rail variant. |
+| `label` | `string` | - | **Required.** Section heading text. Hidden in rail variant. |
 
 ---
 
@@ -272,7 +273,7 @@ PajakSidebar.rail('main-nav');
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `label` | `string` | — | **Required.** Sub-item link text. |
+| `label` | `string` | - | **Required.** Sub-item link text. |
 | `href` | `string` | `'#'` | Link URL. |
 | `active` | `bool` | `false` | Marks as current page. |
 | `count` | `int\|null` | `null` | Count shown at the right (muted, or primary when active). |

@@ -54,8 +54,15 @@ async function fetchContent(el: HTMLElement, isRefresh: boolean): Promise<void> 
         content.innerHTML = html;
     }
 
+    const count = content?.childElementCount ?? 0;
+    el.dataset.count = String(count);
+
     el.classList.add('is-loaded');
     el.dispatchEvent(new CustomEvent('pajak:async:loaded', { bubbles: true }));
+
+    if (count === 0) {
+        el.dispatchEvent(new CustomEvent('pajak:async:empty', { bubbles: true }));
+    }
 }
 
 function init(el: HTMLElement): void {

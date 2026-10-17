@@ -2,7 +2,7 @@
 
 Linear determinate progress bar. Available as `<x-pajak::progress>`.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -66,7 +66,7 @@ php artisan vendor:publish --tag=pajak-ui-sources
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `value` | `int` | — | Current value (required) |
+| `value` | `int` | - | Current value (required) |
 | `max` | `int` | `100` | Maximum value; percentage is computed as `value / max * 100` |
 | `size` | `ProgressSize` | `ProgressSize::Md` | Bar height |
 | `color` | `ProgressColor` | `ProgressColor::Primary` | Fill color |

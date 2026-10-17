@@ -16,6 +16,7 @@ final class SidebarItem extends Component
         public readonly ?int $count = null,
         public readonly bool $dot = false,
         public readonly bool $warn = false,
+        public readonly bool $disabled = false,
     ) {
     }
 

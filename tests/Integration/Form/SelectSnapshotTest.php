@@ -32,6 +32,23 @@ final class SelectSnapshotTest extends TestCase
         $this->assertMatchesHtmlSnapshot($html);
     }
 
+    public function testSelectWithEmptyStringError(): void
+    {
+        $html = (string) $this->blade('<x-pajak-form::select name="country" error="" />');
+
+        $this->assertMatchesHtmlSnapshot($html);
+    }
+
+    public function testSelectWithDisabledOptions(): void
+    {
+        $html = (string) $this->blade(
+            '<x-pajak-form::select name="country" :options="$options" :disabled-options="$disabledOptions" />',
+            ['options' => ['sk' => 'Slovakia', 'cz' => 'Czech Republic'], 'disabledOptions' => ['cz']],
+        );
+
+        $this->assertMatchesHtmlSnapshot($html);
+    }
+
     public function testMultipleSelect(): void
     {
         $html = (string) $this->blade(

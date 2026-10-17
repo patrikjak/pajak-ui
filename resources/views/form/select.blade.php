@@ -37,6 +37,7 @@
                                 @if($multiple && is_array($value) && in_array((string) $optValue, array_map('strval', $value))) selected
                                 @elseif(!$multiple && (string) $optValue === (string) $value) selected
                                 @endif
+                                @if(in_array((string) $optValue, array_map('strval', $disabledOptions), true)) disabled @endif
                             >{{ $optLabel }}</option>
                         @endforeach
                     </optgroup>
@@ -46,6 +47,7 @@
                         @if($multiple && is_array($value) && in_array((string) $groupOrValue, array_map('strval', $value))) selected
                         @elseif(!$multiple && (string) $groupOrValue === (string) $value) selected
                         @endif
+                        @if(in_array((string) $groupOrValue, array_map('strval', $disabledOptions), true)) disabled @endif
                     >{{ $labelOrGroup }}</option>
                 @endif
             @endforeach
@@ -60,7 +62,7 @@
             </div>
         @endif
 
-        {{-- Multi-select trigger — chip container --}}
+        {{-- Multi-select trigger - chip container --}}
         @if($multiple)
             <div class="pajak-select__trigger pajak-select__trigger--multi" aria-hidden="true">
                 <div class="pajak-select__chips"></div>
@@ -99,7 +101,7 @@
         </div>
     </div>
 
-    @isset($error)
+    @if(filled($error))
         <x-pajak-form::field-message>{{ $error }}</x-pajak-form::field-message>
-    @endisset
+    @endif
 </div>

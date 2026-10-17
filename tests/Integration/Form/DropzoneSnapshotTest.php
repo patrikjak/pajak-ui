@@ -30,6 +30,13 @@ final class DropzoneSnapshotTest extends TestCase
         $this->assertMatchesHtmlSnapshot($html);
     }
 
+    public function testDropzoneWithEmptyStringError(): void
+    {
+        $html = (string) $this->blade('<x-pajak-form::dropzone name="documents" error="" />');
+
+        $this->assertMatchesHtmlSnapshot($html);
+    }
+
     public function testDisabledDropzone(): void
     {
         $html = (string) $this->blade('<x-pajak-form::dropzone name="documents" :disabled="true" />');

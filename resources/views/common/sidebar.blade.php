@@ -6,13 +6,12 @@
     <script>
         (function () {
             try {
-                var dialog = document.currentScript.closest('dialog[data-pajak-sidebar]');
-                if (dialog && dialog.id) {
-                    var saved = localStorage.getItem('pajak-sb-rail:' + dialog.id);
-                    var aside = dialog.querySelector('.pajak-sb');
-                    if (aside && saved === '1') {
-                        aside.classList.add('pajak-sb--rail');
-                    }
+                var aside = document.currentScript.closest('.pajak-sb');
+                if (!aside) return;
+                var dialog = aside.closest('dialog[data-pajak-sidebar]');
+                var id = (dialog && dialog.id) || aside.id;
+                if (id && localStorage.getItem('pajak-sb-rail:' + id) === '1') {
+                    aside.classList.add('pajak-sb--rail');
                 }
             } catch (e) {}
         })();

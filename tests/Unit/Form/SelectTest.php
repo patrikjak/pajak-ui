@@ -75,4 +75,15 @@ final class SelectTest extends TestCase
 
         $this->assertSame(__('pajak::ui.form.select.search_placeholder'), $select->resolvedSearchPlaceholder());
     }
+
+    public function testDisabledOptionsAreStored(): void
+    {
+        $select = new Select(
+            'country',
+            options: ['sk' => 'Slovakia', 'cz' => 'Czech Republic'],
+            disabledOptions: ['cz'],
+        );
+
+        $this->assertSame(['cz'], $select->disabledOptions);
+    }
 }

@@ -1,8 +1,8 @@
 # Empty State
 
-Placeholder component for empty lists, search results, and drop zones. Supports an icon art box, title, message, and actions — all as optional named slots.
+Placeholder component for empty lists, search results, and drop zones. Supports an icon art box, title, message, and actions - all as optional named slots.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -56,19 +56,19 @@ White surface card with border and subtle shadow.
 
 ### Dashed
 
-Dashed border on a tinted background — suitable for drop zones. Highlights on hover.
+Dashed border on a tinted background - suitable for drop zones. Highlights on hover.
 
 ```blade
 <x-pajak::empty-state :variant="\Pajak\Ui\Common\Enums\EmptyState\EmptyStateVariant::Dashed">
     <x-slot:icon>...</x-slot:icon>
     <x-slot:title>Drop documents here</x-slot:title>
-    <x-slot:message>PDF, JPG, PNG — up to 10 MB each</x-slot:message>
+    <x-slot:message>PDF, JPG, PNG - up to 10 MB each</x-slot:message>
 </x-pajak::empty-state>
 ```
 
 ### Compact
 
-Reduced padding and smaller art box — suitable for inline use inside cards or panels.
+Reduced padding and smaller art box - suitable for inline use inside cards or panels.
 
 ```blade
 <x-pajak::empty-state :variant="\Pajak\Ui\Common\Enums\EmptyState\EmptyStateVariant::Compact">

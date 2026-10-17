@@ -115,7 +115,7 @@
         </table>
     </div>
 
-    {{-- Restore loader (hidden in async mode via CSS — skeleton rows serve as the loading indicator) --}}
+    {{-- Restore loader (hidden in async mode via CSS - skeleton rows serve as the loading indicator) --}}
     <div class="pajak-table-restore-loader" aria-hidden="true">
         <svg class="pajak-spinner pajak-spinner--xl pajak-spinner--primary" viewBox="0 0 24 24" fill="none">
             <circle class="pajak-spinner__track" cx="12" cy="12" r="9" stroke-width="2.5" stroke-dasharray="56.5" stroke-dashoffset="0"/>

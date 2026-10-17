@@ -90,7 +90,7 @@
                                 <input type="text" class="pajak-datepicker__time-input pajak-datepicker__time-input--start"
                                        maxlength="5" placeholder="HH:MM"
                                        aria-label="{{ __('pajak::ui.calendar.start_time') }}">
-                                <span class="pajak-datepicker__time-sep">—</span>
+                                <span class="pajak-datepicker__time-sep">-</span>
                                 <input type="text" class="pajak-datepicker__time-input pajak-datepicker__time-input--end"
                                        maxlength="5" placeholder="HH:MM"
                                        aria-label="{{ __('pajak::ui.calendar.end_time') }}">

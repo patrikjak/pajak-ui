@@ -16,6 +16,7 @@ final class Select extends Component
 
     /**
      * @param iterable<int|string, string|iterable<int|string, string>> $options
+     * @param array<int, int|string> $disabledOptions option values (keys of $options) to render as disabled
      */
     public function __construct(
         public readonly string $name,
@@ -30,6 +31,7 @@ final class Select extends Component
         public readonly ?string $id = null,
         public readonly ?string $error = null,
         public readonly ?string $label = null,
+        public readonly array $disabledOptions = [],
     ) {
         $this->options = $options instanceof Traversable ? iterator_to_array($options) : (array) $options;
     }
@@ -46,7 +48,7 @@ final class Select extends Component
 
     public function resolvedState(): State
     {
-        return $this->error !== null ? State::Error : $this->state;
+        return $this->error !== null && $this->error !== '' ? State::Error : $this->state;
     }
 
     public function resolvedPlaceholder(): string

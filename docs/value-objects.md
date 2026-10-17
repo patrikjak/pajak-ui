@@ -21,7 +21,7 @@ $price = new Money(1999, '$', 100, true);  // $ 19.99
 
 | Parameter | Type | Default | Description |
 |---|---|---|---|
-| `$minorUnits` | `int` | — | Amount in the smallest currency unit (e.g. cents) |
+| `$minorUnits` | `int` | - | Amount in the smallest currency unit (e.g. cents) |
 | `$currency` | `string` | `'€'` | Currency symbol displayed next to the formatted value |
 | `$multiplier` | `int` | `100` | Number of minor units per major unit; determines decimal places via `log10($multiplier)` |
 | `$currencyBefore` | `bool` | `false` | When `true`, the symbol appears before the number (`$ 19.99`); otherwise after (`19.99 €`) |

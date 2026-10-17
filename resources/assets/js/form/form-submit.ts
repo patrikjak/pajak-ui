@@ -62,15 +62,19 @@ function spinnerSvg(): SVGSVGElement {
     return svg;
 }
 
+// Saved label content (text nodes, icons, ...) while loadingText is showing - keyed by the
+// label element rather than a data attribute so it survives non-text children like icon SVGs.
+const savedLabelContent = new WeakMap<HTMLElement, Node[]>();
+
 function startLoading(btn: HTMLButtonElement, loadingText?: string): void {
     btn.classList.add('is-loading');
-    btn.appendChild(spinnerSvg());
+    btn.prepend(spinnerSvg());
 
     if (loadingText !== undefined) {
         const label = btn.querySelector<HTMLElement>('.pajak-btn__label');
 
-        if (label) {
-            label.dataset.pajakBtnLabel = label.textContent ?? '';
+        if (label && !savedLabelContent.has(label)) {
+            savedLabelContent.set(label, Array.from(label.childNodes));
             label.textContent = loadingText;
         }
     }
@@ -81,10 +85,11 @@ function stopLoading(btn: HTMLButtonElement): void {
     btn.querySelector('.pajak-btn__spinner')?.remove();
 
     const label = btn.querySelector<HTMLElement>('.pajak-btn__label');
+    const original = label ? savedLabelContent.get(label) : undefined;
 
-    if (label && 'pajakBtnLabel' in label.dataset) {
-        label.textContent = label.dataset.pajakBtnLabel ?? '';
-        delete label.dataset.pajakBtnLabel;
+    if (label && original) {
+        label.replaceChildren(...original);
+        savedLabelContent.delete(label);
     }
 }
 
@@ -97,7 +102,7 @@ function clearErrors(form: HTMLFormElement): void {
 
     form.querySelectorAll<HTMLElement>('[data-pajak-error-input]').forEach((el) => {
         el.removeAttribute('data-pajak-error-input');
-        // Strip error state modifier — replace --error with --default
+        // Strip error state modifier - replace --error with --default
         el.classList.forEach((cls) => {
             if (cls.endsWith('--error')) {
                 el.classList.remove(cls);
@@ -107,8 +112,10 @@ function clearErrors(form: HTMLFormElement): void {
     });
 }
 
-function applyErrors(form: HTMLFormElement, errors: ValidationErrors): void {
+function applyErrors(form: HTMLFormElement, errors: ValidationErrors): boolean {
     clearErrors(form);
+
+    let attached = false;
 
     for (const [field, messages] of Object.entries(errors)) {
         const message = messages[0];
@@ -123,6 +130,8 @@ function applyErrors(form: HTMLFormElement, errors: ValidationErrors): void {
         if (!input) {
             continue;
         }
+
+        attached = true;
 
         // Mark input with error state
         input.setAttribute('data-pajak-error-input', '');
@@ -158,6 +167,8 @@ function applyErrors(form: HTMLFormElement, errors: ValidationErrors): void {
             });
         }, { once: true });
     }
+
+    return attached;
 }
 
 // ─── HTTP method resolution ─────────────────────────────────────────────────
@@ -227,16 +238,24 @@ async function sendForm(form: HTMLFormElement): Promise<HttpResult | null> {
 
 // ─── Toast integration ───────────────────────────────────────────────────────
 
-function maybeShowToast(form: HTMLFormElement, data: unknown): void {
+function resolveToast(form: HTMLFormElement, data: unknown): ToastOptions | null {
     if (form.hasAttribute('data-no-toast')) {
-        return;
+        return null;
     }
 
-    const toast = (data as { toast?: ToastOptions })?.toast;
+    return (data as { toast?: ToastOptions })?.toast ?? null;
+}
+
+function maybeShowToast(form: HTMLFormElement, data: unknown): boolean {
+    const toast = resolveToast(form, data);
 
     if (toast) {
         PajakToast.show(toast);
+
+        return true;
     }
+
+    return false;
 }
 
 // ─── Submit handler ─────────────────────────────────────────────────────────
@@ -263,14 +282,20 @@ async function submitForm(form: HTMLFormElement, btn: HTMLButtonElement | null):
     }
 
     if (result.ok) {
-        maybeShowToast(form, result.data);
-
         const redirect = form.dataset.redirect;
 
         if (redirect) {
+            const toast = resolveToast(form, result.data);
+
+            if (toast) {
+                PajakToast.stashForRedirect(toast);
+            }
+
             window.location.href = redirect;
             return;
         }
+
+        maybeShowToast(form, result.data);
 
         form.dispatchEvent(new CustomEvent('pajak:form:success', {
             bubbles: true,
@@ -280,23 +305,21 @@ async function submitForm(form: HTMLFormElement, btn: HTMLButtonElement | null):
         return;
     }
 
-    if (result.status === 422) {
-        const errors = (result.data as { errors?: ValidationErrors })?.errors;
+    const errors = (result.data as { errors?: ValidationErrors })?.errors;
+    const attached = result.status === 422 && errors ? applyErrors(form, errors) : false;
+    const shownToast = maybeShowToast(form, result.data);
 
-        if (errors) {
-            applyErrors(form, errors);
+    if (!attached && !shownToast) {
+        const message = (result.data as { message?: string })?.message;
+
+        if (message) {
+            maybeShowToast(form, { toast: { type: 'error', title: message } });
         }
-
-        maybeShowToast(form, result.data);
-
-        return;
     }
-
-    maybeShowToast(form, result.data);
 
     form.dispatchEvent(new CustomEvent('pajak:form:error', {
         bubbles: true,
-        detail: { status: result.status, response: result.data },
+        detail: { status: result.status, response: result.data, errors },
     }));
 }
 

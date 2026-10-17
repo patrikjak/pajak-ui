@@ -2,7 +2,8 @@
     <a {{ $attributes->merge(['class' => 'pajak-sb-item', 'href' => $href])->class([
         'is-active' => $active,
         'is-warn' => $warn,
-    ]) }} @if($active) aria-current="page" @endif>
+        'is-disabled' => $disabled,
+    ]) }} @if($active) aria-current="page" @endif @if($disabled) aria-disabled="true" tabindex="-1" @endif>
         @isset($icon)
             <span class="pajak-sb-item__icon" aria-hidden="true">{{ $icon }}</span>
         @endisset

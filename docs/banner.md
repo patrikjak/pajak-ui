@@ -2,7 +2,7 @@
 
 A full-width, page-level notice with six tone variants, optional title, dismiss button, action slot, and progress bar.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -62,19 +62,19 @@ PajakBanner.initAll();
 
 | Slot | Description |
 |------|-------------|
-| `$slot` (default) | Main content — text, links, HTML |
+| `$slot` (default) | Main content - text, links, HTML |
 | `$actions` | Optional action buttons rendered after the body |
 
 ### Types
 
 | Value | Description |
 |-------|-------------|
-| `BannerType::Info` | Blue tint — soft informational notice |
-| `BannerType::Success` | Green tint — confirmation or positive outcome |
-| `BannerType::Warning` | Yellow tint — deadline or cautionary notice |
-| `BannerType::Error` | Red tint — blocking error or failure |
-| `BannerType::Neutral` | Grey tint — ongoing process or neutral state |
-| `BannerType::Promo` | Primary gradient — branded/promotional message |
+| `BannerType::Info` | Blue tint - soft informational notice |
+| `BannerType::Success` | Green tint - confirmation or positive outcome |
+| `BannerType::Warning` | Yellow tint - deadline or cautionary notice |
+| `BannerType::Error` | Red tint - blocking error or failure |
+| `BannerType::Neutral` | Grey tint - ongoing process or neutral state |
+| `BannerType::Promo` | Primary gradient - branded/promotional message |
 
 ---
 

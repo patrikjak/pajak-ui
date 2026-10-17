@@ -23,8 +23,8 @@ Dashboard-style metric card displaying a label, value, icon, trend, and optional
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `label` | `string` | — | Small uppercase label (e.g. `"Tenants"`) |
-| `value` | `string` | — | Large display value (e.g. `"8"` or `"PLN 1,240"`) |
+| `label` | `string` | - | Small uppercase label (e.g. `"Tenants"`) |
+| `value` | `string` | - | Large display value (e.g. `"8"` or `"PLN 1,240"`) |
 | `:color` | `StatCardColor` | `Primary` | Icon bubble background colour variant |
 | `:trend-direction` | `StatCardTrend\|null` | `null` | Colours the `$trend` slot text |
 
@@ -32,11 +32,11 @@ Dashboard-style metric card displaying a label, value, icon, trend, and optional
 
 | Case | Description |
 |------|-------------|
-| `Primary` | Blue (default) — `--color-primary-50` bg |
-| `Success` | Green — `--color-success-light` bg |
-| `Warning` | Amber — `--color-warning-light` bg |
-| `Sand` | Warm sand/gold — `--color-accent-100` bg |
-| `Error` | Red — `--color-error-light` bg |
+| `Primary` | Blue (default) - `--color-primary-50` bg |
+| `Success` | Green - `--color-success-light` bg |
+| `Warning` | Amber - `--color-warning-light` bg |
+| `Sand` | Warm sand/gold - `--color-accent-100` bg |
+| `Error` | Red - `--color-error-light` bg |
 
 ### `StatCardTrend` values
 
@@ -50,7 +50,7 @@ Dashboard-style metric card displaying a label, value, icon, trend, and optional
 
 | Slot | Description |
 |------|-------------|
-| `$icon` | Icon content placed in the colour-tinted bubble (top-right). Use `<x-heroicon-o-*>` — sized to 20 × 20 px automatically. |
+| `$icon` | Icon content placed in the colour-tinted bubble (top-right). Use `<x-heroicon-o-*>` - sized to 20 × 20 px automatically. |
 | `$trend` | Trend text (e.g. `"+2 this month"`). Colour controlled by `:trend-direction`. |
 | `$sub` | Secondary description below the value, in muted tertiary colour. |
 

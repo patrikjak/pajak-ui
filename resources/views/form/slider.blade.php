@@ -98,7 +98,7 @@
         </div>
     @endif
 
-    @isset($error)
+    @if(filled($error))
         <x-pajak-form::field-message>{{ $error }}</x-pajak-form::field-message>
-    @endisset
+    @endif
 </div>

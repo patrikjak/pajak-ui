@@ -2,7 +2,7 @@
 
 Transient notification overlay that auto-dismisses after a configurable duration.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -75,7 +75,7 @@ ToastType::Info     // 'info'
 
 ## Form integration
 
-Any form using `data-pajak-form` automatically shows a toast when the JSON response contains a `toast` key — no extra configuration needed.
+Any form using `data-pajak-form` automatically shows a toast when the JSON response contains a `toast` key - no extra configuration needed.
 
 ```html
 <form data-pajak-form action="/settings" method="POST">
@@ -119,4 +119,8 @@ Immediately removes the toast with the given `id`.
 ### `PajakToast.dismissAll()`
 
 Immediately removes all visible toasts.
+
+### `PajakToast.stashForRedirect(options)`
+
+Stores the toast in `sessionStorage` instead of rendering it immediately, and shows it automatically the next time any page that loads the toast bundle starts up (then clears it, so it only shows once). `<x-pajak-form::form data-redirect="...">` calls this automatically for a successful response's `toast` key, since a toast shown right before a hard navigation would never have time to render - see [form.md](form.md#async-submission). Call it directly for any other flow that does a hard redirect right after a response carrying a toast.
 

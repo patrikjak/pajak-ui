@@ -7,26 +7,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-10-17
+
+### Added
+
+- **Tooltip `disabled` prop** - `<x-pajak::tooltip :disabled="true">` suppresses the bubble on hover/focus without touching the trigger; can also be toggled at runtime via the `pajak-tooltip-wrap--disabled` class
+- **Sidebar-item `disabled` prop** - `<x-pajak::sidebar-item :disabled="true">` dims the item, blocks pointer events, and marks it `aria-disabled` + `tabindex="-1"`
+- **Async `data-count` attribute and `pajak:async:empty` event** - after each load (including `refresh()`), `<x-pajak::async>` sets `data-count` to the number of loaded elements and fires `pajak:async:empty` when that count is `0`
+- **`--color-purple` token trio** - `--color-purple-light` / `--color-purple` / `--color-purple-dark`, plus a `.pajak-table-badge--purple` variant, matching the existing green/red/yellow/blue/gray pattern (light and dark theme)
+- **Scoped `box-sizing: border-box` reset** - applied to `[class^="pajak-"]`/`[class*=" pajak-"]` elements (and their `::before`/`::after`) in `variables.scss`, reaching every bundle without a project-supplied reset
+- **`Card` `interactive` prop** - `<x-pajak::card :interactive="false">` removes the hover-lift and widens the title's bottom margin, for stacked settings/profile-style cards that aren't dashboard tiles
+- **`Select` `disabled-options` prop** - `<x-pajak-form::select :disabled-options="['locked']">` renders the matching `<option>` entries (including ones nested inside an `<optgroup>`) as `disabled`; the JS dropdown already honoured native `disabled` options
+
+### Fixed
+
+- **422 validation errors with no matching form field no longer fail silently** - `PajakForm`'s submit handler now falls back to an error toast built from the response's top-level `message` when a 422 error key doesn't correspond to any `[name="..."]` input in the form (e.g. an error keyed on a URL segment rather than a form field); previously the error was dropped with no inline message and no toast
+- **Form components no longer show a false-positive error state for an empty-string `error` prop** - `Input`, `Textarea`, `Select`, `File`, `Dropzone`, `ImageGrid`, `Avatar`, and `Password` (including its confirmation field) now treat `error=""` the same as no error, both for the red border state and for suppressing the empty `<x-pajak-form::field-message>`; this also fixes every other form component using the same `@isset($error)` field-message guard (`Checkbox`, `Radio`, `RadioCard`, `Toggle`, `Slider`), since `isset('')` is `true` in PHP - a bare `:error="$errors->first('field')"` no longer renders a permanently red field on a fresh GET request
+- **Sidebar rail sub-items no longer overflow** - `.pajak-sb__sub` is now hidden in the collapsed rail variant, consistent with how section headers and item labels are already hidden there
+- **Button icon + label alignment** - `.pajak-btn__label` is now `display: inline-flex` with the same gap as the button, so an icon and text passed together in the slot line up vertically and space correctly
+- **`PajakButton.startLoading()` with `loadingText` no longer discards the button's icon** - the original label content (icon included) is now restored by `stopLoading()` instead of only the text; the injected spinner also now renders before the label instead of after, matching the Blade `loading` prop
+- **`PajakForm`'s message-to-toast fallback now applies to any failed response, not just 422** - a 403/404/500 with no matching field errors now also falls back to showing the response's `toast` or top-level `message` as an error toast; the `pajak:form:error` event now also fires on 422 (with `errors` in its detail), not just other statuses
+- **A success toast is no longer lost when a form redirects via `data-redirect`** - showing the toast right before a hard navigation never gave it time to render; it's now stashed via the new `PajakToast.stashForRedirect()` and shown automatically once the next page loads
+
 ## [0.5.0] - 2026-06-06
 
 ### Added
 
-- **Stat card** — new `<x-pajak::stat-card>` component for dashboard metric displays; accepts `label`, `value`, `:color` (`StatCardColor`: primary/success/warning/sand/error), and `:trend-direction` (`StatCardTrend`: up/down/warn) props; optional `$icon`, `$trend`, and `$sub` named slots; icon is displayed in a colour-tinted bubble; trend text colour is driven by the direction enum; standalone CSS available as `stat-card-standalone.css`
-- **Sidebar rail toggle** — sidebar can now be collapsed to a narrow icon-only rail mode; add `[data-pajak-sidebar-rail]` to a button in the brand area to enable a toggle; rail state is persisted to `localStorage` per sidebar `id`; nav items in rail mode show a tooltip on hover with the item label; new `PajakSidebar.rail(id)` JS method available for programmatic toggling
+- **Stat card** - new `<x-pajak::stat-card>` component for dashboard metric displays; accepts `label`, `value`, `:color` (`StatCardColor`: primary/success/warning/sand/error), and `:trend-direction` (`StatCardTrend`: up/down/warn) props; optional `$icon`, `$trend`, and `$sub` named slots; icon is displayed in a colour-tinted bubble; trend text colour is driven by the direction enum; standalone CSS available as `stat-card-standalone.css`
+- **Sidebar rail toggle** - sidebar can now be collapsed to a narrow icon-only rail mode; add `[data-pajak-sidebar-rail]` to a button in the brand area to enable a toggle; rail state is persisted to `localStorage` per sidebar `id`; nav items in rail mode show a tooltip on hover with the item label; new `PajakSidebar.rail(id)` JS method available for programmatic toggling
 
 ### Fixed
 
-- Email inline styles extended to remaining components — `<x-pajak::email-hero>`, `email-cta`, `email-divider`, `email-note>`, `email-step`, and `email-infocard-row` now carry inline `style` attributes for all layout and typography properties; previously these components relied on CSS classes that mobile email clients strip
+- Email inline styles extended to remaining components - `<x-pajak::email-hero>`, `email-cta`, `email-divider`, `email-note>`, `email-step`, and `email-infocard-row` now carry inline `style` attributes for all layout and typography properties; previously these components relied on CSS classes that mobile email clients strip
 
 ## [0.4.0] - 2026-06-05
 
 ### Added
 
-- **Table icon-only inline actions** — all action types (`LinkAction`, `FormAction`, `ConfirmAction`, `ModalAction`) now accept `->icon(string $heroiconName)->iconOnly()`; renders a 28×28 borderless icon button that fades in on row hover; the `label` is preserved as a native `title` tooltip for accessibility
-- **Async content loader** — new `<x-pajak::async>` component fetches a URL on init and injects the response HTML into its content slot; supports an optional `skeleton` slot shown while loading, an arc spinner overlay on refresh, and `size` / `label` props; `PajakAsync` JS API (`initAll`, `init`, `refresh`) exposed on `window.Pajak`
-- **`PajakButton` JS API** — `PajakButton.startLoading(btn, loadingText?)` and `PajakButton.stopLoading(btn)` allow manually controlling button loading state from JS; optional `loadingText` swaps the label text during loading and restores it on stop; exported from `main.js` and `form.js`
-- **Table async init** — `Table::make()->async()` skips server-rendering rows on first paint and always fires an AJAX fetch on init; renders skeleton placeholder rows while loading; useful when the initial query is expensive or SSR should be avoided entirely
-- **Responsive layout** — layout-level components now adapt below 768 px: **Sidebar** hides by default and can be shown as a slide-in dialog overlay (`<dialog data-pajak-sidebar>`) controlled by the new `PajakSidebar` JS API; **Navbar** collapses the links area on mobile; **Table toolbar** wraps search and filter controls to a second row; **Modal** gains horizontal margin so it never bleeds to screen edges; **Drawer** side variants clamp their width on small screens; **Error page** scales the title from 32 px to 24 px; breakpoint SCSS variables (`$bp-mobile`, `$bp-tablet`) added to `variables.scss`
+- **Table icon-only inline actions** - all action types (`LinkAction`, `FormAction`, `ConfirmAction`, `ModalAction`) now accept `->icon(string $heroiconName)->iconOnly()`; renders a 28×28 borderless icon button that fades in on row hover; the `label` is preserved as a native `title` tooltip for accessibility
+- **Async content loader** - new `<x-pajak::async>` component fetches a URL on init and injects the response HTML into its content slot; supports an optional `skeleton` slot shown while loading, an arc spinner overlay on refresh, and `size` / `label` props; `PajakAsync` JS API (`initAll`, `init`, `refresh`) exposed on `window.Pajak`
+- **`PajakButton` JS API** - `PajakButton.startLoading(btn, loadingText?)` and `PajakButton.stopLoading(btn)` allow manually controlling button loading state from JS; optional `loadingText` swaps the label text during loading and restores it on stop; exported from `main.js` and `form.js`
+- **Table async init** - `Table::make()->async()` skips server-rendering rows on first paint and always fires an AJAX fetch on init; renders skeleton placeholder rows while loading; useful when the initial query is expensive or SSR should be avoided entirely
+- **Responsive layout** - layout-level components now adapt below 768 px: **Sidebar** hides by default and can be shown as a slide-in dialog overlay (`<dialog data-pajak-sidebar>`) controlled by the new `PajakSidebar` JS API; **Navbar** collapses the links area on mobile; **Table toolbar** wraps search and filter controls to a second row; **Modal** gains horizontal margin so it never bleeds to screen edges; **Drawer** side variants clamp their width on small screens; **Error page** scales the title from 32 px to 24 px; breakpoint SCSS variables (`$bp-mobile`, `$bp-tablet`) added to `variables.scss`
 
 ### Fixed
 
@@ -42,34 +64,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Password visibility toggle** — `<x-pajak-form::password>` accepts a new `:with-toggle="true"` prop; renders a show/hide button inside each password field that toggles between `type="password"` and `type="text"`; button uses eye / eye-slash heroicons and updates `aria-label` / `aria-pressed` on each click; `PajakPassword` JS API exposed on `window.Pajak` and included in `initAll()`
-- **Password confirmation icon slot** — `<x-pajak-form::password>` now accepts a `confirmation-icon` named slot for the confirmation field; previously the confirmation field always reused the primary field's icon
+- **Password visibility toggle** - `<x-pajak-form::password>` accepts a new `:with-toggle="true"` prop; renders a show/hide button inside each password field that toggles between `type="password"` and `type="text"`; button uses eye / eye-slash heroicons and updates `aria-label` / `aria-pressed` on each click; `PajakPassword` JS API exposed on `window.Pajak` and included in `initAll()`
+- **Password confirmation icon slot** - `<x-pajak-form::password>` now accepts a `confirmation-icon` named slot for the confirmation field; previously the confirmation field always reused the primary field's icon
 
 ### Fixed
 
-- Checkbox `label` prop — HTML is now documented as supported; the label is rendered unescaped, allowing embedded links or inline formatting
+- Checkbox `label` prop - HTML is now documented as supported; the label is rendered unescaped, allowing embedded links or inline formatting
 
 ## [0.2.1] - 2026-05-29
 
 ### Added
 
-- **Button link variant** — `<x-pajak::button>` now accepts an `href` prop; when set, the component renders as an `<a>` tag with full button styling; disabled state uses `is-disabled` class and `aria-disabled` instead of the HTML `disabled` attribute
+- **Button link variant** - `<x-pajak::button>` now accepts an `href` prop; when set, the component renders as an `<a>` tag with full button styling; disabled state uses `is-disabled` class and `aria-disabled` instead of the HTML `disabled` attribute
 
 ### Fixed
 
-- Keyboard navigation for **Accordion** — Arrow Up/Down, Home, and End move focus between headers (WAI-ARIA accordion pattern)
-- Keyboard navigation for **Tabs** — Arrow keys, Home, and End cycle focus through enabled tabs; roving tabindex ensures only the active tab is in the tab stop sequence
-- Keyboard navigation for **Segmented control** — Arrow keys, Home, and End move focus and select the next/previous enabled option; roving tabindex applied on init
-- Keyboard navigation for **Select** — Arrow keys navigate options in the open dropdown; Escape closes the dropdown and returns focus to the trigger; Backspace on an empty multiselect input removes the last chip with a screen-reader announcement; ArrowDown on the trigger or search input moves focus into the option list
-- Keyboard navigation for **Calendar** — Arrow keys, Page Up/Down, Home, and End navigate the day grid; roving tabindex resolves the focusable day on each render; month navigation announcements delivered via an `aria-live` region; panel open/close returns focus correctly to the trigger
-- Keyboard navigation for **Popover** — opening moves focus to the first focusable element inside the panel (or the panel itself); closing returns focus to the trigger
-- **Button hover colour** — link buttons no longer lose their variant text colour on hover due to `<a>` tag colour inheritance; all button variants now explicitly restore their colour in the `:hover` rule
-- **Calendar day hover** — selected, range-start, and range-end days no longer revert to the neutral hover background; they retain the primary-600 background on hover
+- Keyboard navigation for **Accordion** - Arrow Up/Down, Home, and End move focus between headers (WAI-ARIA accordion pattern)
+- Keyboard navigation for **Tabs** - Arrow keys, Home, and End cycle focus through enabled tabs; roving tabindex ensures only the active tab is in the tab stop sequence
+- Keyboard navigation for **Segmented control** - Arrow keys, Home, and End move focus and select the next/previous enabled option; roving tabindex applied on init
+- Keyboard navigation for **Select** - Arrow keys navigate options in the open dropdown; Escape closes the dropdown and returns focus to the trigger; Backspace on an empty multiselect input removes the last chip with a screen-reader announcement; ArrowDown on the trigger or search input moves focus into the option list
+- Keyboard navigation for **Calendar** - Arrow keys, Page Up/Down, Home, and End navigate the day grid; roving tabindex resolves the focusable day on each render; month navigation announcements delivered via an `aria-live` region; panel open/close returns focus correctly to the trigger
+- Keyboard navigation for **Popover** - opening moves focus to the first focusable element inside the panel (or the panel itself); closing returns focus to the trigger
+- **Button hover colour** - link buttons no longer lose their variant text colour on hover due to `<a>` tag colour inheritance; all button variants now explicitly restore their colour in the `:hover` rule
+- **Calendar day hover** - selected, range-start, and range-end days no longer revert to the neutral hover background; they retain the primary-600 background on hover
 - Screen-reader announcements for **Repeater** row add/remove via a `role="status"` live region; announcement strings come from the `pajak::ui.form.repeater.row_added` and `row_removed` translation keys (CS and SK translations included)
-- Screen-reader announcement for **Copy button** — successful copy is announced via a `role="status"` live region; the bubble is now also dismissed immediately on page scroll
+- Screen-reader announcement for **Copy button** - successful copy is announced via a `role="status"` live region; the bubble is now also dismissed immediately on page scroll
 - Decorative SVG icons in **Toast** and **Copy button** marked `aria-hidden="true"`
-- **Nav tab** `tabindex` attribute — inactive tabs now receive `tabindex="-1"` so keyboard users skip them; the active tab gets `tabindex="0"`
-- **Calendar** ARIA improvements — trigger and dialog panel have `aria-label`; navigation buttons have `aria-label`; weekday header cells have `role="columnheader"` and full day-name `aria-label`; day grid has `role="grid"`; day buttons have `role="gridcell"`, full date `aria-label`, and `aria-pressed` state; decorative elements are `aria-hidden`; screen-reader live region added for month navigation announcements
+- **Nav tab** `tabindex` attribute - inactive tabs now receive `tabindex="-1"` so keyboard users skip them; the active tab gets `tabindex="0"`
+- **Calendar** ARIA improvements - trigger and dialog panel have `aria-label`; navigation buttons have `aria-label`; weekday header cells have `role="columnheader"` and full day-name `aria-label`; day grid has `role="grid"`; day buttons have `role="gridcell"`, full date `aria-label`, and `aria-pressed` state; decorative elements are `aria-hidden`; screen-reader live region added for month navigation announcements
 
 ## [0.2.0] - 2026-05-25
 
@@ -77,70 +99,70 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Display components
 
-- **Spinner** — arc and dot-pulse spinners in six sizes and multiple colour variants; `<x-pajak::spinner>` with `type`, `size`, and `color` props
-- **Badge** — inline status badge with `color`, `size`, `outline`, and `dot` (indicator dot only) modes; `<x-pajak::badge>`
-- **Tooltip** — CSS-driven tooltip wrapper with eight placement options; `<x-pajak::tooltip text="..." placement="...">`
-- **Divider** — horizontal/vertical rule with solid/dashed/dotted styles, light/strong weight, and optional text label; `<x-pajak::divider>`
-- **Alert** — dismissible alert in info/success/warning/error types and banner/card variants; `<x-pajak::alert>`
-- **Avatar** — initials-based avatar with coloured backgrounds, six sizes, online/offline/away status indicator, and ring style; `<x-pajak::avatar>`; pair with `<x-pajak::avatar-group>` for stacked groups
-- **Skeleton** — loading placeholder in line, circle, and rectangle shapes; `<x-pajak::skeleton>`
-- **Progress** — determinate progress bar with label and percentage display; `<x-pajak::progress value="..." max="...">`
-- **Badge** — colour, size, outline, and dot variants; `BadgeColor` enum covers primary, secondary, neutral, success, warning, and error
+- **Spinner** - arc and dot-pulse spinners in six sizes and multiple colour variants; `<x-pajak::spinner>` with `type`, `size`, and `color` props
+- **Badge** - inline status badge with `color`, `size`, `outline`, and `dot` (indicator dot only) modes; `<x-pajak::badge>`
+- **Tooltip** - CSS-driven tooltip wrapper with eight placement options; `<x-pajak::tooltip text="..." placement="...">`
+- **Divider** - horizontal/vertical rule with solid/dashed/dotted styles, light/strong weight, and optional text label; `<x-pajak::divider>`
+- **Alert** - dismissible alert in info/success/warning/error types and banner/card variants; `<x-pajak::alert>`
+- **Avatar** - initials-based avatar with coloured backgrounds, six sizes, online/offline/away status indicator, and ring style; `<x-pajak::avatar>`; pair with `<x-pajak::avatar-group>` for stacked groups
+- **Skeleton** - loading placeholder in line, circle, and rectangle shapes; `<x-pajak::skeleton>`
+- **Progress** - determinate progress bar with label and percentage display; `<x-pajak::progress value="..." max="...">`
+- **Badge** - colour, size, outline, and dot variants; `BadgeColor` enum covers primary, secondary, neutral, success, warning, and error
 
 #### Navigation components
 
-- **Breadcrumbs** — navigation trail accepting `BreadcrumbItem` DTOs, with chevron or slash separators and pill variant; `<x-pajak::breadcrumbs :items="$items">`
-- **Tabs** — tab container with underline and boxed variants and interactive JS switching; `<x-pajak::tabs>` + `<x-pajak::tab>`
-- **Segmented control** — button-group selector with default and pill variants, full-width mode, and JS activation; `<x-pajak::segmented>` + `<x-pajak::segmented-option>`
-- **Navbar** — top navigation bar with standard and transparent variants and slots for logo, links, and actions; `<x-pajak::navbar>` + `<x-pajak::nav-link>`
-- **Nav tab bar** — bottom/secondary tab bar for mobile-style navigation; `<x-pajak::nav-tab-bar>` + `<x-pajak::nav-tab>`
-- **Sidebar** — collapsible sidebar with standard, compact, and floating variants and multi-level item support; `<x-pajak::sidebar>` + `<x-pajak::sidebar-section>` + `<x-pajak::sidebar-item>` + `<x-pajak::sidebar-sub-item>`
+- **Breadcrumbs** - navigation trail accepting `BreadcrumbItem` DTOs, with chevron or slash separators and pill variant; `<x-pajak::breadcrumbs :items="$items">`
+- **Tabs** - tab container with underline and boxed variants and interactive JS switching; `<x-pajak::tabs>` + `<x-pajak::tab>`
+- **Segmented control** - button-group selector with default and pill variants, full-width mode, and JS activation; `<x-pajak::segmented>` + `<x-pajak::segmented-option>`
+- **Navbar** - top navigation bar with standard and transparent variants and slots for logo, links, and actions; `<x-pajak::navbar>` + `<x-pajak::nav-link>`
+- **Nav tab bar** - bottom/secondary tab bar for mobile-style navigation; `<x-pajak::nav-tab-bar>` + `<x-pajak::nav-tab>`
+- **Sidebar** - collapsible sidebar with standard, compact, and floating variants and multi-level item support; `<x-pajak::sidebar>` + `<x-pajak::sidebar-section>` + `<x-pajak::sidebar-item>` + `<x-pajak::sidebar-sub-item>`
 
 #### Layout & container components
 
-- **Card** — content container with default, bordered, and accent colour variants; `<x-pajak::card>`
-- **Accordion** — expandable disclosure panels with single/multi open modes and bordered/flush variants; `<x-pajak::accordion>` + `<x-pajak::accordion-item>`
-- **Banner** — full-width informational strip with info/success/warning/error types, optional progress bar, dismissible mode, and sticky-top placement; `<x-pajak::banner>`
-- **Empty state** — empty-data placeholder with icon, text, and action slot in default and card variants; `<x-pajak::empty-state>`
-- **List** — styled list container with list row items; `<x-pajak::list>` + `<x-pajak::list-row>`
+- **Card** - content container with default, bordered, and accent colour variants; `<x-pajak::card>`
+- **Accordion** - expandable disclosure panels with single/multi open modes and bordered/flush variants; `<x-pajak::accordion>` + `<x-pajak::accordion-item>`
+- **Banner** - full-width informational strip with info/success/warning/error types, optional progress bar, dismissible mode, and sticky-top placement; `<x-pajak::banner>`
+- **Empty state** - empty-data placeholder with icon, text, and action slot in default and card variants; `<x-pajak::empty-state>`
+- **List** - styled list container with list row items; `<x-pajak::list>` + `<x-pajak::list-row>`
 
 #### Overlay & interactive components
 
-- **Modal** — dialog overlay with xs–xl sizes and sheet (bottom-drawer) mode; JS-controlled via `PajakModal`; `<x-pajak::modal id="...">`
-- **Dialog** — confirmation dialog with info/warning/danger/success types, stacked-button layout option, and JS control via `PajakDialog`; `<x-pajak::dialog id="...">`
-- **Drawer** — slide-in panel from left, right, top, or bottom; JS-controlled via `PajakDrawer`; `<x-pajak::drawer id="...">`
-- **Popover** — anchored floating panel with eight placement options and optional title; JS-controlled via `PajakPopover`; `<x-pajak::popover id="...">`
+- **Modal** - dialog overlay with xs–xl sizes and sheet (bottom-drawer) mode; JS-controlled via `PajakModal`; `<x-pajak::modal id="...">`
+- **Dialog** - confirmation dialog with info/warning/danger/success types, stacked-button layout option, and JS control via `PajakDialog`; `<x-pajak::dialog id="...">`
+- **Drawer** - slide-in panel from left, right, top, or bottom; JS-controlled via `PajakDrawer`; `<x-pajak::drawer id="...">`
+- **Popover** - anchored floating panel with eight placement options and optional title; JS-controlled via `PajakPopover`; `<x-pajak::popover id="...">`
 
 #### Data display components
 
-- **Stepper** — step progress indicator with horizontal, vertical, and circle variants; tracks current/total step count; `<x-pajak::stepper>` + `<x-pajak::stepper-step>`
-- **Detail** — key/value display component with compact, 2-column grid, and flush variants; optional header with action link; supports copyable rows; `<x-pajak::detail>` + `<x-pajak::detail-row>`
-- **Copy button** — button that copies a string to the clipboard with icon-only mode; `<x-pajak::copy-button value="...">`
-- **Error page** — full-page error display with built-in titles and descriptions for 401/403/404/500/503 codes; custom title/description override; `<x-pajak::error-page code="404">`
+- **Stepper** - step progress indicator with horizontal, vertical, and circle variants; tracks current/total step count; `<x-pajak::stepper>` + `<x-pajak::stepper-step>`
+- **Detail** - key/value display component with compact, 2-column grid, and flush variants; optional header with action link; supports copyable rows; `<x-pajak::detail>` + `<x-pajak::detail-row>`
+- **Copy button** - button that copies a string to the clipboard with icon-only mode; `<x-pajak::copy-button value="...">`
+- **Error page** - full-page error display with built-in titles and descriptions for 401/403/404/500/503 codes; custom title/description override; `<x-pajak::error-page code="404">`
 
 #### Table component
 
-- **Table** — full-featured data table built via a fluent `Table::make()` builder, AJAX-powered, with server-side state management via `sessionStorage`
-  - **Columns** — `TextColumn`, `BadgeColumn`, `StatusColumn`, `DateColumn`, `AmountColumn`, `AvatarColumn`, `TwoLineColumn`; columns are sortable, hideable, and support colour maps via `HasColorMap`
-  - **Filters** — `TextFilter`, `SelectFilter`, `NumberFilter`, `DateFilter`; filter chips shown inline, editors rendered in a popover
-  - **Actions** — `LinkAction`, `FormAction`, `ModalAction`, `ConfirmAction`; configurable inline vs overflow position, per-row visibility via `visibleIf()`
-  - **Pagination** — `EloquentPaginator` wraps `LengthAwarePaginator`; `ArrayPaginator` wraps in-memory collections; per-page options selectable by users
-  - **Bulk actions** — row selection with a bulk-action bar; `selectable()` / `bulkActions()` on the builder
-  - **Column visibility** — user-togglable column show/hide; `columnVisibility()` on the builder
-  - **Search** — integrated search input; `searchable()` on the builder
-  - **Localisation** — translation files for EN, CS, and SK
+- **Table** - full-featured data table built via a fluent `Table::make()` builder, AJAX-powered, with server-side state management via `sessionStorage`
+  - **Columns** - `TextColumn`, `BadgeColumn`, `StatusColumn`, `DateColumn`, `AmountColumn`, `AvatarColumn`, `TwoLineColumn`; columns are sortable, hideable, and support colour maps via `HasColorMap`
+  - **Filters** - `TextFilter`, `SelectFilter`, `NumberFilter`, `DateFilter`; filter chips shown inline, editors rendered in a popover
+  - **Actions** - `LinkAction`, `FormAction`, `ModalAction`, `ConfirmAction`; configurable inline vs overflow position, per-row visibility via `visibleIf()`
+  - **Pagination** - `EloquentPaginator` wraps `LengthAwarePaginator`; `ArrayPaginator` wraps in-memory collections; per-page options selectable by users
+  - **Bulk actions** - row selection with a bulk-action bar; `selectable()` / `bulkActions()` on the builder
+  - **Column visibility** - user-togglable column show/hide; `columnVisibility()` on the builder
+  - **Search** - integrated search input; `searchable()` on the builder
+  - **Localisation** - translation files for EN, CS, and SK
 
 #### Email components
 
-- **Email template components** — a full suite of HTML-email Blade components for building responsive transactional emails: `<x-pajak::email-wrap>`, `email-header`, `email-hero`, `email-body`, `email-cta`, `email-alert`, `email-note`, `email-infocard>` / `email-infocard-row`, `email-steps` / `email-step`, `email-divider`, `email-footer`; accent colour theming via `EmailAccent` enum
+- **Email template components** - a full suite of HTML-email Blade components for building responsive transactional emails: `<x-pajak::email-wrap>`, `email-header`, `email-hero`, `email-body`, `email-cta`, `email-alert`, `email-note`, `email-infocard>` / `email-infocard-row`, `email-steps` / `email-step`, `email-divider`, `email-footer`; accent colour theming via `EmailAccent` enum
 
 #### Button enhancements
 
-- **Button loading state** — `loading` prop on `<x-pajak::button>` renders an arc spinner and dims the label text; `cursor: progress` and `pointer-events: none` are applied automatically
+- **Button loading state** - `loading` prop on `<x-pajak::button>` renders an arc spinner and dims the label text; `cursor: progress` and `pointer-events: none` are applied automatically
 
 #### Value objects
 
-- **Money** — `Money` value object converts minor-unit integers to formatted currency strings with configurable currency symbol, multiplier, and symbol placement
+- **Money** - `Money` value object converts minor-unit integers to formatted currency strings with configurable currency symbol, multiplier, and symbol placement
 
 [0.2.0]: https://github.com/patrikjak/ui/compare/v0.1.0...v0.2.0
 [Unreleased]: https://github.com/patrikjak/ui/compare/v0.2.0...HEAD

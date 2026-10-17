@@ -47,6 +47,13 @@ final class ImageGridSnapshotTest extends TestCase
         $this->assertMatchesHtmlSnapshot($html);
     }
 
+    public function testImageGridWithEmptyStringError(): void
+    {
+        $html = (string) $this->blade('<x-pajak-form::image-grid name="gallery" error="" />');
+
+        $this->assertMatchesHtmlSnapshot($html);
+    }
+
     public function testDisabledImageGrid(): void
     {
         $html = (string) $this->blade('<x-pajak-form::image-grid name="gallery" :disabled="true" />');

@@ -10,8 +10,10 @@ use Pajak\Ui\Common\Enums\Card\CardVariant;
 
 final class Card extends Component
 {
-    public function __construct(public readonly CardVariant $variant = CardVariant::Default)
-    {
+    public function __construct(
+        public readonly CardVariant $variant = CardVariant::Default,
+        public readonly bool $interactive = true,
+    ) {
     }
 
     public function render(): View

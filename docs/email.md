@@ -1,6 +1,6 @@
 # Email Template Components
 
-Composable Blade sub-components for building styled transactional emails. All components are CSS-only (no JavaScript) and are intentionally free of dark-mode overrides — email clients handle media queries inconsistently, so colours are resolved to explicit light-mode values.
+Composable Blade sub-components for building styled transactional emails. All components are CSS-only (no JavaScript) and are intentionally free of dark-mode overrides - email clients handle media queries inconsistently, so colours are resolved to explicit light-mode values.
 
 ## Assets
 
@@ -34,9 +34,9 @@ php artisan vendor:publish --tag=pajak-ui-sources
 
 | Component | Tag | Purpose |
 |-----------|-----|---------|
-| `EmailWrap` | `<x-pajak::email-wrap>` | 600 px centred column — outermost wrapper |
+| `EmailWrap` | `<x-pajak::email-wrap>` | 600 px centred column - outermost wrapper |
 | `EmailHeader` | `<x-pajak::email-header>` | Blue top bar with logo slot and optional tag chip |
-| `EmailHero` | `<x-pajak::email-hero>` | Coloured hero band — eyebrow, title, subtitle |
+| `EmailHero` | `<x-pajak::email-hero>` | Coloured hero band - eyebrow, title, subtitle |
 | `EmailBody` | `<x-pajak::email-body>` | White content area |
 | `EmailInfocard` | `<x-pajak::email-infocard>` | Key–value detail card |
 | `EmailInfocardRow` | `<x-pajak::email-infocard-row>` | Single row inside an infocard |
@@ -63,7 +63,7 @@ php artisan vendor:publish --tag=pajak-ui-sources
 
     <x-pajak::email-hero color="#3F6FCA">
         <x-slot:eyebrow>Getting started</x-slot:eyebrow>
-        <x-slot:title>Welcome — your account is ready.</x-slot:title>
+        <x-slot:title>Welcome - your account is ready.</x-slot:title>
         Here's what to do next to get up and running.
     </x-pajak::email-hero>
 
@@ -117,7 +117,7 @@ php artisan vendor:publish --tag=pajak-ui-sources
 
 ## EmailWrap
 
-Root wrapper — a 600 px centred column. Place all other email components inside it.
+Root wrapper - a 600 px centred column. Place all other email components inside it.
 
 ```blade
 <x-pajak::email-wrap>
@@ -125,7 +125,7 @@ Root wrapper — a 600 px centred column. Place all other email components insid
 </x-pajak::email-wrap>
 ```
 
-**Slot:** `$slot` — all child components.
+**Slot:** `$slot` - all child components.
 
 ---
 
@@ -162,7 +162,7 @@ Top bar with the primary blue background. Accepts a `$logo` named slot and an op
 
 | Slot | Description |
 |------|-------------|
-| `$logo` | Logo image or SVG — rendered on a blue background, so use a white/light logo |
+| `$logo` | Logo image or SVG - rendered on a blue background, so use a white/light logo |
 
 ---
 
@@ -189,7 +189,7 @@ Coloured hero band below the header. Background colour is set via the `color` pr
 <x-pajak::email-hero color="#B87318">
     <x-slot:eyebrow>26 days remaining</x-slot:eyebrow>
     <x-slot:title>Don't miss the deadline.</x-slot:title>
-    Your draft is saved — just a few minutes to complete.
+    Your draft is saved - just a few minutes to complete.
 </x-pajak::email-hero>
 ```
 
@@ -200,7 +200,7 @@ Coloured hero band below the header. Background colour is set via the `color` pr
 | Slot | Description |
 |------|-------------|
 | `$eyebrow` | Small uppercase label above the title |
-| `$title` | Large headline — supports HTML (e.g. `<br>` for line breaks) |
+| `$title` | Large headline - supports HTML (e.g. `<br>` for line breaks) |
 | `$slot` | Subtitle / body copy below the title |
 
 ---
@@ -219,9 +219,9 @@ White content area. All body content (salutation, paragraphs, infocards, alerts,
 </x-pajak::email-body>
 ```
 
-**Slot:** `$slot` — all body content.
+**Slot:** `$slot` - all body content.
 
-> **Note:** Salutation and paragraph text are written directly as HTML inside `EmailBody` rather than via a dedicated component — this keeps the API surface small and gives full control over font sizes, weights, and spacing per email.
+> **Note:** Salutation and paragraph text are written directly as HTML inside `EmailBody` rather than via a dedicated component - this keeps the API surface small and gives full control over font sizes, weights, and spacing per email.
 
 ---
 
@@ -242,7 +242,7 @@ A rounded key–value detail card, typically used to summarise submission detail
 |------|------|---------|-------------|
 | `title` | `?string` | `null` | Optional section label displayed above the rows |
 
-**Slot:** `$slot` — `EmailInfocardRow` components.
+**Slot:** `$slot` - `EmailInfocardRow` components.
 
 ### EmailInfocardRow
 
@@ -250,8 +250,8 @@ A single row inside `EmailInfocard`.
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `label` | `string` | — | Left-side label (muted) |
-| `value` | `string` | — | Right-side value (bold) |
+| `label` | `string` | - | Left-side label (muted) |
+| `value` | `string` | - | Right-side value (bold) |
 | `accent` | `?string` | `null` | Colour accent for the value: `blue` \| `green` |
 
 ---
@@ -320,11 +320,11 @@ A centred call-to-action link button. Multiple `EmailCta` instances can be place
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `href` | `string` | — | Link destination URL |
+| `href` | `string` | - | Link destination URL |
 | `secondary` | `bool` | `false` | Renders an outline/ghost variant instead of filled |
 | `color` | `?string` | `null` | CSS colour value to override the default primary blue background (ignored for secondary) |
 
-**Slot:** `$slot` — button label text.
+**Slot:** `$slot` - button label text.
 
 ---
 
@@ -350,8 +350,8 @@ A vertical numbered step list. Each `EmailStep` renders a numbered (or done-chec
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `number` | `int` | — | Step number displayed in the bubble |
-| `title` | `string` | — | Step heading |
+| `number` | `int` | - | Step number displayed in the bubble |
+| `title` | `string` | - | Step heading |
 | `description` | `?string` | `null` | Optional supporting text |
 | `done` | `bool` | `false` | Replaces the number with a check icon and changes the bubble to green |
 
@@ -371,7 +371,7 @@ No props or slots.
 
 ## EmailNote
 
-A small muted footnote paragraph — typically placed after a divider for legal, support, or reference copy.
+A small muted footnote paragraph - typically placed after a divider for legal, support, or reference copy.
 
 ```blade
 <x-pajak::email-note>
@@ -386,7 +386,7 @@ A small muted footnote paragraph — typically placed after a divider for legal,
 </x-pajak::email-note>
 ```
 
-**Slot:** `$slot` — footnote content. Plain links (`<a>` tags) are styled automatically.
+**Slot:** `$slot` - footnote content. Plain links (`<a>` tags) are styled automatically.
 
 ---
 
@@ -416,5 +416,5 @@ The footer band at the bottom of the email. Accepts a `$logo` named slot, a `$li
 | Slot | Description |
 |------|-------------|
 | `$logo` | Logo displayed centred at the top of the footer |
-| `$links` | Navigation links — each `<a>` is styled automatically |
+| `$links` | Navigation links - each `<a>` is styled automatically |
 | `$slot` | Legal/address copy below the links |

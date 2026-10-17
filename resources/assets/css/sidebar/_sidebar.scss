@@ -151,7 +151,13 @@
         color: var(--color-error-dark);
     }
 
-    // Tooltip — shown only in rail variant (hidden here)
+    &.is-disabled {
+        opacity: 0.4;
+        pointer-events: none;
+        cursor: default;
+    }
+
+    // Tooltip - shown only in rail variant (hidden here)
     &__tooltip {
         display: none;
     }
@@ -262,6 +268,10 @@
     }
 
     .pajak-sb__section {
+        display: none;
+    }
+
+    .pajak-sb__sub {
         display: none;
     }
 
@@ -517,7 +527,7 @@
         }
     }
 
-    // Close variant — lives inside the sidebar brand area, only shown on mobile in dialog
+    // Close variant - lives inside the sidebar brand area, only shown on mobile in dialog
     &--close {
         display: none;
         margin-left: auto;
@@ -565,7 +575,7 @@
         pointer-events: none;
     }
 
-    // Backdrop div — injected by JS, handles click-outside
+    // Backdrop div - injected by JS, handles click-outside
     .pajak-sb-backdrop {
         position: fixed;
         inset: 0;

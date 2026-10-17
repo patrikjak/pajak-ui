@@ -69,6 +69,20 @@ final class CardSnapshotTest extends TestCase
         $this->assertMatchesHtmlSnapshot($html);
     }
 
+    public function testStaticCard(): void
+    {
+        $html = (string) $this->blade(
+            <<<'BLADE'
+            <x-pajak::card :interactive="false">
+                <x-slot:title>Personal Details</x-slot:title>
+                Update your name and contact information.
+            </x-pajak::card>
+            BLADE,
+        );
+
+        $this->assertMatchesHtmlSnapshot($html);
+    }
+
     public function testAllSlots(): void
     {
         $html = (string) $this->blade(

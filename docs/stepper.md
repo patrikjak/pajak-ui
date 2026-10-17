@@ -1,8 +1,8 @@
 # Stepper
 
-Multi-step progress indicator with four variants: horizontal (numbered with labels), pill (dense scrollable), vertical (checklist with inline content), and bar (compact progress bar). Purely presentational — state is driven by PHP props.
+Multi-step progress indicator with four variants: horizontal (numbered with labels), pill (dense scrollable), vertical (checklist with inline content), and bar (compact progress bar). Purely presentational - state is driven by PHP props.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -64,7 +64,7 @@ Dense pill-shaped steps that scroll horizontally on narrow screens. Pass `:varia
 
 ### Vertical
 
-Steps stacked vertically with a connecting line. Supports inline content via `$slot` — useful for expanded content on the active step.
+Steps stacked vertically with a connecting line. Supports inline content via `$slot` - useful for expanded content on the active step.
 
 ```blade
 <x-pajak::stepper :variant="\Pajak\Ui\Common\Enums\Stepper\StepperVariant::Vertical">
@@ -94,7 +94,7 @@ Steps stacked vertically with a connecting line. Supports inline content via `$s
 
 ### Bar
 
-Compact progress bar with a label and step counter. No child steps — all data is on the wrapper.
+Compact progress bar with a label and step counter. No child steps - all data is on the wrapper.
 
 ```blade
 <x-pajak::stepper
@@ -120,12 +120,12 @@ Compact progress bar with a label and step counter. No child steps — all data 
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `step` | `int` | — | Step number shown in the indicator |
-| `title` | `string` | — | Step label |
+| `step` | `int` | - | Step number shown in the indicator |
+| `title` | `string` | - | Step label |
 | `state` | `StepperStepState` | `StepperStepState::Upcoming` | `Upcoming`, `Active`, or `Done` |
 | `variant` | `StepperVariant` | `StepperVariant::Horizontal` | Must match the parent stepper variant |
 | `description` | `?string` | `null` | Optional subtitle below the title |
 | `last` | `bool` | `false` | Suppresses the trailing connector (pill variant) and the line (vertical variant) |
-| `$slot` | slot | — | Optional inline content rendered below title/description (horizontal and vertical variants) |
+| `$slot` | slot | - | Optional inline content rendered below title/description (horizontal and vertical variants) |
 
-> **Note:** Pass the same `variant` to both `<x-pajak::stepper>` and each `<x-pajak::stepper-step>` — the step component uses it to decide its HTML structure (`<li>` vs `<span>`).
+> **Note:** Pass the same `variant` to both `<x-pajak::stepper>` and each `<x-pajak::stepper-step>` - the step component uses it to decide its HTML structure (`<li>` vs `<span>`).

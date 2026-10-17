@@ -2,7 +2,7 @@
 
 A positioned overlay panel anchored to a trigger element. Supports four placement variants, an optional arrow-decorated close button, and head/body/foot slot layout.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -39,20 +39,25 @@ PajakPopover.initAll();
 
 ## Basic usage
 
-```blade
-{{-- Trigger (any element) --}}
-<button data-pajak-popover-trigger="my-pop" aria-expanded="false" aria-haspopup="true">
-    Open
-</button>
+The popover is positioned absolutely against its nearest positioned ancestor, so wrap the
+trigger and the popover in `.pajak-pop-anchor` (any element, `position: relative`):
 
-{{-- Popover --}}
-<x-pajak::popover id="my-pop" title="Polish tax bracket">
-    Your income up to <strong>120 000 zł</strong> is taxed at <strong>17%</strong>.
-    <x-slot:footer>
-        <x-pajak::button variant="ghost">Got it</x-pajak::button>
-        <x-pajak::button>Learn more</x-pajak::button>
-    </x-slot:footer>
-</x-pajak::popover>
+```blade
+<div class="pajak-pop-anchor">
+    {{-- Trigger (any element) --}}
+    <button data-pajak-popover-trigger="my-pop" aria-expanded="false" aria-haspopup="true">
+        Open
+    </button>
+
+    {{-- Popover --}}
+    <x-pajak::popover id="my-pop" title="Polish tax bracket">
+        Your income up to <strong>120 000 zł</strong> is taxed at <strong>17%</strong>.
+        <x-slot:footer>
+            <x-pajak::button variant="ghost">Got it</x-pajak::button>
+            <x-pajak::button>Learn more</x-pajak::button>
+        </x-slot:footer>
+    </x-pajak::popover>
+</div>
 ```
 
 ---
@@ -61,7 +66,7 @@ PajakPopover.initAll();
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `id` | `string` | — | **Required.** Unique ID used to link triggers to this popover. |
+| `id` | `string` | - | **Required.** Unique ID used to link triggers to this popover. |
 | `placement` | `PopoverPlacement` | `Bottom` | Arrow placement: `Bottom`, `BottomEnd`, `Top`, `Right`, `Left`. |
 | `dismissible` | `bool` | `true` | Show an X close button in the header. |
 | `title` | `string\|null` | `null` | Optional heading text. If absent and `dismissible` is `false`, the head section is omitted. |
@@ -70,8 +75,8 @@ PajakPopover.initAll();
 
 | Slot | Description |
 |------|-------------|
-| `$slot` (default) | Body content — rendered in `.pajak-pop__body`. |
-| `footer` | Optional footer — rendered in `.pajak-pop__foot`, right-aligned. |
+| `$slot` (default) | Body content - rendered in `.pajak-pop__body`. |
+| `footer` | Optional footer - rendered in `.pajak-pop__foot`, right-aligned. |
 
 ---
 

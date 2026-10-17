@@ -2,7 +2,7 @@
 
 A navigation breadcrumb trail built from a typed `BreadcrumbItem` array.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -59,7 +59,7 @@ new BreadcrumbItem('Reports', '/reports', false)
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
-| `label` | `string` | — | Display text (shown as screen-reader-only text when `isHome` is true) |
+| `label` | `string` | - | Display text (shown as screen-reader-only text when `isHome` is true) |
 | `href` | `?string` | `null` | Link URL; `null` renders the item as the current page |
 | `isHome` | `bool` | `false` | Renders a house icon instead of text |
 
@@ -70,14 +70,14 @@ new BreadcrumbItem('Reports', '/reports', false)
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `items` | `iterable<int, BreadcrumbItem>` | `[]` | Ordered list of breadcrumb items |
-| `variant` | `BreadcrumbVariant` | `BreadcrumbVariant::Default` | Visual style — `Default`, `Compact`, `Pill` |
-| `separator` | `BreadcrumbSeparator` | `BreadcrumbSeparator::Chevron` | Separator style — `Chevron`, `Slash` (ignored for `Pill` variant) |
+| `variant` | `BreadcrumbVariant` | `BreadcrumbVariant::Default` | Visual style - `Default`, `Compact`, `Pill` |
+| `separator` | `BreadcrumbSeparator` | `BreadcrumbSeparator::Chevron` | Separator style - `Chevron`, `Slash` (ignored for `Pill` variant) |
 
 ---
 
 ## Variants
 
-### Default — chevron separator
+### Default - chevron separator
 
 ```blade
 <x-pajak::breadcrumbs :items="$items" />
@@ -91,7 +91,7 @@ new BreadcrumbItem('Reports', '/reports', false)
 <x-pajak::breadcrumbs :items="$items" :separator="BreadcrumbSeparator::Slash" />
 ```
 
-### Compact — for narrow surfaces, modals, side panels
+### Compact - for narrow surfaces, modals, side panels
 
 ```blade
 @use('Pajak\Ui\Common\Enums\BreadcrumbVariant')
@@ -99,7 +99,7 @@ new BreadcrumbItem('Reports', '/reports', false)
 <x-pajak::breadcrumbs :items="$items" :variant="BreadcrumbVariant::Compact" />
 ```
 
-### Pill — segmented inline style
+### Pill - segmented inline style
 
 Renders a `<nav>` instead of `<ul>`. Chevron separator is always used.
 

@@ -1,8 +1,8 @@
 # Drawer
 
-A panel that slides in from a viewport edge — right, left, bottom, or top. Use for filter panels, navigation, detail views, and quick-action sheets. Built on the native `<dialog>` element.
+A panel that slides in from a viewport edge - right, left, bottom, or top. Use for filter panels, navigation, detail views, and quick-action sheets. Built on the native `<dialog>` element.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -62,7 +62,7 @@ PajakDrawer.initAll();
 |------|------|---------|-------------|
 | `id` | `string` | required | Unique ID used by JS and trigger attributes |
 | `side` | `DrawerSide` | `DrawerSide::Right` | Which edge the drawer slides from |
-| `open` | `bool` | `false` | Renders `<dialog open>` server-side — for server-driven state |
+| `open` | `bool` | `false` | Renders `<dialog open>` server-side - for server-driven state |
 | `dismissible` | `bool` | `true` | Shows close button; allows backdrop-click to close |
 
 ## Slots
@@ -71,7 +71,7 @@ PajakDrawer.initAll();
 |------|----------|-------------|
 | `title` | No | Drawer heading (also passable as `title="..."` attribute) |
 | `description` | No | Subtitle below the heading |
-| `$slot` | No | Body content — scrollable |
+| `$slot` | No | Body content - scrollable |
 | `footer` | No | Action buttons in the footer bar |
 
 ## Sides
@@ -81,7 +81,7 @@ use Pajak\Ui\Common\Enums\Drawer\DrawerSide;
 
 DrawerSide::Right   // 340px wide, slides from right (default)
 DrawerSide::Left    // 280px wide, slides from left
-DrawerSide::Bottom  // full width, max 80vh, slides from bottom — includes grabber
+DrawerSide::Bottom  // full width, max 80vh, slides from bottom - includes grabber
 DrawerSide::Top     // full width, auto height, slides from top
 ```
 
@@ -121,7 +121,7 @@ Pass `:open="true"` to render `<dialog open>` immediately. Note: this renders as
 
 ## Examples
 
-### Right — filter panel
+### Right - filter panel
 
 ```blade
 <x-pajak::drawer id="filters" title="Filter deductions">
@@ -134,7 +134,7 @@ Pass `:open="true"` to render `<dialog open>` immediately. Note: this renders as
 </x-pajak::drawer>
 ```
 
-### Left — navigation
+### Left - navigation
 
 ```blade
 <x-pajak::drawer id="nav" :side="DrawerSide::Left" title="PAJAK">
@@ -143,11 +143,11 @@ Pass `:open="true"` to render `<dialog open>` immediately. Note: this renders as
 </x-pajak::drawer>
 ```
 
-### Bottom — mobile quick actions
+### Bottom - mobile quick actions
 
 ```blade
 <x-pajak::drawer id="details" :side="DrawerSide::Bottom" title="Refund details">
-    <x-slot:description>PIT-37 — 2025</x-slot:description>
+    <x-slot:description>PIT-37 - 2025</x-slot:description>
     <!-- detail rows -->
     <x-slot:footer>
         <x-pajak::button variant="ghost" data-pajak-drawer-close>Edit</x-pajak::button>

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code when working with code in this reposi
 
 ## Project Overview
 
-`pajak/ui` is a Laravel UI component library providing reusable Blade components with PHP backend and frontend assets (SCSS, TypeScript). It is not a standalone app — it is installed into Laravel projects via Composer.
+`pajak/ui` is a Laravel UI component library providing reusable Blade components with PHP backend and frontend assets (SCSS, TypeScript). It is not a standalone app - it is installed into Laravel projects via Composer.
 
 ## Commands
 
@@ -25,7 +25,7 @@ docker compose run --rm cli vendor/bin/phpcbf --standard=ruleset.xml  # auto-fix
 docker compose run --rm cli php -d memory_limit=2G vendor/bin/phpstan analyse # static analysis (level 6)
 ```
 
-Note: PHPStan always exits with code 1 due to an unused `missingType.generics` ignore in `phpstan.neon`. This is pre-existing and not caused by new code — if the only reported "error" is the unused-ignore message, the code is clean.
+Note: PHPStan always exits with code 1 due to an unused `missingType.generics` ignore in `phpstan.neon`. This is pre-existing and not caused by new code - if the only reported "error" is the unused-ignore message, the code is clean.
 
 ### Frontend Assets
 ```bash
@@ -39,11 +39,11 @@ docker compose run --rm node npm run dev     # dev server with HMR
 
 ```
 src/
-├── UiServiceProvider.php          — package entry point
-├── Common/                        — shared utilities, enums, DTOs, services
-│   ├── Console/Commands/          — Artisan commands
-│   ├── Dto/                       — ToastData, UploadedFile
-│   ├── Enums/                     — MessageType, Method, Size, State, ToastType
+├── UiServiceProvider.php          - package entry point
+├── Common/                        - shared utilities, enums, DTOs, services
+│   ├── Console/Commands/          - Artisan commands
+│   ├── Dto/                       - ToastData, UploadedFile
+│   ├── Enums/                     - MessageType, Method, Size, State, ToastType
 │   └── View/
 │       └── Button.php
 ├── Calendar/
@@ -52,21 +52,21 @@ src/
 └── Form/
     ├── Concerns/
     │   └── HasFileUploads.php
-    ├── Enums/                     — FormLayout, TelPattern
-    └── View/Components/           — all form Blade component classes
+    ├── Enums/                     - FormLayout, TelPattern
+    └── View/Components/           - all form Blade component classes
 resources/
 ├── assets/
 │   ├── css/
-│   │   ├── variables.scss         — all design tokens (colors, type, spacing, radius, shadows)
-│   │   ├── main.scss              — full bundle (imports all feature partials)
+│   │   ├── variables.scss         - all design tokens (colors, type, spacing, radius, shadows)
+│   │   ├── main.scss              - full bundle (imports all feature partials)
 │   │   ├── button/
-│   │   │   ├── index.scss         — button-only bundle entry point
+│   │   │   ├── index.scss         - button-only bundle entry point
 │   │   │   └── _button.scss
 │   │   ├── calendar/
-│   │   │   ├── calendar-standalone.scss — calendar-only bundle entry point
+│   │   │   ├── calendar-standalone.scss - calendar-only bundle entry point
 │   │   │   └── _calendar.scss
 │   │   ├── form/
-│   │   │   ├── form-standalone.scss — form-only bundle entry point
+│   │   │   ├── form-standalone.scss - form-only bundle entry point
 │   │   │   ├── _field.scss
 │   │   │   ├── _input.scss
 │   │   │   ├── _select.scss
@@ -79,31 +79,31 @@ resources/
 │   │   │   ├── _file-upload.scss
 │   │   │   └── _dropzone.scss
 │   │   └── toast/
-│   │       ├── toast-standalone.scss — toast-only bundle entry point
+│   │       ├── toast-standalone.scss - toast-only bundle entry point
 │   │       └── _toast.scss
 │   └── js/
-│       ├── main.ts                — full JS bundle (re-exports all feature modules)
-│       ├── registry.ts            — component registry
+│       ├── main.ts                - full JS bundle (re-exports all feature modules)
+│       ├── registry.ts            - component registry
 │       ├── calendar/
-│       │   └── calendar.ts        — PajakCalendar / DatePicker API
+│       │   └── calendar.ts        - PajakCalendar / DatePicker API
 │       ├── form/
-│       │   ├── form.ts            — form-only bundle entry point (re-exports all form APIs)
-│       │   ├── select.ts          — PajakSelect API
-│       │   ├── toggle.ts          — PajakToggle API
-│       │   ├── checkbox.ts        — PajakCheckbox API
-│       │   ├── slider.ts          — PajakSlider API
-│       │   ├── repeater.ts        — PajakRepeater API
-│       │   ├── file.ts            — PajakFile API
-│       │   ├── file-upload.ts     — PajakFileUpload API
-│       │   └── form-submit.ts     — form submission helpers
+│       │   ├── form.ts            - form-only bundle entry point (re-exports all form APIs)
+│       │   ├── select.ts          - PajakSelect API
+│       │   ├── toggle.ts          - PajakToggle API
+│       │   ├── checkbox.ts        - PajakCheckbox API
+│       │   ├── slider.ts          - PajakSlider API
+│       │   ├── repeater.ts        - PajakRepeater API
+│       │   ├── file.ts            - PajakFile API
+│       │   ├── file-upload.ts     - PajakFileUpload API
+│       │   └── form-submit.ts     - form submission helpers
 │       ├── http/
-│       │   └── connector.ts       — HTTP connector for AJAX requests
+│       │   └── connector.ts       - HTTP connector for AJAX requests
 │       └── toast/
-│           └── toast.ts           — PajakToast API
+│           └── toast.ts           - PajakToast API
 └── views/
-    ├── calendar/                  — Blade templates for calendar components
-    ├── common/                    — Blade templates for common components (button)
-    └── form/                      — Blade templates for form components
+    ├── calendar/                  - Blade templates for calendar components
+    ├── common/                    - Blade templates for common components (button)
+    └── form/                      - Blade templates for form components
 ```
 
 ### Blade Component Namespaces
@@ -142,8 +142,8 @@ Vite builds CSS/JS bundles into `public/assets/`:
 
 | File | Description |
 |------|-------------|
-| `public/assets/main.css` | Full CSS bundle — all components |
-| `public/assets/main.js` | Full JS bundle — all components |
+| `public/assets/main.css` | Full CSS bundle - all components |
+| `public/assets/main.js` | Full JS bundle - all components |
 | `public/assets/form-standalone.css` | Form-only CSS bundle |
 | `public/assets/form.js` | Form-only JS bundle |
 | `public/assets/repeater.js` | Repeater-only JS bundle |
@@ -159,7 +159,7 @@ After adding or changing CSS/JS, rebuild and commit the `public/assets/` output:
 docker compose run --rm node npm run build
 ```
 
-#### Granular CSS — source import (recommended for production)
+#### Granular CSS - source import (recommended for production)
 
 Vite does not produce separate per-feature CSS files from the built output. For granular inclusion, consumers should import SCSS source files directly. Publish the sources:
 ```bash
@@ -212,18 +212,18 @@ When adding a new feature (e.g. `table`, `nav`):
 
 ## Documentation
 
-**[`docs/components.md`](docs/components.md)** — single-page component index with Blade tags, purpose, key props, and disambiguation. Read this first when selecting or adding a component.
+**[`docs/components.md`](docs/components.md)** - single-page component index with Blade tags, purpose, key props, and disambiguation. Read this first when selecting or adding a component.
 
 Component usage docs live in `docs/`:
 
 | File | Contents |
 |------|----------|
-| `docs/form.md` | All form components — props, Blade usage, JS API, asset inclusion |
-| `docs/button.md` | Button component — props, Blade usage |
-| `docs/calendar.md` | Calendar / date-picker component — props, Blade usage, JS API |
-| `docs/toast.md` | Toast notification system — JS API, asset inclusion |
-| `docs/http.md` | HTTP connector — JS API for AJAX requests |
-| `docs/dark-mode.md` | Dark mode support — configuration and usage |
+| `docs/form.md` | All form components - props, Blade usage, JS API, asset inclusion |
+| `docs/button.md` | Button component - props, Blade usage |
+| `docs/calendar.md` | Calendar / date-picker component - props, Blade usage, JS API |
+| `docs/toast.md` | Toast notification system - JS API, asset inclusion |
+| `docs/http.md` | HTTP connector - JS API for AJAX requests |
+| `docs/dark-mode.md` | Dark mode support - configuration and usage |
 
 **Every new component or prop must be documented in the corresponding `docs/` file before the work is considered complete.** Follow the existing format: a usage example, a props table, and (where applicable) a JS API section.
 
@@ -234,5 +234,5 @@ Component usage docs live in `docs/`:
 - DTOs are `final readonly class` with constructor promotion
 - Enums are backed string enums (`enum Foo: string`)
 - PHP 8.5+ required; use modern features (readonly, enums, match, named arguments, nullsafe operator)
-- Use `sprintf()` for string building — no concatenation with `.`
+- Use `sprintf()` for string building - no concatenation with `.`
 - Blade component `render()` must return `Illuminate\Contracts\View\View` (not the concrete `Illuminate\View\View`)

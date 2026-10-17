@@ -2,7 +2,7 @@
 
 Container that fetches its content from a URL via AJAX on page load and shows a frosted-glass loading overlay while the request is in flight.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -60,7 +60,7 @@ The back-end URL must return raw HTML. The response is injected verbatim into th
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `url` | `string` | — | URL to fetch HTML from (required) |
+| `url` | `string` | - | URL to fetch HTML from (required) |
 | `size` | `SpinnerSize` | `SpinnerSize::Md` | Arc spinner size shown in the overlay |
 | `label` | `string` | `'Loading'` | Text shown next to the spinner in the overlay |
 
@@ -95,6 +95,7 @@ All events bubble and are dispatched on the wrapper element.
 |-------|------|
 | `pajak:async:loading` | Fetch started |
 | `pajak:async:loaded` | HTML injected successfully |
+| `pajak:async:empty` | HTML injected successfully but the content area has no element children - fires right after `pajak:async:loaded` |
 | `pajak:async:error` | Fetch failed (network error or non-2xx response) |
 
 ```ts
@@ -105,6 +106,17 @@ document.querySelector('[data-pajak-async]')
 ```
 
 The `pajak:async:error` event includes `detail.status` (HTTP status code) when the server returned a non-2xx response. On network failure, `detail` is absent.
+
+### Item count
+
+After each successful load (including `refresh()`), the wrapper's `data-count` attribute is set to the number of direct element children in the content area - read it instead of querying the DOM yourself:
+
+```ts
+sessionsAsync.addEventListener('pajak:async:loaded', () => {
+    const count = parseInt(sessionsAsync.dataset.count ?? '0', 10);
+    btn.disabled = count <= 1;
+});
+```
 
 ---
 

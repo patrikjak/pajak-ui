@@ -2,7 +2,7 @@
 
 Loading indicators in three styles: arc (primary), dots, and indeterminate bar.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -38,7 +38,7 @@ php artisan vendor:publish --tag=pajak-ui-sources
 ## Usage
 
 ```blade
-{{-- Default — arc, medium, primary --}}
+{{-- Default - arc, medium, primary --}}
 <x-pajak::spinner />
 
 {{-- Arc spinner sizes --}}
@@ -71,16 +71,16 @@ php artisan vendor:publish --tag=pajak-ui-sources
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `type` | `SpinnerType` | `SpinnerType::Arc` | Spinner style |
-| `size` | `SpinnerSize` | `SpinnerSize::Md` | Size; arc only — no effect on dots or bar |
+| `size` | `SpinnerSize` | `SpinnerSize::Md` | Size; arc only - no effect on dots or bar |
 | `color` | `SpinnerColor` | `SpinnerColor::Primary` | Color; no effect on bar |
 
 ### `SpinnerType` values
 
 | Value | Description |
 |-------|-------------|
-| `arc` | Rotating SVG arc — primary spinner across the system |
-| `dots` | Three pulsing dots — softer, in-content loading |
-| `bar` | Indeterminate sliding bar — long-running tasks |
+| `arc` | Rotating SVG arc - primary spinner across the system |
+| `dots` | Three pulsing dots - softer, in-content loading |
+| `bar` | Indeterminate sliding bar - long-running tasks |
 
 ### `SpinnerSize` values (arc only)
 
@@ -100,6 +100,6 @@ php artisan vendor:publish --tag=pajak-ui-sources
 | `primary` | Blue (`color-primary-500`) |
 | `neutral` | Mid grey (`color-neutral-500`) |
 | `muted` | Light grey (`color-neutral-300`) |
-| `white` | White — for use on dark/primary surfaces |
+| `white` | White - for use on dark/primary surfaces |
 | `success` | Green (`color-success`) |
 | `danger` | Red (`color-error`) |

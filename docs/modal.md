@@ -2,7 +2,7 @@
 
 A larger overlay dialog with a structured head (icon + title + close button), scrollable body, and footer action bar. Built on the native `<dialog>` element. For small, icon-driven confirmations, use the [Dialog](dialog.md) component instead.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -60,9 +60,9 @@ PajakModal.initAll();
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `id` | `string` | required | Unique ID used by JS and trigger attributes |
-| `size` | `ModalSize` | `ModalSize::Md` | Controls `max-width` — Sm (360px), Md (440px), Lg (520px) |
-| `sheet` | `bool` | `false` | Bottom-sheet variant — rounded top corners, anchored to bottom |
-| `open` | `bool` | `false` | Renders `<dialog open>` server-side — for server-driven state |
+| `size` | `ModalSize` | `ModalSize::Md` | Controls `max-width` - Sm (360px), Md (440px), Lg (520px) |
+| `sheet` | `bool` | `false` | Bottom-sheet variant - rounded top corners, anchored to bottom |
+| `open` | `bool` | `false` | Renders `<dialog open>` server-side - for server-driven state |
 | `dismissible` | `bool` | `true` | Shows close button; allows backdrop-click to close |
 
 ## Slots
@@ -72,8 +72,8 @@ PajakModal.initAll();
 | `icon` | No | SVG icon inside the 40×40px rounded-square tile in the header |
 | `title` | No | Modal heading (also passable as `title="..."` attribute) |
 | `description` | No | Subtitle text below the heading |
-| `$slot` | No | Body content — rendered inside `.pajak-modal__body` |
-| `footer` | No | Action buttons — rendered in a subtle footer bar |
+| `$slot` | No | Body content - rendered inside `.pajak-modal__body` |
+| `footer` | No | Action buttons - rendered in a subtle footer bar |
 
 ## Sizes
 
@@ -82,7 +82,7 @@ use Pajak\Ui\Common\Enums\Modal\ModalSize;
 
 ModalSize::Sm  // max-width: 360px
 ModalSize::Md  // max-width: 440px (default)
-ModalSize::Lg  // max-width: 520px — for forms or long content
+ModalSize::Lg  // max-width: 520px - for forms or long content
 ```
 
 ---
@@ -115,7 +115,7 @@ PajakModal.initAll()           // wire all triggers, close buttons, and backdrop
 
 ### Server-driven (`open` prop)
 
-Pass `:open="true"` to render `<dialog open>` immediately — useful after a redirect or form submission. Note: this renders as a plain block element without a backdrop or focus trap. For backdrop + focus trap from page load, omit `open` and call `PajakModal.open('id')` on `DOMContentLoaded` instead.
+Pass `:open="true"` to render `<dialog open>` immediately - useful after a redirect or form submission. Note: this renders as a plain block element without a backdrop or focus trap. For backdrop + focus trap from page load, omit `open` and call `PajakModal.open('id')` on `DOMContentLoaded` instead.
 
 ---
 
@@ -133,7 +133,7 @@ Set `:dismissible="false"` to hide the close button and prevent backdrop-click f
 
 ## Bottom sheet
 
-The sheet variant anchors the modal to the bottom of the viewport with rounded top corners — suitable for mobile confirmations.
+The sheet variant anchors the modal to the bottom of the viewport with rounded top corners - suitable for mobile confirmations.
 
 ```blade
 <x-pajak::modal id="sign-modal" :sheet="true" title="Sign with mObywatel?">

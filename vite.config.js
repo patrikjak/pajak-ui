@@ -5,11 +5,11 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                // Full bundle — all components
+                // Full bundle - all components
                 'resources/assets/js/main.ts',
                 'resources/assets/css/main.scss',
 
-                // Per-feature bundles — include only what you need
+                // Per-feature bundles - include only what you need
 
                 // Accordion
                 'resources/assets/css/accordion/accordion-standalone.scss',

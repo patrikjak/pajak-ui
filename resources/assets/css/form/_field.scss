@@ -140,7 +140,7 @@
     flex-direction: column;
     gap: var(--space-1);
 
-    // Checkbox / radio — shrink-wrap to content so the hit area is only the
+    // Checkbox / radio - shrink-wrap to content so the hit area is only the
     // visible control + label, not the full container width.
     &--option {
         display: inline-flex;

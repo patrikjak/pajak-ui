@@ -57,4 +57,17 @@ final class TooltipSnapshotTest extends TestCase
 
         $this->assertMatchesHtmlSnapshot($html);
     }
+
+    public function testDisabledTooltip(): void
+    {
+        $html = (string) $this->blade(
+            <<<'BLADE'
+            <x-pajak::tooltip text="Not available" :disabled="true">
+                <button disabled>Sign out</button>
+            </x-pajak::tooltip>
+            BLADE,
+        );
+
+        $this->assertMatchesHtmlSnapshot($html);
+    }
 }

@@ -2,7 +2,7 @@
 
 Shimmer placeholder shown while content is loading. Available as `<x-pajak::skeleton>`.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -49,7 +49,7 @@ php artisan vendor:publish --tag=pajak-ui-sources
 <x-pajak::skeleton shape="pill" style="width: 64px;" />
 ```
 
-Width and height are always set via the `style` attribute (or a utility class) — the component does not accept `width`/`height` props, since skeleton dimensions are always context-specific.
+Width and height are always set via the `style` attribute (or a utility class) - the component does not accept `width`/`height` props, since skeleton dimensions are always context-specific.
 
 ---
 
@@ -66,8 +66,8 @@ Width and height are always set via the `style` attribute (or a utility class) �
 | `line` | 12px | 6px | Body text line |
 | `line-sm` | 9px | 5px | Secondary / caption text |
 | `line-lg` | 16px | 6px | Heading or subheading |
-| `circle` | — | full | Avatar, icon |
-| `rect` | — | 6px | Image, card thumbnail, bar chart column |
+| `circle` | - | full | Avatar, icon |
+| `rect` | - | 6px | Image, card thumbnail, bar chart column |
 | `pill` | 22px | full | Badge, tag, small button |
 
-`circle` and `rect` have no intrinsic height — set both `width` and `height` via `style`.
+`circle` and `rect` have no intrinsic height - set both `width` and `height` via `style`.

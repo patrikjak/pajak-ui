@@ -13,6 +13,7 @@ final class Tooltip extends Component
     public function __construct(
         public readonly string $text,
         public readonly TooltipPlacement $placement = TooltipPlacement::Top,
+        public readonly bool $disabled = false,
     ) {
     }
 

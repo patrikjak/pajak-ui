@@ -2,7 +2,7 @@
 
 A wrapper component that shows a tooltip bubble on hover or keyboard focus. The default slot is the trigger; the `text` prop is the tooltip content.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -52,6 +52,11 @@ php artisan vendor:publish --tag=pajak-ui-sources
 <x-pajak::tooltip text="Delete this record" placement="bottom">
     <x-pajak::button variant="danger">Delete</x-pajak::button>
 </x-pajak::tooltip>
+
+{{-- Disabled - bubble is suppressed, trigger renders as normal --}}
+<x-pajak::tooltip text="No other active sessions" :disabled="!$hasOtherSessions">
+    <x-pajak::button :disabled="!$hasOtherSessions">Sign out others</x-pajak::button>
+</x-pajak::tooltip>
 ```
 
 ---
@@ -60,8 +65,9 @@ php artisan vendor:publish --tag=pajak-ui-sources
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `text` | `string` | — | Tooltip label (required) |
+| `text` | `string` | - | Tooltip label (required) |
 | `placement` | `TooltipPlacement` | `TooltipPlacement::Top` | Which side the bubble appears on |
+| `disabled` | `bool` | `false` | When `true`, adds `pajak-tooltip-wrap--disabled` and suppresses the bubble on hover/focus. The trigger itself is untouched - pair it with your own condition on the trigger's `disabled` state. |
 
 ### `TooltipPlacement` values
 
@@ -76,8 +82,9 @@ php artisan vendor:publish --tag=pajak-ui-sources
 
 ## Behaviour
 
-- Show/hide is pure CSS — no JavaScript required.
+- Show/hide is pure CSS - no JavaScript required.
 - Tooltip appears on `:hover` and `:focus-within` (keyboard accessible).
 - The bubble fades in/out via `opacity` + `visibility` transition.
 - `white-space: nowrap` by default; override via `$attributes` if wrapping text is needed.
 - The tooltip span carries `role="tooltip"` for screen readers.
+- `disabled` can also be toggled at runtime by adding/removing the `pajak-tooltip-wrap--disabled` class on the wrapper element from JS.

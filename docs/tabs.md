@@ -2,7 +2,7 @@
 
 Tab navigation component with four layout variants. Built on semantic `role="tablist"` / `role="tab"` markup. JavaScript handles click-to-activate; panel visibility is managed by the consumer.
 
-> All components support dark mode — see [dark-mode.md](dark-mode.md).
+> All components support dark mode - see [dark-mode.md](dark-mode.md).
 
 ## Assets
 
@@ -120,11 +120,11 @@ Vertical stack with a left indicator bar on the active tab. Wrap alongside a pan
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `label` | `string` | — | Tab label text |
+| `label` | `string` | - | Tab label text |
 | `active` | `bool` | `false` | Whether this tab is selected |
 | `disabled` | `bool` | `false` | Disables interaction |
 | `count` | `int\|null` | `null` | Optional count badge |
-| `$icon` | slot | — | Optional SVG icon rendered before the label |
+| `$icon` | slot | - | Optional SVG icon rendered before the label |
 
 ---
 
@@ -158,4 +158,4 @@ PajakTabs.init(document.querySelector('[data-pajak-tabs]'));
 
 Call `PajakTabs.initAll()` after the DOM is ready. For dynamically injected tab groups, call `PajakTabs.init(el)` on the injected wrapper element.
 
-The JS toggles `aria-selected` on tab buttons when clicked. It does **not** manage panel visibility — show/hide the corresponding panels in response to the `aria-selected` change using your own logic or Alpine.js / Livewire.
+The JS toggles `aria-selected` on tab buttons when clicked. It does **not** manage panel visibility - show/hide the corresponding panels in response to the `aria-selected` change using your own logic or Alpine.js / Livewire.

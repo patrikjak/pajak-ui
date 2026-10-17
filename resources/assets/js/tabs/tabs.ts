@@ -28,7 +28,7 @@ function initTabs(root: HTMLElement): void {
 
     const tabs = getTabs(root);
 
-    // Set up initial roving tabindex — only the selected tab (or first) is tabbable
+    // Set up initial roving tabindex - only the selected tab (or first) is tabbable
     const initialSelected = tabs.find((t) => t.getAttribute('aria-selected') === 'true') ?? tabs[0];
     tabs.forEach((t) => {
         t.setAttribute('tabindex', t === initialSelected ? '0' : '-1');

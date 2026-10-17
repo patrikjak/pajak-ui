@@ -45,6 +45,13 @@ final class FormAvatarSnapshotTest extends TestCase
         $this->assertMatchesHtmlSnapshot($html);
     }
 
+    public function testAvatarWithEmptyStringError(): void
+    {
+        $html = (string) $this->blade('<x-pajak-form::avatar name="profile_photo" error="" />');
+
+        $this->assertMatchesHtmlSnapshot($html);
+    }
+
     public function testDisabledAvatar(): void
     {
         $html = (string) $this->blade('<x-pajak-form::avatar name="profile_photo" :disabled="true" />');
