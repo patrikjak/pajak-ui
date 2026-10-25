@@ -144,4 +144,4 @@ PajakAccordion.initAll();
 PajakAccordion.init(el);
 ```
 
-Call `initAll()` after the DOM is ready, or after dynamically inserting accordion markup.
+Accordions initialise automatically once the DOM is ready. After dynamically inserting accordion markup, call `PajakAccordion.initAll(container)` (already-initialised accordions are skipped).

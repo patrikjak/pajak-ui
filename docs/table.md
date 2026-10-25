@@ -205,6 +205,19 @@ StatusColumn::make('status')->label('Status')->colors([
 ])
 ```
 
+| Method | Description |
+|--------|-------------|
+| `->colors(array $map)` | Value → colour map (`int\|string` keys; booleans map to `1`/`0`, backed enums to their value) |
+| `->labels(array\|Closure $labels)` | Value → displayed text. A `Closure` receives `($value, $row)` and returns the label; without it the raw value is printed |
+| `->value(Closure $resolver)` | Compute the cell value from the row instead of reading `key()` - e.g. `fn ($row) => $row->deleted_at === null` |
+
+```php
+StatusColumn::make('is_active')->label('Status')
+    ->value(fn ($row) => $row->deleted_at === null)
+    ->labels([1 => 'Active', 0 => 'Disabled'])
+    ->colors([1 => 'green', 0 => 'gray'])
+```
+
 ### TwoLineColumn
 
 Bold primary text + muted secondary text.
@@ -225,6 +238,26 @@ BadgeColumn::make('type')->label('Type')->colors([
 ])
 ```
 
+Supports the same `->labels()` / `->value()` / `->colors()` methods as [StatusColumn](#statuscolumn).
+
+### BadgeListColumn
+
+One badge per item of a multi-value cell (e.g. a user's roles).
+
+```php
+BadgeListColumn::make('roles')->label('Roles')
+    ->value(fn ($row) => $row->roles->pluck('id')->all())
+    ->labels($roleNamesById)
+    ->empty('No roles')
+```
+
+| Method | Description |
+|--------|-------------|
+| `->value(Closure $resolver)` | Returns the array of items (default: the array stored under `key()`) |
+| `->labels(array\|Closure $labels)` | Item → displayed text (default: the raw item) |
+| `->colors(array $map)` | Item → badge colour |
+| `->empty(string $text)` | Muted text shown when the row has no items (default: nothing) |
+
 ### AvatarColumn
 
 Circle avatar (image or initials) + name + optional subtitle.
@@ -239,6 +272,10 @@ AvatarColumn::make('name')->label('Client')
 |--------|-------------|
 | `->image(string $key)` | Row key for image URL (initials shown when null/empty) |
 | `->subtitle(string $key)` | Row key for subtitle text |
+| `->name(Closure $resolver)` | Compute the displayed name from the row (default: the `key()` value) |
+| `->initials(string\|Closure $keyOrResolver)` | Row key holding the initials, or a closure computing them from the row |
+
+Without `->initials()`, two letters are derived from the name: first + last word initials (`Alice Smith` → `AS`), or the first two letters of a single word (`Bob` → `BO`).
 
 ### DateColumn
 
@@ -251,6 +288,9 @@ DateColumn::make('issued_at')->label('Date')->format('d/m/Y')
 | Method | Description |
 |--------|-------------|
 | `->format(string $format)` | PHP date format string (default: `d.m.Y`) |
+| `->timezone(string\|Closure $timezone)` | Convert to this timezone for display (e.g. the user's timezone) without touching PHP's global timezone; a `Closure` is evaluated per cell and returns the timezone name |
+
+Stored values are parsed by `Carbon::parse()` (strings without an offset are read in the app timezone), then converted for display.
 
 ### AmountColumn
 
@@ -331,6 +371,19 @@ FormAction::make('archive')
     ->method(Method::Post)
 ```
 
+#### Async mode
+
+By default a `FormAction` / `ConfirmAction` does a full-page form submit. Call `->async()` to send it with `fetch` instead (JSON, CSRF header and `X-Requested-With`, so the route can be a normal API-style route returning JSON). The same toast handling as forms applies: the response's `toast` object is shown, a failed response (422 included) falls back to an error toast built from the top-level `message` (or the first validation error), and on success the current page of the table is re-fetched. No redirect, no flash message needed.
+
+```php
+FormAction::make('resend')
+    ->label('Resend invitation')
+    ->url(fn($row) => route('invitations.resend', $row->id))
+    ->async()
+```
+
+The table wrapper emits `pajak:table:action-success` / `pajak:table:action-error` (bubbling, `detail: { status, response, url }`) after the request.
+
 ### ConfirmAction
 
 Opens a confirm dialog before submitting.
@@ -345,6 +398,8 @@ ConfirmAction::make('delete')
     ->confirmMessage('This cannot be undone.')
     ->confirmButton('Yes, delete')
 ```
+
+`->async()` (see [FormAction](#formaction)) submits via `fetch` after the user confirms.
 
 ### ModalAction
 

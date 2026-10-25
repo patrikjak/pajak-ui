@@ -95,7 +95,7 @@ DrawerSide::Top     // full width, auto height, slides from top
 <button data-pajak-drawer-trigger="my-drawer">Open</button>
 ```
 
-Call `PajakDrawer.initAll()` once on page load to wire all triggers, backdrop-clicks, and `data-pajak-drawer-close` buttons.
+Triggers, backdrop-clicks, and `data-pajak-drawer-close` buttons are wired automatically once the DOM is ready (`PajakDrawer.initAll(container)` for dynamically inserted markup).
 
 ### Close button inside the drawer
 

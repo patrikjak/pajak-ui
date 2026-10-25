@@ -78,6 +78,44 @@ document.getElementById('theme-toggle').addEventListener('change', e => {
 });
 ```
 
+## Light / dark / system switcher
+
+`PajakTheme` (`js/theme/theme`, also in the main bundle) is a small helper for a three-way light / dark / system preference: it persists the choice to `localStorage` (key `pajak-theme`), falls back to the OS `prefers-color-scheme` for `system` (and follows OS changes live), and sets `data-theme="light|dark"` on `<html>`.
+
+```ts
+import { PajakTheme } from 'vendor/pajak/ui/js/theme/theme';
+
+PajakTheme.get();         // 'light' | 'dark' | 'system' (stored; default 'system')
+PajakTheme.resolved();    // 'light' | 'dark' (what is actually applied)
+PajakTheme.set('dark');   // persist + apply + sync any bound switchers
+```
+
+The helper is opt-in: loading the bundle changes nothing for a visitor who has never picked a theme (your own `data-theme` is left alone). Once a preference is stored it is applied as soon as the script loads; call `PajakTheme.apply()` yourself if first-time visitors should follow the OS setting. To avoid a flash of the wrong theme, also apply it inline in `<head>` before first paint:
+
+```html
+<script>
+    (function () {
+        try {
+            var mode = localStorage.getItem('pajak-theme') || 'system';
+            var dark = mode === 'dark' || (mode === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
+            document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+        } catch (e) {}
+    })();
+</script>
+```
+
+Drive it from a [segmented control](segmented.md) by adding `data-pajak-theme-switch` and using `light` / `dark` / `system` as the option values - the control is synced to the stored mode on load and picking an option calls `PajakTheme.set()`:
+
+```blade
+<x-pajak::segmented data-pajak-theme-switch>
+    <x-pajak::segmented-option label="Light" value="light" />
+    <x-pajak::segmented-option label="Dark" value="dark" />
+    <x-pajak::segmented-option label="System" value="system" />
+</x-pajak::segmented>
+```
+
+**Event:** `pajak:theme` is dispatched on `document` with `detail: { mode, resolved }` whenever `set()` is called.
+
 ## Source import
 
 When using the source import approach, the dark token block lives in `variables.scss`. Import it once - the individual component partials inherit the overrides automatically:

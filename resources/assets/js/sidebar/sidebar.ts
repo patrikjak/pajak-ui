@@ -1,3 +1,5 @@
+import { onReady } from '../ready';
+
 declare global {
     interface Window {
         Pajak?: Record<string, unknown>;
@@ -6,6 +8,8 @@ declare global {
 
 const initializedSidebars = new WeakSet<HTMLDialogElement>();
 const initializedRailButtons = new WeakSet<HTMLElement>();
+const initializedAsides = new WeakSet<HTMLElement>();
+const initializedTriggers = new WeakSet<HTMLElement>();
 
 function getSidebar(id: string): HTMLDialogElement | null {
     return document.querySelector<HTMLDialogElement>(`dialog#${id}[data-pajak-sidebar]`);
@@ -104,8 +108,8 @@ function createTriggerButton(id: string): HTMLButtonElement {
     return btn;
 }
 
-function initAll(): void {
-    document.querySelectorAll<HTMLDialogElement>('dialog[data-pajak-sidebar]').forEach((sidebar) => {
+function initAll(root: ParentNode = document): void {
+    root.querySelectorAll<HTMLDialogElement>('dialog[data-pajak-sidebar]').forEach((sidebar) => {
         if (initializedSidebars.has(sidebar)) {
             return;
         }
@@ -138,9 +142,9 @@ function initAll(): void {
     });
 
     // Rail (collapse-to-icons) applies to every `.pajak-sb`, standalone or dialog-wrapped.
-    document.querySelectorAll<HTMLElement>('.pajak-sb').forEach((aside) => {
+    root.querySelectorAll<HTMLElement>('.pajak-sb').forEach((aside) => {
         const id = railStorageId(aside);
-        if (id && localStorage.getItem(getRailStorageKey(id)) === '1') {
+        if (!initializedAsides.has(aside) && id && localStorage.getItem(getRailStorageKey(id)) === '1') {
             aside.classList.add('pajak-sb--no-transition');
             applyRailState(aside, true);
             // Double-rAF ensures layout is flushed before removing the class,
@@ -149,6 +153,8 @@ function initAll(): void {
                 requestAnimationFrame(() => aside.classList.remove('pajak-sb--no-transition'));
             });
         }
+
+        initializedAsides.add(aside);
 
         aside.querySelectorAll<HTMLElement>('[data-pajak-sidebar-rail]').forEach((btn) => {
             if (initializedRailButtons.has(btn)) {
@@ -161,11 +167,14 @@ function initAll(): void {
     });
 
     // Also wire up any manually placed triggers
-    document.querySelectorAll<HTMLElement>('[data-pajak-sidebar-trigger]').forEach((trigger) => {
+    root.querySelectorAll<HTMLElement>('[data-pajak-sidebar-trigger]').forEach((trigger) => {
         const id = trigger.dataset.pajakSidebarTrigger ?? '';
-        if (!id) {
+        if (!id || initializedTriggers.has(trigger)) {
             return;
         }
+
+        initializedTriggers.add(trigger);
+
         // Only add listener if not already set up via auto-inject
         if (!trigger.classList.contains('pajak-sb-toggle--floating')) {
             trigger.addEventListener('click', () => openSidebar(id));
@@ -181,3 +190,5 @@ export const PajakSidebar = {
 } as const;
 
 window.Pajak = { ...window.Pajak, PajakSidebar };
+
+onReady(() => PajakSidebar.initAll());

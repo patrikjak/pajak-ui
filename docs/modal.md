@@ -95,7 +95,7 @@ ModalSize::Lg  // max-width: 520px - for forms or long content
 <button data-pajak-modal-trigger="my-modal">Open</button>
 ```
 
-Call `PajakModal.initAll()` once on page load to wire all triggers, backdrop-clicks, and `data-pajak-modal-close` buttons.
+Triggers, backdrop-clicks, and `data-pajak-modal-close` buttons are wired automatically once the DOM is ready (`PajakModal.initAll(container)` for dynamically inserted markup).
 
 ### Close button inside the modal
 

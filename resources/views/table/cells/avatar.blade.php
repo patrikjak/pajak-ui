@@ -1,7 +1,7 @@
 @use('Pajak\Ui\Table\Columns\AvatarColumn')
 @php(assert($column instanceof AvatarColumn))
 
-@php($nameValue = is_array($row) ? ($row[$column->key()] ?? '') : ($row->{$column->key()} ?? ''))
+@php($nameValue = $column->resolveName($row))
 @php($subtitleValue = $column->subtitleKey() ? (is_array($row) ? ($row[$column->subtitleKey()] ?? null) : ($row->{$column->subtitleKey()} ?? null)) : null)
 @php($imageValue = $column->imageKey() ? (is_array($row) ? ($row[$column->imageKey()] ?? null) : ($row->{$column->imageKey()} ?? null)) : null)
 
@@ -11,7 +11,7 @@
             @if($imageValue)
                 <img src="{{ $imageValue }}" alt="{{ $nameValue }}" class="pajak-table-avatar__img">
             @else
-                <span class="pajak-table-avatar__initials">{{ mb_strtoupper(mb_substr((string) $nameValue, 0, 1)) }}</span>
+                <span class="pajak-table-avatar__initials">{{ $column->resolveInitials($row) }}</span>
             @endif
         </div>
         <div class="pajak-table-avatar__body">

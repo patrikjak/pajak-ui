@@ -91,7 +91,7 @@ DialogType::Danger  // red   - destructive actions
 
 ### Trigger attribute (recommended)
 
-Add `data-pajak-dialog-trigger="<id>"` to any element. Call `PajakDialog.initAll()` once on page load.
+Add `data-pajak-dialog-trigger="<id>"` to any element. Dialogs are wired automatically once the DOM is ready (`PajakDialog.initAll(container)` for dynamically inserted markup).
 
 ```html
 <button data-pajak-dialog-trigger="my-dialog">Open</button>

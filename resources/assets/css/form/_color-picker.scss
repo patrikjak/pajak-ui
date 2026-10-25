@@ -1,0 +1,208 @@
+// ── Colour picker (swatch + hex input + HSV panel) ───────────────────────────
+
+.pajak-color-picker {
+    position: relative;
+
+    // ── Swatch (opens the panel) ──────────────────────────────────────────────
+
+    &__swatch {
+        position: absolute;
+        left: 8px;
+        width: 22px;
+        height: 22px;
+        padding: 0;
+        border-radius: var(--radius-full);
+        border: 1.5px solid var(--border-strong);
+        background: var(--pajak-color, transparent);
+        cursor: pointer;
+        transition: transform var(--duration-micro) var(--ease-out), box-shadow var(--duration-micro) var(--ease-out);
+
+        &:hover:not(:disabled) { transform: scale(1.08); }
+
+        &:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(var(--color-primary-500-rgb), 0.18);
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        // Checkerboard until a valid colour is set
+        &.is-empty {
+            background-color: var(--bg-surface);
+            background-image:
+                linear-gradient(45deg, var(--color-neutral-100) 25%, transparent 25%, transparent 75%, var(--color-neutral-100) 75%),
+                linear-gradient(45deg, var(--color-neutral-100) 25%, transparent 25%, transparent 75%, var(--color-neutral-100) 75%);
+            background-size: 8px 8px;
+            background-position: 0 0, 4px 4px;
+        }
+    }
+
+    &__text {
+        font-variant-numeric: tabular-nums;
+        text-transform: uppercase;
+    }
+
+    // ── Panel ─────────────────────────────────────────────────────────────────
+
+    &__panel {
+        --pajak-hue: 0;
+
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-3);
+        width: 280px;
+        max-width: 100%;
+        padding: var(--space-3);
+        background: var(--bg-surface);
+        border: 1px solid var(--border-default);
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-lg);
+
+        &[hidden] { display: none; }
+    }
+
+    // Popover: lives inside the input wrap so `top: 100%` is the bottom of the control, not of the field
+    .pajak-input-wrap > &__panel {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 30;
+        margin-top: var(--space-1);
+    }
+
+    // ── Saturation / brightness area ──────────────────────────────────────────
+
+    &__area {
+        position: relative;
+        height: 180px;
+        border-radius: var(--radius-sm);
+        cursor: crosshair;
+        touch-action: none;
+        user-select: none;
+        background:
+            linear-gradient(to top, #000, rgba(0, 0, 0, 0)),
+            linear-gradient(to right, #fff, hsl(var(--pajak-hue), 100%, 50%));
+
+        &:focus-visible {
+            outline: 2px solid var(--color-primary-500);
+            outline-offset: 2px;
+        }
+    }
+
+    &__handle,
+    &__hue-handle {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border-radius: var(--radius-full);
+        border: 3px solid #fff;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35), 0 2px 6px rgba(0, 0, 0, 0.35);
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+    }
+
+    &__handle {
+        background: var(--pajak-color, transparent);
+    }
+
+    // ── Hue slider ────────────────────────────────────────────────────────────
+
+    &__hue {
+        position: relative;
+        height: 14px;
+        border-radius: var(--radius-full);
+        cursor: pointer;
+        touch-action: none;
+        user-select: none;
+        background: linear-gradient(
+            to right,
+            hsl(0, 100%, 50%),
+            hsl(60, 100%, 50%),
+            hsl(120, 100%, 50%),
+            hsl(180, 100%, 50%),
+            hsl(240, 100%, 50%),
+            hsl(300, 100%, 50%),
+            hsl(360, 100%, 50%)
+        );
+
+        &:focus-visible {
+            outline: 2px solid var(--color-primary-500);
+            outline-offset: 2px;
+        }
+    }
+
+    &__hue-handle {
+        top: 50%;
+        background: hsl(var(--pajak-hue), 100%, 50%);
+    }
+
+    // ── Presets ───────────────────────────────────────────────────────────────
+
+    &__presets {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2);
+        padding-top: var(--space-3);
+        border-top: 1px solid var(--border-default);
+    }
+
+    &__preset {
+        width: 24px;
+        height: 24px;
+        padding: 0;
+        border-radius: var(--radius-full);
+        border: 2px solid var(--bg-surface);
+        background: var(--pajak-preset);
+        box-shadow: 0 0 0 1px var(--border-strong);
+        cursor: pointer;
+        transition: transform var(--duration-micro) var(--ease-out), box-shadow var(--duration-micro) var(--ease-out);
+
+        &:hover:not(:disabled) { transform: scale(1.12); }
+
+        &:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(var(--color-primary-500-rgb), 0.35);
+        }
+
+        &.is-selected {
+            box-shadow: 0 0 0 2px var(--color-primary-500);
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+    }
+
+    // ── Inline (always open, bigger) ──────────────────────────────────────────
+
+    &--inline &__panel {
+        width: 100%;
+        max-width: 420px;
+        margin-top: var(--space-3);
+        box-shadow: var(--shadow-sm);
+    }
+
+    &--inline &__area {
+        height: 240px;
+    }
+
+    &--inline .pajak-input-wrap {
+        max-width: 420px;
+    }
+
+    // Small swatch dot inside the text field is replaced by a preview chip in inline mode
+    &--inline .pajak-input-wrap::before {
+        content: "";
+        position: absolute;
+        left: 8px;
+        width: 22px;
+        height: 22px;
+        border-radius: var(--radius-full);
+        border: 1.5px solid var(--border-strong);
+        background: var(--pajak-color, var(--bg-surface));
+    }
+}

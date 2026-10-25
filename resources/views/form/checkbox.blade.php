@@ -8,6 +8,7 @@
             value="{{ $value }}"
             @if($checked) checked @endif
             @if($disabled) disabled @endif
+            @if($indeterminate) data-pajak-indeterminate @endif
             {{ $attributes->except(['class', 'type', 'name', 'id', 'value', 'checked', 'disabled']) }}
         >
         @include('pajak::form.partials.checkbox-box')

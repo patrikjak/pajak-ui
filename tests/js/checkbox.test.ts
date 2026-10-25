@@ -109,3 +109,40 @@ describe('PajakCheckbox', () => {
         expect(instance.indeterminate).toBe(false);
     });
 });
+
+describe('PajakCheckbox silent set and indeterminate attribute', () => {
+    it('setChecked with silent does not dispatch change or pajak:checkbox', () => {
+        const el = makeCheckbox(false);
+        const instance = PajakCheckbox.init(el);
+        let changes = 0;
+        let events = 0;
+        el.querySelector('input')!.addEventListener('change', () => { changes++; });
+        el.addEventListener('pajak:checkbox', () => { events++; });
+
+        instance.setChecked(true, { silent: true });
+
+        expect(instance.checked).toBe(true);
+        expect(changes).toBe(0);
+        expect(events).toBe(0);
+    });
+
+    it('setChecked without silent dispatches change', () => {
+        const el = makeCheckbox(false);
+        const instance = PajakCheckbox.init(el);
+        let changes = 0;
+        el.querySelector('input')!.addEventListener('change', () => { changes++; });
+
+        instance.setChecked(true);
+
+        expect(changes).toBe(1);
+    });
+
+    it('applies data-pajak-indeterminate on init', () => {
+        const el = makeCheckbox(false);
+        el.querySelector('input')!.setAttribute('data-pajak-indeterminate', '');
+
+        const instance = PajakCheckbox.init(el);
+
+        expect(instance.indeterminate).toBe(true);
+    });
+});

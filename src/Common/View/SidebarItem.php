@@ -6,6 +6,7 @@ namespace Pajak\Ui\Common\View;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use Pajak\Ui\Common\Enums\Method;
 
 final class SidebarItem extends Component
 {
@@ -17,6 +18,9 @@ final class SidebarItem extends Component
         public readonly bool $dot = false,
         public readonly bool $warn = false,
         public readonly bool $disabled = false,
+        public readonly bool $danger = false,
+        public readonly ?string $action = null,
+        public readonly Method $method = Method::Post,
     ) {
     }
 

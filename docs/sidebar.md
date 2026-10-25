@@ -205,9 +205,23 @@ Any button inside the sidebar with `data-pajak-sidebar-rail` becomes a rail togg
 </dialog>
 ```
 
+### Standalone (non-dialog) sidebar
+
+The rail toggle works the same for a persistent desktop sidebar that is not wrapped in a `<dialog>`: give the `<x-pajak::sidebar>` an `id` (the rail state is persisted per id) and put the toggle button in its `brand` slot.
+
+```blade
+<x-pajak::sidebar id="main-nav">
+    <x-slot:brand>
+        <img src="/logo.svg" alt="Logo">
+        <button class="pajak-sb-rail-btn" data-pajak-sidebar-rail aria-label="Toggle rail">…</button>
+    </x-slot:brand>
+    …
+</x-pajak::sidebar>
+```
+
 ### CSS
 
-`.pajak-sb-rail-btn` is always visible (not mobile-only). In the expanded state it sits at the end of the brand row via `margin-left: auto`. In rail mode (`.pajak-sb--rail`) the brand area switches to a column layout and the button centres below the logo. The `is-rail` rotation on the icon SVG is built into the package - no custom CSS is needed.
+`.pajak-sb-rail-btn` is always visible (not mobile-only). In the expanded state it sits at the end of the brand row via `margin-left: auto`. In rail mode (`.pajak-sb--rail`) the brand area switches to a column layout (keeping a `60px` minimum height) and the button centres below the logo. The `is-rail` rotation on the icon SVG is built into the package - no custom CSS is needed.
 
 ### JS
 
@@ -237,7 +251,7 @@ PajakSidebar.rail('main-nav');
 | `brand` | Top brand/logo area. |
 | `header` | Optional area between brand and scroll body - workspace switcher, CTA, etc. |
 | `$slot` (default) | Scrollable body - section labels, nav items, sub-nav. |
-| `footer` | Bottom pinned area - user card, action buttons. |
+| `footer` | Bottom pinned area - user card, action buttons. A flex column with a small gap, so several `sidebar-item`s stack cleanly (the `filters` variant lays its footer out as a row). |
 
 ---
 
@@ -252,6 +266,15 @@ PajakSidebar.rail('main-nav');
 | `dot` | `bool` | `false` | Small red notification dot (replaces count). |
 | `warn` | `bool` | `false` | Applies red/warning color to the count badge. |
 | `disabled` | `bool` | `false` | Dims the item (`opacity: .4`), blocks pointer events, and adds `aria-disabled="true"` + `tabindex="-1"` so it's also unreachable by keyboard. |
+| `danger` | `bool` | `false` | Colours the whole item in the destructive (error) colour - e.g. for "Log out". Unlike `warn`, which only tints the count badge. |
+| `action` | `string\|null` | `null` | When set, the item renders as a `<form>` + `<button type="submit">` (CSRF field included) instead of an `<a>`; `href` is ignored. |
+| `method` | `Method` | `Method::Post` | HTTP method of the form when `action` is set. `Put` / `Patch` / `Delete` are spoofed via `@method`. |
+
+```blade
+<x-pajak::sidebar-item label="Log out" :danger="true" action="{{ route('logout') }}">
+    <x-slot:icon><svg …>…</svg></x-slot:icon>
+</x-pajak::sidebar-item>
+```
 
 ## SidebarItem slots
 

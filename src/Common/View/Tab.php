@@ -14,6 +14,7 @@ final class Tab extends Component
         public readonly bool $active = false,
         public readonly bool $disabled = false,
         public readonly ?int $count = null,
+        public readonly ?string $controls = null,
     ) {
     }
 

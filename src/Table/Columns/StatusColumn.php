@@ -11,7 +11,7 @@ class StatusColumn extends TextColumn
     use HasColorMap;
 
     /**
-     * @return array<string, string>
+     * @return array<int|string, string>
      */
     public function colorMap(): array
     {

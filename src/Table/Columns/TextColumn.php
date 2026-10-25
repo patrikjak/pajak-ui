@@ -75,4 +75,12 @@ class TextColumn implements TableColumn
     {
         return '';
     }
+
+    /**
+     * @param array<string, mixed>|object $row
+     */
+    protected function rowValue(array|object $row, string $key, mixed $default = ''): mixed
+    {
+        return is_array($row) ? ($row[$key] ?? $default) : ($row->{$key} ?? $default);
+    }
 }

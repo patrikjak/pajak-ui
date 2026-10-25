@@ -155,7 +155,7 @@ Method::Delete // <form method="POST"> + @method('DELETE')
 
 Every `<x-pajak-form::form>` submits asynchronously via `fetch` - no page refresh. The submit button shows an arc spinner while the request is in-flight and is re-enabled once it completes.
 
-**Validation errors (HTTP 422)** are parsed and displayed inline, attached to the matching field's `.pajak-field` wrapper. Each error removes itself as soon as the user changes the input. **Any failed response** (422 or otherwise) whose error key doesn't match any `[name="..."]` input in the form (e.g. a validation error keyed on a URL segment rather than a form field, or a 403/404/500 with no fields at all) falls back to a toast: the response's `toast` object if present, otherwise its top-level `message` (which Laravel's `ValidationException` always populates on 422, and which most exception handlers set on other error responses too) is shown as an error toast. Opt out entirely with `data-no-toast` on the `<form>`.
+**Validation errors (HTTP 422)** are parsed and displayed inline, attached to the matching field's `.pajak-field` wrapper. Each error removes itself as soon as the user changes the input. Error keys are matched to inputs by `name`: `field` → `name="field"` / `name="field[]"`; a dotted key `a.b` (or `a.b.c`) → `name="a[b]"` (`name="a[b][c]"`); and a numeric last segment `a.N` → the *N*th (0-based) `name="a[]"` input in the form. **Any failed response** (422 or otherwise) whose error key doesn't match any `[name="..."]` input in the form (e.g. a validation error keyed on a URL segment rather than a form field, or a 403/404/500 with no fields at all) falls back to a toast: the response's `toast` object if present, otherwise its top-level `message` (which Laravel's `ValidationException` always populates on 422, and which most exception handlers set on other error responses too) is shown as an error toast. Opt out entirely with `data-no-toast` on the `<form>`.
 
 **On success**, the form checks for a `data-redirect` attribute and performs a hard redirect if present. Otherwise it fires a `pajak:form:success` event on the form element. A response's `toast` key would never have time to render before the redirect's navigation, so it's stashed via [`PajakToast.stashForRedirect()`](toast.md#pajaktoaststashforredirectoptions) and shown automatically once the next page loads instead.
 
@@ -777,6 +777,7 @@ A styled checkbox with a required label, optional description, and indeterminate
 | `description` | `string\|null` | `null` | Secondary description text below the label |
 | `id` | `string\|null` | `null` | Overrides the default `id` (falls back to `name`) |
 | `error` | `string\|null` | `null` | Error message shown below the checkbox |
+| `indeterminate` | `bool` | `false` | Renders the box in the indeterminate (dash) state; applied by the JS on init, since HTML has no attribute for it |
 
 **Slot:** `$slot` - additional content rendered inside the `<label>`.
 
@@ -792,10 +793,113 @@ const instance = PajakCheckbox.init(document.querySelector('.pajak-checkbox'));
 instance.indeterminate = true;
 instance.checked = false;
 
+// Update without firing `change` / `pajak:checkbox` - safe inside a change handler
+instance.setChecked(true, { silent: true });
+
 instance.destroy();
 ```
 
+`instance.checked = value` and `setChecked(value)` dispatch a `change` event (bubbling); pass `{ silent: true }` to update the state without any event, e.g. from a select-all handler that would otherwise re-trigger itself.
+
+### Checkbox group (select all)
+
+Wrap related checkboxes in `<x-pajak-form::checkbox-group>` to get an optional select-all checkbox whose checked / indeterminate state follows the items automatically.
+
+```blade
+<x-pajak-form::checkbox-group label="Users" select-all="Select all">
+    <x-pajak-form::checkbox name="permissions[]" value="users.view" label="View" />
+    <x-pajak-form::checkbox name="permissions[]" value="users.edit" label="Edit" />
+    <x-pajak-form::checkbox name="permissions[]" value="users.delete" label="Delete" />
+</x-pajak-form::checkbox-group>
+```
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string\|null` | `null` | Group heading |
+| `select-all` | `string\|null` | `null` | Label of the select-all checkbox; when `null` no select-all is rendered. It has no `name`, so it is never submitted |
+
+Disabled items are left untouched by select-all and ignored when computing its state.
+
+```ts
+import { PajakCheckboxGroup } from 'vendor/pajak/ui/js/form/checkbox-group';
+
+PajakCheckboxGroup.initAll();
+
+const group = PajakCheckboxGroup.init(document.querySelector('[data-pajak-checkbox-group]'));
+group.values;      // values of the checked items
+group.selectAll(); // check every enabled item
+group.clear();     // uncheck every enabled item
+group.sync();      // recompute the select-all state after changing items yourself
+group.destroy();
+```
+
+**Event:** `pajak:checkbox-group` bubbles from the group element with `detail: { checked: number, total: number }`. Items changed by select-all still receive a regular `change` event.
+
 **Event:** `pajak:checkbox` bubbles from the `<label>` element with `detail: { checked: boolean, indeterminate: boolean }`.
+
+---
+
+## Colour Picker
+
+A hex colour field with a round swatch. Clicking the swatch opens a picker panel: a large saturation / brightness area, a hue slider and optional preset swatches. Typing a valid 6-digit hex in the field updates the picker live, and dragging in the panel writes the hex back. Only the text input is submitted, as `#RRGGBB`. No third-party library.
+
+```blade
+<x-pajak-form::color-picker name="primary_color" label="Primary colour" value="#2A9D8F" />
+
+{{-- With preset swatches --}}
+<x-pajak-form::color-picker
+    name="primary_color"
+    label="Primary colour"
+    value="#2A9D8F"
+    :swatches="['#2A9D8F', '#E9C46A', '#F4A261', '#E76F51', '#5386E4', '#1A1F2E']"
+/>
+
+{{-- Always-open, large picker --}}
+<x-pajak-form::color-picker name="brand_color" label="Brand colour" value="#5386E4" :inline="true" />
+
+{{-- With a validation error --}}
+<x-pajak-form::color-picker name="primary_color" label="Primary colour" :error="$errors->first('primary_color')" :value="old('primary_color')" />
+```
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `name` | `string` | - | `name` of the hex text input (the submitted value) |
+| `label` | `string\|null` | `null` | Label text; when `null`, no label is rendered |
+| `value` | `string\|null` | `null` | Initial colour as `#RRGGBB`. An empty/invalid value shows a checkerboard swatch |
+| `swatches` | `array` | `[]` | Preset colours (`#RRGGBB`) shown under the hue slider; invalid entries are ignored |
+| `inline` | `bool` | `false` | Renders the picker panel permanently open below the field (bigger area), without the swatch button |
+| `placeholder` | `string\|null` | `'#RRGGBB'` | Placeholder text |
+| `size` | `Size` | `Size::Md` | `Size::Sm` \| `Size::Md` \| `Size::Lg` |
+| `disabled` | `bool` | `false` | Disables the swatch, the presets and the text input |
+| `id` | `string\|null` | `null` | Overrides the default `id` (falls back to `name`) |
+| `error` | `string\|null` | `null` | Error message shown below the field; sets the error state |
+
+The text input has `pattern="^#[0-9A-Fa-f]{6}$"` and `maxlength="7"`. Validate server-side as well (e.g. `'regex:/^#[0-9A-Fa-f]{6}$/'`).
+
+### Keyboard
+
+| Where | Keys |
+|-------|------|
+| Saturation / brightness area | Arrow keys move by 1%, `Shift` + arrows by 10% |
+| Hue slider | `←` / `→` (or `↑` / `↓`) move by 1°, `Shift` by 10°; `Home` / `End` jump to the ends |
+| Panel | `Esc` closes it and returns focus to the swatch; clicking outside closes it |
+
+### JS initialisation
+
+```ts
+import { PajakColorPicker } from 'vendor/pajak/ui/js/form/color-picker';
+
+PajakColorPicker.initAll();
+
+const picker = PajakColorPicker.init(document.querySelector('[data-pajak-color-picker]'));
+picker.value;             // '#2A9D8F'
+picker.value = '#FF0000'; // updates the field, swatch and panel
+picker.open();            // open / close the popover panel (no-ops for `inline`)
+picker.close();
+picker.destroy();
+```
+
+**Event:** `pajak:color` bubbles from the field wrapper with `detail: { value: string }` whenever the colour changes (typed, dragged, a preset, or set via `value`). Changes made in the panel also dispatch `input` on the text field, so form listeners (e.g. clearing a validation error) still run.
 
 ---
 

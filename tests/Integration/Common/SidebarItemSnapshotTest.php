@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Pajak\Ui\Tests\Integration\Common;
 
+use Pajak\Ui\Common\Enums\Method;
 use Pajak\Ui\Tests\Integration\TestCase;
 
 final class SidebarItemSnapshotTest extends TestCase
@@ -42,5 +43,35 @@ final class SidebarItemSnapshotTest extends TestCase
         );
 
         $this->assertMatchesHtmlSnapshot($html);
+    }
+
+    public function testSidebarItemDanger(): void
+    {
+        $html = (string) $this->blade('<x-pajak::sidebar-item href="/x" label="Delete" :danger="true" />');
+
+        $this->assertStringContainsString('is-danger', $html);
+    }
+
+    public function testSidebarItemWithActionRendersFormButton(): void
+    {
+        $html = (string) $this->blade('<x-pajak::sidebar-item action="/logout" label="Log out" :danger="true" />');
+
+        $this->assertStringContainsString('<form action="/logout" method="POST"', $html);
+        $this->assertStringContainsString('<button', $html);
+        $this->assertStringContainsString('type="submit"', $html);
+        $this->assertStringContainsString('name="_token"', $html);
+        $this->assertStringNotContainsString('<a ', $html);
+        $this->assertStringNotContainsString('_method', $html);
+    }
+
+    public function testSidebarItemWithActionSpoofsMethod(): void
+    {
+        $html = (string) $this->blade(
+            '<x-pajak::sidebar-item action="/session" :method="$method" label="Out" />',
+            ['method' => Method::Delete],
+        );
+
+        $this->assertStringContainsString('method="POST"', $html);
+        $this->assertStringContainsString('name="_method" value="DELETE"', $html);
     }
 }

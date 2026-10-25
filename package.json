@@ -1,6 +1,6 @@
 {
     "name": "pajak-ui",
-    "version": "0.6.0",
+    "version": "0.7.0",
     "description": "A UI component library for Laravel",
     "type": "module",
     "main": "index.js",

@@ -7,6 +7,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-10-25
+
+### Added
+
+- **`BadgeColumn` / `StatusColumn` `labels()` and `value()`** - `->labels(array|Closure)` maps the raw value to display text and `->value(Closure $resolver)` computes the cell value from the row (a boolean, an enum, a derived status); colour maps now accept `int|string` keys and normalise booleans (`1`/`0`) and backed enums, so `[1 => ..., 0 => ...]` maps work
+- **`BadgeListColumn`** - renders an array cell value as one badge per item, with the same `labels()` / `colors()` / `value()` methods plus `->empty(string)` text for a row with no items
+- **`AvatarColumn` `name()` and `initials()`** - compute the displayed name and the initials from the row (closure, or a row key for initials); the default initials are now two letters (first + last word) instead of one
+- **`DateColumn` `timezone()`** - `->timezone(string|Closure)` converts the value to a display timezone without changing PHP's global timezone
+- **`SidebarItem` `danger`, `action` and `method` props** - `:danger="true"` colours the whole item in the destructive colour (light and dark variants); `action="..."` renders the item as a `<form>` + `<button type="submit">` (CSRF + method spoofing included) instead of an `<a>`, e.g. for a "Log out" item
+- **`Card` icon-header layout** - an `icon` slot (with a `variant` attribute: `primary` / `green` / `amber`, `CardIconVariant`) plus a `subtitle` slot render a settings-style card: 34px coloured icon badge beside the title and subtitle, a divider, the body, and a right-aligned footer for actions
+- **`<x-pajak::action-tile>`** - new linked tile for dashboard quick actions: `title`, `href`, `description`, `:color` (`ActionTileColor`: blue/green/sand) and an `icon` slot; hover-lift included; standalone CSS available as `action-tile-standalone.css`
+- **`Checkbox` `indeterminate` prop and silent JS update** - `:indeterminate="true"` renders the box in the indeterminate state, and `PajakCheckbox`'s new `setChecked(value, { silent: true })` updates the state without dispatching `change` / `pajak:checkbox`, so select-all handlers can't re-trigger themselves
+- **`<x-pajak-form::checkbox-group>` + `PajakCheckboxGroup`** - groups checkboxes with an optional select-all (`select-all="..."`) whose checked/indeterminate state follows the items; JS API `values`, `selectAll()`, `clear()`, `sync()` and a `pajak:checkbox-group` event
+- **`<x-pajak-form::color-picker>` + `PajakColorPicker`** - hex colour field with a round swatch that opens a picker panel: large saturation/brightness area, hue slider and optional preset `swatches`, with full keyboard support; `:inline="true"` shows a bigger, always-open picker. Typing a valid `#RRGGBB` updates the picker live and dragging writes the hex back; only the text input is submitted; `pajak:color` event, `value` getter/setter and `open()` / `close()` in JS. No third-party library.
+- **`Tabs` panel switching** - a tab with `controls="panel-id"` (`aria-controls`) now shows its `<x-pajak::tab-panel>` and hides the others, so every variant (including `Vertical`) works as a real tabbed screen; new `pajak-tabs:change` event; tabs without `controls` behave as before
+- **`PajakSegmented.select(el, value, { silent })` and `value(el)`** - select an option from JS (with or without the change event) and read the current value
+- **`PajakTheme`** - light / dark / system helper: persisted to `localStorage`, `prefers-color-scheme` fallback that follows OS changes, `data-theme` applied to `<html>`, and `data-pajak-theme-switch` on a segmented control binds it to the theme; `pajak:theme` event
+- **Async mode for table `FormAction` / `ConfirmAction`** - `->async()` sends the row action with `fetch` (JSON) instead of a full-page form submit, reusing the forms' toast handling (success `toast`, error toast from `message` / first validation error on 422 and other failures), re-fetches the current table page on success and emits `pajak:table:action-success` / `pajak:table:action-error`
+- **`PajakForm` maps nested error keys to inputs** - a 422 error keyed `a.b` / `a.b.c` now matches `name="a[b]"` / `name="a[b][c]"`, and `a.N` matches the Nth `name="a[]"` input, instead of falling through to the toast
+
+### Changed
+
+- **Every JS component self-initialises on `DOMContentLoaded`** - accordion, async, banner, copy button, dialog, drawer, modal, popover, segmented, sidebar, table and tabs now init themselves like the form and calendar bundles already did; `initAll()` stays safe to call again (already-initialised elements are skipped)
+- **`initAll(root)` respects `root`** - those components' `initAll` now take an optional `root` (default: the document) and only scan inside it, so init can be scoped to a dynamically inserted subtree (`PajakCopyButton.initAll(label, root)`)
+- **Sidebar `footer` slot is a flex column** with a small gap, so several `sidebar-item`s stack without custom CSS (the `filters` variant keeps its row layout)
+- **`AvatarColumn` default initials are two letters** instead of a single character (`Alice Smith` → `AS`)
+
+### Fixed
+
+- **Sidebar rail brand row keeps the standard height** - collapsed/rail mode no longer shrinks the brand row below `60px`
+- **Table `SelectFilter` checkboxes now show a check mark when checked** - the filter editor's checkbox partial only rendered the indeterminate-dash SVG, never the check mark, so a checked filter option rendered as an empty solid-blue square; the shared checkbox-box markup (check + indeterminate SVGs) is now rendered from a single partial used by both the form `Checkbox` component and the table filter editor
+
 ## [0.6.0] - 2026-10-17
 
 ### Added

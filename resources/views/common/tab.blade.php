@@ -2,6 +2,7 @@
     {{ $attributes->merge(['class' => 'pajak-tab']) }}
     role="tab"
     aria-selected="{{ $active ? 'true' : 'false' }}"
+    @isset($controls) aria-controls="{{ $controls }}" @endisset
     @if($disabled) disabled @endif
     type="button"
 >

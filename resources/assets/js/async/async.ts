@@ -1,3 +1,5 @@
+import { onReady } from '../ready';
+
 declare global {
     interface Window {
         Pajak?: Record<string, unknown>;
@@ -79,8 +81,8 @@ function refresh(el: HTMLElement): void {
     fetchContent(el, true);
 }
 
-function initAll(): void {
-    document.querySelectorAll<HTMLElement>('[data-pajak-async]').forEach(init);
+function initAll(root: ParentNode = document): void {
+    root.querySelectorAll<HTMLElement>('[data-pajak-async]').forEach(init);
 }
 
 export const PajakAsync = {
@@ -90,3 +92,5 @@ export const PajakAsync = {
 } as const;
 
 window.Pajak = { ...window.Pajak, PajakAsync };
+
+onReady(() => PajakAsync.initAll());

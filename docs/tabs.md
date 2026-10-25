@@ -110,6 +110,26 @@ Vertical stack with a left indicator bar on the active tab. Wrap alongside a pan
 
 ---
 
+## Tab panels
+
+Give each tab a `controls` id and render the content in an `<x-pajak::tab-panel>` with that id. The active tab's panel is visible; the others get the `hidden` attribute and are toggled by the JS. This makes every variant - including `Vertical` - usable as a real tabbed screen.
+
+```blade
+<div class="pajak-tabs__layout">
+    <x-pajak::tabs :variant="\Pajak\Ui\Common\Enums\Tabs\TabsVariant::Vertical">
+        <x-pajak::tab label="Profile" controls="panel-profile" :active="true" />
+        <x-pajak::tab label="Security" controls="panel-security" />
+    </x-pajak::tabs>
+
+    <x-pajak::tab-panel id="panel-profile" :active="true">Profile settings…</x-pajak::tab-panel>
+    <x-pajak::tab-panel id="panel-security">Security settings…</x-pajak::tab-panel>
+</div>
+```
+
+`<x-pajak::tab-panel>` props: `id` (required), `active` (`false`) - renders `role="tabpanel"` and `hidden` unless active.
+
+---
+
 ## `<x-pajak::tabs>` props
 
 | Prop | Type | Default | Description |
@@ -123,6 +143,7 @@ Vertical stack with a left indicator bar on the active tab. Wrap alongside a pan
 | `label` | `string` | - | Tab label text |
 | `active` | `bool` | `false` | Whether this tab is selected |
 | `disabled` | `bool` | `false` | Disables interaction |
+| `controls` | `string\|null` | `null` | Id of the panel this tab shows (`aria-controls`); the JS toggles that panel's `hidden` attribute |
 | `count` | `int\|null` | `null` | Optional count badge |
 | `$icon` | slot | - | Optional SVG icon rendered before the label |
 
@@ -156,6 +177,8 @@ PajakTabs.initAll();
 PajakTabs.init(document.querySelector('[data-pajak-tabs]'));
 ```
 
-Call `PajakTabs.initAll()` after the DOM is ready. For dynamically injected tab groups, call `PajakTabs.init(el)` on the injected wrapper element.
+Tabs initialise automatically once the DOM is ready. For dynamically injected tab groups, call `PajakTabs.initAll(container)` (or `PajakTabs.init(el)` on the injected wrapper element).
 
-The JS toggles `aria-selected` on tab buttons when clicked. It does **not** manage panel visibility - show/hide the corresponding panels in response to the `aria-selected` change using your own logic or Alpine.js / Livewire.
+The JS toggles `aria-selected` on tab buttons when clicked and, for tabs that declare `controls`, shows the matching panel and hides the others. Tabs without `controls` are left alone, so apps that manage their own panels (Alpine.js, Livewire) keep working - react to the `aria-selected` change or to the `pajak-tabs:change` event.
+
+**Event:** `pajak-tabs:change` bubbles from the `[data-pajak-tabs]` element when the selected tab changes, with `detail: { index: number, controls: string | null }`.

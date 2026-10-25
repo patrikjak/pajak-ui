@@ -172,6 +172,81 @@ describe('422 handling', () => {
     });
 });
 
+describe('nested error keys', () => {
+    function addInput(form: HTMLFormElement, name: string): HTMLInputElement {
+        const field = document.createElement('div');
+        field.className = 'pajak-field';
+        const input = document.createElement('input');
+        input.name = name;
+        field.appendChild(input);
+        form.appendChild(field);
+
+        return input;
+    }
+
+    async function errorsFor(errors: Record<string, string[]>, form: HTMLFormElement): Promise<void> {
+        mockFetchJson({ message: 'Invalid', errors }, 422);
+        submit(form);
+
+        await vi.waitFor(() => {
+            expect(form.querySelector('.pajak-field__message--error')).not.toBeNull();
+        });
+    }
+
+    it('maps an `a.b` key to the a[b] input', async () => {
+        const form = makeForm();
+        const input = addInput(form, 'address[city]');
+
+        await errorsFor({ 'address.city': ['City is required.'] }, form);
+
+        expect(input.hasAttribute('data-pajak-error-input')).toBe(true);
+        expect(document.querySelector('.pajak-toast')).toBeNull();
+    });
+
+    it('maps an `a.b.c` key to the a[b][c] input', async () => {
+        const form = makeForm();
+        const input = addInput(form, 'a[b][c]');
+
+        await errorsFor({ 'a.b.c': ['Bad.'] }, form);
+
+        expect(input.hasAttribute('data-pajak-error-input')).toBe(true);
+    });
+
+    it('maps an `a.N` key to the Nth a[] input', async () => {
+        const form = makeForm();
+        addInput(form, 'permissions[]');
+        addInput(form, 'permissions[]');
+        const third = addInput(form, 'permissions[]');
+
+        await errorsFor({ 'permissions.2': ['Unknown permission.'] }, form);
+
+        expect(third.hasAttribute('data-pajak-error-input')).toBe(true);
+        expect(form.querySelectorAll('[data-pajak-error-input]')).toHaveLength(1);
+    });
+
+    it('prefers an exact a[N] input over the positional match', async () => {
+        const form = makeForm();
+        addInput(form, 'tags[]');
+        const exact = addInput(form, 'tags[1]');
+
+        await errorsFor({ 'tags.1': ['Bad tag.'] }, form);
+
+        expect(exact.hasAttribute('data-pajak-error-input')).toBe(true);
+    });
+
+    it('still falls back to a toast when a nested key matches nothing', async () => {
+        mockFetchJson({ message: 'Nope', errors: { 'a.9': ['Nope'] } }, 422);
+
+        const form = makeForm();
+        addInput(form, 'a[]');
+        submit(form);
+
+        await vi.waitFor(() => {
+            expect(document.querySelector('.pajak-toast--error')).not.toBeNull();
+        });
+    });
+});
+
 describe('redirect with a success toast', () => {
     it('stashes the toast instead of rendering it before navigating away', async () => {
         mockFetchJson({ toast: { type: 'success', title: 'Saved' } }, 200);

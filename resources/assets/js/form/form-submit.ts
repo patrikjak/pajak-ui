@@ -112,6 +112,31 @@ function clearErrors(form: HTMLFormElement): void {
     });
 }
 
+// Maps a Laravel dotted error key to its input: `a` -> a / a[]; `a.b` -> a[b]; `a.N` -> the Nth a[].
+function findErrorInput(form: HTMLFormElement, field: string): HTMLElement | null {
+    const byName = (name: string): HTMLElement | null => form.querySelector<HTMLElement>(`[name="${name}"]`);
+
+    const direct = byName(field) ?? byName(`${field}[]`);
+    if (direct || !field.includes('.')) {
+        return direct;
+    }
+
+    const segments = field.split('.');
+    const nested = byName(`${segments[0]}${segments.slice(1).map((segment) => `[${segment}]`).join('')}`);
+    if (nested) {
+        return nested;
+    }
+
+    const last = segments[segments.length - 1];
+    if (/^\d+$/.test(last)) {
+        const base = `${segments[0]}${segments.slice(1, -1).map((segment) => `[${segment}]`).join('')}`;
+
+        return form.querySelectorAll<HTMLElement>(`[name="${base}[]"]`)[Number(last)] ?? null;
+    }
+
+    return null;
+}
+
 function applyErrors(form: HTMLFormElement, errors: ValidationErrors): boolean {
     clearErrors(form);
 
@@ -123,9 +148,7 @@ function applyErrors(form: HTMLFormElement, errors: ValidationErrors): boolean {
             continue;
         }
 
-        const input =
-            form.querySelector<HTMLElement>(`[name="${field}"]`) ??
-            form.querySelector<HTMLElement>(`[name="${field}[]"]`);
+        const input = findErrorInput(form, field);
 
         if (!input) {
             continue;
@@ -256,6 +279,24 @@ function maybeShowToast(form: HTMLFormElement, data: unknown): boolean {
     }
 
     return false;
+}
+
+// Toast for a non-form request (e.g. a table row action): the response's `toast`, or for a failed
+// response its top-level `message`, or the first validation error message.
+export function toastFromResponse(result: HttpResult): ToastOptions | null {
+    const data = result.data as { toast?: ToastOptions; message?: string; errors?: ValidationErrors } | null;
+
+    if (data?.toast) {
+        return data.toast;
+    }
+
+    if (result.ok) {
+        return null;
+    }
+
+    const message = data?.message ?? Object.values(data?.errors ?? {})[0]?.[0];
+
+    return message ? { type: 'error', title: message } : null;
 }
 
 // ─── Submit handler ─────────────────────────────────────────────────────────

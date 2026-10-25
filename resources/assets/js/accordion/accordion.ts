@@ -1,3 +1,5 @@
+import { onReady } from '../ready';
+
 declare global {
     interface Window {
         Pajak?: Record<string, unknown>;
@@ -69,8 +71,8 @@ function initAccordion(root: HTMLElement): void {
 }
 
 export const PajakAccordion = {
-    initAll(): void {
-        document.querySelectorAll<HTMLElement>('[data-pajak-accordion]').forEach((el) => initAccordion(el));
+    initAll(root: ParentNode = document): void {
+        root.querySelectorAll<HTMLElement>('[data-pajak-accordion]').forEach((el) => initAccordion(el));
     },
 
     init(el: HTMLElement): void {
@@ -79,3 +81,5 @@ export const PajakAccordion = {
 } as const;
 
 window.Pajak = { ...window.Pajak, PajakAccordion };
+
+onReady(() => PajakAccordion.initAll());

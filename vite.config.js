@@ -18,6 +18,9 @@ export default defineConfig({
                 // Card
                 'resources/assets/css/card/card-standalone.scss',
 
+                // Action tile
+                'resources/assets/css/action-tile/action-tile-standalone.scss',
+
                 // Stat card
                 'resources/assets/css/stat-card/stat-card-standalone.scss',
 
@@ -104,6 +107,9 @@ export default defineConfig({
 
                 // Navbar
                 'resources/assets/css/navbar/navbar-standalone.scss',
+
+                // Theme (light / dark / system)
+                'resources/assets/js/theme/theme.ts',
 
                 // Sidebar
                 'resources/assets/css/sidebar/sidebar-standalone.scss',

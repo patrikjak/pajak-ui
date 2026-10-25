@@ -1,3 +1,8 @@
+import { onReady } from '../ready';
+import { toastFromResponse } from '../form/form-submit';
+import { PajakToast } from '../toast/toast';
+import { sendRequest, type HttpMethod } from '../http/connector';
+
 declare global {
     interface Window {
         Pajak?: Record<string, unknown>;
@@ -53,6 +58,7 @@ interface PendingConfirm {
     key: string;
     url: string;
     method: string;
+    async: boolean;
 }
 
 function getStorageKey(tableName: string): string {
@@ -747,7 +753,7 @@ function initConfirmDialogs(wrapper: HTMLElement): void {
         const url = trigger.dataset.pajakTableConfirmUrl ?? '';
         const method = trigger.dataset.pajakTableConfirmMethod ?? 'POST';
 
-        pendingConfirm.current = { key, url, method };
+        pendingConfirm.current = { key, url, method, async: trigger.hasAttribute('data-pajak-table-async') };
 
         const dialog = wrapper.querySelector<HTMLDialogElement>(`[data-pajak-table-confirm-dialog="${key}"]`);
         dialog?.showModal();
@@ -772,14 +778,47 @@ function initConfirmDialogs(wrapper: HTMLElement): void {
                     return;
                 }
 
-                await submitFormAction(pendingConfirm.current.url, pendingConfirm.current.method);
+                await submitFormAction(wrapper, pendingConfirm.current.url, pendingConfirm.current.method, pendingConfirm.current.async);
                 pendingConfirm.current = null;
             });
         }
     });
 }
 
-async function submitFormAction(url: string, method: string): Promise<void> {
+// Async row action: same fetch/JSON/toast pipeline as `PajakForm` (no inline fields in a table, so
+// errors surface as a toast), then re-fetch the current page of the table on success.
+async function runAsyncAction(wrapper: HTMLElement, url: string, method: string): Promise<void> {
+    wrapper.classList.add('is-loading');
+
+    const result = await sendRequest(url, method.toUpperCase() as HttpMethod);
+
+    wrapper.classList.remove('is-loading');
+
+    const toast = toastFromResponse(result);
+
+    if (toast) {
+        PajakToast.show(toast);
+    }
+
+    wrapper.dispatchEvent(new CustomEvent(result.ok ? 'pajak:table:action-success' : 'pajak:table:action-error', {
+        bubbles: true,
+        detail: { status: result.status, response: result.data, url },
+    }));
+
+    const tableName = wrapper.dataset.tableName ?? '';
+
+    if (result.ok && tableName) {
+        await fetchTable(wrapper, loadState(tableName));
+    }
+}
+
+async function submitFormAction(wrapper: HTMLElement, url: string, method: string, async = false): Promise<void> {
+    if (async) {
+        await runAsyncAction(wrapper, url, method);
+
+        return;
+    }
+
     const csrfToken = document.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.content ?? '';
     const upperMethod = method.toUpperCase();
     const httpMethod = ['GET', 'POST'].includes(upperMethod) ? upperMethod : 'POST';
@@ -827,7 +866,7 @@ function initFormActions(wrapper: HTMLElement): void {
         const url = btn.dataset.pajakTableFormAction ?? '';
         const method = btn.dataset.pajakTableFormMethod ?? 'POST';
 
-        await submitFormAction(url, method);
+        await submitFormAction(wrapper, url, method, btn.hasAttribute('data-pajak-table-async'));
     });
 }
 
@@ -1019,8 +1058,8 @@ function initTable(wrapper: HTMLElement): void {
     }
 }
 
-function initAll(): void {
-    document.querySelectorAll<HTMLElement>('[data-pajak-table]').forEach(initTable);
+function initAll(root: ParentNode = document): void {
+    root.querySelectorAll<HTMLElement>('[data-pajak-table]').forEach(initTable);
 }
 
 export const PajakTable = {
@@ -1029,3 +1068,5 @@ export const PajakTable = {
 } as const;
 
 window.Pajak = { ...window.Pajak, PajakTable };
+
+onReady(() => PajakTable.initAll());

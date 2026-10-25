@@ -1,13 +1,15 @@
 export { PajakAccordion } from './accordion/accordion';
 export { PajakTabs } from './tabs/tabs';
 export { PajakBanner } from './banner/banner';
-export { PajakCheckbox, PajakDropzone, PajakAvatar, PajakFile, PajakImageGrid, PajakRepeater, PajakSelect, PajakSlider, PajakToggle, initFormSubmitLoaders, PajakButton, PajakToast } from './form/form';
+export { PajakCheckbox, PajakCheckboxGroup, PajakColorPicker, PajakDropzone, PajakAvatar, PajakFile, PajakImageGrid, PajakRepeater, PajakSelect, PajakSlider, PajakToggle, initFormSubmitLoaders, PajakButton, PajakToast } from './form/form';
 export type { ToastOptions } from './form/form';
 export { sendRequest, get, post, put, patch, destroy } from './http/connector';
 export { PajakCalendar } from './calendar/calendar';
 export { PajakDialog } from './dialog/dialog';
 export { PajakModal } from './modal/modal';
 export { PajakSegmented } from './segmented/segmented';
+export { PajakTheme } from './theme/theme';
+export type { ThemeMode } from './theme/theme';
 export { PajakDrawer } from './drawer/drawer';
 export { PajakPopover } from './popover/popover';
 export type { HttpMethod, HttpPayload, HttpResult, HttpSuccess, HttpError } from './http/connector';

@@ -195,9 +195,15 @@ Follows the WAI-ARIA tablist pattern with roving tabindex - only the active opti
 ```ts
 import { PajakSegmented } from 'vendor/pajak/ui/js/segmented/segmented';
 
-PajakSegmented.initAll();   // wire all [data-pajak-segmented] containers
+PajakSegmented.initAll();   // wire all [data-pajak-segmented] containers (also runs automatically on DOM ready)
 PajakSegmented.init(el);    // wire a single container element
+
+PajakSegmented.select(el, 'dark');                    // select the option with data-value="dark" and fire the change event
+PajakSegmented.select(el, 'dark', { silent: true });  // update the state only - e.g. to sync a stored value on load
+PajakSegmented.value(el);                             // the selected option's data-value, or null
 ```
+
+`select()` returns `false` (and changes nothing) when no option has that value or the option is disabled.
 
 ### Change event
 

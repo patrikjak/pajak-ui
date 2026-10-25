@@ -4,6 +4,7 @@
 @use 'form/input';
 @use 'form/select';
 @use 'form/checkbox';
+@use 'form/color-picker';
 @use 'form/radio';
 @use 'form/toggle';
 @use 'form/repeater';
@@ -13,6 +14,7 @@
 @use 'form/file-upload';
 
 @use 'accordion/accordion';
+@use 'action-tile/action-tile';
 @use 'card/card';
 @use 'alert/alert';
 @use 'banner/banner';
