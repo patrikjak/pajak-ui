@@ -98,4 +98,54 @@ final class CardSnapshotTest extends TestCase
 
         $this->assertMatchesHtmlSnapshot($html);
     }
+
+    public function testCardWithIconHeader(): void
+    {
+        $html = (string) $this->blade(
+            <<<'BLADE'
+            <x-pajak::card>
+                <x-slot:icon variant="green"><svg></svg></x-slot:icon>
+                <x-slot:title>Profile Information</x-slot:title>
+                <x-slot:subtitle>Your name and contact details</x-slot:subtitle>
+                Body
+                <x-slot:footer>Save</x-slot:footer>
+            </x-pajak::card>
+            BLADE,
+        );
+
+        $this->assertStringContainsString('pajak-card--icon-header', $html);
+        $this->assertStringContainsString('pajak-card__icon pajak-card__icon--green', $html);
+        $this->assertStringContainsString('pajak-card__subtitle">Your name and contact details', $html);
+        $this->assertStringContainsString('pajak-card__body">Body', $html);
+        $this->assertStringContainsString('pajak-card__footer">Save', $html);
+    }
+
+    public function testCardIconDefaultsToPrimaryVariant(): void
+    {
+        $html = (string) $this->blade(
+            <<<'BLADE'
+            <x-pajak::card>
+                <x-slot:icon><svg></svg></x-slot:icon>
+                <x-slot:title>Title</x-slot:title>
+            </x-pajak::card>
+            BLADE,
+        );
+
+        $this->assertStringContainsString('pajak-card__icon--primary', $html);
+    }
+
+    public function testCardWithoutIconHasNoHeaderLayout(): void
+    {
+        $html = (string) $this->blade(
+            <<<'BLADE'
+            <x-pajak::card>
+                <x-slot:title>Title</x-slot:title>
+                Body
+            </x-pajak::card>
+            BLADE,
+        );
+
+        $this->assertStringNotContainsString('icon-header', $html);
+        $this->assertStringNotContainsString('pajak-card__header', $html);
+    }
 }

@@ -6,13 +6,15 @@ namespace Pajak\Ui\Table\Columns\Concerns;
 
 trait HasColorMap
 {
+    use HasDisplayValue;
+
     /**
-     * @var array<string, string>
+     * @var array<int|string, string>
      */
     protected array $colorMap = [];
 
     /**
-     * @param array<string, string> $colors
+     * @param array<int|string, string> $colors
      */
     public function colors(array $colors): static
     {
@@ -23,6 +25,6 @@ trait HasColorMap
 
     public function colorFor(mixed $value): ?string
     {
-        return $this->colorMap[(string) $value] ?? null;
+        return $this->colorMap[self::mapKey($value)] ?? null;
     }
 }

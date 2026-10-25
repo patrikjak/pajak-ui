@@ -27,6 +27,7 @@
                         data-pajak-table-confirm="{{ $action->key() }}"
                         data-pajak-table-confirm-url="{{ $action->resolveUrl($row) }}"
                         data-pajak-table-confirm-method="{{ $action->httpMethod()->value }}"
+                        @if($action->isAsync()) data-pajak-table-async @endif
                         @if($action->isIconOnly()) title="{{ $action->getLabel() }}" @endif
                     >
                         @if($action->isIconOnly())
@@ -41,6 +42,7 @@
                         @class(['pajak-table-actions__btn', 'pajak-table-actions__btn--icon' => $action->isIconOnly(), 'pajak-table-actions__btn--danger' => $action->isDanger()])
                         data-pajak-table-form-action="{{ $action->resolveUrl($row) }}"
                         data-pajak-table-form-method="{{ $action->httpMethod()->value }}"
+                        @if($action->isAsync()) data-pajak-table-async @endif
                         @if($action->isIconOnly()) title="{{ $action->getLabel() }}" @endif
                     >
                         @if($action->isIconOnly())
@@ -85,6 +87,7 @@
                                 data-pajak-table-confirm="{{ $action->key() }}"
                                 data-pajak-table-confirm-url="{{ $action->resolveUrl($row) }}"
                                 data-pajak-table-confirm-method="{{ $action->httpMethod()->value }}"
+                                @if($action->isAsync()) data-pajak-table-async @endif
                             >
                                 {{ $action->getLabel() }}
                             </button>
@@ -94,6 +97,7 @@
                                 @class(['pajak-table-actions__overflow-item', 'pajak-table-actions__overflow-item--danger' => $action->isDanger()])
                                 data-pajak-table-form-action="{{ $action->resolveUrl($row) }}"
                                 data-pajak-table-form-method="{{ $action->httpMethod()->value }}"
+                                @if($action->isAsync()) data-pajak-table-async @endif
                             >
                                 {{ $action->getLabel() }}
                             </button>

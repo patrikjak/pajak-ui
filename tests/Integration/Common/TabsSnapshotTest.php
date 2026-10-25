@@ -115,4 +115,22 @@ final class TabsSnapshotTest extends TestCase
 
         $this->assertMatchesHtmlSnapshot($html);
     }
+
+    public function testTabControlsRendersAriaControls(): void
+    {
+        $html = (string) $this->blade('<x-pajak::tab label="Profile" controls="panel-profile" />');
+
+        $this->assertStringContainsString('aria-controls="panel-profile"', $html);
+    }
+
+    public function testTabPanelIsHiddenUnlessActive(): void
+    {
+        $inactive = (string) $this->blade('<x-pajak::tab-panel id="p1">One</x-pajak::tab-panel>');
+        $active = (string) $this->blade('<x-pajak::tab-panel id="p2" :active="true">Two</x-pajak::tab-panel>');
+
+        $this->assertStringContainsString('id="p1"', $inactive);
+        $this->assertStringContainsString('role="tabpanel"', $inactive);
+        $this->assertMatchesRegularExpression('/\shidden\b/', $inactive);
+        $this->assertDoesNotMatchRegularExpression('/\shidden\b/', $active);
+    }
 }

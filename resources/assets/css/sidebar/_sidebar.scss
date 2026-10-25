@@ -67,6 +67,9 @@
 
     &__footer {
         flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
         padding: 12px;
         border-top: 1px solid var(--border-default);
     }
@@ -157,10 +160,32 @@
         cursor: default;
     }
 
+    &.is-danger {
+        color: var(--color-error);
+
+        &:hover {
+            background: var(--color-error-light);
+            color: var(--color-error-dark);
+        }
+    }
+
     // Tooltip - shown only in rail variant (hidden here)
     &__tooltip {
         display: none;
     }
+}
+
+// Button-based item (form-submitting) - reset native button chrome so it matches the <a> item
+button.pajak-sb-item {
+    width: 100%;
+    border: 0;
+    background: none;
+    text-align: left;
+    appearance: none;
+}
+
+.pajak-sb-item-form {
+    display: contents;
 }
 
 // ── Sub-item ───────────────────────────────────────────────────────────────────
@@ -254,6 +279,7 @@
         align-items: center;
         justify-content: center;
         height: auto;
+        min-height: 60px;
         padding: 12px 0;
         gap: 8px;
     }
@@ -356,8 +382,7 @@
     }
 
     .pajak-sb__footer {
-        display: flex;
-        justify-content: center;
+        align-items: center;
         padding: 12px;
     }
 }
@@ -432,6 +457,15 @@
     }
 }
 
+.pajak-sb--dark .pajak-sb-item.is-danger {
+    color: var(--color-error);
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--color-error);
+    }
+}
+
 // ── Variant: Workspace (same width as Standard, header slot carries switcher) ──
 
 .pajak-sb--workspace {
@@ -462,6 +496,8 @@
     }
 
     .pajak-sb__footer {
+        flex-direction: row;
+        gap: 8px;
         border-top-color: var(--border-default);
     }
 }

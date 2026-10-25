@@ -18,7 +18,9 @@ Quick reference for selecting the right component. Each entry lists the Blade ta
 | Textarea | `<x-pajak-form::textarea>` | Multi-line text input | `name`, `label`, `rows`, `error` |
 | Select | `<x-pajak-form::select>` | Styled `<select>` with search and async loading | `name`, `label`, `options`, `multiple`, `searchable`, `error` |
 | Toggle | `<x-pajak-form::toggle>` | Boolean on/off switch | `name`, `label`, `checked`, `disabled` |
-| Checkbox | `<x-pajak-form::checkbox>` | Single checkbox with optional description | `name`, `label`, `description`, `checked`, `disabled`, `error` |
+| Checkbox | `<x-pajak-form::checkbox>` | Single checkbox with optional description | `name`, `label`, `description`, `checked`, `disabled`, `indeterminate`, `error` |
+| Checkbox group | `<x-pajak-form::checkbox-group>` | Related checkboxes with an optional select-all (checked/indeterminate synced) | `label`, `select-all` |
+| Colour picker | `<x-pajak-form::color-picker>` | Hex colour input with a native-picker swatch | `name`, `label`, `value`, `size`, `disabled`, `error` |
 | Radio | `<x-pajak-form::radio>` | Single radio button | `name`, `label`, `value`, `checked` |
 | Radio card | `<x-pajak-form::radio-card>` | Large card-style radio option | `name`, `label`, `value`, `description`, `checked` |
 | File | `<x-pajak-form::file>` | File upload input with preview | `name`, `label`, `accept`, `error` |
@@ -119,7 +121,8 @@ Quick reference for selecting the right component. Each entry lists the Blade ta
 
 | Component | Blade tag | Purpose | Key props |
 |-----------|-----------|---------|-----------|
-| Card | `<x-pajak::card>` | Surface container for grouped content | `kicker`, `title`; slots: `$header`, `$footer` |
+| Card | `<x-pajak::card>` | Surface container for grouped content | slots: `$kicker`, `$title`, `$subtitle`, `$icon` (icon-header layout), `$footer` |
+| Action tile | `<x-pajak::action-tile>` | Linked icon + title + description tile for dashboard quick actions | `title`, `href`, `description`, `:color` (`ActionTileColor`); slot: `$icon` |
 | Stat card | `<x-pajak::stat-card>` | Dashboard metric card with icon, value, trend, and sub-text | `label`, `value`, `:color` (`StatCardColor`), `:trend-direction` (`StatCardTrend`); slots: `$icon`, `$trend`, `$sub` |
 | Divider | `<x-pajak::divider>` | Horizontal rule or inline OR-separator | `strength` (`subtle`/`default`/`strong`), `label` |
 | Accordion | `<x-pajak::accordion>` + `<x-pajak::accordion-item>` | Expandable/collapsible content sections | `variant`, `mode`; item: `title`, `subtitle`, `open` |
@@ -129,7 +132,7 @@ Quick reference for selecting the right component. Each entry lists the Blade ta
 | Empty state | `<x-pajak::empty-state>` | Placeholder for empty lists or search results | `title`, `message`; slots: `$icon`, `$actions` |
 | Error page | `<x-pajak::error-page>` | Full-viewport HTTP error page | `:code` (`404`/`500`/`403`/`401`/`503`), `title`, `description`; slot: `$actions` |
 
-> **Docs:** [card.md](card.md) · [stat-card.md](stat-card.md) · [divider.md](divider.md) · [accordion.md](accordion.md) · [detail.md](detail.md) · [list.md](list.md) · [table.md](table.md) · [empty-state.md](empty-state.md) · [error-page.md](error-page.md)
+> **Docs:** [card.md](card.md) · [action-tile.md](action-tile.md) · [stat-card.md](stat-card.md) · [divider.md](divider.md) · [accordion.md](accordion.md) · [detail.md](detail.md) · [list.md](list.md) · [table.md](table.md) · [empty-state.md](empty-state.md) · [error-page.md](error-page.md)
 
 ---
 

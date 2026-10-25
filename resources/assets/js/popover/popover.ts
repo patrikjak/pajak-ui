@@ -1,3 +1,5 @@
+import { onReady } from '../ready';
+
 declare global {
     interface Window {
         Pajak?: Record<string, unknown>;
@@ -113,8 +115,8 @@ function initPopover(pop: HTMLElement): void {
     });
 }
 
-function initAll(): void {
-    document.querySelectorAll<HTMLElement>('[data-pajak-popover-trigger]').forEach((trigger) => {
+function initAll(root: ParentNode = document): void {
+    root.querySelectorAll<HTMLElement>('[data-pajak-popover-trigger]').forEach((trigger) => {
         if (initializedTriggers.has(trigger)) {
             return;
         }
@@ -131,7 +133,7 @@ function initAll(): void {
         });
     });
 
-    document.querySelectorAll<HTMLElement>('[data-pajak-popover]').forEach((pop) => {
+    root.querySelectorAll<HTMLElement>('[data-pajak-popover]').forEach((pop) => {
         initPopover(pop);
     });
 
@@ -164,3 +166,5 @@ export const PajakPopover = {
 } as const;
 
 window.Pajak = { ...window.Pajak, PajakPopover };
+
+onReady(() => PajakPopover.initAll());

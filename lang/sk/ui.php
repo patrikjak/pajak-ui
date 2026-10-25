@@ -90,4 +90,11 @@ return [
         'trigger_label' => 'Otvoriť výber dátumu',
     ],
 
+    'color_picker' => [
+        'choose' => 'Vybrať farbu',
+        'panel' => 'Výber farby',
+        'area' => 'Sýtosť a jas',
+        'hue' => 'Odtieň',
+    ],
+
 ];

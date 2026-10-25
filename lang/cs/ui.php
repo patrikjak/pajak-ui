@@ -90,4 +90,11 @@ return [
         'trigger_label' => 'Otevřít výběr data',
     ],
 
+    'color_picker' => [
+        'choose' => 'Vybrat barvu',
+        'panel' => 'Výběr barvy',
+        'area' => 'Sytost a jas',
+        'hue' => 'Odstín',
+    ],
+
 ];

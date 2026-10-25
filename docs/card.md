@@ -83,6 +83,30 @@ For a card that isn't a clickable dashboard tile - e.g. a stacked settings/profi
 
 ---
 
+## Icon header variant
+
+Provide an `icon` slot to get the settings-style layout: a 34 × 34 coloured icon badge next to the title and `subtitle`, a divider, the body, and an optional right-aligned footer for actions. The badge colour is set with a `variant` attribute on the slot: `primary` (default), `green` or `amber`.
+
+```blade
+<x-pajak::card :interactive="false">
+    <x-slot:icon variant="primary">
+        <x-heroicon-o-user />
+    </x-slot:icon>
+    <x-slot:title>Profile Information</x-slot:title>
+    <x-slot:subtitle>Your name and contact details</x-slot:subtitle>
+
+    …body…
+
+    <x-slot:footer>
+        <x-pajak::button>Save</x-pajak::button>
+    </x-slot:footer>
+</x-pajak::card>
+```
+
+`kicker` is not rendered in this layout. Pass `:interactive="false"` for a stacked settings card without the hover-lift.
+
+---
+
 ## Props
 
 | Prop | Type | Default | Description |
@@ -96,6 +120,8 @@ For a card that isn't a clickable dashboard tile - e.g. a stacked settings/profi
 |------|-------------|
 | `$kicker` | Small uppercase label above the title (e.g. a category or metric name) |
 | `$title` | Card heading |
+| `$subtitle` | Muted line below the title (beside the icon in the icon-header layout) |
+| `$icon` | Coloured icon badge - switches the card to the icon-header layout. Takes a `variant` attribute: `primary` (default) / `green` / `amber` (`CardIconVariant`) |
 | `$slot` | Main body content |
 | `$footer` | Area below the body, offset with a top margin (e.g. badges, actions) |
 

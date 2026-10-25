@@ -87,8 +87,8 @@ window.Pajak.PajakCopyButton.initAll();
 
 | Method | Signature | Description |
 |--------|-----------|-------------|
-| `initAll` | `(label?: string) => void` | Attaches click handlers to every `[data-pajak-copy]` element in the document. `label` is the tooltip text shown on success - defaults to `'Copied!'`. Safe to call multiple times; already-initialised triggers are skipped. |
+| `initAll` | `(label?: string, root?: ParentNode) => void` | Attaches click handlers to every `[data-pajak-copy]` element in `root` (default: the document). `label` is the tooltip text shown on success - defaults to `'Copied!'`. Safe to call multiple times; already-initialised triggers are skipped. |
 
 ### Re-initialising after DOM mutations
 
-If copy triggers are injected dynamically (e.g. Livewire or AJAX), call `initAll()` again after the new HTML is in the DOM.
+Copy triggers initialise automatically once the DOM is ready. If they are injected dynamically (e.g. Livewire or AJAX), call `initAll(label, container)` again after the new HTML is in the DOM.

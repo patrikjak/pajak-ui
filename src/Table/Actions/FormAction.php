@@ -11,6 +11,8 @@ class FormAction extends LinkAction
 {
     protected Method $httpMethod = Method::Post;
 
+    protected bool $async = false;
+
     public function method(Method $method): static
     {
         $this->httpMethod = $method;
@@ -21,6 +23,18 @@ class FormAction extends LinkAction
     public function httpMethod(): Method
     {
         return $this->httpMethod;
+    }
+
+    public function async(): static
+    {
+        $this->async = true;
+
+        return $this;
+    }
+
+    public function isAsync(): bool
+    {
+        return $this->async;
     }
 
     /**

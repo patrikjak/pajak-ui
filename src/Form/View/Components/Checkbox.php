@@ -18,6 +18,7 @@ final class Checkbox extends Component
         public readonly ?string $description = null,
         public readonly ?string $id = null,
         public readonly ?string $error = null,
+        public readonly bool $indeterminate = false,
     ) {
     }
 

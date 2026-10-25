@@ -1,3 +1,5 @@
+import { onReady } from '../ready';
+
 declare global {
     interface Window {
         Pajak?: Record<string, unknown>;
@@ -10,13 +12,38 @@ function getTabs(root: HTMLElement): HTMLButtonElement[] {
     return Array.from(root.querySelectorAll<HTMLButtonElement>(':scope > .pajak-tab'));
 }
 
-function selectTab(root: HTMLElement, tab: HTMLButtonElement): void {
+// Tabs that declare `aria-controls` drive the visibility of the panel with that id; tabs without
+// it are left alone so apps that manage their own panels keep working.
+function syncPanels(root: HTMLElement): void {
     getTabs(root).forEach((t) => {
+        const panelId = t.getAttribute('aria-controls');
+        const panel = panelId ? document.getElementById(panelId) : null;
+
+        if (panel) {
+            panel.hidden = t.getAttribute('aria-selected') !== 'true';
+        }
+    });
+}
+
+function selectTab(root: HTMLElement, tab: HTMLButtonElement): void {
+    const tabs = getTabs(root);
+    const previous = tabs.find((t) => t.getAttribute('aria-selected') === 'true');
+
+    tabs.forEach((t) => {
         t.setAttribute('aria-selected', 'false');
         t.setAttribute('tabindex', '-1');
     });
     tab.setAttribute('aria-selected', 'true');
     tab.setAttribute('tabindex', '0');
+
+    syncPanels(root);
+
+    if (tab !== previous) {
+        root.dispatchEvent(new CustomEvent('pajak-tabs:change', {
+            bubbles: true,
+            detail: { index: tabs.indexOf(tab), controls: tab.getAttribute('aria-controls') },
+        }));
+    }
 }
 
 function initTabs(root: HTMLElement): void {
@@ -33,6 +60,7 @@ function initTabs(root: HTMLElement): void {
     tabs.forEach((t) => {
         t.setAttribute('tabindex', t === initialSelected ? '0' : '-1');
     });
+    syncPanels(root);
 
     tabs.forEach((tab) => {
         tab.addEventListener('click', () => {
@@ -73,8 +101,8 @@ function initTabs(root: HTMLElement): void {
 }
 
 export const PajakTabs = {
-    initAll(): void {
-        document.querySelectorAll<HTMLElement>('[data-pajak-tabs]').forEach((el) => initTabs(el));
+    initAll(root: ParentNode = document): void {
+        root.querySelectorAll<HTMLElement>('[data-pajak-tabs]').forEach((el) => initTabs(el));
     },
 
     init(el: HTMLElement): void {
@@ -83,3 +111,5 @@ export const PajakTabs = {
 } as const;
 
 window.Pajak = { ...window.Pajak, PajakTabs };
+
+onReady(() => PajakTabs.initAll());

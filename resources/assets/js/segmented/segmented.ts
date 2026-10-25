@@ -1,3 +1,5 @@
+import { onReady } from '../ready';
+
 declare global {
     interface Window {
         Pajak?: Record<string, unknown>;
@@ -10,13 +12,22 @@ function getOptions(root: HTMLElement): HTMLButtonElement[] {
     return Array.from(root.querySelectorAll<HTMLButtonElement>(':scope > .pajak-seg__opt'));
 }
 
-function selectOption(root: HTMLElement, btn: HTMLButtonElement, index: number): void {
+interface SelectOptions {
+    // Update the control without dispatching `pajak-segmented:change` - for syncing state on load.
+    silent?: boolean;
+}
+
+function selectOption(root: HTMLElement, btn: HTMLButtonElement, index: number, options: SelectOptions = {}): void {
     getOptions(root).forEach((b) => {
         b.setAttribute('aria-selected', 'false');
         b.setAttribute('tabindex', '-1');
     });
     btn.setAttribute('aria-selected', 'true');
     btn.setAttribute('tabindex', '0');
+
+    if (options.silent) {
+        return;
+    }
 
     root.dispatchEvent(new CustomEvent('pajak-segmented:change', {
         bubbles: true,
@@ -82,13 +93,33 @@ function initSegmented(root: HTMLElement): void {
 }
 
 export const PajakSegmented = {
-    initAll(): void {
-        document.querySelectorAll<HTMLElement>('[data-pajak-segmented]').forEach((el) => initSegmented(el));
+    initAll(root: ParentNode = document): void {
+        root.querySelectorAll<HTMLElement>('[data-pajak-segmented]').forEach((el) => initSegmented(el));
     },
 
     init(el: HTMLElement): void {
         initSegmented(el);
     },
+
+    // Selects the option whose `data-value` matches; returns false when none matches or it is disabled.
+    select(el: HTMLElement, value: string, options: SelectOptions = {}): boolean {
+        const buttons = getOptions(el);
+        const index = buttons.findIndex((b) => b.dataset.value === value);
+
+        if (index === -1 || buttons[index].disabled) {
+            return false;
+        }
+
+        selectOption(el, buttons[index], index, options);
+
+        return true;
+    },
+
+    value(el: HTMLElement): string | null {
+        return getOptions(el).find((b) => b.getAttribute('aria-selected') === 'true')?.dataset.value ?? null;
+    },
 } as const;
 
 window.Pajak = { ...window.Pajak, PajakSegmented };
+
+onReady(() => PajakSegmented.initAll());

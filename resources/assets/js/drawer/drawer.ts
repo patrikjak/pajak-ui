@@ -1,3 +1,5 @@
+import { onReady } from '../ready';
+
 declare global {
     interface Window {
         Pajak?: Record<string, unknown>;
@@ -25,8 +27,8 @@ function closeDrawer(id: string): void {
     }
 }
 
-function initAll(): void {
-    document.querySelectorAll<HTMLElement>('[data-pajak-drawer-trigger]').forEach((trigger) => {
+function initAll(root: ParentNode = document): void {
+    root.querySelectorAll<HTMLElement>('[data-pajak-drawer-trigger]').forEach((trigger) => {
         if (initializedTriggers.has(trigger)) {
             return;
         }
@@ -40,7 +42,7 @@ function initAll(): void {
         trigger.addEventListener('click', () => openDrawer(id));
     });
 
-    document.querySelectorAll<HTMLDialogElement>('dialog[data-pajak-drawer]').forEach((drawer) => {
+    root.querySelectorAll<HTMLDialogElement>('dialog[data-pajak-drawer]').forEach((drawer) => {
         if (initializedDrawers.has(drawer)) {
             return;
         }
@@ -66,3 +68,5 @@ export const PajakDrawer = {
 } as const;
 
 window.Pajak = { ...window.Pajak, PajakDrawer };
+
+onReady(() => PajakDrawer.initAll());

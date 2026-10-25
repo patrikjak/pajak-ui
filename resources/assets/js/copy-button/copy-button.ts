@@ -1,3 +1,5 @@
+import { onReady } from '../ready';
+
 declare global {
     interface Window {
         Pajak?: Record<string, unknown>;
@@ -84,8 +86,8 @@ function initCopyTrigger(trigger: HTMLElement, label: string): void {
     });
 }
 
-function initAll(label = 'Copied!'): void {
-    document.querySelectorAll<HTMLElement>('[data-pajak-copy]').forEach((trigger) => {
+function initAll(label = 'Copied!', root: ParentNode = document): void {
+    root.querySelectorAll<HTMLElement>('[data-pajak-copy]').forEach((trigger) => {
         initCopyTrigger(trigger, label);
     });
 }
@@ -95,3 +97,5 @@ export const PajakCopyButton = {
 } as const;
 
 window.Pajak = { ...window.Pajak, PajakCopyButton };
+
+onReady(() => PajakCopyButton.initAll());

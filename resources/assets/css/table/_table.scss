@@ -674,6 +674,16 @@
     &--gray   { background: var(--bg-subtle);           color: var(--fg-secondary);       }
 }
 
+.pajak-table-badge-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+
+    &__empty {
+        color: var(--fg-secondary);
+    }
+}
+
 .pajak-table-two-line {
     display: flex;
     flex-direction: column;

@@ -1,0 +1,78 @@
+// ── Action tile ───────────────────────────────────────────────────────────────
+
+.pajak-action-tile {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    color: inherit;
+    text-decoration: none;
+    transition: box-shadow 150ms, transform 150ms;
+
+    &:hover {
+        box-shadow: 0 4px 12px rgba(var(--color-primary-500-rgb), 0.12), 0 2px 4px rgba(0, 0, 0, 0.06);
+        transform: translateY(-1px);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--color-primary-500);
+        outline-offset: 2px;
+    }
+
+    // ── Icon tile ─────────────────────────────────────────────────────────────
+
+    &__icon {
+        flex: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--space-10);
+        height: var(--space-10);
+        border-radius: var(--radius-sm);
+
+        svg {
+            width: var(--space-5);
+            height: var(--space-5);
+        }
+
+        &--blue {
+            background: var(--color-primary-50);
+            color: var(--color-primary-500);
+        }
+
+        &--green {
+            background: var(--color-success-light);
+            color: var(--color-success-dark);
+        }
+
+        &--sand {
+            background: var(--color-accent-100);
+            color: var(--color-accent-600);
+        }
+    }
+
+    // ── Text ──────────────────────────────────────────────────────────────────
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+    }
+
+    &__title {
+        font-size: 14px;
+        font-weight: var(--fw-semibold);
+        color: var(--fg-primary);
+    }
+
+    &__description {
+        font-size: var(--fs-sm);
+        color: var(--fg-secondary);
+        line-height: var(--lh-normal);
+    }
+}

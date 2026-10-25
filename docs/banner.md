@@ -134,4 +134,4 @@ PajakBanner.init(el);
 PajakBanner.dismiss(el);
 ```
 
-Call `initAll()` once after the DOM is ready. The dismiss animation fades out and slides the banner up before hiding it.
+Banners initialise automatically once the DOM is ready (use `PajakBanner.initAll(container)` for dynamically inserted markup). The dismiss animation fades out and slides the banner up before hiding it.

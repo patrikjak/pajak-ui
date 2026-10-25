@@ -1,3 +1,5 @@
+import { onReady } from '../ready';
+
 declare global {
     interface Window {
         Pajak?: Record<string, unknown>;
@@ -25,8 +27,8 @@ function closeDialog(id: string): void {
     }
 }
 
-function initAll(): void {
-    document.querySelectorAll<HTMLElement>('[data-pajak-dialog-trigger]').forEach((trigger) => {
+function initAll(root: ParentNode = document): void {
+    root.querySelectorAll<HTMLElement>('[data-pajak-dialog-trigger]').forEach((trigger) => {
         if (initializedTriggers.has(trigger)) {
             return;
         }
@@ -40,7 +42,7 @@ function initAll(): void {
         trigger.addEventListener('click', () => openDialog(id));
     });
 
-    document.querySelectorAll<HTMLDialogElement>('dialog[data-pajak-dialog]').forEach((dialog) => {
+    root.querySelectorAll<HTMLDialogElement>('dialog[data-pajak-dialog]').forEach((dialog) => {
         if (initializedDialogs.has(dialog)) {
             return;
         }
@@ -62,3 +64,5 @@ export const PajakDialog = {
 } as const;
 
 window.Pajak = { ...window.Pajak, PajakDialog };
+
+onReady(() => PajakDialog.initAll());

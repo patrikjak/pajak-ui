@@ -1,25 +1,22 @@
+@php($itemClasses = ['is-active' => $active, 'is-warn' => $warn, 'is-disabled' => $disabled, 'is-danger' => $danger])
+
 <div class="pajak-sb-item-wrap">
-    <a {{ $attributes->merge(['class' => 'pajak-sb-item', 'href' => $href])->class([
-        'is-active' => $active,
-        'is-warn' => $warn,
-        'is-disabled' => $disabled,
-    ]) }} @if($active) aria-current="page" @endif @if($disabled) aria-disabled="true" tabindex="-1" @endif>
-        @isset($icon)
-            <span class="pajak-sb-item__icon" aria-hidden="true">{{ $icon }}</span>
-        @endisset
+    @if($action !== null)
+        <form action="{{ $action }}" method="{{ $method->htmlMethod() }}" class="pajak-sb-item-form">
+            @csrf
+            @if($method->needsSpoofing())
+                @method($method->value)
+            @endif
 
-        <span class="pajak-sb-item__label">{{ $label }}</span>
-
-        @if($dot)
-            <span class="pajak-sb-item__dot" aria-hidden="true"></span>
-        @endif
-
-        @isset($count)
-            <span class="pajak-sb-item__count">{{ $count }}</span>
-        @endisset
-
-        <span class="pajak-sb-item__tooltip" aria-hidden="true">{{ $label }}</span>
-    </a>
+            <button {{ $attributes->merge(['class' => 'pajak-sb-item', 'type' => 'submit'])->class($itemClasses) }} @if($disabled) disabled aria-disabled="true" @endif>
+                @include('pajak::common.partials.sidebar-item-body')
+            </button>
+        </form>
+    @else
+        <a {{ $attributes->merge(['class' => 'pajak-sb-item', 'href' => $href])->class($itemClasses) }} @if($active) aria-current="page" @endif @if($disabled) aria-disabled="true" tabindex="-1" @endif>
+            @include('pajak::common.partials.sidebar-item-body')
+        </a>
+    @endif
 
     @if($slot->isNotEmpty())
         <div class="pajak-sb__sub">{{ $slot }}</div>

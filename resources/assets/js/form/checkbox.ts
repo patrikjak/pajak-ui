@@ -1,10 +1,17 @@
 import { createRegistry } from '../registry';
 
+interface PajakCheckboxSetOptions {
+    // Skip the `change` event and `pajak:checkbox` dispatch - for programmatic updates
+    // (e.g. a select-all handler) that must not re-trigger their own listeners.
+    silent?: boolean;
+}
+
 interface PajakCheckboxInstance {
     get indeterminate(): boolean;
     set indeterminate(value: boolean);
     get checked(): boolean;
     set checked(value: boolean);
+    setChecked(value: boolean, options?: PajakCheckboxSetOptions): void;
     destroy(): void;
 }
 
@@ -23,8 +30,13 @@ function upgradeCheckbox(label: HTMLElement): PajakCheckboxInstance {
             set indeterminate(_) {},
             get checked() { return false; },
             set checked(_) {},
+            setChecked() {},
             destroy() {},
         };
+    }
+
+    if (input.hasAttribute('data-pajak-indeterminate')) {
+        input.indeterminate = true;
     }
 
     const onChange = (): void => {
@@ -36,14 +48,20 @@ function upgradeCheckbox(label: HTMLElement): PajakCheckboxInstance {
 
     input.addEventListener('change', onChange);
 
+    const setChecked = (value: boolean, options: PajakCheckboxSetOptions = {}): void => {
+        input.checked = value;
+
+        if (!options.silent) {
+            input.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+    };
+
     const instance: PajakCheckboxInstance = {
         get indeterminate(): boolean { return input.indeterminate; },
         set indeterminate(value: boolean) { input.indeterminate = value; },
         get checked(): boolean { return input.checked; },
-        set checked(value: boolean) {
-            input.checked = value;
-            input.dispatchEvent(new Event('change', { bubbles: true }));
-        },
+        set checked(value: boolean) { setChecked(value); },
+        setChecked,
         destroy(): void {
             input.removeEventListener('change', onChange);
             registry.delete(label);

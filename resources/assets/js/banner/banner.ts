@@ -1,3 +1,5 @@
+import { onReady } from '../ready';
+
 declare global {
     interface Window {
         Pajak?: Record<string, unknown>;
@@ -13,7 +15,15 @@ function dismissBanner(banner: HTMLElement): void {
     }, 160);
 }
 
+const initialized = new WeakSet<HTMLElement>();
+
 function initBanner(banner: HTMLElement): void {
+    if (initialized.has(banner)) {
+        return;
+    }
+
+    initialized.add(banner);
+
     const closeBtn = banner.querySelector<HTMLElement>('[data-pajak-banner-close]');
 
     if (closeBtn) {
@@ -22,8 +32,8 @@ function initBanner(banner: HTMLElement): void {
 }
 
 export const PajakBanner = {
-    initAll(): void {
-        document.querySelectorAll<HTMLElement>('.pajak-banner').forEach((el) => initBanner(el));
+    initAll(root: ParentNode = document): void {
+        root.querySelectorAll<HTMLElement>('.pajak-banner').forEach((el) => initBanner(el));
     },
 
     init(el: HTMLElement): void {
@@ -36,3 +46,5 @@ export const PajakBanner = {
 } as const;
 
 window.Pajak = { ...window.Pajak, PajakBanner };
+
+onReady(() => PajakBanner.initAll());

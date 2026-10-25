@@ -90,4 +90,11 @@ return [
         'trigger_label' => 'Open date picker',
     ],
 
+    'color_picker' => [
+        'choose' => 'Choose colour',
+        'panel' => 'Colour picker',
+        'area' => 'Saturation and brightness',
+        'hue' => 'Hue',
+    ],
+
 ];
