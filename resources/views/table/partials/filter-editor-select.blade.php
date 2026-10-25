@@ -9,11 +9,7 @@
                     data-pajak-filter-option
                     value="{{ $value }}"
                 >
-                <span class="pajak-checkbox__box" aria-hidden="true">
-                    <svg class="pajak-checkbox__indet" width="11" height="2" viewBox="0 0 11 2">
-                        <rect width="11" height="2" rx="1"/>
-                    </svg>
-                </span>
+                @include('pajak::form.partials.checkbox-box')
 
                 <span class="pajak-checkbox__content">
                     <span class="pajak-checkbox__label">{{ $optionLabel }}</span>
