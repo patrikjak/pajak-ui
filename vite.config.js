@@ -93,6 +93,10 @@ export default defineConfig({
                 'resources/assets/js/modal/modal.ts',
                 'resources/assets/css/modal/modal-standalone.scss',
 
+                // Command palette
+                'resources/assets/js/command-palette/command-palette.ts',
+                'resources/assets/css/command-palette/command-palette-standalone.scss',
+
                 // Segmented
                 'resources/assets/js/segmented/segmented.ts',
                 'resources/assets/css/segmented/segmented-standalone.scss',

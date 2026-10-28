@@ -49,6 +49,12 @@ return [
         ],
     ],
 
+    'command_palette' => [
+        'search' => 'Hledat…',
+        'placeholder' => 'Hledat stránky a akce…',
+        'empty' => 'Nic nenalezeno.',
+    ],
+
     'stepper' => [
         'step_of' => 'Krok :current z :total',
     ],
