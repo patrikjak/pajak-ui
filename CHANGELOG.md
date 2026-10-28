@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-10-28
+
+### Added
+
+- **`<x-pajak::command-palette>` + `PajakCommandPalette`** - ⌘K / Ctrl+K command palette on a native `<dialog>`: `<x-pajak::command-palette-group>` and `<x-pajak::command-palette-item>` (`label`, `hint`, `keywords`, `icon` slot, and one target: `href`, `action` + `method` for a CSRF form, or `event`, which dispatches a `pajak:command` `CustomEvent` on `document`). Case- and diacritic-insensitive filtering (label prefix > word prefix > substring, plus hint and keywords), arrow / Enter / Esc keyboard handling and combobox / listbox ARIA. `<x-pajak::command-palette-trigger>` renders the topbar button with a platform-aware shortcut hint; `PajakCommandPalette.open(id?)`, `close(id?)` and `initAll(root?)` are available in JS
+
 ## [0.7.0] - 2026-10-25
 
 ### Added

@@ -49,6 +49,12 @@ return [
         ],
     ],
 
+    'command_palette' => [
+        'search' => 'Search…',
+        'placeholder' => 'Search pages and actions…',
+        'empty' => 'No results found.',
+    ],
+
     'stepper' => [
         'step_of' => 'Step :current of :total',
     ],
