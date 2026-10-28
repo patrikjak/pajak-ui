@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.1] - 2026-10-28
+
+### Fixed
+
+- **Table `SelectFilter` popover** - a filter with many options no longer runs off the bottom of the screen; the option list is capped at `min(320px, 50vh)` and scrolls.
+
 ## [0.8.0] - 2026-10-28
 
 ### Added
