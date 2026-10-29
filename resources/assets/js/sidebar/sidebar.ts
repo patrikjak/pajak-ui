@@ -10,6 +10,12 @@ const initializedSidebars = new WeakSet<HTMLDialogElement>();
 const initializedRailButtons = new WeakSet<HTMLElement>();
 const initializedAsides = new WeakSet<HTMLElement>();
 const initializedTriggers = new WeakSet<HTMLElement>();
+const tooltipAsides = new WeakSet<HTMLElement>();
+
+const TOOLTIP_GAP = 12;
+
+let railTooltip: HTMLElement | null = null;
+let railTooltipListening = false;
 
 function getSidebar(id: string): HTMLDialogElement | null {
     return document.querySelector<HTMLDialogElement>(`dialog#${id}[data-pajak-sidebar]`);
@@ -67,8 +73,115 @@ function getRailAside(id: string): HTMLElement | null {
     return document.querySelector<HTMLElement>(`.pajak-sb#${id}`);
 }
 
+// A single tooltip is shared by every sidebar and lives on <body>: the nav list clips its
+// overflow and the mobile panel is transformed, so an in-item tooltip would be cut off or
+// mispositioned. It is aria-hidden because the item's own (visually hidden) label already
+// names it in rail mode.
+function getRailTooltip(): HTMLElement {
+    if (!railTooltip) {
+        railTooltip = document.createElement('div');
+        railTooltip.className = 'pajak-sb-tooltip';
+        railTooltip.setAttribute('aria-hidden', 'true');
+        railTooltip.hidden = true;
+    }
+
+    // Re-attach if the body's content was replaced (e.g. by page-swapping navigation)
+    if (!railTooltip.isConnected) {
+        document.body.appendChild(railTooltip);
+    }
+
+    return railTooltip;
+}
+
+function hideRailTooltip(): void {
+    if (railTooltip) {
+        railTooltip.hidden = true;
+    }
+}
+
+function showRailTooltip(item: HTMLElement): void {
+    if (!item.closest('.pajak-sb')?.classList.contains('pajak-sb--rail')) {
+        return;
+    }
+
+    const label = item.querySelector('.pajak-sb-item__label')?.textContent?.trim();
+
+    if (!label) {
+        return;
+    }
+
+    const rect = item.getBoundingClientRect();
+    const tooltip = getRailTooltip();
+
+    tooltip.textContent = label;
+    tooltip.style.left = `${rect.right + TOOLTIP_GAP}px`;
+    tooltip.style.top = `${rect.top + rect.height / 2}px`;
+    tooltip.hidden = false;
+}
+
+function railItemOf(event: Event): HTMLElement | null {
+    return (event.target as HTMLElement).closest<HTMLElement>('.pajak-sb-item');
+}
+
+function leavingItem(event: PointerEvent | FocusEvent, item: HTMLElement): boolean {
+    return !item.contains(event.relatedTarget as Node | null);
+}
+
+function initRailTooltips(aside: HTMLElement): void {
+    if (tooltipAsides.has(aside)) {
+        return;
+    }
+
+    tooltipAsides.add(aside);
+
+    aside.addEventListener('pointerover', (event) => {
+        const item = railItemOf(event);
+
+        // Touch taps would flash the tooltip while navigating
+        if (item && event.pointerType !== 'touch') {
+            showRailTooltip(item);
+        }
+    });
+
+    aside.addEventListener('pointerout', (event) => {
+        const item = railItemOf(event);
+
+        if (item && leavingItem(event, item)) {
+            hideRailTooltip();
+        }
+    });
+
+    aside.addEventListener('focusin', (event) => {
+        const item = railItemOf(event);
+
+        if (item) {
+            showRailTooltip(item);
+        }
+    });
+
+    aside.addEventListener('focusout', (event) => {
+        const item = railItemOf(event);
+
+        if (item && leavingItem(event, item)) {
+            hideRailTooltip();
+        }
+    });
+
+    aside.querySelector('.pajak-sb__scroll')?.addEventListener('scroll', hideRailTooltip);
+
+    if (!railTooltipListening) {
+        railTooltipListening = true;
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                hideRailTooltip();
+            }
+        });
+    }
+}
+
 function applyRailState(aside: HTMLElement, isRail: boolean): void {
     aside.classList.toggle('pajak-sb--rail', isRail);
+    hideRailTooltip();
 
     aside.querySelectorAll<HTMLElement>('[data-pajak-sidebar-rail]').forEach((btn) => {
         btn.classList.toggle('is-rail', isRail);
@@ -155,6 +268,7 @@ function initAll(root: ParentNode = document): void {
         }
 
         initializedAsides.add(aside);
+        initRailTooltips(aside);
 
         aside.querySelectorAll<HTMLElement>('[data-pajak-sidebar-rail]').forEach((btn) => {
             if (initializedRailButtons.has(btn)) {

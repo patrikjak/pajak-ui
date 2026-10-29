@@ -168,11 +168,6 @@
             color: var(--color-error-dark);
         }
     }
-
-    // Tooltip - shown only in rail variant (hidden here)
-    &__tooltip {
-        display: none;
-    }
 }
 
 // Button-based item (form-submitting) - reset native button chrome so it matches the <a> item
@@ -318,7 +313,17 @@ button.pajak-sb-item {
             }
         }
 
-        &__label,
+        // Visually hidden rather than display: none so the item keeps its accessible name
+        &__label {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+        }
+
         &__count {
             display: none;
         }
@@ -344,46 +349,45 @@ button.pajak-sb-item {
             border: 2px solid var(--bg-surface);
             line-height: 1;
         }
-
-        &__tooltip {
-            display: block;
-            position: absolute;
-            left: calc(100% + 12px);
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--color-neutral-900);
-            color: var(--color-neutral-0);
-            font-family: var(--font-body);
-            font-size: 11.5px;
-            font-weight: var(--fw-medium);
-            padding: 4px 9px;
-            border-radius: var(--radius-sm);
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity var(--duration-micro) var(--ease-out);
-            box-shadow: var(--shadow-md);
-            z-index: 10;
-
-            &::before {
-                content: "";
-                position: absolute;
-                right: 100%;
-                top: 50%;
-                transform: translateY(-50%);
-                border: 4px solid transparent;
-                border-right-color: var(--color-neutral-900);
-            }
-        }
-
-        &:hover &__tooltip {
-            opacity: 1;
-        }
     }
 
     .pajak-sb__footer {
         align-items: center;
         padding: 12px;
+    }
+}
+
+// ── Rail tooltip ──────────────────────────────────────────────────────────────
+// One shared element appended to <body> by sidebar.ts; it is positioned in JS next to the
+// hovered or focused item, so it is never clipped by the nav list or a transformed panel.
+
+.pajak-sb-tooltip {
+    position: fixed;
+    z-index: 60;
+    transform: translateY(-50%);
+    background: var(--color-neutral-900);
+    color: var(--color-neutral-0);
+    font-family: var(--font-body);
+    font-size: 11.5px;
+    font-weight: var(--fw-medium);
+    padding: 4px 9px;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+    pointer-events: none;
+    box-shadow: var(--shadow-md);
+
+    &[hidden] {
+        display: none;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        right: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        border: 4px solid transparent;
+        border-right-color: var(--color-neutral-900);
     }
 }
 

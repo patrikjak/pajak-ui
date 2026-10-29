@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - **Popover arrow on narrow triggers** - the arrow now points at the centre of the trigger that opened the popover instead of sitting at a fixed 24px from the edge, so an icon-only button with `bottom-end` is no longer missed. The offset can still be pinned with the `--pajak-pop-arrow-offset` custom property
+- **Sidebar rail tooltips** - the item label tooltip in the `rail` variant was clipped by the nav list and only appeared on mouse hover. It is now a single shared tooltip positioned next to the hovered or focused item (so it is never cut off), shown on mouse hover and keyboard focus, and dismissed with Escape. In rail mode the label is visually hidden instead of `display: none`, so each item keeps its accessible name. The unused `.pajak-sb-item__tooltip` span was removed from the item markup
 
 ## [0.8.1] - 2026-10-28
 
