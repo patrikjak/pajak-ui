@@ -29,12 +29,10 @@ function upgradeOtp(root: HTMLElement): PajakOtpInstance | null {
     const abort = new AbortController();
     const { signal } = abort;
 
-    // What each box held after the last change, so a rejected keystroke can put it back
     let committed: string[] = boxes.map(() => '');
 
     const sanitize = (text: string): string => text.replace(forbidden, '');
 
-    // Drops the error styling and message, whether rendered by the server or by PajakForm
     const clearErrorState = (): void => {
         boxes.forEach((box) => box.classList.remove(BOX_ERROR_CLASS));
         root.querySelectorAll('.pajak-field__message--error').forEach((message) => message.remove());
@@ -59,7 +57,6 @@ function upgradeOtp(root: HTMLElement): PajakOtpInstance | null {
         }
     };
 
-    // The hidden field carries the combined value, so the form posts it like any other input
     const sync = (): void => {
         committed = boxes.map((box) => box.value);
         hidden.value = committed.join('');
@@ -107,7 +104,6 @@ function upgradeOtp(root: HTMLElement): PajakOtpInstance | null {
                 return;
             }
 
-            // Autofill and multi-character input land in one box and are spread across the rest
             box.value = '';
             fill(index, chars);
         }, { signal });
@@ -142,8 +138,7 @@ function upgradeOtp(root: HTMLElement): PajakOtpInstance | null {
         }, { signal });
     });
 
-    // PajakForm marks the hidden field when the server rejected this code. An autosubmitting
-    // field also resets on any other failure, since a full code can't be resubmitted by editing.
+    // PajakForm sets data-pajak-error-input on the hidden field when the server rejects the code
     form?.addEventListener('pajak:form:error', () => {
         const rejected = hidden.hasAttribute('data-pajak-error-input');
 
