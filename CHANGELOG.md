@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Table row selection across pages** - checked rows stay selected while paging, sorting, changing the per-page size or toggling columns, and are re-checked when their page is shown again. The bulk bar counts the whole selection and `pajak:table:bulk-action` `detail.ids` now contains the ids from every page. Changing the search or filters clears the selection; it is kept in memory only. New `PajakTable.getSelection(wrapper)` and `PajakTable.clearSelection(wrapper)`
+
 ### Fixed
 
 - **Popover arrow on narrow triggers** - the arrow now points at the centre of the trigger that opened the popover instead of sitting at a fixed 24px from the edge, so an icon-only button with `bottom-end` is no longer missed. The offset can still be pinned with the `--pajak-pop-arrow-offset` custom property

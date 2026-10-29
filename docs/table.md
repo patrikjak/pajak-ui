@@ -145,7 +145,7 @@ Creates a table builder. `$name` is used as a unique identifier for sessionStora
 | `->dataUrl(string $url)` | AJAX endpoint for table interactions |
 | `->heading(string $heading)` | Optional heading shown above the toolbar |
 | `->searchable()` | Show the search input |
-| `->selectable()` | Enable row checkboxes (auto-enabled when `bulkActions` are set) |
+| `->selectable()` | Enable row checkboxes (auto-enabled when `bulkActions` are set). Selection persists across pages, see [Row selection](#row-selection) |
 | `->columnVisibility()` | Show the column visibility toggle button in the toolbar |
 | `->perPageOptions(array $options)` | Show a per-page selector with the given options (e.g. `[10, 25, 50]`) |
 | `->async()` | Skip SSR rows on first paint and always fetch via AJAX on init |
@@ -568,7 +568,19 @@ PajakTable.initAll();
 
 // Or initialize a single wrapper element
 PajakTable.initTable(document.querySelector('[data-pajak-table]'));
+
+// Row selection (see "Row selection" below)
+PajakTable.getSelection(wrapper);   // string[] - ids of every selected row, across pages
+PajakTable.clearSelection(wrapper); // unchecks everything and hides the bulk bar
 ```
+
+### Row selection
+
+Checked rows stay selected while the user pages, sorts, changes the per-page size or toggles columns, and are re-checked when their page is shown again. The bulk bar counts the whole selection, including rows on other pages; the header checkbox only reflects the rows on the current page, and checking or unchecking it only affects those rows.
+
+Changing the **search or filters clears the selection**, because the selected rows may no longer be part of the result. The selection is kept in memory only, so a page reload starts empty.
+
+A successful async row action ([`FormAction` async mode](#async-mode)) refreshes the page but does not touch the selection, so a deleted row's id would stay in it. Call `clearSelection` (or rebuild from `getSelection`) in a `pajak:table:action-success` listener when the action removes rows.
 
 ### Events
 
@@ -578,7 +590,7 @@ The table dispatches a custom event when a bulk action button is clicked:
 document.addEventListener('pajak:table:bulk-action', (event) => {
     const { action, ids, tableName } = event.detail;
     // action: string - the action key
-    // ids: string[] - selected row IDs
+    // ids: string[] - selected row IDs, across all pages
     // tableName: string - table name
 });
 ```
