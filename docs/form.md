@@ -454,6 +454,75 @@ A password input with an inline label and an optional inline confirmation field.
 
 ---
 
+## One-time code (OTP)
+
+A segmented input for verification codes: one box per character, feeding a single hidden field so the form posts it like any other input. Use it for authenticator, email or SMS codes (`numeric`) and for alphanumeric recovery codes (`:numeric="false"`).
+
+```blade
+@use('Pajak\Ui\Common\Enums\Size')
+
+<x-pajak-form::otp name="code" />
+
+{{-- 4 boxes, custom label, larger boxes --}}
+<x-pajak-form::otp name="pin" :length="4" label="PIN" :size="Size::Lg" />
+
+{{-- Submit the form as soon as the last box is filled --}}
+<x-pajak-form::form :action="route('two-factor.challenge')" :hide-submit="true" id="challenge-form">
+    <x-pajak-form::otp name="code" :autosubmit="true" :autofocus="true" />
+</x-pajak-form::form>
+
+{{-- Alphanumeric (e.g. recovery codes) --}}
+<x-pajak-form::otp name="recovery_code" :length="10" :numeric="false" />
+
+{{-- Server-side error --}}
+<x-pajak-form::otp name="code" :error="$errors->first('code')" />
+```
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `name` | `string` | - | `name` of the hidden field that carries the combined code |
+| `length` | `int` | `6` | Number of boxes (at least 1) |
+| `label` | `string\|null` | `null` | Group label. Falls back to the locale translation (`pajak::ui.form.otp.label`) |
+| `error` | `string\|null` | `null` | Error message shown below the boxes; also puts them in the error state |
+| `autofocus` | `bool` | `false` | Focuses the first box on page load |
+| `disabled` | `bool` | `false` | Disables the boxes and the hidden field |
+| `size` | `Size` | `Size::Md` | `Sm` \| `Md` \| `Lg` box size |
+| `autosubmit` | `bool` | `false` | Submits the closest form when the last box is filled (see below) |
+| `numeric` | `bool` | `true` | `true` accepts digits only and shows the numeric keyboard; `false` accepts letters and digits |
+| `id` | `string\|null` | `null` | Base for the element ids (falls back to `name`): `{id}-label` and `{id}-digit-{n}` |
+
+### Behaviour
+
+- Typing fills a box and moves to the next one. A box's content is selected on focus, so typing replaces it, and a character the field does not accept is ignored.
+- Backspace in an empty box clears and focuses the previous one; Left / Right move between boxes.
+- Pasting spreads the characters across the boxes from the focused one, except that a paste as long as the code always starts at the first box. Characters that do not fit are dropped.
+- The first box carries `autocomplete="one-time-code"`, so iOS and Android can drop a whole SMS code into it; it is spread across the boxes.
+- Each box has an `aria-label` ("Digit 2 of 6", translatable as `pajak::ui.form.otp.digit`) and the boxes are grouped under the label.
+- On narrow screens the boxes shrink to fit; a 6-digit code needs no horizontal scrolling at 320px.
+
+### Autosubmit
+
+When `autosubmit` is on and the last box is filled, the closest form is submitted. If a button with `data-pajak-form="#<form id>"` exists (an [external submit button](#external-submit-button)), it is clicked instead, so the usual loading state and AJAX submission apply; otherwise `form.requestSubmit()` is used.
+
+### Errors
+
+The field works with the existing form error display. When a failed submit marks the code as invalid, the boxes get the error style and are cleared, the first box is focused and the message appears under the field. Typing again removes the error. With `autosubmit`, any failed submit also clears the boxes (without the error style) so the code can be retyped.
+
+### JS initialisation
+
+Fields are initialised automatically. For dynamically inserted markup:
+
+```js
+PajakOtp.initAll(container);
+
+const otp = PajakOtp.init(document.querySelector('[data-pajak-otp]'));
+otp.value;     // the combined code
+otp.clear();   // empties the boxes and removes any error state
+otp.destroy(); // removes the listeners
+```
+
+---
+
 ## Email
 
 A convenience wrapper around `<x-pajak-form::input>` with `type="email"`.

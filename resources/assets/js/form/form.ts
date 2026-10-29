@@ -3,6 +3,7 @@ import { PajakCheckboxGroup } from './checkbox-group';
 import { PajakColorPicker } from './color-picker';
 import { PajakDropzone, PajakAvatar, PajakImageGrid } from './file-upload';
 import { PajakFile } from './file';
+import { PajakOtp } from './otp';
 import { PajakPassword } from './password';
 import { PajakRepeater } from './repeater';
 import { PajakSelect } from './select';
@@ -16,6 +17,7 @@ export { PajakCheckboxGroup } from './checkbox-group';
 export { PajakColorPicker } from './color-picker';
 export { PajakDropzone, PajakAvatar, PajakImageGrid } from './file-upload';
 export { PajakFile } from './file';
+export { PajakOtp } from './otp';
 export { PajakPassword } from './password';
 export { PajakRepeater } from './repeater';
 export { PajakSelect } from './select';
@@ -32,6 +34,7 @@ function initAll(root: ParentNode = document): void {
     PajakCheckboxGroup.initAll(root);
     PajakColorPicker.initAll(root);
     PajakFile.initAll(root);
+    PajakOtp.initAll(root);
     PajakPassword.initAll(root);
     PajakRepeater.initAll(root);
     PajakSlider.initAll(root);
@@ -47,7 +50,7 @@ declare global {
     }
 }
 
-window.Pajak = { ...window.Pajak, PajakSelect, PajakToggle, PajakCheckbox, PajakCheckboxGroup, PajakColorPicker, PajakFile, PajakPassword, PajakRepeater, PajakSlider, PajakDropzone, PajakAvatar, PajakImageGrid, PajakForm, PajakButton, PajakToast, initFormSubmitLoaders, initAll };
+window.Pajak = { ...window.Pajak, PajakSelect, PajakToggle, PajakCheckbox, PajakCheckboxGroup, PajakColorPicker, PajakFile, PajakOtp, PajakPassword, PajakRepeater, PajakSlider, PajakDropzone, PajakAvatar, PajakImageGrid, PajakForm, PajakButton, PajakToast, initFormSubmitLoaders, initAll };
 
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => initAll());

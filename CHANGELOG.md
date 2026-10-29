@@ -7,9 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-10-29
+
 ### Added
 
 - **Table row selection across pages** - checked rows stay selected while paging, sorting, changing the per-page size or toggling columns, and are re-checked when their page is shown again. The bulk bar counts the whole selection and `pajak:table:bulk-action` `detail.ids` now contains the ids from every page. Changing the search or filters clears the selection; it is kept in memory only. New `PajakTable.getSelection(wrapper)` and `PajakTable.clearSelection(wrapper)`
+- **`<x-pajak-form::otp>` + `PajakOtp`** - segmented one-time-code input: one box per character feeding a single hidden field, so the form posts one value. Props `name`, `length` (default 6), `label`, `error`, `autofocus`, `disabled`, `size`, `autosubmit` and `numeric` (`false` allows letters, e.g. recovery codes). Typing advances, Backspace and the arrow keys move between boxes, paste and `autocomplete="one-time-code"` autofill are spread across the boxes, and `autosubmit` submits the form (or its `data-pajak-form` button) when the last box is filled. A server-rejected code gets the error style, clears the boxes and refocuses the first. Translations for en, sk and cs
 
 ### Fixed
 

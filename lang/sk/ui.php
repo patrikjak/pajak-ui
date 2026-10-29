@@ -24,6 +24,10 @@ return [
             'show' => 'Zobraziť heslo',
             'hide' => 'Skryť heslo',
         ],
+        'otp' => [
+            'label' => 'Overovací kód',
+            'digit' => 'Číslica :number z :total',
+        ],
         'file' => [
             'placeholder' => 'Žiadny súbor nevybraný',
         ],
