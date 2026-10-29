@@ -11,5 +11,3 @@
 @isset($count)
     <span class="pajak-sb-item__count">{{ $count }}</span>
 @endisset
-
-<span class="pajak-sb-item__tooltip" aria-hidden="true">{{ $label }}</span>

@@ -67,7 +67,7 @@ php artisan vendor:publish --tag=pajak-ui-sources
 
 ### Rail
 
-72 px icon-only collapsed rail. Labels are hidden via CSS; a tooltip appears on hover. Sub-items (`.pajak-sb__sub`) are hidden too - the rail variant doesn't support inline sub-nav. The `icon` slot of `SidebarItem` is required for this variant to be useful.
+72 px icon-only collapsed rail. Labels are visually hidden (screen readers still announce them) and a tooltip with the item label appears on mouse hover and keyboard focus; Escape dismisses it. The tooltip is one shared element appended to `<body>` by the package JS, so make sure the sidebar JS (`sidebar.js` or `main.js`) is loaded. Sub-items (`.pajak-sb__sub`) are hidden too - the rail variant doesn't support inline sub-nav. The `icon` slot of `SidebarItem` is required for this variant to be useful.
 
 ```blade
 <x-pajak::sidebar variant="rail">
@@ -259,7 +259,7 @@ PajakSidebar.rail('main-nav');
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `label` | `string` | - | **Required.** Nav item text (also used as rail tooltip). |
+| `label` | `string` | - | **Required.** Nav item text (also the rail tooltip and the item's accessible name in rail mode). |
 | `href` | `string` | `'#'` | Link URL. |
 | `active` | `bool` | `false` | Marks the item as the current page. |
 | `count` | `int\|null` | `null` | Pill badge with a number. |
