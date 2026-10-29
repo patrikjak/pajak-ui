@@ -1,0 +1,59 @@
+// ── One-time code ─────────────────────────────────────────────────────────────
+// Segmented input: one box per character, feeding a hidden field (see otp.ts).
+
+.pajak-otp {
+    display: flex;
+    gap: var(--space-2);
+
+    &__box {
+        // Boxes shrink with the row so a 6-digit code still fits at 320px
+        flex: 1 1 0;
+        min-width: 0;
+        max-width: 56px;
+        padding: 0;
+        text-align: center;
+        font-family: var(--font-body);
+        font-weight: var(--fw-semibold);
+        color: var(--fg-primary);
+        background: var(--bg-input);
+        border: 1.5px solid var(--border-default);
+        border-radius: var(--radius-sm);
+        box-shadow: var(--shadow-xs);
+        caret-color: var(--color-primary-500);
+        transition:
+            border-color var(--duration-micro) var(--ease-out),
+            box-shadow var(--duration-micro) var(--ease-out);
+
+        &--sm { height: 40px; font-size: var(--fs-base); }
+        &--md { height: 48px; font-size: 20px; }
+        &--lg { height: 56px; font-size: 24px; }
+
+        &:hover:not(:disabled) {
+            border-color: var(--color-primary-200);
+        }
+
+        &:focus {
+            outline: none;
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px rgba(var(--color-primary-500-rgb), 0.14);
+        }
+
+        &--error {
+            border-color: var(--color-error);
+
+            &:hover:not(:disabled),
+            &:focus {
+                border-color: var(--color-error);
+            }
+
+            &:focus {
+                box-shadow: 0 0 0 3px rgba(var(--color-error-rgb), 0.12);
+            }
+        }
+
+        &:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+        }
+    }
+}

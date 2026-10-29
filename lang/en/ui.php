@@ -24,6 +24,10 @@ return [
             'show' => 'Show password',
             'hide' => 'Hide password',
         ],
+        'otp' => [
+            'label' => 'Verification code',
+            'digit' => 'Digit :number of :total',
+        ],
         'file' => [
             'placeholder' => 'No file chosen',
         ],

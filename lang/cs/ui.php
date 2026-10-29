@@ -24,6 +24,10 @@ return [
             'show' => 'Zobrazit heslo',
             'hide' => 'Skrýt heslo',
         ],
+        'otp' => [
+            'label' => 'Ověřovací kód',
+            'digit' => 'Číslice :number z :total',
+        ],
         'file' => [
             'placeholder' => 'Žádný soubor nevybrán',
         ],

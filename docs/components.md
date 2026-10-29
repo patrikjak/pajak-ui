@@ -12,6 +12,7 @@ Quick reference for selecting the right component. Each entry lists the Blade ta
 | Input | `<x-pajak-form::input>` | Generic text input | `name`, `label`, `type`, `value`, `disabled`, `error` |
 | Email input | `<x-pajak-form::email>` | Email-typed input | `name`, `label`, `value`, `error` |
 | Password input | `<x-pajak-form::password>` | Password with show/hide toggle | `name`, `label`, `error` |
+| One-time code | `<x-pajak-form::otp>` | Segmented verification-code input (one box per character, posts one value) | `name`, `length`, `numeric`, `autosubmit`, `error` |
 | Number input | `<x-pajak-form::number>` | Numeric input | `name`, `label`, `min`, `max`, `step` |
 | Tel input | `<x-pajak-form::tel>` | Phone number input with pattern | `name`, `label`, `pattern` |
 | URL input | `<x-pajak-form::url>` | URL-typed input | `name`, `label`, `value` |
