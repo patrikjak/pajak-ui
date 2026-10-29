@@ -71,33 +71,32 @@
 
     &[data-placement="bottom"]::before {
         top: -7px;
-        left: 24px;
+        left: var(--pajak-pop-arrow-offset, var(--pajak-pop-arrow-auto, 24px));
         transform: rotate(45deg);
     }
 
     &[data-placement="bottom-end"]::before {
         top: -7px;
-        right: 24px;
+        right: var(--pajak-pop-arrow-offset, var(--pajak-pop-arrow-auto, 24px));
         left: auto;
         transform: rotate(45deg);
     }
 
     &[data-placement="top"]::before {
         bottom: -7px;
-        left: 50%;
-        margin-left: -6px;
+        left: var(--pajak-pop-arrow-offset, var(--pajak-pop-arrow-auto, calc(50% - 6px)));
         transform: rotate(225deg);
     }
 
     &[data-placement="right"]::before {
         left: -7px;
-        top: 24px;
+        top: var(--pajak-pop-arrow-offset, var(--pajak-pop-arrow-auto, 24px));
         transform: rotate(-45deg);
     }
 
     &[data-placement="left"]::before {
         right: -7px;
-        top: 24px;
+        top: var(--pajak-pop-arrow-offset, var(--pajak-pop-arrow-auto, 24px));
         transform: rotate(135deg);
     }
 

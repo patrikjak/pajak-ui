@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **Popover arrow on narrow triggers** - the arrow now points at the centre of the trigger that opened the popover instead of sitting at a fixed 24px from the edge, so an icon-only button with `bottom-end` is no longer missed. The offset can still be pinned with the `--pajak-pop-arrow-offset` custom property
+
 ## [0.8.1] - 2026-10-28
 
 ### Fixed
