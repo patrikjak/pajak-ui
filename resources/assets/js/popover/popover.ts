@@ -23,9 +23,7 @@ function getPopover(id: string): HTMLElement | null {
     return document.querySelector<HTMLElement>(`[data-pajak-popover]#${id}`);
 }
 
-// Points the arrow at the trigger's centre instead of the fixed CSS default, so narrow
-// triggers (e.g. an icon button) are not missed. Offsets are measured from the popover edge
-// the arrow hangs off, in the offsetParent's coordinate space so the open transform is ignored.
+// Measured in offsetParent coordinates so the opening scale transform doesn't skew the result
 function positionArrow(pop: HTMLElement, trigger: HTMLElement | undefined): void {
     const anchor = trigger ?? document.querySelector<HTMLElement>(`[data-pajak-popover-trigger="${pop.id}"]`);
     const parent = pop.offsetParent;

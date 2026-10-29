@@ -51,14 +51,12 @@ beforeEach(() => {
 
 describe('PajakPopover arrow positioning', () => {
     it('centres the arrow on a narrow trigger for bottom-end', () => {
-        // 34px trigger flush right inside a 100px anchor; popover is 240px wide, right-aligned.
         const pop = mount('bottom-end', {
             anchor: { left: 0, top: 0 },
             trigger: { left: 66, top: 0, width: 34, height: 34 },
             pop: { left: -140, top: 46, width: 240, height: 120 },
         });
 
-        // trigger centre = 83; popover right edge = 100; 100 - 83 - 6 = 11.
         expect(pop.style.getPropertyValue('--pajak-pop-arrow-auto')).toBe('11px');
     });
 
@@ -69,7 +67,6 @@ describe('PajakPopover arrow positioning', () => {
             pop: { left: -140, top: 46, width: 240, height: 120 },
         });
 
-        // trigger centre = 57; popover right edge = 100; 100 - 57 - 6 = 37.
         expect(pop.style.getPropertyValue('--pajak-pop-arrow-auto')).toBe('37px');
     });
 
@@ -80,7 +77,6 @@ describe('PajakPopover arrow positioning', () => {
             pop: { left: 0, top: 46, width: 240, height: 120 },
         });
 
-        // trigger centre = 17 inside the anchor; 17 - 0 - 6 = 11.
         expect(pop.style.getPropertyValue('--pajak-pop-arrow-auto')).toBe('11px');
     });
 
@@ -101,7 +97,6 @@ describe('PajakPopover arrow positioning', () => {
             pop: { left: 46, top: 0, width: 240, height: 120 },
         });
 
-        // trigger centre = 17; 17 - 0 - 6 = 11.
         expect(pop.style.getPropertyValue('--pajak-pop-arrow-auto')).toBe('11px');
     });
 
