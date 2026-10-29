@@ -15,8 +15,49 @@ const lastTrigger = new Map<string, HTMLElement>();
 
 const FOCUSABLE = 'a[href], button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])';
 
+const ARROW_HALF = 6;
+const ARROW_MIN_OFFSET = 8;
+const ARROW_EDGE_GUARD = 24;
+
 function getPopover(id: string): HTMLElement | null {
     return document.querySelector<HTMLElement>(`[data-pajak-popover]#${id}`);
+}
+
+// Measured in offsetParent coordinates so the opening scale transform doesn't skew the result
+function positionArrow(pop: HTMLElement, trigger: HTMLElement | undefined): void {
+    const anchor = trigger ?? document.querySelector<HTMLElement>(`[data-pajak-popover-trigger="${pop.id}"]`);
+    const parent = pop.offsetParent;
+
+    if (!anchor || !(parent instanceof HTMLElement)) {
+        return;
+    }
+
+    const placement = pop.dataset.placement ?? 'bottom';
+    const vertical = placement === 'left' || placement === 'right';
+    const t = anchor.getBoundingClientRect();
+    const p = parent.getBoundingClientRect();
+
+    const centre = vertical
+        ? t.top + t.height / 2 - p.top - parent.clientTop + parent.scrollTop
+        : t.left + t.width / 2 - p.left - parent.clientLeft + parent.scrollLeft;
+
+    let offset: number;
+    let size: number;
+
+    if (vertical) {
+        offset = centre - pop.offsetTop - ARROW_HALF;
+        size = pop.offsetHeight;
+    } else if (placement === 'bottom-end') {
+        offset = pop.offsetLeft + pop.offsetWidth - centre - ARROW_HALF;
+        size = pop.offsetWidth;
+    } else {
+        offset = centre - pop.offsetLeft - ARROW_HALF;
+        size = pop.offsetWidth;
+    }
+
+    const clamped = Math.max(ARROW_MIN_OFFSET, Math.min(offset, size - ARROW_EDGE_GUARD));
+
+    pop.style.setProperty('--pajak-pop-arrow-auto', `${Math.round(clamped * 10) / 10}px`);
 }
 
 function openPopover(id: string, trigger?: HTMLElement): void {
@@ -36,6 +77,7 @@ function openPopover(id: string, trigger?: HTMLElement): void {
     }
 
     pop.removeAttribute('hidden');
+    positionArrow(pop, trigger ?? lastTrigger.get(id));
     requestAnimationFrame(() => {
         pop.classList.add('is-open');
         pop.setAttribute('aria-hidden', 'false');

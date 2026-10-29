@@ -95,6 +95,18 @@ trigger and the popover in `.pajak-pop-anchor` (any element, `position: relative
 
 ---
 
+## Arrow position
+
+When a popover opens, the arrow is pointed at the centre of the trigger that opened it, so narrow triggers (an icon-only button, for example) are not missed. The measured offset is set on the popover as `--pajak-pop-arrow-auto` and is kept at least 8px from the popover's rounded corners.
+
+Without JS the arrow falls back to its fixed default (24px from the edge; centred for `top`). To pin the arrow somewhere else, set `--pajak-pop-arrow-offset` on the popover. It wins over the measured value and is read as `left` for `bottom` and `top`, `right` for `bottom-end`, and `top` for `left` and `right`:
+
+```blade
+<x-pajak::popover id="my-pop" placement="bottom-end" style="--pajak-pop-arrow-offset: 40px" />
+```
+
+---
+
 ## Trigger wiring
 
 Any element with `data-pajak-popover-trigger="<id>"` toggles the matching popover on click. Multiple triggers can point to the same popover.
