@@ -61,10 +61,6 @@ interface PendingConfirm {
     async: boolean;
 }
 
-// Selected row ids live here rather than in the row checkboxes, so they survive the body being
-// replaced on every fetch (paging, sorting). `querySignatures` remembers the search and filters
-// the current rows belong to: when those change the selection is dropped, because the selected
-// rows may no longer be part of the result.
 const selections = new WeakMap<HTMLElement, Set<string>>();
 const selectionSyncs = new WeakMap<HTMLElement, () => void>();
 const querySignatures = new WeakMap<HTMLElement, string>();
@@ -676,7 +672,6 @@ function initBulkSelection(wrapper: HTMLElement, tableName: string): void {
         return wrapper.querySelectorAll<HTMLInputElement>('[data-pajak-table-row-check]');
     }
 
-    // The header checkbox reflects the rows on the current page only
     function updateSelectAllState(): void {
         if (!selectAll) {
             return;
@@ -697,7 +692,6 @@ function initBulkSelection(wrapper: HTMLElement, tableName: string): void {
         }
     }
 
-    // The bar counts the whole selection, including rows on other pages
     function updateBulkBar(): void {
         updateSelectAllState();
 
