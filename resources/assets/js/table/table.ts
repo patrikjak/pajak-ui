@@ -61,6 +61,40 @@ interface PendingConfirm {
     async: boolean;
 }
 
+// Selected row ids live here rather than in the row checkboxes, so they survive the body being
+// replaced on every fetch (paging, sorting). `querySignatures` remembers the search and filters
+// the current rows belong to: when those change the selection is dropped, because the selected
+// rows may no longer be part of the result.
+const selections = new WeakMap<HTMLElement, Set<string>>();
+const selectionSyncs = new WeakMap<HTMLElement, () => void>();
+const querySignatures = new WeakMap<HTMLElement, string>();
+
+function selectionFor(wrapper: HTMLElement): Set<string> {
+    let selection = selections.get(wrapper);
+
+    if (!selection) {
+        selection = new Set();
+        selections.set(wrapper, selection);
+    }
+
+    return selection;
+}
+
+function querySignature(state: TableState): string {
+    return JSON.stringify({ search: state.search, filters: state.filters });
+}
+
+function syncSelectionAfterFetch(wrapper: HTMLElement, state: TableState): void {
+    const signature = querySignature(state);
+
+    if (querySignatures.get(wrapper) !== signature) {
+        selectionFor(wrapper).clear();
+    }
+
+    querySignatures.set(wrapper, signature);
+    selectionSyncs.get(wrapper)?.();
+}
+
 function getStorageKey(tableName: string): string {
     return `pajak_table_${tableName}`;
 }
@@ -151,6 +185,7 @@ async function fetchTable(wrapper: HTMLElement, state: TableState): Promise<void
     if (newBody) {
         body.replaceWith(newBody);
         reinitOverflowMenus(wrapper);
+        syncSelectionAfterFetch(wrapper, state);
     }
 
     updatePagination(wrapper, doc);
@@ -635,11 +670,13 @@ function initBulkSelection(wrapper: HTMLElement, tableName: string): void {
     const selectAll = wrapper.querySelector<HTMLInputElement>('[data-pajak-table-select-all]');
     const bulkBar = wrapper.querySelector<HTMLElement>('[data-pajak-table-bulk-bar]');
     const bulkCount = wrapper.querySelector<HTMLElement>('[data-pajak-table-bulk-count]');
+    const selection = selectionFor(wrapper);
 
     function getRowCheckboxes(): NodeListOf<HTMLInputElement> {
         return wrapper.querySelectorAll<HTMLInputElement>('[data-pajak-table-row-check]');
     }
 
+    // The header checkbox reflects the rows on the current page only
     function updateSelectAllState(): void {
         if (!selectAll) {
             return;
@@ -660,71 +697,83 @@ function initBulkSelection(wrapper: HTMLElement, tableName: string): void {
         }
     }
 
+    // The bar counts the whole selection, including rows on other pages
     function updateBulkBar(): void {
-        const checked = Array.from(getRowCheckboxes()).filter((checkbox) => checkbox.checked);
-
         updateSelectAllState();
 
         if (!bulkBar) {
             return;
         }
 
-        if (checked.length > 0) {
+        if (selection.size > 0) {
             bulkBar.hidden = false;
 
             if (bulkCount) {
                 const template = bulkCount.dataset.template ?? ':count selected';
-                bulkCount.textContent = template.replace(':count', String(checked.length));
+                bulkCount.textContent = template.replace(':count', String(selection.size));
             }
         } else {
             bulkBar.hidden = true;
         }
     }
 
+    function syncSelection(): void {
+        getRowCheckboxes().forEach((checkbox) => {
+            checkbox.checked = selection.has(checkbox.value);
+        });
+
+        updateBulkBar();
+    }
+
+    selectionSyncs.set(wrapper, syncSelection);
+
     if (selectAll) {
         selectAll.addEventListener('change', () => {
             const shouldCheck = !selectAll.indeterminate && selectAll.checked;
+
             getRowCheckboxes().forEach((checkbox) => {
                 checkbox.checked = shouldCheck;
+
+                if (shouldCheck) {
+                    selection.add(checkbox.value);
+                } else {
+                    selection.delete(checkbox.value);
+                }
             });
+
             selectAll.indeterminate = false;
             updateBulkBar();
         });
     }
 
     wrapper.addEventListener('change', (event) => {
-        if ((event.target as HTMLElement).dataset.pajakTableRowCheck !== undefined) {
-            updateBulkBar();
+        const target = event.target as HTMLInputElement;
+
+        if (target.dataset.pajakTableRowCheck === undefined) {
+            return;
         }
+
+        if (target.checked) {
+            selection.add(target.value);
+        } else {
+            selection.delete(target.value);
+        }
+
+        updateBulkBar();
     });
 
-    const clearBtn = wrapper.querySelector<HTMLElement>('[data-pajak-table-bulk-clear]');
-
-    if (clearBtn) {
-        clearBtn.addEventListener('click', () => {
-            getRowCheckboxes().forEach((checkbox) => {
-                checkbox.checked = false;
-            });
-
-            if (selectAll) {
-                selectAll.checked = false;
-                selectAll.indeterminate = false;
-            }
-
-            updateBulkBar();
-        });
-    }
+    wrapper.querySelector<HTMLElement>('[data-pajak-table-bulk-clear]')?.addEventListener('click', () => {
+        selection.clear();
+        syncSelection();
+    });
 
     wrapper.querySelectorAll<HTMLElement>('[data-pajak-table-bulk-action]').forEach((btn) => {
         btn.addEventListener('click', () => {
             const actionKey = btn.dataset.pajakTableBulkAction ?? '';
-            const selectedIds = Array.from(getRowCheckboxes())
-                .filter((checkbox) => checkbox.checked)
-                .map((checkbox) => checkbox.value);
 
             wrapper.dispatchEvent(new CustomEvent('pajak:table:bulk-action', {
                 bubbles: true,
-                detail: { action: actionKey, ids: selectedIds, tableName },
+                detail: { action: actionKey, ids: Array.from(selection), tableName },
             }));
         });
     });
@@ -1035,6 +1084,8 @@ function initTable(wrapper: HTMLElement): void {
 
     const state = loadState(tableName);
 
+    querySignatures.set(wrapper, querySignature(state));
+
     initSearch(wrapper, tableName);
     initSort(wrapper, tableName);
     bindPaginationButtons(wrapper);
@@ -1065,6 +1116,11 @@ function initAll(root: ParentNode = document): void {
 export const PajakTable = {
     initAll,
     initTable,
+    getSelection: (wrapper: HTMLElement): string[] => Array.from(selectionFor(wrapper)),
+    clearSelection: (wrapper: HTMLElement): void => {
+        selectionFor(wrapper).clear();
+        selectionSyncs.get(wrapper)?.();
+    },
 } as const;
 
 window.Pajak = { ...window.Pajak, PajakTable };
