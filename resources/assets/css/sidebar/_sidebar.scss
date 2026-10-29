@@ -313,7 +313,7 @@ button.pajak-sb-item {
             }
         }
 
-        // Visually hidden rather than display: none so the item keeps its accessible name
+        // Not display: none, so the item keeps its accessible name
         &__label {
             position: absolute;
             width: 1px;
@@ -358,8 +358,6 @@ button.pajak-sb-item {
 }
 
 // ── Rail tooltip ──────────────────────────────────────────────────────────────
-// One shared element appended to <body> by sidebar.ts; it is positioned in JS next to the
-// hovered or focused item, so it is never clipped by the nav list or a transformed panel.
 
 .pajak-sb-tooltip {
     position: fixed;

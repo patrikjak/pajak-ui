@@ -73,10 +73,7 @@ function getRailAside(id: string): HTMLElement | null {
     return document.querySelector<HTMLElement>(`.pajak-sb#${id}`);
 }
 
-// A single tooltip is shared by every sidebar and lives on <body>: the nav list clips its
-// overflow and the mobile panel is transformed, so an in-item tooltip would be cut off or
-// mispositioned. It is aria-hidden because the item's own (visually hidden) label already
-// names it in rail mode.
+// Lives on <body>: the nav list clips overflow and the mobile panel is transformed
 function getRailTooltip(): HTMLElement {
     if (!railTooltip) {
         railTooltip = document.createElement('div');
@@ -85,7 +82,6 @@ function getRailTooltip(): HTMLElement {
         railTooltip.hidden = true;
     }
 
-    // Re-attach if the body's content was replaced (e.g. by page-swapping navigation)
     if (!railTooltip.isConnected) {
         document.body.appendChild(railTooltip);
     }
@@ -137,7 +133,6 @@ function initRailTooltips(aside: HTMLElement): void {
     aside.addEventListener('pointerover', (event) => {
         const item = railItemOf(event);
 
-        // Touch taps would flash the tooltip while navigating
         if (item && event.pointerType !== 'touch') {
             showRailTooltip(item);
         }
