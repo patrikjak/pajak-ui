@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.1] - 2026-10-31
+
+### Fixed
+
+- **OTP boxes now span the full width** - the boxes were capped at 56px, so a wider form left the row shorter than the inputs and buttons around it. They now share the available width equally
+
 ## [0.9.0] - 2026-10-29
 
 ### Added
