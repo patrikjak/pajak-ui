@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Select search keywords** - `<x-pajak-form::select>` takes a `keywords` prop (`value => string|string[]`) with extra search terms per option (synonyms, other spellings), rendered as `data-keywords` on the `<option>`. The dropdown filter matches the label and the keywords, so `rajcina` finds `Paradajka` when its keywords contain `rajčina`
+- **`pajak:repeater:add` carries the new row** - `event.detail.row` is the row element that was just added
+
+### Changed
+
+- **Select filtering ignores accents and case** - the dropdown filter of searchable and multiple selects now compares text after Unicode decomposition and mark removal, so `mrkva` also finds `Mŕkva` and `syr` finds `Sýr`, with or without keywords
+
+### Fixed
+
+- **Errors broke the inline field group** - in `<x-pajak-form::group :inline="true">` the fields were bottom-aligned, so an error under one field pushed the neighbouring inputs out of line, and a long message could make the columns unequal. Fields are now top-aligned in equal columns (`min-width: 0`), and long error text wraps instead of stretching its field
+- **Components in new repeater rows stayed un-upgraded** - a row added with the repeater's add button kept the browser's native `<select>` (no Pajak dropdown or search) and un-upgraded toggles, checkboxes, colour pickers and other components, because only rows rendered by the server were initialised. The form bundle now initialises every component in a new row
+- **Validation errors on multi-selects were lost** - an error such as `animal_origins` was attached to the hidden `name="animal_origins[]"` marker input that sits outside the `.pajak-field`, so no message appeared and the toast fallback was skipped. The form submit now prefers an input inside a `.pajak-field`, and an error counts as shown only once its message is rendered, so one that cannot be placed next to a field falls back to the error toast
+
 ## [0.9.1] - 2026-10-31
 
 ### Fixed

@@ -129,9 +129,9 @@
 
     &--inline {
         flex-direction: row;
-        align-items: flex-end;
+        align-items: flex-start;
 
-        > * { flex: 1; }
+        > * { flex: 1 1 0; min-width: 0; }
     }
 }
 
@@ -157,8 +157,9 @@
     &__message {
         font-size: var(--fs-xs);
         line-height: var(--lh-normal);
+        overflow-wrap: anywhere;
 
-        &--hint    { color: var(--color-neutral-400); }
+        &--hint   { color: var(--color-neutral-400); }
         &--error   { color: var(--color-error); }
         &--success { color: var(--color-success); }
     }

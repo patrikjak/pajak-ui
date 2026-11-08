@@ -52,6 +52,14 @@ declare global {
 
 window.Pajak = { ...window.Pajak, PajakSelect, PajakToggle, PajakCheckbox, PajakCheckboxGroup, PajakColorPicker, PajakFile, PajakOtp, PajakPassword, PajakRepeater, PajakSlider, PajakDropzone, PajakAvatar, PajakImageGrid, PajakForm, PajakButton, PajakToast, initFormSubmitLoaders, initAll };
 
+document.addEventListener('pajak:repeater:add', (event) => {
+    const row = (event as CustomEvent<{ row?: HTMLElement }>).detail?.row;
+
+    if (row) {
+        initAll(row);
+    }
+});
+
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => initAll());
 } else {

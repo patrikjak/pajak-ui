@@ -126,7 +126,7 @@ function upgradeRepeater(wrap: HTMLElement): RepeaterInstance {
         bindRemove(row);
         rowsContainer.appendChild(row);
 
-        wrap.dispatchEvent(new CustomEvent('pajak:repeater:add', { bubbles: true }));
+        wrap.dispatchEvent(new CustomEvent('pajak:repeater:add', { bubbles: true, detail: { row } }));
         announceToSR(wrap.dataset.addAnnouncement ?? 'Row added');
         syncState();
     };

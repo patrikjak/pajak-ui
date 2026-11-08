@@ -701,6 +701,19 @@ Add `:searchable="true"` to render a search input at the top of the dropdown.
 
 The `data-meta` attribute on an `<option>` renders a secondary label aligned to the right of the option row.
 
+### Search keywords
+
+The dropdown filter (the search input of a searchable select, or the typed text of a multiselect) matches the option label and its optional `data-keywords`, ignoring case and accents: typing `rajcina` offers an option labelled `Paradajka` whose keywords contain `rajčina`. Set keywords from Blade with the `keywords` prop, or write `data-keywords` on an `<option>` yourself.
+
+```blade
+<x-pajak-form::select
+    name="ingredient"
+    :searchable="true"
+    :options="['tomato' => 'Paradajka']"
+    :keywords="['tomato' => ['rajčina', 'tomat']]"
+/>
+```
+
 ### Multiselect
 
 ```blade
@@ -731,6 +744,7 @@ The `data-meta` attribute on an `<option>` renders a secondary label aligned to 
 | `id` | `string\|null` | `null` | Overrides the default `id` (falls back to `name`) |
 | `error` | `string\|null` | `null` | Error message shown below the select; automatically sets `state` to `error` |
 | `disabled-options` | `array` | `[]` | Option values (keys of `options`) to render as disabled `<option>` entries, including ones nested inside an `<optgroup>` |
+| `keywords` | `array` | `[]` | Extra search terms per option value (`value => string\|string[]`), rendered as `data-keywords` and matched by the dropdown filter next to the label |
 
 **Slot:** `$slot` - `<option>` and `<optgroup>` elements. Options accept a `data-meta` attribute for secondary label text.
 
@@ -1102,8 +1116,10 @@ PajakRepeater.initAll(document.getElementById('my-section'));
 
 | Event | Fired when |
 |-------|-----------|
-| `pajak:repeater:add` | A row is added |
+| `pajak:repeater:add` | A row is added. `detail.row` is the new row element |
 | `pajak:repeater:remove` | A row is removed |
+
+Components inside a new row (select, toggle, checkbox, colour picker, file, slider, ...) are upgraded automatically when the form bundle (`form.js` / `main.js`) is loaded. If you import `repeater` on its own, call the other components' `initAll(event.detail.row)` from a `pajak:repeater:add` listener.
 
 ### Accessibility
 
