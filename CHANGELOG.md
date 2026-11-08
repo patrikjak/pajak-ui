@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-11-08
+
 ### Added
 
 - **Select search keywords** - `<x-pajak-form::select>` takes a `keywords` prop (`value => string|string[]`) with extra search terms per option (synonyms, other spellings), rendered as `data-keywords` on the `<option>`. The dropdown filter matches the label and the keywords, so `rajcina` finds `Paradajka` when its keywords contain `rajčina`
