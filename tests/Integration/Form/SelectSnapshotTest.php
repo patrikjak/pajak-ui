@@ -58,4 +58,14 @@ final class SelectSnapshotTest extends TestCase
 
         $this->assertMatchesHtmlSnapshot($html);
     }
+
+    public function testSelectWithKeywords(): void
+    {
+        $html = (string) $this->blade(
+            '<x-pajak-form::select name="ingredient" :options="$options" :keywords="$keywords" />',
+            ['options' => ['tomato' => 'Paradajka', 'carrot' => 'Mrkva'], 'keywords' => ['tomato' => ['rajčina']]],
+        );
+
+        $this->assertMatchesHtmlSnapshot($html);
+    }
 }

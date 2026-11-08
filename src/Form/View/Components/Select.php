@@ -17,6 +17,7 @@ final class Select extends Component
     /**
      * @param iterable<int|string, string|iterable<int|string, string>> $options
      * @param array<int, int|string> $disabledOptions option values (keys of $options) to render as disabled
+     * @param array<int|string, string|array<int, string>> $keywords
      */
     public function __construct(
         public readonly string $name,
@@ -32,8 +33,22 @@ final class Select extends Component
         public readonly ?string $error = null,
         public readonly ?string $label = null,
         public readonly array $disabledOptions = [],
+        public readonly array $keywords = [],
     ) {
         $this->options = $options instanceof Traversable ? iterator_to_array($options) : (array) $options;
+    }
+
+    public function keywordsFor(int|string $optionValue): ?string
+    {
+        $terms = $this->keywords[$optionValue] ?? null;
+
+        if ($terms === null) {
+            return null;
+        }
+
+        $joined = trim(implode(' ', (array) $terms));
+
+        return $joined === '' ? null : $joined;
     }
 
     public function labelText(): ?string

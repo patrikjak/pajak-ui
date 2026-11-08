@@ -114,7 +114,13 @@ function clearErrors(form: HTMLFormElement): void {
 
 // Maps a Laravel dotted error key to its input: `a` -> a / a[]; `a.b` -> a[b]; `a.N` -> the Nth a[].
 function findErrorInput(form: HTMLFormElement, field: string): HTMLElement | null {
-    const byName = (name: string): HTMLElement | null => form.querySelector<HTMLElement>(`[name="${name}"]`);
+    // A hidden input that sits outside any `.pajak-field` (e.g. an empty-list marker before a multi-select)
+    // must not shadow the field's own control, so prefer a match inside a field.
+    const byName = (name: string): HTMLElement | null => {
+        const matches = Array.from(form.querySelectorAll<HTMLElement>(`[name="${name}"]`));
+
+        return matches.find((match) => match.closest('.pajak-field') !== null) ?? matches[0] ?? null;
+    };
 
     const direct = byName(field) ?? byName(`${field}[]`);
     if (direct || !field.includes('.')) {
@@ -154,8 +160,6 @@ function applyErrors(form: HTMLFormElement, errors: ValidationErrors): boolean {
             continue;
         }
 
-        attached = true;
-
         // Mark input with error state
         input.setAttribute('data-pajak-error-input', '');
         input.classList.forEach((cls) => {
@@ -171,6 +175,8 @@ function applyErrors(form: HTMLFormElement, errors: ValidationErrors): boolean {
         if (!field_) {
             continue;
         }
+
+        attached = true;
 
         const msgEl = document.createElement('span');
         msgEl.className = 'pajak-field__message pajak-field__message--error';

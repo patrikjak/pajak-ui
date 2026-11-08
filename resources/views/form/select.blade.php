@@ -38,6 +38,7 @@
                                 @elseif(!$multiple && (string) $optValue === (string) $value) selected
                                 @endif
                                 @if(in_array((string) $optValue, array_map('strval', $disabledOptions), true)) disabled @endif
+                                @if($keywordsFor($optValue) !== null) data-keywords="{{ $keywordsFor($optValue) }}" @endif
                             >{{ $optLabel }}</option>
                         @endforeach
                     </optgroup>
@@ -48,6 +49,7 @@
                         @elseif(!$multiple && (string) $groupOrValue === (string) $value) selected
                         @endif
                         @if(in_array((string) $groupOrValue, array_map('strval', $disabledOptions), true)) disabled @endif
+                        @if($keywordsFor($groupOrValue) !== null) data-keywords="{{ $keywordsFor($groupOrValue) }}" @endif
                     >{{ $labelOrGroup }}</option>
                 @endif
             @endforeach

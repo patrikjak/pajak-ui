@@ -276,3 +276,61 @@ describe('redirect with a success toast', () => {
         expect(stash).not.toHaveBeenCalled();
     });
 });
+
+describe('error placement', () => {
+    function addField(form: HTMLFormElement, name: string): HTMLInputElement {
+        const field = document.createElement('div');
+        field.className = 'pajak-field';
+        const input = document.createElement('input');
+        input.name = name;
+        field.appendChild(input);
+        form.appendChild(field);
+
+        return input;
+    }
+
+    it('prefers the input inside a field over a hidden marker before it', async () => {
+        const form = makeForm();
+        const marker = document.createElement('input');
+        marker.type = 'hidden';
+        marker.name = 'origins[]';
+        form.appendChild(marker);
+        const input = addField(form, 'origins[]');
+        mockFetchJson({ message: 'Invalid', errors: { origins: ['Needs dairy.'] } }, 422);
+
+        submit(form);
+
+        await vi.waitFor(() => {
+            expect(input.closest('.pajak-field')?.querySelector('.pajak-field__message--error')?.textContent)
+                .toBe('Needs dairy.');
+        });
+        expect(marker.hasAttribute('data-pajak-error-input')).toBe(false);
+    });
+
+    it('falls back to the toast when the matching input is outside any field', async () => {
+        const form = makeForm();
+        const marker = document.createElement('input');
+        marker.type = 'hidden';
+        marker.name = 'origins[]';
+        form.appendChild(marker);
+        mockFetchJson({ message: 'Invalid ingredient.', errors: { origins: ['Needs dairy.'] } }, 422);
+
+        submit(form);
+
+        await vi.waitFor(() => {
+            expect(document.querySelector('.pajak-toast')).not.toBeNull();
+        });
+    });
+
+    it('falls back to the toast when no input matches the error key', async () => {
+        const form = makeForm();
+        addField(form, 'name');
+        mockFetchJson({ message: 'Invalid ingredient.', errors: { unknown: ['Bad.'] } }, 422);
+
+        submit(form);
+
+        await vi.waitFor(() => {
+            expect(document.querySelector('.pajak-toast')).not.toBeNull();
+        });
+    });
+});

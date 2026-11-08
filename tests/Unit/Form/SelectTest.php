@@ -86,4 +86,17 @@ final class SelectTest extends TestCase
 
         $this->assertSame(['cz'], $select->disabledOptions);
     }
+
+    public function testKeywordsForJoinsTheTermsOfAnOption(): void
+    {
+        $select = new Select(
+            'ingredient',
+            keywords: ['tomato' => ['rajčina', 'tomat'], 'carrot' => 'mrkva', 'empty' => ['  ']],
+        );
+
+        $this->assertSame('rajčina tomat', $select->keywordsFor('tomato'));
+        $this->assertSame('mrkva', $select->keywordsFor('carrot'));
+        $this->assertNull($select->keywordsFor('empty'));
+        $this->assertNull($select->keywordsFor('missing'));
+    }
 }

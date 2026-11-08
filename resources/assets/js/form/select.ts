@@ -4,6 +4,7 @@ interface OptionData {
     value: string;
     label: string;
     meta: string | null;
+    keywords: string;
     selected: boolean;
     disabled: boolean;
 }
@@ -81,9 +82,20 @@ function optToData(opt: HTMLOptionElement): OptionData {
         value: opt.value,
         label: opt.text,
         meta: opt.dataset.meta ?? null,
+        keywords: opt.dataset.keywords ?? '',
         selected: opt.selected,
         disabled: opt.disabled,
     };
+}
+
+// ─── Filtering ───────────────────────────────────────────────────────────────
+
+function foldText(text: string): string {
+    return text.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
+}
+
+function matchesQuery(opt: OptionData, query: string): boolean {
+    return foldText(sprintf('%s %s', opt.label, opt.keywords)).includes(query);
 }
 
 // ─── Build a single option element ──────────────────────────────────────────
@@ -271,12 +283,12 @@ function upgradeSingle(
         });
 
         const groups = readGroups(native);
-        const query = filterText.toLowerCase();
+        const query = foldText(filterText);
         let visibleCount = 0;
 
         groups.forEach((group, groupIdx) => {
             const filtered = query
-                ? group.options.filter((o) => o.label.toLowerCase().includes(query))
+                ? group.options.filter((o) => matchesQuery(o, query))
                 : group.options;
 
             if (filtered.length === 0) {
@@ -506,13 +518,13 @@ function upgradeMulti(
 
     const populateDropdown = (): void => {
         dropdown.innerHTML = '';
-        const query = filterText.toLowerCase();
+        const query = foldText(filterText);
         const groups = readGroups(native);
         let visibleCount = 0;
 
         groups.forEach((group, groupIdx) => {
             const filtered = query
-                ? group.options.filter((o) => o.label.toLowerCase().includes(query))
+                ? group.options.filter((o) => matchesQuery(o, query))
                 : group.options;
 
             if (filtered.length === 0) {
